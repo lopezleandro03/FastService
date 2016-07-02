@@ -1,0 +1,179 @@
+﻿@model FastService.Models.PaymentModel
+
+<div>
+    <h3>Confirmación de Pago @ViewBag.Test</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.customerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customerName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.customerMail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customerMail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.serviceId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.serviceId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.paymentNetAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.paymentNetAmount)
+        </dd>
+    </dl>
+</div>
+<div class="modal fade" id="modalPassword" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content center-block">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">
+                    Por favor, Ingrese la contraseña.
+                </h4>
+            </div>
+            <div class="modal-body center-block">
+                <form role="form" class="center-block">
+                    <div class="form-group">
+                        <label for="usr">Name:</label>
+                        <input type="text" class="form-control" id="usr" placeholder="pagosfastservice@gmail.com" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" id="pwd">
+                    </div>
+                </form>
+                <div class="row center-block">
+                    <div class="col-centered">
+                        <button type="button" class="btn btn-md btn-success pull-right modalClose" id="buttonSendMail">Listo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    <button type="submit" class="btn btn-info btn-md" id="buttonCopyPaymentLink">COPIAR LINK</button>
+    <button type="submit" class="btn btn-info btn-md" id="buttonMail">ENVIAR LINK</button>
+    <button type="submit" class="btn btn-success btn-md" id="buttonPay">PAGAR</button>
+</p>
+
+<style type="text/css">
+    .copy-notification {
+        color: #ffffff;
+        background-color: rgba(0,0,0,0.8);
+        padding: 20px;
+        border-radius: 30px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 150px;
+        margin-top: -30px;
+        margin-left: -85px;
+        display: none;
+        text-align: center;
+    }
+</style>
+
+<script type="text/javascript">
+    $("#buttonPay").click(function () {
+        window.open("@ViewBag.PaymentLink", "_balnk");
+        return false;
+    });
+
+    $("#buttonCopyPaymentLink").click(function () {
+        event.preventDefault();
+        CopyToClipboard("@ViewBag.PaymentLink", true, "Copiado!");
+    });
+
+    $("#buttonMail").click(function () {
+        event.preventDefault();
+        $("#modalPassword").modal("show");
+    });
+
+    $("#buttonSendMail").click(function () {
+        var pwd = $("#pwd").val();
+
+        if (pwd == "") {
+            alert("Ingrese la contraseña para poder continuar");
+        } else {
+
+            $("#modalPassword").modal("hide");
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("Mail", "Payment")",
+                contentType: "application/json",
+                dataType: "json",
+                data: {
+                    serviceAccountPassword: pwd,
+                    customerId: "@ViewBag.customerId",
+                    customerName: "@ViewBag.customerName",
+                    paymentNetAmount: "@ViewBag.paymentNetAmount",
+                    serviceId: "@ViewBag.serviceId",
+                    paymentLink: "@ViewBag.paymentLink",
+                    customerMail: "@ViewBag.customerMail"
+                },
+                success: function (data) {
+                    alert("El mail se ha enviado correctamente, chequea la casilla de correo para comprobar si ha llegado al destinatario.");
+                    window.location.href = '/Home';
+                },
+                error: function (data) {
+                    alert("Tuvimos un problema intentando enviar el mail, reintenta de nuevo manualmente");
+                }
+            });
+            return false;
+        }
+    });
+
+    function CopyToClipboard(value, showNotification, notificationText) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(value).select();
+        document.execCommand("copy");
+        $temp.remove();
+
+        if (typeof showNotification === 'undefined') {
+            showNotification = true;
+        }
+
+        if (typeof notificationText === 'undefined') {
+            notificationText = "Copied to clipboard";
+        }
+
+        var notificationTag = $("div.copy-notification");
+        if (showNotification && notificationTag.length == 0) {
+            notificationTag = $("<div/>", { "class": "copy-notification", text: notificationText });
+            $("body").append(notificationTag);
+
+            notificationTag.fadeIn("slow", function () {
+                setTimeout(function () {
+                    notificationTag.fadeOut("slow", function () {
+                        notificationTag.remove();
+                    });
+                }, 1000);
+            });
+        }
+    }
+</script>

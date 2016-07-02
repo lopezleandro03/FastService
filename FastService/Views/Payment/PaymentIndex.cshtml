@@ -1,0 +1,41 @@
+﻿@model IEnumerable<FastService.Models.PaymentModel>
+
+<p>
+    @Html.ActionLink("Nuevo Pago", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.customerId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customerName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.serviceId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paymentNetAmount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.customerId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.customerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.paymentNetAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.serviceId)
+        </td>
+    </tr>
+}
+
+</table>
