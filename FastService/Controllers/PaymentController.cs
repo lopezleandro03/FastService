@@ -43,7 +43,7 @@ namespace FastService.Controllers
         {
             _mpClient = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MPCLIENT").Decrypt() : ConfigurationManager.AppSettings["MPCLIENT"].Decrypt();
             _mpSecret = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MPSECRET").Decrypt() : ConfigurationManager.AppSettings["MPSECRET"].Decrypt();
-            _serviceMailAddress = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SERVICEMAILADDRESS") : ConfigurationManager.AppSettings["SERVICEMAILADDRESS"].Decrypt();
+            _serviceMailAddress = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SERVICEMAILADDRESS") : ConfigurationManager.AppSettings["SERVICEMAILADDRESS"];
             string NotificationFlag = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("NOTIFICATIONSENABLED") : ConfigurationManager.AppSettings["NOTIFICATIONSENABLED"];
             NOTIFICATIONSENABLED = NotificationFlag == "YES" ? true : false;
 
