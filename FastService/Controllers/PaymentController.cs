@@ -107,6 +107,8 @@ namespace FastService.Controllers
                     message.Append(model.ToString());
 
                     smtp.SendFailureNotification(message.ToString(), "CreatePayment");
+
+                    ViewBag.ExceptionMessage = message;
                     return View("Error");
                 }
             }

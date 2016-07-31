@@ -96,9 +96,9 @@ namespace Backend
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
 
         }
@@ -139,9 +139,9 @@ namespace Backend
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
     }
