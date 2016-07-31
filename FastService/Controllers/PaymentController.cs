@@ -41,70 +41,79 @@ namespace FastService.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            _mpClient = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MPCLIENT").Decrypt() : ConfigurationManager.AppSettings["MPCLIENT"].Decrypt();
-            _mpSecret = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MPSECRET").Decrypt() : ConfigurationManager.AppSettings["MPSECRET"].Decrypt();
-            _serviceMailAddress = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SERVICEMAILADDRESS") : ConfigurationManager.AppSettings["SERVICEMAILADDRESS"];
-            string NotificationFlag = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("NOTIFICATIONSENABLED") : ConfigurationManager.AppSettings["NOTIFICATIONSENABLED"];
-            NOTIFICATIONSENABLED = NotificationFlag == "YES" ? true : false;
-
-            string _ip = Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ?? "";
-            if (_ip == "" || _ip.ToLower() == "unknown")
-                _ip = Request.ServerVariables["REMOTE_ADDR"] ?? "";
-
-            PaymentModel model = new PaymentModel();
-            model.customerId = collection.Get("customerId");
-            model.customerName = collection.Get("customerName");
-            model.paymentNetAmount = collection.Get("paymentNetAmount");
-            model.serviceId = collection.Get("serviceId");
-            model.customerMail = collection.Get("customerMail");
-
-            String paymentTitle = string.Format(PAYMENTTITLE, model.serviceId, model.customerId, model.customerName);
-
-            MP mp = new MP(_mpClient, _mpSecret);
-            String preferenceData = "{\"items\":" +
-                                        "[{" +
-                                            "\"title\":\"" + paymentTitle + "\"," +
-                                            "\"quantity\":1," +
-                                            "\"currency_id\":\"" + PAYMENTCURRENCY + "\"," +
-                                            "\"unit_price\":" + model.paymentNetAmount + "" +
-                                        "}]" +
-                                    "}";
-
-            Hashtable preference = mp.createPreference(preferenceData);
-            int responseCode = (int)preference["status"];
-
-            if (responseCode == 201)
+            try
             {
-                Hashtable response = (Hashtable)preference["response"];
-                String paymentLink = _testMode ? (String)response["sandbox_init_point"] : (String)response["init_point"];
+                _mpClient = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MPCLIENT").Decrypt() : ConfigurationManager.AppSettings["MPCLIENT"].Decrypt();
+                _mpSecret = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MPSECRET").Decrypt() : ConfigurationManager.AppSettings["MPSECRET"].Decrypt();
+                _serviceMailAddress = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SERVICEMAILADDRESS") : ConfigurationManager.AppSettings["SERVICEMAILADDRESS"];
+                string NotificationFlag = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("NOTIFICATIONSENABLED") : ConfigurationManager.AppSettings["NOTIFICATIONSENABLED"];
+                NOTIFICATIONSENABLED = NotificationFlag == "YES" ? true : false;
 
-                model.paymentLink = paymentLink;
+                string _ip = Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ?? "";
+                if (_ip == "" || _ip.ToLower() == "unknown")
+                    _ip = Request.ServerVariables["REMOTE_ADDR"] ?? "";
 
-                ViewBag.customerId = model.customerId;
-                ViewBag.customerName = model.customerName;
-                ViewBag.customerMail = model.customerMail;
-                ViewBag.serviceId = model.serviceId;
-                ViewBag.paymentNetAmount = model.paymentNetAmount;
-                ViewBag.PaymentLink = model.paymentLink;
-                ViewBag.PayLabel = PAYLABEL;
-                ViewBag.ServiceMailAddress = _serviceMailAddress;
-                
-                if (NOTIFICATIONSENABLED) new SMTPClient().SendSuccessNotification(model.ToString(),_ip);
+                PaymentModel model = new PaymentModel();
+                model.customerId = collection.Get("customerId");
+                model.customerName = collection.Get("customerName");
+                model.paymentNetAmount = collection.Get("paymentNetAmount");
+                model.serviceId = collection.Get("serviceId");
+                model.customerMail = collection.Get("customerMail");
 
-                return View("PaymentConfirmation", model);
+                String paymentTitle = string.Format(PAYMENTTITLE, model.serviceId, model.customerId, model.customerName);
+
+                MP mp = new MP(_mpClient, _mpSecret);
+                String preferenceData = "{\"items\":" +
+                                            "[{" +
+                                                "\"title\":\"" + paymentTitle + "\"," +
+                                                "\"quantity\":1," +
+                                                "\"currency_id\":\"" + PAYMENTCURRENCY + "\"," +
+                                                "\"unit_price\":" + model.paymentNetAmount + "" +
+                                            "}]" +
+                                        "}";
+
+                Hashtable preference = mp.createPreference(preferenceData);
+                int responseCode = (int)preference["status"];
+
+                if (responseCode == 201)
+                {
+                    Hashtable response = (Hashtable)preference["response"];
+                    String paymentLink = _testMode ? (String)response["sandbox_init_point"] : (String)response["init_point"];
+
+                    model.paymentLink = paymentLink;
+
+                    ViewBag.customerId = model.customerId;
+                    ViewBag.customerName = model.customerName;
+                    ViewBag.customerMail = model.customerMail;
+                    ViewBag.serviceId = model.serviceId;
+                    ViewBag.paymentNetAmount = model.paymentNetAmount;
+                    ViewBag.PaymentLink = model.paymentLink;
+                    ViewBag.PayLabel = PAYLABEL;
+                    ViewBag.ServiceMailAddress = _serviceMailAddress;
+
+                    if (NOTIFICATIONSENABLED) new SMTPClient().SendSuccessNotification(model.ToString(), _ip);
+
+                    return View("PaymentConfirmation", model);
+                }
+                else
+                {
+                    SMTPClient smtp = new SMTPClient();
+                    Hashtable response = (Hashtable)preference["response"];
+
+                    StringBuilder message = new StringBuilder(string.Format("MercadoPago Exception message: {0}", (String)response["message"]));
+                    message.AppendLine();
+                    message.Append(string.Format("Originator IP Address: {0}", _ip));
+                    message.AppendLine();
+                    message.Append(model.ToString());
+
+                    smtp.SendFailureNotification(message.ToString(), "CreatePayment");
+                    return View("Error");
+                }
             }
-            else
+            catch (Exception ex)
             {
                 SMTPClient smtp = new SMTPClient();
-                Hashtable response = (Hashtable)preference["response"];
-
-                StringBuilder message = new StringBuilder(string.Format("MercadoPago Exception message: {0}", (String)response["message"]));
-                message.AppendLine();
-                message.Append(string.Format("Originator IP Address: {0}", _ip));
-                message.AppendLine();
-                message.Append(model.ToString());
-
-                smtp.SendFailureNotification(message.ToString(), "CreatePayment");
+                smtp.SendFailureNotification(ex.Message, "CreatePayment");
                 return View("Error");
             }
         }
