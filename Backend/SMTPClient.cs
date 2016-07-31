@@ -16,7 +16,7 @@ namespace Backend
         {
             _smtpUrl = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SMTPURL") : ConfigurationManager.AppSettings["SMTPURL"];
             _supportMailAddress = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SUPPORTMAILADDRESS") : ConfigurationManager.AppSettings["SUPPORTMAILADDRESS"];
-            _supportMailPassword = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SUPPORTMAILPASSWORD") : ConfigurationManager.AppSettings["SUPPORTMAILPASSWORD"].Decrypt();
+            _supportMailPassword = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SUPPORTMAILPASSWORD").Decrypt() : ConfigurationManager.AppSettings["SUPPORTMAILPASSWORD"].Decrypt();
         }
 
         public bool SendPaymentInformation(string serviceAccountPassword, string receipientAddress, string receipientName, string serviceId, string paymentLink)
