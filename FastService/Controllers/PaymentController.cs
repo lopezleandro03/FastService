@@ -114,7 +114,7 @@ namespace FastService.Controllers
             {
                 SMTPClient smtp = new SMTPClient();
                 smtp.SendFailureNotification(ex.Message, "CreatePayment");
-                return View("Error");
+                return View("Error",ex.Message);
             }
         }
 
