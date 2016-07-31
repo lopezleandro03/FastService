@@ -10,8 +10,8 @@ namespace FastService.Tests.Controllers
         [TestMethod]
         public void SendEmailWithPaymentLinkUsingGmail()
         {
-            SMTPClient client = new SMTPClient("fastservice10","lopezleandro03@gmail.com","Leandro Lopez");
-            client.SendPaymentInformation("2020","https://google.com");
+            SMTPClient client = new SMTPClient();
+            client.SendPaymentInformation("test","test@gmail.com","test","2020","https://google.com");
         }
     }
 }
