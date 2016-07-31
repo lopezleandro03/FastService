@@ -49,7 +49,7 @@ namespace FastService.Controllers
 
             string _ip = Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ?? "";
             if (_ip == "" || _ip.ToLower() == "unknown")
-                _ip = Request.ServerVariables["REMOTE_ADDR"];
+                _ip = Request.ServerVariables["REMOTE_ADDR"] ?? "";
 
             PaymentModel model = new PaymentModel();
             model.customerId = collection.Get("customerId");

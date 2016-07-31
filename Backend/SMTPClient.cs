@@ -131,7 +131,7 @@ namespace Backend
             {
                 using (var notification = new MailMessage(FromAddress, ToAddress)
                 {
-                    Subject = "Mercado Pago Integration Payment Generated",
+                    Subject = "Mercado Pago Integration New Payment",
                     Body = body.ToString()
                 })
                 {
