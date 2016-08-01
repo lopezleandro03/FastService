@@ -17,7 +17,7 @@ namespace Backend
         {
             _smtpUrl = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SMTPURL") : ConfigurationManager.AppSettings["SMTPURL"];
             _supportMailAddress = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SUPPORTMAILADDRESS") : ConfigurationManager.AppSettings["SUPPORTMAILADDRESS"];
-            _serviceMailAddress = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SERVICEMAILADDRESS").Decrypt() : ConfigurationManager.AppSettings["SERVICEMAILADDRESS"].Decrypt();
+            _serviceMailAddress = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SERVICEMAILADDRESS") : ConfigurationManager.AppSettings["SERVICEMAILADDRESS"];
             _serviceMailPassword = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SERVICEMAILPASSWORD").Decrypt() : ConfigurationManager.AppSettings["SERVICEMAILPASSWORD"].Decrypt();
         }
 
