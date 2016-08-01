@@ -49,9 +49,9 @@ namespace FastService.Controllers
                 string NotificationFlag = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("NOTIFICATIONSENABLED") : ConfigurationManager.AppSettings["NOTIFICATIONSENABLED"];
                 NOTIFICATIONSENABLED = NotificationFlag == "YES" ? true : false;
 
-                string _ip = Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ?? "";
+                string _ip = "test";/*Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ?? "";
                 if (_ip == "" || _ip.ToLower() == "unknown")
-                    _ip = Request.ServerVariables["REMOTE_ADDR"] ?? "";
+                    _ip = Request.ServerVariables["REMOTE_ADDR"] ?? "";*/
 
                 PaymentModel model = new PaymentModel();
                 model.customerId = collection.Get("customerId");
@@ -108,7 +108,7 @@ namespace FastService.Controllers
 
                     smtp.SendFailureNotification(message.ToString(), "CreatePayment");
 
-                    ViewBag.ExceptionMessage = message;
+                    ViewBag.ExceptionMessage = message; 
                     return View("Error");
                 }
             }
