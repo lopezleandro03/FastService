@@ -10,22 +10,23 @@ namespace Backend
     {
         private string _smtpUrl;
         private string _supportMailAddress;
-        private string _supportMailPassword;
+        private string _serviceMailAddress;
+        private string _serviceMailPassword;
 
         public SMTPClient()
         {
             _smtpUrl = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SMTPURL") : ConfigurationManager.AppSettings["SMTPURL"];
             _supportMailAddress = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SUPPORTMAILADDRESS") : ConfigurationManager.AppSettings["SUPPORTMAILADDRESS"];
-            _supportMailPassword = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SUPPORTMAILPASSWORD").Decrypt() : ConfigurationManager.AppSettings["SUPPORTMAILPASSWORD"].Decrypt();
+            _serviceMailAddress = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SERVICEMAILADDRESS").Decrypt() : ConfigurationManager.AppSettings["SERVICEMAILADDRESS"].Decrypt();
+            _serviceMailPassword = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SERVICEMAILPASSWORD").Decrypt() : ConfigurationManager.AppSettings["SERVICEMAILPASSWORD"].Decrypt();
         }
 
         public bool SendPaymentInformation(string serviceAccountPassword, string receipientAddress, string receipientName, string serviceId, string paymentLink)
         {
-            string ServiceMailAddress = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SERVICEMAILADDRESS") : ConfigurationManager.AppSettings["SERVICEMAILADDRESS"];
             string MailSubject = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MAILSUBJECT") : ConfigurationManager.AppSettings["MAILSUBJECT"];
             string MailSender = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MAILSENDER") : ConfigurationManager.AppSettings["MAILSENDER"];
             string FromPassword = serviceAccountPassword;
-            MailAddress FromAddress = new MailAddress(ServiceMailAddress, MailSender);
+            MailAddress FromAddress = new MailAddress(_serviceMailAddress, MailSender);
             MailAddress ToAddress = new MailAddress(receipientAddress, receipientName);
 
             SmtpClient Smtp = new SmtpClient
@@ -67,7 +68,7 @@ namespace Backend
 
         public void SendFailureNotification(string message, string method)
         {
-            MailAddress FromAddress = new MailAddress(_supportMailAddress, "MercadoPago Integration Service");
+            MailAddress FromAddress = new MailAddress(_serviceMailAddress, "MercadoPago Integration Service");
             MailAddress ToAddress = new MailAddress(_supportMailAddress, "MercadoPago Integration Support");
             SmtpClient Smtp = new SmtpClient
                {
@@ -75,7 +76,7 @@ namespace Backend
                    Port = 587,
                    EnableSsl = true,
                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                   Credentials = new NetworkCredential(FromAddress.Address, _supportMailPassword),
+                   Credentials = new NetworkCredential(FromAddress.Address, _serviceMailPassword),
                    Timeout = 20000
                };
 
@@ -106,7 +107,7 @@ namespace Backend
 
         public void SendSuccessNotification(string p, string ip)
         {
-            MailAddress FromAddress = new MailAddress(_supportMailAddress, "MercadoPago Integration Service");
+            MailAddress FromAddress = new MailAddress(_serviceMailAddress, "MercadoPago Integration Service");
             MailAddress ToAddress = new MailAddress(_supportMailAddress, "MercadoPago Integration Support");
             SmtpClient Smtp = new SmtpClient
             {
@@ -114,7 +115,7 @@ namespace Backend
                 Port = 587,
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential(FromAddress.Address, _supportMailPassword),
+                Credentials = new NetworkCredential(FromAddress.Address, _serviceMailPassword),
                 Timeout = 20000
             };
 
