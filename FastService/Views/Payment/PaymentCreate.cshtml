@@ -48,7 +48,13 @@
                     @Html.ValidationMessageFor(model => model.paymentNetAmount)
                 </div>
             </div>
-
+            <div class="form-group">
+                @Html.LabelFor(model => model.MercadoPagoAcc, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.MercadoPagoAcc, (List<SelectListItem>)ViewBag.MercadoPagoAccList)
+                    @Html.ValidationMessageFor(model => model.MercadoPagoAcc)
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Crear Pago" class="btn btn-success btn-md" />

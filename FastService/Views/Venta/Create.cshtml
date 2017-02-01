@@ -1,0 +1,128 @@
+﻿@model FastService.Models.VentaModel
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="form-horizontal">
+
+            <h3>Nuevo Venta</h3>
+            <hr />
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                @Html.LabelFor(model => model.Origen, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(Model => Model.Origen, (List<SelectListItem>)ViewBag.PuntoDeVentaList)
+                    @Html.ValidationMessageFor(model => model.Origen)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Monto, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Monto)
+                    @Html.ValidationMessageFor(model => model.Monto)
+                </div>
+            </div>
+            <fieldset name="Datos Cliente">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.ClienteId, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ClienteId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ClienteId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.NombreCliente, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NombreCliente)
+                        @Html.ValidationMessageFor(model => model.NombreCliente)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.ApellidoCliente, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ApellidoCliente)
+                        @Html.ValidationMessageFor(model => model.ApellidoCliente)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.MailCliente, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MailCliente)
+                        @Html.ValidationMessageFor(model => model.MailCliente)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Telefono, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Telefono)
+                        @Html.ValidationMessageFor(model => model.Telefono)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Celular, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Celular)
+                        @Html.ValidationMessageFor(model => model.Celular)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Direccion, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Direccion)
+                        @Html.ValidationMessageFor(model => model.Direccion)
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Aceptar" class="btn btn-success btn-md" />
+            </div>
+
+        </div>
+    </div>
+
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#ClienteId").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Cliente/Index",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.DisplayName, value: item.Id };
+                        }))
+
+                    }
+                })
+            },
+            select: function (event, ui) {
+                ui.item.value;
+                $.ajax({
+                    url: "/Cliente/Get",
+                    type: "POST",
+                    dataType: "json",
+                    data: { ClienteId: ui.item.value },
+                    success: function (data) {
+                        console.info(data);
+                        $("#NombreCliente").val(data.Nombre);
+                        $("#ApellidoCliente").val(data.Apellido);
+                        $("#MailCliente").val(data.Mail);
+                        $("#Telefono").val(data.Telefono);
+                        $("#Celular").val(data.Celular);
+                        $("#Direccion").val(data.Direccion);
+                    }
+                })
+            },
+        });
+    })
+
+</script>  

@@ -33,6 +33,9 @@ namespace FastService.Controllers
         // GET: /Payment/Create
         public ActionResult Create()
         {
+            var acc1 = new SelectListItem() { Text = "luislopezfv@gmail.com", Value = "1", Selected = true };
+            var acc2 = new SelectListItem() { Text = "pagosfastservice@gmail.com", Value = "2", Selected = false };
+            ViewBag.MercadoPagoAccList = new List<SelectListItem>() { acc1, acc2 };
             return View("PaymentCreate");
         }
 
@@ -43,8 +46,9 @@ namespace FastService.Controllers
         {
             try
             {
-                _mpClient = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MPCLIENT").Decrypt() : ConfigurationManager.AppSettings["MPCLIENT"].Decrypt();
-                _mpSecret = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MPSECRET").Decrypt() : ConfigurationManager.AppSettings["MPSECRET"].Decrypt();
+                var AccId = collection.Get("AccountId");
+                _mpClient = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MPCLIENT_" + AccId).Decrypt() : ConfigurationManager.AppSettings["MPCLIENT_" + AccId].Decrypt();
+                _mpSecret = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MPSECRET_" + AccId).Decrypt() : ConfigurationManager.AppSettings["MPSECRET_" + AccId].Decrypt();
                 _serviceMailAddress = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SERVICEMAILADDRESS") : ConfigurationManager.AppSettings["SERVICEMAILADDRESS"];
                 string NotificationFlag = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("NOTIFICATIONSENABLED") : ConfigurationManager.AppSettings["NOTIFICATIONSENABLED"];
                 NOTIFICATIONSENABLED = NotificationFlag == "YES" ? true : false;
@@ -108,7 +112,7 @@ namespace FastService.Controllers
 
                     smtp.SendFailureNotification(message.ToString(), "CreatePayment");
 
-                    ViewBag.ExceptionMessage = message; 
+                    ViewBag.ExceptionMessage = message;
                     return View("Error");
                 }
             }

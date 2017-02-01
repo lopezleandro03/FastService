@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FastServiceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="ClienteId" />
+          </Key>
+          <Property Name="ClienteId" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Mail" Type="varchar" MaxLength="200" />
+          <Property Name="Telefono1" Type="varchar" MaxLength="20" />
+          <Property Name="Telefono2" Type="varchar" MaxLength="20" />
+          <Property Name="Direccion" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Compra">
+          <Key>
+            <PropertyRef Name="CompraId" />
+          </Key>
+          <Property Name="CompraId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProveedorId" Type="int" Nullable="false" />
+          <Property Name="Monto" Type="money" Nullable="false" />
+          <Property Name="FacturaId" Type="int" />
+          <Property Name="PuntoDeVentaId" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Comprador" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="FacturaId" />
+          </Key>
+          <Property Name="FacturaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoFactura" Type="int" Nullable="false" />
+          <Property Name="Media" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="ProveedorId" />
+          </Key>
+          <Property Name="ProveedorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Mail" Type="varchar" MaxLength="200" />
+          <Property Name="Telefono1" Type="varchar" MaxLength="20" />
+          <Property Name="Telefono2" Type="varchar" MaxLength="20" />
+          <Property Name="Direccion" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="PuntoDeVenta">
+          <Key>
+            <PropertyRef Name="PuntoDeVentaId" />
+          </Key>
+          <Property Name="PuntoDeVentaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="VentaId" />
+          </Key>
+          <Property Name="VentaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClienteId" Type="int" Nullable="false" />
+          <Property Name="Monto" Type="money" Nullable="false" />
+          <Property Name="FacturaId" Type="int" />
+          <Property Name="PuntoDeVentaId" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Vendedor" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Compra__FacturaI__093F5D4E">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaId" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="FacturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compra__Proveedo__084B3915">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="ProveedorId" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="ProveedorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compra__PuntoDeV__0A338187">
+          <End Role="PuntoDeVenta" Type="Self.PuntoDeVenta" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoDeVenta">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__ClienteId__019E3B86">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ClienteId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__FacturaId__02925FBF">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="FacturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__PuntoDeVe__038683F8">
+          <End Role="PuntoDeVenta" Type="Self.PuntoDeVenta" Multiplicity="1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoDeVenta">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FastServiceModelStoreContainer">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PuntoDeVenta" EntityType="Self.PuntoDeVenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Venta" EntityType="Self.Venta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Compra__FacturaI__093F5D4E" Association="Self.FK__Compra__FacturaI__093F5D4E">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compra__Proveedo__084B3915" Association="Self.FK__Compra__Proveedo__084B3915">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compra__PuntoDeV__0A338187" Association="Self.FK__Compra__PuntoDeV__0A338187">
+            <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__ClienteId__019E3B86" Association="Self.FK__Venta__ClienteId__019E3B86">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__FacturaId__02925FBF" Association="Self.FK__Venta__FacturaId__02925FBF">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__PuntoDeVe__038683F8" Association="Self.FK__Venta__PuntoDeVe__038683F8">
+            <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FastServiceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FastServiceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Compra" EntityType="FastServiceModel.Compra" />
+          <EntitySet Name="Factura" EntityType="FastServiceModel.Factura" />
+          <EntitySet Name="Proveedor" EntityType="FastServiceModel.Proveedor" />
+          <EntitySet Name="PuntoDeVenta" EntityType="FastServiceModel.PuntoDeVenta" />
+          <EntitySet Name="Venta" EntityType="FastServiceModel.Venta" />
+          <AssociationSet Name="FK__Compra__FacturaI__2F9A1060" Association="FastServiceModel.FK__Compra__FacturaI__2F9A1060">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compra__Proveedo__2EA5EC27" Association="FastServiceModel.FK__Compra__Proveedo__2EA5EC27">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compra__PuntoDeV__308E3499" Association="FastServiceModel.FK__Compra__PuntoDeV__308E3499">
+            <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__FacturaId__28ED12D1" Association="FastServiceModel.FK__Venta__FacturaId__28ED12D1">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__PuntoDeVe__29E1370A" Association="FastServiceModel.FK__Venta__PuntoDeVe__29E1370A">
+            <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <EntitySet Name="Cliente" EntityType="FastServiceModel.Cliente" />
+          <AssociationSet Name="FK__Venta__ClienteId__019E3B86" Association="FastServiceModel.FK__Venta__ClienteId__019E3B86">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Compra">
+          <Key>
+            <PropertyRef Name="CompraId" />
+          </Key>
+          <Property Name="CompraId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProveedorId" Type="Int32" Nullable="false" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="FacturaId" Type="Int32" />
+          <Property Name="PuntoDeVentaId" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comprador" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Factura" Relationship="FastServiceModel.FK__Compra__FacturaI__2F9A1060" FromRole="Compra" ToRole="Factura" />
+          <NavigationProperty Name="Proveedor" Relationship="FastServiceModel.FK__Compra__Proveedo__2EA5EC27" FromRole="Compra" ToRole="Proveedor" />
+          <NavigationProperty Name="PuntoDeVenta" Relationship="FastServiceModel.FK__Compra__PuntoDeV__308E3499" FromRole="Compra" ToRole="PuntoDeVenta" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="FacturaId" />
+          </Key>
+          <Property Name="FacturaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoFactura" Type="Int32" Nullable="false" />
+          <Property Name="Media" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Compra" Relationship="FastServiceModel.FK__Compra__FacturaI__2F9A1060" FromRole="Factura" ToRole="Compra" />
+          <NavigationProperty Name="Venta" Relationship="FastServiceModel.FK__Venta__FacturaId__28ED12D1" FromRole="Factura" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="ProveedorId" />
+          </Key>
+          <Property Name="ProveedorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Mail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Compra" Relationship="FastServiceModel.FK__Compra__Proveedo__2EA5EC27" FromRole="Proveedor" ToRole="Compra" />
+        </EntityType>
+        <EntityType Name="PuntoDeVenta">
+          <Key>
+            <PropertyRef Name="PuntoDeVentaId" />
+          </Key>
+          <Property Name="PuntoDeVentaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Compra" Relationship="FastServiceModel.FK__Compra__PuntoDeV__308E3499" FromRole="PuntoDeVenta" ToRole="Compra" />
+          <NavigationProperty Name="Venta" Relationship="FastServiceModel.FK__Venta__PuntoDeVe__29E1370A" FromRole="PuntoDeVenta" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="VentaId" />
+          </Key>
+          <Property Name="VentaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClienteId" Type="Int32" Nullable="false" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="FacturaId" Type="Int32" />
+          <Property Name="PuntoDeVentaId" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Vendedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Factura" Relationship="FastServiceModel.FK__Venta__FacturaId__28ED12D1" FromRole="Venta" ToRole="Factura" />
+          <NavigationProperty Name="PuntoDeVenta" Relationship="FastServiceModel.FK__Venta__PuntoDeVe__29E1370A" FromRole="Venta" ToRole="PuntoDeVenta" />
+          <NavigationProperty Name="Cliente" Relationship="FastServiceModel.FK__Venta__ClienteId__019E3B86" FromRole="Venta" ToRole="Cliente" />
+        </EntityType>
+        <Association Name="FK__Compra__FacturaI__2F9A1060">
+          <End Type="FastServiceModel.Factura" Role="Factura" Multiplicity="0..1" />
+          <End Type="FastServiceModel.Compra" Role="Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaId" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="FacturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compra__Proveedo__2EA5EC27">
+          <End Type="FastServiceModel.Proveedor" Role="Proveedor" Multiplicity="1" />
+          <End Type="FastServiceModel.Compra" Role="Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="ProveedorId" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="ProveedorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compra__PuntoDeV__308E3499">
+          <End Type="FastServiceModel.PuntoDeVenta" Role="PuntoDeVenta" Multiplicity="1" />
+          <End Type="FastServiceModel.Compra" Role="Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoDeVenta">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__FacturaId__28ED12D1">
+          <End Type="FastServiceModel.Factura" Role="Factura" Multiplicity="0..1" />
+          <End Type="FastServiceModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="FacturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__PuntoDeVe__29E1370A">
+          <End Type="FastServiceModel.PuntoDeVenta" Role="PuntoDeVenta" Multiplicity="1" />
+          <End Type="FastServiceModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoDeVenta">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="ClienteId" />
+          </Key>
+          <Property Name="ClienteId" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Mail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Venta" Relationship="FastServiceModel.FK__Venta__ClienteId__019E3B86" FromRole="Cliente" ToRole="Venta" />
+        </EntityType>
+        <Association Name="FK__Venta__ClienteId__019E3B86">
+          <End Type="FastServiceModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="FastServiceModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ClienteId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FastServiceModelStoreContainer" CdmEntityContainer="FastServiceEntities">
+          <EntitySetMapping Name="Compra">
+            <EntityTypeMapping TypeName="FastServiceModel.Compra">
+              <MappingFragment StoreEntitySet="Compra">
+                <ScalarProperty Name="Comprador" ColumnName="Comprador" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="PuntoDeVentaId" ColumnName="PuntoDeVentaId" />
+                <ScalarProperty Name="FacturaId" ColumnName="FacturaId" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="ProveedorId" ColumnName="ProveedorId" />
+                <ScalarProperty Name="CompraId" ColumnName="CompraId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Factura">
+            <EntityTypeMapping TypeName="FastServiceModel.Factura">
+              <MappingFragment StoreEntitySet="Factura">
+                <ScalarProperty Name="Media" ColumnName="Media" />
+                <ScalarProperty Name="TipoFactura" ColumnName="TipoFactura" />
+                <ScalarProperty Name="FacturaId" ColumnName="FacturaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proveedor">
+            <EntityTypeMapping TypeName="FastServiceModel.Proveedor">
+              <MappingFragment StoreEntitySet="Proveedor">
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono2" ColumnName="Telefono2" />
+                <ScalarProperty Name="Telefono1" ColumnName="Telefono1" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ProveedorId" ColumnName="ProveedorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PuntoDeVenta">
+            <EntityTypeMapping TypeName="FastServiceModel.PuntoDeVenta">
+              <MappingFragment StoreEntitySet="PuntoDeVenta">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="PuntoDeVentaId" ColumnName="PuntoDeVentaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Venta">
+            <EntityTypeMapping TypeName="FastServiceModel.Venta">
+              <MappingFragment StoreEntitySet="Venta">
+                <ScalarProperty Name="Vendedor" ColumnName="Vendedor" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="PuntoDeVentaId" ColumnName="PuntoDeVentaId" />
+                <ScalarProperty Name="FacturaId" ColumnName="FacturaId" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+                <ScalarProperty Name="VentaId" ColumnName="VentaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="FastServiceModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono2" ColumnName="Telefono2" />
+                <ScalarProperty Name="Telefono1" ColumnName="Telefono1" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

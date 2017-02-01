@@ -30,8 +30,10 @@ namespace FastService.Models
         public string paymentLink { get; set; }
 
         [DisplayName("Mail del cliente")]
-        [EmailAddress(ErrorMessage = "Dirección de Mail invalida")]
+        [EmailAddress(ErrorMessage = "Direccion de Mail invalida")]
         public string customerMail { get; set; }
+        [DisplayName("Cuenta Mercado Pago")]
+        public string MercadoPagoAcc { get; set; }
 
         public string ToString()
         {

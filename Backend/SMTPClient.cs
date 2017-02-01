@@ -101,9 +101,7 @@ namespace Backend
             {
                 throw ex;
             }
-
         }
-
 
         public void SendSuccessNotification(string p, string ip)
         {
