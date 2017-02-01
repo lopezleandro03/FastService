@@ -16,7 +16,7 @@ namespace FastService.Controllers
         public VentaController()
         {
             _dbContext = new FastServiceEntities();
-        }
+        } 
 
         // GET: Venta
         public ActionResult Index()

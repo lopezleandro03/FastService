@@ -20,7 +20,7 @@ namespace FastService.Models
         public decimal Monto { get; set; }
         public int? FacturaId { get; set; }
         public int Origen { get; set; }
-        public DateTime Fecha { get; set; }
+        public DateTime Fecha { get; set; } 
         public string Vendedor { get; set; }
     }
 }

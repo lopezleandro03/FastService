@@ -18,7 +18,7 @@ namespace FastService.Models
         {
             get
             {
-                return string.Format("[{0}]{1} {2}", Id, Apellido, Nombre);
+                return string.Format("[{0}]{1} {2}", Id, Apellido, Nombre); 
             }
             set
             {
