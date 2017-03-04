@@ -1,46 +1,365 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@model FastService.Models.Login.MenuModel
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fast Service</title>
+    <title>EstudioCapra</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <meta charset="utf-8">
+    <link href="//fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">
+    
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery.ui")
     @Scripts.Render("~/bundles/jqueryval")
-    @RenderSection("scripts", required: false)
-    <script src="http://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
-            integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+    @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Fast Service", "Index", "Home", null, new { @class = "navbar-brand" })
+<!-- END HEAD -->
+<body class="page-header-fixed page-sidebar-closed-hide-logo">
+    <!-- BEGIN CONTAINER -->
+    <div class="wrapper">
+        <!-- BEGIN HEADER -->
+        <header class="page-header">
+            <nav class="navbar mega-menu" role="navigation">
+                <div class="container-fluid">
+                    <div class="clearfix navbar-fixed-top">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="toggle-icon">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </span>
+                        </button>
+                        <!-- End Toggle Button -->
+                        <!-- BEGIN LOGO -->
+                        <a id="index" class="page-logo" href="index.html">
+                            <img src="../Content/assets/layouts/layout5/img/logo.jpeg" alt="Logo">
+
+                        </a>
+                        <!-- END LOGO -->
+                        <!-- BEGIN SEARCH -->
+                        <form class="search" action="extra_search.html" method="GET">
+                            <input type="name" class="form-control" name="query" placeholder="Buscar...">
+                            <a href="javascript:;" class="btn submit md-skip">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </form>
+                        <!-- END SEARCH -->
+                        <!-- BEGIN TOPBAR ACTIONS -->
+                        <div class="topbar-actions">
+                            <!-- BEGIN GROUP NOTIFICATION -->
+                            <div class="btn-group-notification btn-group" id="header_notification_bar">
+                                <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <i class="icon-bell"></i>
+                                    <span class="badge">2</span>
+                                </button>
+                                <ul class="dropdown-menu-v2">
+                                    <li class="external">
+                                        <h3>
+                                            <span class="bold">No tienes notificaciones</span>
+                                        </h3>
+                                        <a href="#">ver todas</a>
+                                    </li>
+                                    <li>
+                                        <ul class="dropdown-menu-list scroller" style="height: 250px; padding: 0;" data-handle-color="#637283">
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <span class="details">
+                                                        <span class="label label-sm label-icon label-info md-skip">
+                                                            <i class="fa fa-bullhorn"></i>
+                                                        </span> 
+                                                    </span>
+                                                    <span class="time">5 days</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <span class="details">
+                                                        <span class="label label-sm label-icon label-danger md-skip">
+                                                            <i class="fa fa-bolt"></i>
+                                                        </span>     
+                                                    </span>
+                                                    <span class="time">9 days</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- END GROUP NOTIFICATION -->
+                            <!-- BEGIN GROUP INFORMATION -->
+                            <div class="btn-group-red btn-group">
+                                <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                            <!-- END GROUP INFORMATION -->
+                            <!-- BEGIN USER PROFILE -->
+                            <div class="btn-group-img btn-group">
+                                <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <span>Hola, @Model.Nombre</span>
+                                    <img src="../Content/assets/layouts/layout5/img/avatar1.jpg" alt="">
+                                </button>
+                                <ul class="dropdown-menu-v2" role="menu">
+                                    <li>
+                                        <a href="page_user_profile_1.html">
+                                            <i class="icon-user"></i> Perfil
+                                            <span class="badge badge-danger">1</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="app_calendar.html">
+                                            <i class="icon-calendar"></i> Calendario
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="app_inbox.html">
+                                            <i class="icon-envelope-open"></i> Inbox
+                                            <span class="badge badge-danger"> 3 </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="app_todo_2.html">
+                                            <i class="icon-rocket"></i> Tareas
+                                            <span class="badge badge-success"> 7 </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/login/logout">
+                                            <i class="icon-key"></i> Log Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- END USER PROFILE -->
+                            <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                            <button type="button" class="quick-sidebar-toggler md-skip" data-toggle="collapse">
+                                <span class="sr-only">Toggle Quick Sidebar</span>
+                                <i class="icon-logout"></i>
+                            </button>
+                            <!-- END QUICK SIDEBAR TOGGLER -->
+                        </div>
+                        <!-- END TOPBAR ACTIONS -->
+                    </div>
+
+                    <!-- BEGIN HEADER MENU -->
+                    <div id="divMenu" class="nav-collapse collapse navbar-collapse navbar-responsive-collapse">
+
+                        <ul class="nav navbar-nav">
+                            @foreach (var menu in Model.MenuItems.Where(x => x.ParentId == null))
+                            {
+                                <li class="dropdown dropdown-fw dropdown-fw-disabled">
+                                    @if (!string.IsNullOrEmpty(menu.Controller) && !string.IsNullOrEmpty(menu.Action))
+                                    {
+                                        <a href="javascript:;" class="asyncAction text-uppercase" data-controller="@menu.Controller" data-action="@menu.Action">
+                                            <i class="icon-basket"></i> @menu.DisplayName.Trim()
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="javascript:;" class="text-uppercase">
+                                            <i class="icon-basket"></i> @menu.DisplayName.Trim()
+                                        </a>
+
+                                    }
+
+                                    @if (Model.MenuItems.Where(x => x.ParentId == menu.MenuId).Count() > 0)
+                                    {
+                                        <ul class="dropdown-menu dropdown-menu-fw">
+                                            @foreach (var menuItem in Model.MenuItems.Where(x => x.ParentId == menu.MenuId))
+                    {
+                                                <li class="active">
+                                                    <a href="javascript:;" class="asyncAction" data-controller="@menuItem.Controller" data-action="@menuItem.Action">
+                                                        <i class="icon-bar-chart"></i> @menuItem.DisplayName.Trim()
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        </ul>
+
+                    </div>
+                </div>
+                <!-- END HEADER MENU -->
+
+            </nav>
+        </header>
+        <!-- END HEADER -->
+        <div class="container-fluid">
+            <div class="page-content">
+                @RenderBody()
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Nuevo Pago", "Create", "Payment")</li>
-                </ul>
+            <!-- BEGIN FOOTER -->
+            <p class="copyright">
+                2016 &copy; EstudioCapra
+            </p>
+            <a href="#index" class="go2top">
+                <i class="icon-arrow-up"></i>
+            </a>
+            <!-- END FOOTER -->
+        </div>
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN QUICK SIDEBAR -->
+    <a href="javascript:;" class="page-quick-sidebar-toggler">
+        <i class="icon-login"></i>
+    </a>
+    <div class="page-quick-sidebar-wrapper" data-close-on-body-click="false">
+        <div class="page-quick-sidebar">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="javascript:;" data-target="#quick_sidebar_tab_1" data-toggle="tab">
+                        Users
+                        <span class="badge badge-danger"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;" data-target="#quick_sidebar_tab_2" data-toggle="tab">
+                        Alerts
+                        <span class="badge badge-success"></span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                        More
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li>
+                            <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
+                                <i class="icon-bell"></i> Alerts
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
+                                <i class="icon-info"></i> Notifications
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
+                                <i class="icon-speech"></i> Activities
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
+                                <i class="icon-settings"></i> Settings
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane page-quick-sidebar-settings" id="quick_sidebar_tab_3">
+                    <div class="page-quick-sidebar-settings-list">
+                        <h3 class="list-heading">General Settings</h3>
+                        <ul class="list-items borderless">
+                            <li>
+                                Enable Notifications
+                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="success" data-on-text="ON" data-off-color="default" data-off-text="OFF">
+                            </li>
+                            <li>
+                                Allow Tracking
+                                <input type="checkbox" class="make-switch" data-size="small" data-on-color="info" data-on-text="ON" data-off-color="default" data-off-text="OFF">
+                            </li>
+                            <li>
+                                Log Errors
+                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="danger" data-on-text="ON" data-off-color="default" data-off-text="OFF">
+                            </li>
+                            <li>
+                                Auto Sumbit Issues
+                                <input type="checkbox" class="make-switch" data-size="small" data-on-color="warning" data-on-text="ON" data-off-color="default" data-off-text="OFF">
+                            </li>
+                            <li>
+                                Enable SMS Alerts
+                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="success" data-on-text="ON" data-off-color="default" data-off-text="OFF">
+                            </li>
+                        </ul>
+                        <h3 class="list-heading">System Settings</h3>
+                        <ul class="list-items borderless">
+                            <li>
+                                Security Level
+                                <select class="form-control input-inline input-sm input-small">
+                                    <option value="1">Normal</option>
+                                    <option value="2" selected>Medium</option>
+                                    <option value="e">High</option>
+                                </select>
+                            </li>
+                            <li>
+                                Failed Email Attempts
+                                <input class="form-control input-inline input-sm input-small" value="5" />
+                            </li>
+                            <li>
+                                Secondary SMTP Port
+                                <input class="form-control input-inline input-sm input-small" value="3560" />
+                            </li>
+                            <li>
+                                Notify On System Error
+                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="danger" data-on-text="ON" data-off-color="default" data-off-text="OFF">
+                            </li>
+                            <li>
+                                Notify On SMTP Error
+                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="warning" data-on-text="ON" data-off-color="default" data-off-text="OFF">
+                            </li>
+                        </ul>
+                        <div class="inner-content">
+                            <button class="btn btn-success">
+                                <i class="icon-settings"></i> Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Fast Service</p>
-        </footer>
-    </div>
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/js")
 </body>
 </html>
+
+
+<script>
+    $(function () {
+        $.ajax({
+            type: 'GET',
+            url: "/@Model.DefaultController/@Model.DefaultAction",
+            contentType: "html",
+            dataType: "html",
+            success: function (data) {
+                $(".page-content").html(data);
+            },
+            error: function (data) {
+                alert("Oops, este modulo no ha sido implementado aun...");
+            }
+        });
+    });
+
+    $(".asyncAction").click(function () {
+        $.ajax({
+            type: 'GET',
+            url: "/" + $(this).data("controller") + "/" + $(this).data("action"),
+            contentType: "html",
+            dataType: "html",
+            success: function (data) {
+                $(".page-content").html(data);
+            },
+            error: function (data) {
+                alert("Oops, este modulo no ha sido implementado...");
+            }
+        });
+    })
+</script>

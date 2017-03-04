@@ -4,6 +4,7 @@ using System;
 using System.Web.Mvc;
 using System.Linq;
 using System.Collections.Generic;
+using FastService.Models;
 
 namespace FastService.Controllers
 {
@@ -21,7 +22,17 @@ namespace FastService.Controllers
         // GET: Venta
         public ActionResult Index()
         {
-            return View();
+            return PartialView(from x in _dbContext.Venta select new VentaModel()
+            {
+                ApellidoCliente = x.Cliente.Apellido,
+                NombreCliente = x.Cliente.Nombre,
+                FacturaID = x.FacturaId.ToString(),
+                MailCliente = x.Cliente.Mail,
+                VentaId = x.VentaId,
+                Monto = x.Monto,
+                Origen = x.PuntoDeVenta.PuntoDeVentaId,
+                Vendedor = x.Vendedor
+            });
         }
 
         // GET: Venta/Details/5
@@ -39,7 +50,7 @@ namespace FastService.Controllers
                                             Text = y.Nombre,
                                             Value = y.PuntoDeVentaId.ToString()
                                         }).ToList();
-            return View();
+            return PartialView();
         }
 
         // POST: Venta/Create
@@ -93,7 +104,7 @@ namespace FastService.Controllers
             }
             catch (Exception ex)
             {
-                return View();
+                return PartialView();
             }
         }
 

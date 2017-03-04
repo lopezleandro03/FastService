@@ -53,37 +53,52 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Cliente.cs">
-      <DependentUpon>FastServiceDbContext.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Compra.cs">
-      <DependentUpon>FastServiceDbContext.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Factura.cs">
-      <DependentUpon>FastServiceDbContext.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\FastServiceDbContext.Context.cs">
+    <Compile Include="Model\FastServiceEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FastServiceDbContext.Context.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\FastServiceDbContext.cs">
+    <Compile Include="Model\FastServiceEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FastServiceDbContext.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\FastServiceDbContext.Designer.cs">
+    <Compile Include="Model\FastServiceEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FastServiceDbContext.edmx</DependentUpon>
+      <DependentUpon>FastServiceEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ItemMenu.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Proveedor.cs">
-      <DependentUpon>FastServiceDbContext.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\PuntoDeVenta.cs">
-      <DependentUpon>FastServiceDbContext.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Role.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RoleMenu.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Usuario.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\UsuarioRol.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Venta.cs">
-      <DependentUpon>FastServiceDbContext.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -91,29 +106,29 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="Model\FastServiceDbContext.edmx">
+    <EntityDeploy Include="Model\FastServiceEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FastServiceDbContext.Designer.cs</LastGenOutput>
+      <LastGenOutput>FastServiceEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model\FastServiceDbContext.edmx.diagram">
-      <DependentUpon>FastServiceDbContext.edmx</DependentUpon>
+    <None Include="Model\FastServiceEntities.edmx.diagram">
+      <DependentUpon>FastServiceEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model\FastServiceDbContext.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FastServiceDbContext.edmx</DependentUpon>
-      <LastGenOutput>FastServiceDbContext.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\FastServiceDbContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FastServiceDbContext.edmx</DependentUpon>
-      <LastGenOutput>FastServiceDbContext.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="Model\FastServiceEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FastServiceEntities.edmx</DependentUpon>
+      <LastGenOutput>FastServiceEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\FastServiceEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FastServiceEntities.edmx</DependentUpon>
+      <LastGenOutput>FastServiceEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

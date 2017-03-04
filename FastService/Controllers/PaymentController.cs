@@ -36,17 +36,17 @@ namespace FastService.Controllers
             var acc1 = new SelectListItem() { Text = "luislopezfv@gmail.com", Value = "1", Selected = true };
             var acc2 = new SelectListItem() { Text = "pagosfastservice@gmail.com", Value = "2", Selected = false };
             ViewBag.MercadoPagoAccList = new List<SelectListItem>() { acc1, acc2 };
-            return View("PaymentCreate");
+            return PartialView("PaymentCreate");
         }
 
         //
         // POST: /Payment/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public PartialViewResult Create(FormCollection collection)
         {
             try
             {
-                var AccId = collection.Get("AccountId");
+                var AccId = collection.Get("MercadoPagoAcc");
                 _mpClient = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MPCLIENT_" + AccId).Decrypt() : ConfigurationManager.AppSettings["MPCLIENT_" + AccId].Decrypt();
                 _mpSecret = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("MPSECRET_" + AccId).Decrypt() : ConfigurationManager.AppSettings["MPSECRET_" + AccId].Decrypt();
                 _serviceMailAddress = CommonUtility.IsDevelopmentServer() ? CommonUtility.GetConfigVal("SERVICEMAILADDRESS") : ConfigurationManager.AppSettings["SERVICEMAILADDRESS"];
@@ -97,7 +97,7 @@ namespace FastService.Controllers
 
                     if (NOTIFICATIONSENABLED) new SMTPClient().SendSuccessNotification(model.ToString(), _ip);
 
-                    return View("PaymentConfirmation", model);
+                    return PartialView("PaymentConfirmation", model);
                 }
                 else
                 {
@@ -113,7 +113,7 @@ namespace FastService.Controllers
                     smtp.SendFailureNotification(message.ToString(), "CreatePayment");
 
                     ViewBag.ExceptionMessage = message;
-                    return View("Error");
+                    return PartialView("Error");
                 }
             }
             catch (Exception ex)
@@ -122,7 +122,7 @@ namespace FastService.Controllers
                 smtp.SendFailureNotification(ex.Message, "CreatePayment");
 
                 ViewBag.ExceptionMessage = ex.Message.ToString();
-                return View("Error");
+                return PartialView("Error");
             }
         }
 

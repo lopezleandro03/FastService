@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="21b821443a9047a29a74012448881009" Name="Diagram1">
+        <EntityTypeShape EntityType="FastServiceModel.Cliente" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Compra" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Factura" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.ItemMenu" Width="1.5" PointX="2.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Proveedor" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.PuntoDeVenta" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Role" Width="1.5" PointX="2.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Venta" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.RoleMenu" Width="1.5" PointX="5" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Usuario" Width="1.5" PointX="7.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.UsuarioRol" Width="1.5" PointX="5" PointY="12.75" IsExpanded="true" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__ClienteId__53385258" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Compra__FacturaI__5AD97420" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Compra__Proveedo__59E54FE7" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Compra__PuntoDeV__5BCD9859" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__FacturaId__542C7691" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK_RoleMenu_ItemMenu" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__PuntoDeVe__55209ACA" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK_RoleMenu_Rol" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK_UsuarioRol_Rol" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

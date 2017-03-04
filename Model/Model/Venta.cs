@@ -22,8 +22,8 @@ namespace Model.Model
         public System.DateTime Fecha { get; set; }
         public string Vendedor { get; set; }
     
+        public virtual Cliente Cliente { get; set; }
         public virtual Factura Factura { get; set; }
         public virtual PuntoDeVenta PuntoDeVenta { get; set; }
-        public virtual Cliente Cliente { get; set; }
     }
 }
