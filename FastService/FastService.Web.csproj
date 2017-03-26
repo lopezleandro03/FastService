@@ -422,6 +422,10 @@
     <Content Include="Content\assets\global\plugins\js.cookie.min.js" />
     <Content Include="Content\assets\global\plugins\livecss.js" />
     <Content Include="Content\assets\global\plugins\moment.min.js" />
+    <Content Include="Content\assets\global\plugins\morris\morris.css" />
+    <Content Include="Content\assets\global\plugins\morris\morris.js" />
+    <Content Include="Content\assets\global\plugins\morris\morris.min.js" />
+    <Content Include="Content\assets\global\plugins\morris\raphael-min.js" />
     <Content Include="Content\assets\global\plugins\raphael.min.js" />
     <Content Include="Content\assets\global\plugins\respond.min.js" />
     <Content Include="Content\assets\global\plugins\select2\css\select2-bootstrap.min.css" />
@@ -431,6 +435,8 @@
     <Content Include="Content\assets\global\plugins\select2\js\select2.full.min.js" />
     <Content Include="Content\assets\global\plugins\select2\js\select2.js" />
     <Content Include="Content\assets\global\plugins\select2\js\select2.min.js" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.dev.svg" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.svg" />
     <Content Include="Content\assets\global\plugins\simple-line-icons\icons-lte-ie7.js" />
     <Content Include="Content\assets\global\plugins\simple-line-icons\License.txt" />
     <Content Include="Content\assets\global\plugins\simple-line-icons\Readme.txt" />
@@ -728,6 +734,10 @@
     <Content Include="Content\assets\global\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\assets\global\plugins\jquery-slimscroll\README.md" />
     <Content Include="Content\assets\global\plugins\jquery-slimscroll\slimScroll.jquery.json" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.eot" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.woff" />
+    <Content Include="Content\assets\global\plugins\morris\README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
