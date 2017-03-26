@@ -45,9 +45,9 @@ namespace FastService.Controllers
                                  Apellido = u.Apellido,
                                  DefaultController = r.DefaultController,
                                  DefaultAction = r.DefaultAction,
-                                 MenuItems = (from r in _dbContext.RoleMenu 
-                                              join i in _dbContext.ItemMenu on r.ItemMenuId equals i.ItemMenuId
-                                              where r.RolId == x.RolId
+                                 MenuItems = (from rm in _dbContext.RoleMenu 
+                                              join i in _dbContext.ItemMenu on rm.ItemMenuId equals i.ItemMenuId
+                                              where rm.RolId == x.RolId
                                               select new MenuItemModel()
                                               {
                                                   MenuId = i.ItemMenuId,
