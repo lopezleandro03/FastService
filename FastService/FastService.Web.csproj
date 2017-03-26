@@ -431,6 +431,11 @@
     <Content Include="Content\assets\global\plugins\select2\js\select2.full.min.js" />
     <Content Include="Content\assets\global\plugins\select2\js\select2.js" />
     <Content Include="Content\assets\global\plugins\select2\js\select2.min.js" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\icons-lte-ie7.js" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\License.txt" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\Readme.txt" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\simple-line-icons.css" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\simple-line-icons.min.css" />
     <Content Include="Content\assets\global\scripts\app.js" />
     <Content Include="Content\assets\global\scripts\app.min.js" />
     <Content Include="Content\assets\global\scripts\datatable.js" />
@@ -773,7 +778,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\assets\global\plugins\simple-line-icons\" />
     <Folder Include="Content\assets\pages\media\" />
     <Folder Include="Views\Cliente\" />
     <Folder Include="Views\Proveedor\" />
