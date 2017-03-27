@@ -73,7 +73,7 @@
                 <div class="form-group text-center">
                     @Html.LabelFor(model => model.Contraseña, new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Contraseña)
+                        @Html.PasswordFor(model => model.Contraseña)
                         @Html.ValidationMessageFor(model => model.Contraseña)
                     </div>
                 </div>

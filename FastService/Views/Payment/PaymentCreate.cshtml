@@ -1,60 +1,62 @@
-﻿@model FastService.Models.PaymentModel
-@using (Html.BeginForm())
+﻿@using System.Web.Mvc.Ajax
+@model FastService.Models.PaymentModel
+
+@using (Ajax.BeginForm("Create", "Payment", new AjaxOptions { HttpMethod = "POST" }))
 {
-    @Html.AntiForgeryToken()
-        <div class="form-horizontal">
-            <h3>Nuevo Pago</h3>
-            <hr />
-            @Html.ValidationSummary(true)
+    <div class="form-horizontal">
+        <h3>Nuevo Pago</h3>
+        <hr />
+        @Html.ValidationSummary(true)
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.customerId, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.customerId)
-                    @Html.ValidationMessageFor(model => model.customerId)
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.customerName, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.customerName)
-                    @Html.ValidationMessageFor(model => model.customerName)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.customerMail, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.customerMail)
-                    @Html.ValidationMessageFor(model => model.customerMail)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.serviceId, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.serviceId)
-                    @Html.ValidationMessageFor(model => model.serviceId)
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.paymentNetAmount, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.paymentNetAmount)
-                    @Html.ValidationMessageFor(model => model.paymentNetAmount)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.MercadoPagoAcc, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.MercadoPagoAcc, (List<SelectListItem>)ViewBag.MercadoPagoAccList)
-                    @Html.ValidationMessageFor(model => model.MercadoPagoAcc)
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Crear Pago" class="btn btn-success btn-md" />
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.customerId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.customerId)
+                @Html.ValidationMessageFor(model => model.customerId)
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.customerName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.customerName)
+                @Html.ValidationMessageFor(model => model.customerName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.customerMail, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.customerMail)
+                @Html.ValidationMessageFor(model => model.customerMail)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.serviceId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.serviceId)
+                @Html.ValidationMessageFor(model => model.serviceId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.paymentNetAmount, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.paymentNetAmount)
+                @Html.ValidationMessageFor(model => model.paymentNetAmount)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MercadoPagoAcc, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MercadoPagoAcc, (List<SelectListItem>)ViewBag.MercadoPagoAccList)
+                @Html.ValidationMessageFor(model => model.MercadoPagoAcc)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear Pago" class="btn btn-success btn-md" />
+            </div>
+        </div>
+    </div>
+
 }
