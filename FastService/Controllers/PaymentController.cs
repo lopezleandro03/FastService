@@ -35,7 +35,7 @@ namespace FastService.Controllers
         {
             var acc1 = new SelectListItem() { Text = "luislopezfv@gmail.com", Value = "1", Selected = true };
             var acc2 = new SelectListItem() { Text = "pagosfastservice@gmail.com", Value = "2", Selected = false };
-            ViewBag.MercadoPagoAccList = new List<SelectListItem>() { acc1, acc2 };
+            ViewBag.MercadoPagoAccList = new List<SelectListItem>() { acc2, acc1 };
             return PartialView("PaymentCreate");
         }
 
@@ -121,7 +121,7 @@ namespace FastService.Controllers
                 SMTPClient smtp = new SMTPClient();
                 smtp.SendFailureNotification(ex.Message, "CreatePayment");
 
-                ViewBag.ExceptionMessage = ex.Message.ToString();
+                ViewBag.ExceptionMessage = ex.Message.ToString() + Environment.NewLine + ex.StackTrace;
                 return PartialView("Error");
             }
         }
