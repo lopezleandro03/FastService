@@ -341,27 +341,35 @@
             url: "/@Model.DefaultController/@Model.DefaultAction",
             contentType: "html",
             dataType: "html",
-            success: function (data) {
+            success: function(data) {
                 $(".page-content").html(data);
             },
-            error: function (data) {
+            error: function(data) {
                 alert("Oops, este modulo no ha sido implementado aun...");
             }
         });
     });
 
-    $(".asyncAction").click(function () {
+    $(".asyncAction").click(function() {
         $.ajax({
             type: 'GET',
             url: "/" + $(this).data("controller") + "/" + $(this).data("action"),
             contentType: "html",
             dataType: "html",
-            success: function (data) {
+            success: function(data) {
                 $(".page-content").html(data);
             },
-            error: function (data) {
+            error: function(data) {
                 alert("Oops, este modulo no ha sido implementado...");
             }
         });
-    })
+    });
+
+    function OnSuccess(result) {
+        $('#page-content').html(result);
+    }
+
+    function OnError(result) {
+        alert("Oops, ha ocurrido un error procesando su solicitud...");
+    }
 </script>

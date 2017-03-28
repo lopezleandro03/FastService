@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc.Ajax
 @model FastService.Models.PaymentModel
 
-@using (Ajax.BeginForm("Create", "Payment", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess",  }))
+@using (Ajax.BeginForm("Create", "Payment", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess", OnFailure = "OnError" }))
 {
     <div class="form-horizontal">
         <h3>Nuevo Pago</h3>
@@ -59,9 +59,3 @@
         </div>
     </div>
 }
-
-<script>
-    function OnSuccess(result) {
-        $('#page-content').html(result);
-    }
-</script>

@@ -1,6 +1,6 @@
 ﻿@model FastService.Models.CompraModel
 
-@using (Html.BeginForm())
+@using (Ajax.BeginForm("Create", "Compra", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess", OnFailure = "OnError" }))
 {
     @Html.AntiForgeryToken()
     <h3 class="Nueva Compra">Nueva venta</h3>
