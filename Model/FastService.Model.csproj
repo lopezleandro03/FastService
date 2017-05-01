@@ -136,6 +136,12 @@
       <LastGenOutput>FastServiceEntities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Backend\FastService.Backend.csproj">
+      <Project>{9A3BDDBE-7A99-4520-B617-94EF893DFB14}</Project>
+      <Name>FastService.Backend</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

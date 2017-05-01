@@ -839,8 +839,6 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Venta\Index.cshtml" />
     <Content Include="Views\Compra\MetodoPagoCheque.cshtml" />
-    <Content Include="Views\Compra\MetodoPagoTarjeta.cshtml" />
-    <Content Include="Views\Venta\MetodoPagoTarjeta.cshtml" />
     <Content Include="Views\Venta\MetodoPagoCheque.cshtml" />
     <Content Include="Views\PagoProveedores\Create.cshtml" />
     <Content Include="Views\Proveedor\Index.cshtml" />

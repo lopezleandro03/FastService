@@ -9,22 +9,23 @@
 
 namespace Model.Model
 {
+    using Backend;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class FastServiceEntities : DbContext
     {
         public FastServiceEntities()
-            : base("name=FastServiceEntities")
+            : base(CommonUtility.IsDevelopmentServer() ? "name=LocalFastServiceEntities" : "name=FastServiceEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<Factura> Factura { get; set; }
         public virtual DbSet<Proveedor> Proveedor { get; set; }
