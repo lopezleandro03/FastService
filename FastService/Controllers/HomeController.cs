@@ -37,7 +37,7 @@ namespace FastService.Controllers
                 var user = System.Web.HttpContext.Current.Session["USER"] as string;
 
 
-                if (CommonUtility.IsDevelopmentServer())
+                if (!CommonUtility.IsDevelopmentServer())
                 {
                     var model = new MenuModel()
                     {
@@ -81,7 +81,8 @@ namespace FastService.Controllers
                                                       DisplayName = i.Name,
                                                       Controller = i.Controlador,
                                                       Action = i.Accion,
-                                                      ParentId = i.ItemMenuPadreId
+                                                      ParentId = i.ItemMenuPadreId,
+                                                      Icon = i.Icon
                                                   }).ToList()
                                  }).ToList().FirstOrDefault();
 

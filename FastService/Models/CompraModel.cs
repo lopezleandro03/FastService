@@ -9,19 +9,24 @@ namespace FastService.Models
 {
     public class CompraModel
     {
-        public int CompraId { get; set; }
-        public string ProveedorId { get; set; }
-        public string Monto { get; set; }
-        public string ProveedorNombre { get; set; }
-        public string Mail { get; set; }
-        public string Telefono { get; set; }
-        public string Celular { get; set; }
-        public string Direccion { get; set; }
-        public int? FacturaId { get; set; }
+        [Required]
         public int Origen { get; set; }
+        public int CompraId { get; set; }
+        [Required]
+        public decimal Monto { get; set; }
+        public ProveedorModel Proveedor { get; set; }
+        public int? FacturaId { get; set; }
         public DateTime Fecha { get; set; }
         public string Comprador { get; set; }
         [DataType(DataType.MultilineText)]
         public string Descripcion { get; set; }
+
+
+
+        [Display(Name = "Metodo de pago")]
+        public string MetodoDePago { get; set; }
+        [Display(Name = "Cantidad de cuotas")]
+        public int NroCuotas { get; set; }
+        public int Cuotas { get; set; }
     }
 }

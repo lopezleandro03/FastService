@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FastServiceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FastServiceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="ClienteId" />
@@ -26,8 +26,9 @@
           <Property Name="Monto" Type="money" Nullable="false" />
           <Property Name="FacturaId" Type="int" />
           <Property Name="PuntoDeVentaId" Type="int" Nullable="false" />
-          <Property Name="Fecha" Type="datetime" Nullable="false" />
-          <Property Name="Comprador" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="CreadoPor" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Factura">
           <Key>
@@ -49,6 +50,27 @@
           <Property Name="Controlador" Type="varchar" MaxLength="50" />
           <Property Name="Accion" Type="varchar" MaxLength="50" />
           <Property Name="Parametros" Type="varchar" MaxLength="500" />
+          <Property Name="Icon" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MetodoPago">
+          <Key>
+            <PropertyRef Name="MetodoPagoId" />
+          </Key>
+          <Property Name="MetodoPagoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="300" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="PagoId" />
+          </Key>
+          <Property Name="PagoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompraId" Type="int" Nullable="false" />
+          <Property Name="Monto" Type="money" Nullable="false" />
+          <Property Name="FechaDebito" Type="datetime" Nullable="false" />
+          <Property Name="FechaEmision" Type="datetime" Nullable="false" />
+          <Property Name="NroReferencia" Type="varchar" MaxLength="100" />
+          <Property Name="Motivo" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Proveedor">
           <Key>
@@ -128,14 +150,15 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
             <PropertyRef Name="VentaId" />
           </Key>
           <Property Name="VentaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClienteId" Type="int" Nullable="false" />
+          <Property Name="ClienteId" Type="int" />
           <Property Name="Monto" Type="money" Nullable="false" />
           <Property Name="FacturaId" Type="int" />
           <Property Name="PuntoDeVentaId" Type="int" Nullable="false" />
           <Property Name="Fecha" Type="datetime" Nullable="false" />
           <Property Name="Vendedor" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MetodoPagoId" Type="int" />
         </EntityType>
-        <Association Name="FK__Compra__FacturaI__5AD97420">
+        <Association Name="FK__Compra__FacturaI__3CA9F2BB">
           <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -147,7 +170,7 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__Proveedo__59E54FE7">
+        <Association Name="FK__Compra__Proveedo__3D9E16F4">
           <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -159,7 +182,7 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__PuntoDeV__5BCD9859">
+        <Association Name="FK__Compra__PuntoDeV__3E923B2D">
           <End Role="PuntoDeVenta" Type="Self.PuntoDeVenta" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -171,8 +194,20 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venta__ClienteId__53385258">
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+        <Association Name="FK__Pago__CompraId__575DE8F7">
+          <End Role="Compra" Type="Self.Compra" Multiplicity="1" />
+          <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compra">
+              <PropertyRef Name="CompraId" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="CompraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__ClienteId__61DB776A">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cliente">
@@ -183,7 +218,19 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venta__FacturaId__542C7691">
+        <Association Name="FK__Venta__ClienteId__62CF9BA3">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ClienteId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__FacturaId__63C3BFDC">
           <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -195,7 +242,31 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venta__PuntoDeVe__55209ACA">
+        <Association Name="FK__Venta__FacturaId__64B7E415">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="FacturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__PuntoDeVe__65AC084E">
+          <End Role="PuntoDeVenta" Type="Self.PuntoDeVenta" Multiplicity="1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoDeVenta">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__PuntoDeVe__66A02C87">
           <End Role="PuntoDeVenta" Type="Self.PuntoDeVenta" Multiplicity="1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -248,6 +319,8 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
           <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemMenu" EntityType="Self.ItemMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MetodoPago" EntityType="Self.MetodoPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pago" EntityType="Self.Pago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PuntoDeVenta" EntityType="Self.PuntoDeVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -277,27 +350,43 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
     [UsuarioRol].[UserId] AS [UserId]
     FROM [dbo].[UsuarioRol] AS [UsuarioRol]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__Compra__FacturaI__5AD97420" Association="Self.FK__Compra__FacturaI__5AD97420">
+          <AssociationSet Name="FK__Compra__FacturaI__3CA9F2BB" Association="Self.FK__Compra__FacturaI__3CA9F2BB">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__Proveedo__59E54FE7" Association="Self.FK__Compra__Proveedo__59E54FE7">
+          <AssociationSet Name="FK__Compra__Proveedo__3D9E16F4" Association="Self.FK__Compra__Proveedo__3D9E16F4">
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__PuntoDeV__5BCD9859" Association="Self.FK__Compra__PuntoDeV__5BCD9859">
+          <AssociationSet Name="FK__Compra__PuntoDeV__3E923B2D" Association="Self.FK__Compra__PuntoDeV__3E923B2D">
             <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venta__ClienteId__53385258" Association="Self.FK__Venta__ClienteId__53385258">
+          <AssociationSet Name="FK__Pago__CompraId__575DE8F7" Association="Self.FK__Pago__CompraId__575DE8F7">
+            <End Role="Compra" EntitySet="Compra" />
+            <End Role="Pago" EntitySet="Pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__ClienteId__61DB776A" Association="Self.FK__Venta__ClienteId__61DB776A">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venta__FacturaId__542C7691" Association="Self.FK__Venta__FacturaId__542C7691">
+          <AssociationSet Name="FK__Venta__ClienteId__62CF9BA3" Association="Self.FK__Venta__ClienteId__62CF9BA3">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__FacturaId__63C3BFDC" Association="Self.FK__Venta__FacturaId__63C3BFDC">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venta__PuntoDeVe__55209ACA" Association="Self.FK__Venta__PuntoDeVe__55209ACA">
+          <AssociationSet Name="FK__Venta__FacturaId__64B7E415" Association="Self.FK__Venta__FacturaId__64B7E415">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__PuntoDeVe__65AC084E" Association="Self.FK__Venta__PuntoDeVe__65AC084E">
+            <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__PuntoDeVe__66A02C87" Association="Self.FK__Venta__PuntoDeVe__66A02C87">
             <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
@@ -314,8 +403,7 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
             <End Role="UsuarioRol" EntitySet="UsuarioRol" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FastServiceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -330,22 +418,8 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
           <Property Name="Telefono1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Telefono2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Direccion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Venta" Relationship="Self.FK__Venta__ClienteId__53385258" FromRole="Cliente" ToRole="Venta" />
-        </EntityType>
-        <EntityType Name="Compra">
-          <Key>
-            <PropertyRef Name="CompraId" />
-          </Key>
-          <Property Name="CompraId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProveedorId" Type="Int32" Nullable="false" />
-          <Property Name="Monto" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="FacturaId" Type="Int32" />
-          <Property Name="PuntoDeVentaId" Type="Int32" Nullable="false" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Comprador" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Factura" Relationship="Self.FK__Compra__FacturaI__5AD97420" FromRole="Compra" ToRole="Factura" />
-          <NavigationProperty Name="Proveedor" Relationship="Self.FK__Compra__Proveedo__59E54FE7" FromRole="Compra" ToRole="Proveedor" />
-          <NavigationProperty Name="PuntoDeVenta" Relationship="Self.FK__Compra__PuntoDeV__5BCD9859" FromRole="Compra" ToRole="PuntoDeVenta" />
+          <NavigationProperty Name="Venta" Relationship="FastServiceModel.FK__Venta__ClienteId__61DB776A" FromRole="Cliente" ToRole="Venta" />
+          <NavigationProperty Name="Venta1" Relationship="FastServiceModel.FK__Venta__ClienteId__62CF9BA3" FromRole="Cliente" ToRole="Venta" />
         </EntityType>
         <EntityType Name="Factura">
           <Key>
@@ -354,22 +428,9 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
           <Property Name="FacturaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TipoFactura" Type="Int32" Nullable="false" />
           <Property Name="Media" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Compra" Relationship="Self.FK__Compra__FacturaI__5AD97420" FromRole="Factura" ToRole="Compra" />
-          <NavigationProperty Name="Venta" Relationship="Self.FK__Venta__FacturaId__542C7691" FromRole="Factura" ToRole="Venta" />
-        </EntityType>
-        <EntityType Name="ItemMenu">
-          <Key>
-            <PropertyRef Name="ItemMenuId" />
-          </Key>
-          <Property Name="ItemMenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Orden" Type="Int32" Nullable="false" />
-          <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <Property Name="ItemMenuPadreId" Type="Int32" />
-          <Property Name="Controlador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Accion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Parametros" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="RoleMenu" Relationship="Self.FK_RoleMenu_ItemMenu" FromRole="ItemMenu" ToRole="RoleMenu" />
+          <NavigationProperty Name="Compra" Relationship="FastServiceModel.FK__Compra__FacturaI__3CA9F2BB" FromRole="Factura" ToRole="Compra" />
+          <NavigationProperty Name="Venta" Relationship="FastServiceModel.FK__Venta__FacturaId__63C3BFDC" FromRole="Factura" ToRole="Venta" />
+          <NavigationProperty Name="Venta1" Relationship="FastServiceModel.FK__Venta__FacturaId__64B7E415" FromRole="Factura" ToRole="Venta" />
         </EntityType>
         <EntityType Name="Proveedor">
           <Key>
@@ -381,7 +442,7 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
           <Property Name="Telefono1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Telefono2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Direccion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Compra" Relationship="Self.FK__Compra__Proveedo__59E54FE7" FromRole="Proveedor" ToRole="Compra" />
+          <NavigationProperty Name="Compra" Relationship="FastServiceModel.FK__Compra__Proveedo__3D9E16F4" FromRole="Proveedor" ToRole="Compra" />
         </EntityType>
         <EntityType Name="PuntoDeVenta">
           <Key>
@@ -390,8 +451,9 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
           <Property Name="PuntoDeVentaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Compra" Relationship="Self.FK__Compra__PuntoDeV__5BCD9859" FromRole="PuntoDeVenta" ToRole="Compra" />
-          <NavigationProperty Name="Venta" Relationship="Self.FK__Venta__PuntoDeVe__55209ACA" FromRole="PuntoDeVenta" ToRole="Venta" />
+          <NavigationProperty Name="Compra" Relationship="FastServiceModel.FK__Compra__PuntoDeV__3E923B2D" FromRole="PuntoDeVenta" ToRole="Compra" />
+          <NavigationProperty Name="Venta" Relationship="FastServiceModel.FK__Venta__PuntoDeVe__65AC084E" FromRole="PuntoDeVenta" ToRole="Venta" />
+          <NavigationProperty Name="Venta1" Relationship="FastServiceModel.FK__Venta__PuntoDeVe__66A02C87" FromRole="PuntoDeVenta" ToRole="Venta" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -406,21 +468,6 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
           <NavigationProperty Name="RoleMenu" Relationship="Self.FK_RoleMenu_Rol" FromRole="Role" ToRole="RoleMenu" />
           <NavigationProperty Name="UsuarioRol" Relationship="Self.FK_UsuarioRol_Rol" FromRole="Role" ToRole="UsuarioRol" />
         </EntityType>
-        <EntityType Name="Venta">
-          <Key>
-            <PropertyRef Name="VentaId" />
-          </Key>
-          <Property Name="VentaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClienteId" Type="Int32" Nullable="false" />
-          <Property Name="Monto" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="FacturaId" Type="Int32" />
-          <Property Name="PuntoDeVentaId" Type="Int32" Nullable="false" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Vendedor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK__Venta__ClienteId__53385258" FromRole="Venta" ToRole="Cliente" />
-          <NavigationProperty Name="Factura" Relationship="Self.FK__Venta__FacturaId__542C7691" FromRole="Venta" ToRole="Factura" />
-          <NavigationProperty Name="PuntoDeVenta" Relationship="Self.FK__Venta__PuntoDeVe__55209ACA" FromRole="Venta" ToRole="PuntoDeVenta" />
-        </EntityType>
         <EntityType Name="RoleMenu">
           <Key>
             <PropertyRef Name="id" />
@@ -430,8 +477,8 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RolId" Type="Int32" Nullable="false" />
           <Property Name="ItemMenuId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ItemMenu" Relationship="Self.FK_RoleMenu_ItemMenu" FromRole="RoleMenu" ToRole="ItemMenu" />
           <NavigationProperty Name="Role" Relationship="Self.FK_RoleMenu_Rol" FromRole="RoleMenu" ToRole="Role" />
+          <NavigationProperty Name="ItemMenu" Relationship="FastServiceModel.FK_RoleMenu_ItemMenu" FromRole="RoleMenu" ToRole="ItemMenu" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -461,90 +508,6 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="Self.FK_UsuarioRol_Rol" FromRole="UsuarioRol" ToRole="Role" />
         </EntityType>
-        <Association Name="FK__Venta__ClienteId__53385258">
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
-          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cliente">
-              <PropertyRef Name="ClienteId" />
-            </Principal>
-            <Dependent Role="Venta">
-              <PropertyRef Name="ClienteId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Compra__FacturaI__5AD97420">
-          <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
-          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Factura">
-              <PropertyRef Name="FacturaId" />
-            </Principal>
-            <Dependent Role="Compra">
-              <PropertyRef Name="FacturaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Compra__Proveedo__59E54FE7">
-          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
-          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Proveedor">
-              <PropertyRef Name="ProveedorId" />
-            </Principal>
-            <Dependent Role="Compra">
-              <PropertyRef Name="ProveedorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Compra__PuntoDeV__5BCD9859">
-          <End Role="PuntoDeVenta" Type="Self.PuntoDeVenta" Multiplicity="1" />
-          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PuntoDeVenta">
-              <PropertyRef Name="PuntoDeVentaId" />
-            </Principal>
-            <Dependent Role="Compra">
-              <PropertyRef Name="PuntoDeVentaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Venta__FacturaId__542C7691">
-          <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
-          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Factura">
-              <PropertyRef Name="FacturaId" />
-            </Principal>
-            <Dependent Role="Venta">
-              <PropertyRef Name="FacturaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RoleMenu_ItemMenu">
-          <End Role="ItemMenu" Type="Self.ItemMenu" Multiplicity="1" />
-          <End Role="RoleMenu" Type="Self.RoleMenu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ItemMenu">
-              <PropertyRef Name="ItemMenuId" />
-            </Principal>
-            <Dependent Role="RoleMenu">
-              <PropertyRef Name="ItemMenuId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Venta__PuntoDeVe__55209ACA">
-          <End Role="PuntoDeVenta" Type="Self.PuntoDeVenta" Multiplicity="1" />
-          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PuntoDeVenta">
-              <PropertyRef Name="PuntoDeVentaId" />
-            </Principal>
-            <Dependent Role="Venta">
-              <PropertyRef Name="PuntoDeVentaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_RoleMenu_Rol">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="RoleMenu" Type="Self.RoleMenu" Multiplicity="*" />
@@ -571,44 +534,13 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
         </Association>
         <EntityContainer Name="FastServiceEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
-          <EntitySet Name="Compra" EntityType="Self.Compra" />
           <EntitySet Name="Factura" EntityType="Self.Factura" />
-          <EntitySet Name="ItemMenu" EntityType="Self.ItemMenu" />
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" />
           <EntitySet Name="PuntoDeVenta" EntityType="Self.PuntoDeVenta" />
           <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="Venta" EntityType="Self.Venta" />
           <EntitySet Name="RoleMenu" EntityType="Self.RoleMenu" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
           <EntitySet Name="UsuarioRol" EntityType="Self.UsuarioRol" />
-          <AssociationSet Name="FK__Venta__ClienteId__53385258" Association="Self.FK__Venta__ClienteId__53385258">
-            <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="Venta" EntitySet="Venta" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Compra__FacturaI__5AD97420" Association="Self.FK__Compra__FacturaI__5AD97420">
-            <End Role="Factura" EntitySet="Factura" />
-            <End Role="Compra" EntitySet="Compra" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Compra__Proveedo__59E54FE7" Association="Self.FK__Compra__Proveedo__59E54FE7">
-            <End Role="Proveedor" EntitySet="Proveedor" />
-            <End Role="Compra" EntitySet="Compra" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Compra__PuntoDeV__5BCD9859" Association="Self.FK__Compra__PuntoDeV__5BCD9859">
-            <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
-            <End Role="Compra" EntitySet="Compra" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Venta__FacturaId__542C7691" Association="Self.FK__Venta__FacturaId__542C7691">
-            <End Role="Factura" EntitySet="Factura" />
-            <End Role="Venta" EntitySet="Venta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RoleMenu_ItemMenu" Association="Self.FK_RoleMenu_ItemMenu">
-            <End Role="ItemMenu" EntitySet="ItemMenu" />
-            <End Role="RoleMenu" EntitySet="RoleMenu" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Venta__PuntoDeVe__55209ACA" Association="Self.FK__Venta__PuntoDeVe__55209ACA">
-            <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
-            <End Role="Venta" EntitySet="Venta" />
-          </AssociationSet>
           <AssociationSet Name="FK_RoleMenu_Rol" Association="Self.FK_RoleMenu_Rol">
             <End Role="Role" EntitySet="Role" />
             <End Role="RoleMenu" EntitySet="RoleMenu" />
@@ -617,8 +549,261 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
             <End Role="Role" EntitySet="Role" />
             <End Role="UsuarioRol" EntitySet="UsuarioRol" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          <EntitySet Name="MetodoPago" EntityType="FastServiceModel.MetodoPago" />
+          <EntitySet Name="ItemMenu" EntityType="FastServiceModel.ItemMenu" />
+          <AssociationSet Name="FK_RoleMenu_ItemMenu" Association="FastServiceModel.FK_RoleMenu_ItemMenu">
+            <End Role="ItemMenu" EntitySet="ItemMenu" />
+            <End Role="RoleMenu" EntitySet="RoleMenu" />
+          </AssociationSet>
+          <EntitySet Name="Compra" EntityType="FastServiceModel.Compra" />
+          <EntitySet Name="Pago" EntityType="FastServiceModel.Pago" />
+          <AssociationSet Name="FK__Compra__FacturaI__3CA9F2BB" Association="FastServiceModel.FK__Compra__FacturaI__3CA9F2BB">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compra__Proveedo__3D9E16F4" Association="FastServiceModel.FK__Compra__Proveedo__3D9E16F4">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compra__PuntoDeV__3E923B2D" Association="FastServiceModel.FK__Compra__PuntoDeV__3E923B2D">
+            <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pago__CompraId__575DE8F7" Association="FastServiceModel.FK__Pago__CompraId__575DE8F7">
+            <End Role="Compra" EntitySet="Compra" />
+            <End Role="Pago" EntitySet="Pago" />
+          </AssociationSet>
+          <EntitySet Name="Venta" EntityType="FastServiceModel.Venta" />
+          <AssociationSet Name="FK__Venta__ClienteId__61DB776A" Association="FastServiceModel.FK__Venta__ClienteId__61DB776A">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__ClienteId__62CF9BA3" Association="FastServiceModel.FK__Venta__ClienteId__62CF9BA3">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__FacturaId__63C3BFDC" Association="FastServiceModel.FK__Venta__FacturaId__63C3BFDC">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__FacturaId__64B7E415" Association="FastServiceModel.FK__Venta__FacturaId__64B7E415">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__PuntoDeVe__65AC084E" Association="FastServiceModel.FK__Venta__PuntoDeVe__65AC084E">
+            <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__PuntoDeVe__66A02C87" Association="FastServiceModel.FK__Venta__PuntoDeVe__66A02C87">
+            <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="MetodoPago">
+          <Key>
+            <PropertyRef Name="MetodoPagoId" />
+          </Key>
+          <Property Name="MetodoPagoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          </EntityType>
+        <EntityType Name="ItemMenu">
+          <Key>
+            <PropertyRef Name="ItemMenuId" />
+          </Key>
+          <Property Name="ItemMenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Orden" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="ItemMenuPadreId" Type="Int32" />
+          <Property Name="Controlador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Accion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Parametros" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RoleMenu" Relationship="FastServiceModel.FK_RoleMenu_ItemMenu" FromRole="ItemMenu" ToRole="RoleMenu" />
+        </EntityType>
+        <Association Name="FK_RoleMenu_ItemMenu">
+          <End Type="FastServiceModel.ItemMenu" Role="ItemMenu" Multiplicity="1" />
+          <End Type="FastServiceModel.RoleMenu" Role="RoleMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemMenu">
+              <PropertyRef Name="ItemMenuId" />
+            </Principal>
+            <Dependent Role="RoleMenu">
+              <PropertyRef Name="ItemMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Compra">
+          <Key>
+            <PropertyRef Name="CompraId" />
+          </Key>
+          <Property Name="CompraId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProveedorId" Type="Int32" Nullable="false" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="FacturaId" Type="Int32" />
+          <Property Name="PuntoDeVentaId" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreadoPor" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Factura" Relationship="FastServiceModel.FK__Compra__FacturaI__3CA9F2BB" FromRole="Compra" ToRole="Factura" />
+          <NavigationProperty Name="Proveedor" Relationship="FastServiceModel.FK__Compra__Proveedo__3D9E16F4" FromRole="Compra" ToRole="Proveedor" />
+          <NavigationProperty Name="PuntoDeVenta" Relationship="FastServiceModel.FK__Compra__PuntoDeV__3E923B2D" FromRole="Compra" ToRole="PuntoDeVenta" />
+          <NavigationProperty Name="Pago" Relationship="FastServiceModel.FK__Pago__CompraId__575DE8F7" FromRole="Compra" ToRole="Pago" />
+        </EntityType>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="PagoId" />
+          </Key>
+          <Property Name="PagoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompraId" Type="Int32" Nullable="false" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="FechaDebito" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaEmision" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NroReferencia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Motivo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Compra" Relationship="FastServiceModel.FK__Pago__CompraId__575DE8F7" FromRole="Pago" ToRole="Compra" />
+        </EntityType>
+        <Association Name="FK__Compra__FacturaI__3CA9F2BB">
+          <End Type="FastServiceModel.Factura" Role="Factura" Multiplicity="0..1" />
+          <End Type="FastServiceModel.Compra" Role="Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaId" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="FacturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compra__Proveedo__3D9E16F4">
+          <End Type="FastServiceModel.Proveedor" Role="Proveedor" Multiplicity="1" />
+          <End Type="FastServiceModel.Compra" Role="Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="ProveedorId" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="ProveedorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compra__PuntoDeV__3E923B2D">
+          <End Type="FastServiceModel.PuntoDeVenta" Role="PuntoDeVenta" Multiplicity="1" />
+          <End Type="FastServiceModel.Compra" Role="Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoDeVenta">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pago__CompraId__575DE8F7">
+          <End Type="FastServiceModel.Compra" Role="Compra" Multiplicity="1" />
+          <End Type="FastServiceModel.Pago" Role="Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compra">
+              <PropertyRef Name="CompraId" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="CompraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="VentaId" />
+          </Key>
+          <Property Name="VentaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClienteId" Type="Int32" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="FacturaId" Type="Int32" />
+          <Property Name="PuntoDeVentaId" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Vendedor" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MetodoPagoId" Type="Int32" />
+          <NavigationProperty Name="Cliente" Relationship="FastServiceModel.FK__Venta__ClienteId__61DB776A" FromRole="Venta" ToRole="Cliente" />
+          <NavigationProperty Name="Cliente1" Relationship="FastServiceModel.FK__Venta__ClienteId__62CF9BA3" FromRole="Venta" ToRole="Cliente" />
+          <NavigationProperty Name="Factura" Relationship="FastServiceModel.FK__Venta__FacturaId__63C3BFDC" FromRole="Venta" ToRole="Factura" />
+          <NavigationProperty Name="Factura1" Relationship="FastServiceModel.FK__Venta__FacturaId__64B7E415" FromRole="Venta" ToRole="Factura" />
+          <NavigationProperty Name="PuntoDeVenta" Relationship="FastServiceModel.FK__Venta__PuntoDeVe__65AC084E" FromRole="Venta" ToRole="PuntoDeVenta" />
+          <NavigationProperty Name="PuntoDeVenta1" Relationship="FastServiceModel.FK__Venta__PuntoDeVe__66A02C87" FromRole="Venta" ToRole="PuntoDeVenta" />
+        </EntityType>
+        <Association Name="FK__Venta__ClienteId__61DB776A">
+          <End Type="FastServiceModel.Cliente" Role="Cliente" Multiplicity="0..1" />
+          <End Type="FastServiceModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ClienteId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__ClienteId__62CF9BA3">
+          <End Type="FastServiceModel.Cliente" Role="Cliente" Multiplicity="0..1" />
+          <End Type="FastServiceModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ClienteId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__FacturaId__63C3BFDC">
+          <End Type="FastServiceModel.Factura" Role="Factura" Multiplicity="0..1" />
+          <End Type="FastServiceModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="FacturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__FacturaId__64B7E415">
+          <End Type="FastServiceModel.Factura" Role="Factura" Multiplicity="0..1" />
+          <End Type="FastServiceModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="FacturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__PuntoDeVe__65AC084E">
+          <End Type="FastServiceModel.PuntoDeVenta" Role="PuntoDeVenta" Multiplicity="1" />
+          <End Type="FastServiceModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoDeVenta">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__PuntoDeVe__66A02C87">
+          <End Type="FastServiceModel.PuntoDeVenta" Role="PuntoDeVenta" Multiplicity="1" />
+          <End Type="FastServiceModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoDeVenta">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="PuntoDeVentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -637,39 +822,12 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Compra">
-            <EntityTypeMapping TypeName="FastServiceModel.Compra">
-              <MappingFragment StoreEntitySet="Compra">
-                <ScalarProperty Name="CompraId" ColumnName="CompraId" />
-                <ScalarProperty Name="ProveedorId" ColumnName="ProveedorId" />
-                <ScalarProperty Name="Monto" ColumnName="Monto" />
-                <ScalarProperty Name="FacturaId" ColumnName="FacturaId" />
-                <ScalarProperty Name="PuntoDeVentaId" ColumnName="PuntoDeVentaId" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="Comprador" ColumnName="Comprador" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Factura">
             <EntityTypeMapping TypeName="FastServiceModel.Factura">
               <MappingFragment StoreEntitySet="Factura">
                 <ScalarProperty Name="FacturaId" ColumnName="FacturaId" />
                 <ScalarProperty Name="TipoFactura" ColumnName="TipoFactura" />
                 <ScalarProperty Name="Media" ColumnName="Media" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ItemMenu">
-            <EntityTypeMapping TypeName="FastServiceModel.ItemMenu">
-              <MappingFragment StoreEntitySet="ItemMenu">
-                <ScalarProperty Name="ItemMenuId" ColumnName="ItemMenuId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Orden" ColumnName="Orden" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="ItemMenuPadreId" ColumnName="ItemMenuPadreId" />
-                <ScalarProperty Name="Controlador" ColumnName="Controlador" />
-                <ScalarProperty Name="Accion" ColumnName="Accion" />
-                <ScalarProperty Name="Parametros" ColumnName="Parametros" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -706,19 +864,6 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Venta">
-            <EntityTypeMapping TypeName="FastServiceModel.Venta">
-              <MappingFragment StoreEntitySet="Venta">
-                <ScalarProperty Name="VentaId" ColumnName="VentaId" />
-                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
-                <ScalarProperty Name="Monto" ColumnName="Monto" />
-                <ScalarProperty Name="FacturaId" ColumnName="FacturaId" />
-                <ScalarProperty Name="PuntoDeVentaId" ColumnName="PuntoDeVentaId" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="Vendedor" ColumnName="Vendedor" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RoleMenu">
             <EntityTypeMapping TypeName="FastServiceModel.RoleMenu">
               <MappingFragment StoreEntitySet="RoleMenu">
@@ -750,7 +895,72 @@ warning 6002: The table/view 'FastService.dbo.UsuarioRol' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="MetodoPago">
+            <EntityTypeMapping TypeName="FastServiceModel.MetodoPago">
+              <MappingFragment StoreEntitySet="MetodoPago">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="MetodoPagoId" ColumnName="MetodoPagoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemMenu">
+            <EntityTypeMapping TypeName="FastServiceModel.ItemMenu">
+              <MappingFragment StoreEntitySet="ItemMenu">
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Parametros" ColumnName="Parametros" />
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Controlador" ColumnName="Controlador" />
+                <ScalarProperty Name="ItemMenuPadreId" ColumnName="ItemMenuPadreId" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ItemMenuId" ColumnName="ItemMenuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Compra">
+            <EntityTypeMapping TypeName="FastServiceModel.Compra">
+              <MappingFragment StoreEntitySet="Compra">
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="PuntoDeVentaId" ColumnName="PuntoDeVentaId" />
+                <ScalarProperty Name="FacturaId" ColumnName="FacturaId" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="ProveedorId" ColumnName="ProveedorId" />
+                <ScalarProperty Name="CompraId" ColumnName="CompraId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pago">
+            <EntityTypeMapping TypeName="FastServiceModel.Pago">
+              <MappingFragment StoreEntitySet="Pago">
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="NroReferencia" ColumnName="NroReferencia" />
+                <ScalarProperty Name="FechaEmision" ColumnName="FechaEmision" />
+                <ScalarProperty Name="FechaDebito" ColumnName="FechaDebito" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="CompraId" ColumnName="CompraId" />
+                <ScalarProperty Name="PagoId" ColumnName="PagoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Venta">
+            <EntityTypeMapping TypeName="FastServiceModel.Venta">
+              <MappingFragment StoreEntitySet="Venta">
+                <ScalarProperty Name="MetodoPagoId" ColumnName="MetodoPagoId" />
+                <ScalarProperty Name="Vendedor" ColumnName="Vendedor" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="PuntoDeVentaId" ColumnName="PuntoDeVentaId" />
+                <ScalarProperty Name="FacturaId" ColumnName="FacturaId" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+                <ScalarProperty Name="VentaId" ColumnName="VentaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

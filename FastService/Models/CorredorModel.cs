@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FastService.Models
 {
-    public class MenuModel
+    public class CorredorModel
     {
     }
 }

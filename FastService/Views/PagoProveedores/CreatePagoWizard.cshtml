@@ -1,0 +1,259 @@
+﻿@model FastService.Models.PagoWizardModel
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light bordered" id="form_wizard_1">
+            <div class="portlet-body form">
+                <form class="form-horizontal" id="submit_form" method="POST" novalidate="novalidate">
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <ul class="nav nav-pills nav-justified steps">
+                                <li class="active">
+                                    <a href="#tab1" data-toggle="tab" class="step" aria-expanded="false">
+                                        <span class="number"> 1 </span>
+                                        <span class="desc">
+                                            <i class="fa fa-check"></i> Proveedor
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab2" data-toggle="tab" class="step" aria-expanded="true">
+                                        <span class="number"> 2 </span>
+                                        <span class="desc">
+                                            <i class="fa fa-check"></i> Compra
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab3" data-toggle="tab" class="step active">
+                                        <span class="number"> 3 </span>
+                                        <span class="desc">
+                                            <i class="fa fa-check"></i> Pago
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div id="bar" class="progress progress-striped" role="progressbar">
+                                <div class="progress-bar progress-bar-success" style="width: 33.3333%;"> </div>
+                            </div>
+                            <div class="tab-content">
+                                <!--
+                                <div class="alert alert-danger display-none" style="display: block;">
+                                    <button class="close" data-dismiss="alert"></button> You have some form errors. Please check below.
+                                </div>
+                                <div class="alert alert-success display-none" style="display: none;">
+                                    <button class="close" data-dismiss="alert"></button> Your form validation is successful!
+                                </div>
+                                -->
+                                <div class="tab-pane active" id="tab1">
+                                    <h3 class="block">Seleccione proveedor</h3>
+                                    <div class="form-group">
+                                        <div class="col-md-8 col-lg-offset-2">
+                                            <div class="btn-group bootstrap-select bs-select form-control dropup">
+                                                <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" title="Relish" aria-expanded="false">
+                                                    <span class="filter-option pull-left" id="txtProveedor">@Model.Proveedores[0].Nombre</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span>
+                                                </button>
+                                                <div class="dropdown-menu open" style="max-height: 339.41px; overflow: hidden; min-height: 0px;">
+                                                    <ul class="dropdown-menu inner" role="menu" style="max-height: 337.41px; overflow-y: auto; min-height: 0px;">
+                                                        @foreach (var proveedor in Model.Proveedores)
+                                                        {
+                                                            <li class="liProveedor" id="@proveedor.ProveedorId" data-nombre="@proveedor.Nombre">
+                                                                <a tabindex="0" class="" style="" data-tokens="null">
+                                                                    <span class="text">@proveedor.Nombre</span><span class="fa fa-check check-mark"></span>
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab2">
+                                    <h3 class="block" id="titleCompra">Compra</h3>
+                                    <div class="portlet-body">
+                                        <div class="mt-element-list">
+
+                                            <div class="mt-list-container list-simple ext-1">
+                                                @foreach (var proveedor in Model.Proveedores)
+                                                {
+                                                    <ul id="ulFacturas_@proveedor.ProveedorId" hidden>
+                                                        @foreach (var compra in proveedor.Compra)
+                                                        {
+                                                            <li class="mt-list-item done liCompra" value="@compra.CompraId" data-compraid="@compra.CompraId" data-monto="@compra.Monto">
+                                                                <div class="list-icon-container">
+                                                                    <i class="icon-check"></i>
+                                                                </div>
+                                                                <div class="list-item-content">
+                                                                    <h3>
+                                                                        Compra fecha: @compra.FechaCreacion por un monto de $@compra.Monto
+                                                                    </h3>
+                                                                </div>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane" id="tab3">
+
+                                    <h3 id="titlePago" class="block">Pago</h3>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label">Metodo de Pago</label>
+                                                <div class="col-md-7">
+                                                    <select class="form-control" id="MetodoPago">
+                                                        <option value="1" selected>Cheque</option>
+                                                        <option value="2">Mercado Pago</option>
+                                                        <option value="3">Efectivo</option>
+                                                        <option value="4">Transferencia Bancaria</option>
+                                                        <option value="5">Tarjeta de Crédito</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label">Nro. de Cuotas</label>
+                                                <div class="col-md-7">
+                                                    <select class="form-control" id="NroCuotas">
+                                                        <option value="0" selected>Seleccione cant. de cuotas</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                        </div>
+                                    </div>
+                                    <div id="divFormaDePago">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row text-center">
+                                <div class="col-md-12">
+                                    <a href="javascript:;" class="btn default button-previous" style="display: inline-block;">
+                                        <i class="fa fa-angle-left"></i> Atras
+                                    </a>
+                                    <a href="javascript:;" class="btn btn-outline green button-next">
+                                        Continuar
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                    <a id="btnAceptar" href="javascript:;" class="btn green button-submit" style="display: none;">
+                                        Aceptar
+                                        <i class="fa fa-check"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="modal fade" id="modalNuevaTarea" role="dialog">
+    <div class="modal-dialog">
+        <div id="divNuevaTarea" class="portlet box red">
+
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Nueva Tarea
+                </div>
+            </div>
+            <div class="portlet-body form">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+<script src="~/Content/assets/global/plugins/bootstrap-wizard/form-wizard.min.js" type="text/javascript"></script>
+
+<script>
+    var PagoModel = new Object();
+    //PagoModel.Proveedor = new Object();
+    //PagoModel.Compra = new Object();
+    PagoModel.MetodoPago = new Object();
+
+    $(".liProveedor").click(function () {
+        $("#ulFacturas_" + $(this).attr("id")).show();
+        PagoModel.Proveedor = $(this).attr("id");
+        PagoModel.ProveedorNombre = $(this).data("nombre");
+        $("#txtProveedor").html("");
+        $("#txtProveedor").html(PagoModel.ProveedorNombre);
+        $("#titleCompra").html("Seleccione compras a " + PagoModel.ProveedorNombre + " que desea pagar:");
+    });
+
+    $(".liCompra").click(function () {
+        PagoModel.Compra = $(this).val();
+        PagoModel.Monto = $(this).data("monto");
+        $(".liCompra").css("background-color", "#FFF");
+        $(this).css("background-color", "#32c5d2");
+        $("#titlePago").html("Seleccione metodo de pago para abonar $" + PagoModel.Monto + " a " + PagoModel.ProveedorNombre);
+
+    });
+
+    $("#NroCuotas").change(function () {
+        if ($("#MetodoDePago").val() != '') {
+            PagoModel.MetodoPago.Id = $("#MetodoPago").val();
+            PagoModel.MetodoPago.NroCuotas = $("#NroCuotas").val();
+
+            $.ajax({
+                url: "/Venta/GetMetodoDePago/" + $("#MetodoPago").val() + "/" + $("#NroCuotas").val(),
+                success: function (data) {
+                    $("#divFormaDePago").html("")
+                    $("#divFormaDePago").append(data)
+                    $(".chequeMonto").val((parseInt(PagoModel.Monto) / parseInt(PagoModel.MetodoPago.NroCuotas).toFixed(2)))
+                }
+            })
+
+        }
+    });
+
+    $("#btnAceptar").click(function () {
+        PagoModel.MetodoPago.Cuotas = new Array();
+        for (var i = 0; i < PagoModel.MetodoPago.NroCuotas; i++) {
+            PagoModel.MetodoPago.Cuotas[i] = new Object();
+            PagoModel.MetodoPago.Cuotas[i].ChequeNro = $("#NroCheque_" + i).val();
+            PagoModel.MetodoPago.Cuotas[i].FechaDebito = $("#FechaDebito_" + i).val();
+            PagoModel.MetodoPago.Cuotas[i].Monto = $("#Monto_" + i).val();
+        };
+
+        $.ajax({
+            url: "/PagoProveedores/Post",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(PagoModel),
+            success: function (data) {
+                alert(data);
+            },
+            error: function (data) {
+                alert("error")
+            }
+        });
+    });
+
+</script>
+

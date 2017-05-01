@@ -15,21 +15,64 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
     <meta charset="utf-8">
+
+    <!-- BEGIN LAYOUT FIRST STYLES -->
     <link href="//fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">
-    
-    <script src="~/Content/assets/global/plugins/jquery.min.js" type="text/javascript" > </script>
+    <!-- END LAYOUT FIRST STYLES -->
+    @*<!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="~/Content/hover.min.css" rel="stylesheet" />
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">
+        <link href="../Content/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="../Content/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+        <link href="../Content/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="../Content/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+        <!-- END GLOBAL MANDATORY STYLES -->
+
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="../Content/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css">
+        <link href="../Content/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css">
+        <!-- END THEME GLOBAL STYLES -->
+
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="../Content/assets/pages/css/pricing.min.css" rel="stylesheet" type="text/css">
+        <!-- END PAGE LEVEL STYLES -->
+
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="../Content/assets/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css">
+        <link href="../Content/assets/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css">
+        <!-- END THEME LAYOUT STYLES -->
+
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="../Content/assets/pages/css/profile-2.min.css" rel="stylesheet" type="text/css">
+        <link href="~/Content/fullcalendar.css" rel="stylesheet" />
+        <link href="~/Content/daterangepicker.min.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap-fileinput.css" rel="stylesheet" />
+        <link href="~/Content/jqvmap.css" rel="stylesheet" />
+        <link href="~/Content/site.min.css" rel="stylesheet" />
+        <!-- END PAGE LEVEL PLUGINS -->
+
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="../Content/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="../Content/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="../Content/assets/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
+        <link href="../Content/assets/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/assets/global/plugins/bootstrap-modal/bootstrap-modal-bs3patch.css" rel="stylesheet" />
+        <link href="~/Content/assets/global/plugins/bootstrap-modal/bootstrap-modal.css" rel="stylesheet" />
+        <!-- END THEME LAYOUT STYLES -->*@
+
+
+
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jquery.ui")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/modernizr")
-    <script src="//fast.eager.io/STdfgLRpM6.js"></script>
+    <!--<script src="//fast.eager.io/STdfgLRpM6.js"></script>-->
 </head>
 <!-- END HEAD -->
 <body class="page-header-fixed page-sidebar-closed-hide-logo">
     <!-- BEGIN CONTAINER -->
     <div class="wrapper">
+
         <!-- BEGIN HEADER -->
         <header class="page-header">
             <nav class="navbar mega-menu" role="navigation">
@@ -81,7 +124,7 @@
                                                     <span class="details">
                                                         <span class="label label-sm label-icon label-info md-skip">
                                                             <i class="fa fa-bullhorn"></i>
-                                                        </span> 
+                                                        </span>
                                                     </span>
                                                     <span class="time">5 days</span>
                                                 </a>
@@ -91,7 +134,7 @@
                                                     <span class="details">
                                                         <span class="label label-sm label-icon label-danger md-skip">
                                                             <i class="fa fa-bolt"></i>
-                                                        </span>     
+                                                        </span>
                                                     </span>
                                                     <span class="time">9 days</span>
                                                 </a>
@@ -166,13 +209,13 @@
                                     @if (!string.IsNullOrEmpty(menu.Controller) && !string.IsNullOrEmpty(menu.Action))
                                     {
                                         <a href="javascript:;" class="asyncAction text-uppercase" data-controller="@menu.Controller" data-action="@menu.Action">
-                                            <i class="icon-basket"></i> @menu.DisplayName.Trim()
+                                            <i class="@menu.Icon"></i> @menu.DisplayName.Trim()
                                         </a>
                                     }
                                     else
                                     {
                                         <a href="javascript:;" class="text-uppercase">
-                                            <i class="icon-basket"></i> @menu.DisplayName.Trim()
+                                            <i class="@menu.Icon"></i> @menu.DisplayName.Trim()
                                         </a>
 
                                     }
@@ -182,9 +225,9 @@
                                         <ul class="dropdown-menu dropdown-menu-fw">
                                             @foreach (var menuItem in Model.MenuItems.Where(x => x.ParentId == menu.MenuId))
                     {
-                                                <li class="active">
-                                                    <a href="javascript:;" class="asyncAction" data-controller="@menuItem.Controller" data-action="@menuItem.Action">
-                                                        <i class="icon-bar-chart"></i> @menuItem.DisplayName.Trim()
+                                                <li class="asyncAction" data-controller="@menuItem.Controller" data-action="@menuItem.Action">
+                                                    <a href="javascript:;">
+                                                        <i class="@menuItem.Icon"></i> @menuItem.DisplayName.Trim()
                                                     </a>
                                                 </li>
                                             }
@@ -202,7 +245,7 @@
         </header>
         <!-- END HEADER -->
         <div class="container-fluid">
-            <div id="page-content" class="page-content">
+            <div class="page-content">
                 @RenderBody()
             </div>
             <!-- BEGIN FOOTER -->
@@ -328,11 +371,85 @@
             </div>
         </div>
     </div>
+    <!--Modal section-->
+    <div class="modal fade" id="modalError" role="basic" aria-hidden="true" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" aria-hidden="true" type="button" data-dismiss="modal"></button>
+                <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body"> Oops hubo un error, intente de nuevo! </div>
+            <div class="modal-footer">
+                <button class="btn dark btn-outline" type="button" data-dismiss="modal">Close</button>
+                <!--<button class="btn green" type="button">Save changes</button>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalSuccess" role="basic" aria-hidden="true" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" aria-hidden="true" type="button" data-dismiss="modal"></button>
+                <h4 class="modal-title">Hecho!</h4>
+            </div>
+            <div class="modal-body"> Operacion completada! </div>
+            <div class="modal-footer">
+                <button class="btn dark btn-outline" type="button" data-dismiss="modal">Close</button>
+                <!--<button class="btn green" type="button">Save changes</button>-->
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/assets/global/plugins/jquery.min.js" type="text/javascript"> </script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery.ui")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/js")
+
+    @*<!-- END QUICK SIDEBAR -->
+    <!--[if lt IE 9]>
+    <script src="../assets/global/plugins/respond.min.js"></script>
+    <script src="../assets/global/plugins/excanvas.min.js"></script>
+    <![endif]-->
+    <!-- BEGIN CORE PLUGINS -->
+    <script src="../Content/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../Content/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+    <script src="../Content/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="../Content/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="../Content/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="../Content/assets/global/plugins/moment.min.js" type="text/javascript"></script>
+    <script src="../Content/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
+    <script src="../Content/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
+    <script src="~/Scripts/horozontal-timeline.min.js"></script>
+    <script src="~/Scripts/bootstrap-fileinput.js"></script>
+    <script src="~/Scripts/fullcalendar.min.js"></script>
+    <script src="~/Scripts/daterangepicker.min.js"></script>
+    <script src="~/Scripts/jquery.countdown.min.js"></script>
+    <script src="~/Scripts/jquery.counterup.min.js"></script>
+    <script src="~/Scripts/jquery.vmap.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="../Content/assets/global/scripts/app.min.js" type="text/javascript"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="../Content/assets/pages/scripts/dashboard.min.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <script src="../Content/assets/layouts/layout5/scripts/layout.min.js" type="text/javascript"></script>
+    <script src="../Content/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+    <!-- END THEME LAYOUT SCRIPTS -->
+
+    <script src="~/Content/assets/pages/scripts/ui-modals.js"></script>
+    <script src="~/Content/assets/global/plugins/bootstrap-modal/bootstrap-modalmanager.js"></script>
+    <script src="~/Content/assets/global/plugins/bootstrap-modal/bootstrap-modal.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+
 </body>
 </html>
-
 
 <script>
     $(function () {
@@ -341,35 +458,56 @@
             url: "/@Model.DefaultController/@Model.DefaultAction",
             contentType: "html",
             dataType: "html",
-            success: function(data) {
+            success: function (data) {
                 $(".page-content").html(data);
             },
-            error: function(data) {
+            error: function (data) {
                 alert("Oops, este modulo no ha sido implementado aun...");
             }
         });
     });
 
-    $(".asyncAction").click(function() {
+    $(".asyncAction").click(function () {
         $.ajax({
             type: 'GET',
             url: "/" + $(this).data("controller") + "/" + $(this).data("action"),
             contentType: "html",
             dataType: "html",
-            success: function(data) {
+            success: function (data) {
                 $(".page-content").html(data);
             },
-            error: function(data) {
+            error: function (data) {
                 alert("Oops, este modulo no ha sido implementado...");
             }
         });
+
     });
 
     function OnSuccess(result) {
-        $('#page-content').html(result);
+        if (result.Success == "true") {
+            $("#modalSuccess").modal();
+            $.ajax({
+                type: 'GET',
+                url: "/Venta/Create",
+                contentType: "html",
+                dataType: "html",
+                success: function (data) {
+
+                    $(".page-content").html(data);
+                },
+                error: function (data) {
+                    $("#modalError").modal();
+                    //alert("Oops, ocurrio un error procesando su solicitud...");
+                }
+            });
+        } else {
+            $("#modalError").modal();
+            //alert("Oops, ocurrio un error procesando su solicitud...");
+        }
     }
 
     function OnError(result) {
-        alert("Oops, ha ocurrido un error procesando su solicitud...");
+        //alert("Oops, ha ocurrido un error procesando su solicitud...");
+        $("#modalError").modal();
     }
 </script>

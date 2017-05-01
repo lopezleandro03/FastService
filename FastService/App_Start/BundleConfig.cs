@@ -11,7 +11,8 @@ namespace FastService
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Content/assets/global/plugins/jquery.min.js",
                         "~/Scripts/jquery-ui.min.js",
-                        "~/Scripts/jquery.unobtrusive-ajax.min.js"
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js",
+                       "~/Content/assets/pages/scripts/form-wizard.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery.ui").Include(
@@ -31,31 +32,31 @@ namespace FastService
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/jquery-ui.min.css",
-                      "~/Content/jquery-ui.structure.min.css",
-                      "~/Content/jquery-ui.theme.min.css",
-                      "~/css/hover.css",
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/assets/global/plugins/bootstrap/css/bootstrap.min.css",
-                      "~/Content/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css",
-                      "~/Content/assets/global/css/components.min.css",
-                      "~/Content/assets/global/css/plugins.min.css",
-                      "~/Content/assets/pages/css/pricing.min.css",
-                      "~/Content/assets/layouts/layout5/css/layout.min.css",
-                      "~/Content/assets/layouts/layout5/css/custom.min.css",
-                      "~/Content/assets/global/plugins/font-awesome/css/font-awesome.min.css",
-                      "~/Content/assets/global/plugins/simple-line-icons/simple-line-icons.min.css",
-                      "~/Content/assets/global/plugins/bootstrap/css/bootstrap.min.css",
-                      "~/Content/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css",
-                      "~/Content/assets/pages/css/profile-2.min.css",
-                      "~/Content/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css",
-                      "~/Content/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css",
+                      //"~/Content/jquery-ui.min.css",
+                      //"~/Content/jquery-ui.structure.min.css",
+                      //"~/Content/jquery-ui.theme.min.css",
+                      "~/css/hover.css",//y
+                      "~/Content/site.css",//y
+                      "~/Content/assets/global/plugins/bootstrap/css/bootstrap.min.css",//y
+                      "~/Content/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css",//y
+                      "~/Content/assets/global/css/components.min.css",//y
+                      "~/Content/assets/global/css/plugins.min.css",//y
+                      "~/Content/assets/pages/css/pricing.min.css",//y
+                      "~/Content/assets/layouts/layout5/css/layout.min.css",//y
+                      "~/Content/assets/layouts/layout5/css/custom.min.css",//y
+                      "~/Content/assets/global/plugins/font-awesome/css/font-awesome.min.css",//y
+                      "~/Content/assets/global/plugins/simple-line-icons/simple-line-icons.min.css",//y
+                      "~/Content/assets/pages/css/profile-2.min.css",//y
+                      "~/Content/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css",//y
+                      "~/Content/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css",//y
                       "~/Content/assets/global/plugins/morris/morris.css",
                       "~/Content/assets/global/plugins/fullcalendar/fullcalendar.min.css",
                       "~/Content/assets/global/plugins/jqvmap/jqvmap/jqvmap.css",
-                      "~/Content/assets/global/css/components.min.css",
-                      "~/Content/assets/global/plugins/simple-line-icons/simple-line-icons.min.css"
+                      "~/Content/assets/global/css/components.min.css",//y
+                      "~/Content/assets/global/plugins/select2/css/select2-bootstrap.min.css",
+                      "~/Content/assets/global/plugins/select2/css/select2.min.css",
+                      "~/Content/assets/global/plugins/bootstrap-modal/bootstrap-modal-bs3patch.css",
+                      "~/Content/assets/global/plugins/bootstrap-modal/bootstrap-modal.css"
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
@@ -96,7 +97,12 @@ namespace FastService
                        "~/Content/assets/global/scripts/app.min.js",
                        "~/Content/assets/pages/scripts/dashboard.min.js",
                        "~/Content/assets/layouts/layout5/scripts/layout.min.js",
-                       "~/Content/assets/layouts/global/scripts/quick-sidebar.min.js"
+                       "~/Content/assets/layouts/global/scripts/quick-sidebar.min.js",
+                       "~/Content/assets/global/plugins/select2/js/select2.full.min.js",
+                       "~/Content/assets/global/plugins/select2/js/select2.min.js",
+                       "~/Content/assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js",
+                       "~/Content/assets/global/plugins/jquery-validation/js/additional-methods.min.js",
+                       "~/Content/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"
                        ));
         }
     }

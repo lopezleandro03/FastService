@@ -56,35 +56,6 @@ namespace EstudioCapra.Controllers
             }
         }
 
-        //public ActionResult Authorize()
-        //{
-            //var user = System.Web.HttpContext.Current.Session["USER"] as string;
-
-            //var model = (from x in _dbContext.UsuarioRol
-            //             join u in _dbContext.Usuario on x.UserId equals u.UserId
-            //             join r in _dbContext.Role on x.RolId equals r.RolId
-            //             where u.Email == user
-            //             select new MenuModel()
-            //             {
-            //                 Nombre = u.Nombre,
-            //                 Apellido = u.Apellido,
-            //                 DefaultController = r.DefaultController,
-            //                 DefaultAction = r.DefaultAction,
-            //                 MenuItems = (from i in r.ItemMenu
-            //                              select new MenuItemModel()
-            //                              {
-            //                                  MenuId = i.ItemMenuId,
-            //                                  MenuName = i.Name,
-            //                                  DisplayName = i.Name,
-            //                                  Controller = i.Controlador,
-            //                                  Action = i.Accion,
-            //                                  ParentId = i.ItemMenuPadreId
-            //                              }).ToList()
-            //             }).ToList().FirstOrDefault();
-
-          //  return View("_Menu", model);
-        //}
-
         public ActionResult LogOut()
         {
             System.Web.HttpContext.Current.Session["USER"] = string.Empty;

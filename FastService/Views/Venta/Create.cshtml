@@ -3,152 +3,231 @@
 @using (Ajax.BeginForm("Create", "Venta", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess", OnFailure = "OnError" }))
 {
     @Html.AntiForgeryToken()
-    <h3 class="Nueva venta">Nueva venta</h3>
-    <hr />
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true)
-        <div class="form-group ">
-            @Html.LabelFor(model => model.Origen, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(Model => Model.Origen, (List<SelectListItem>)ViewBag.PuntoDeVentaList)
-                @Html.ValidationMessageFor(model => model.Origen)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Monto, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Monto)
-                @Html.ValidationMessageFor(model => model.Monto)
-            </div>
-        </div>
-        <fieldset name="Datos Cliente">
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.ClienteId, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ClienteId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ClienteId)
+    <div class="portlet-body form">
+        <form action="#" class="form-horizontal">
+            <div class="form-body">
+                <h3 class="form-section">Venta</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Origen, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(Model => Model.Origen, (List<SelectListItem>)ViewBag.PuntoDeVentaList, new { @class = "form-control" })
+                                <span class="help-block"> Comercio donde se genera la venta </span>
+                                @Html.ValidationMessageFor(model => model.Origen)
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Monto, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Monto, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Monto)
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.NombreCliente, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NombreCliente)
-                    @Html.ValidationMessageFor(model => model.NombreCliente)
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Descripcion, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(model => model.Descripcion, new { @class = "form-control" })
+                                <span class="help-block"> Breve descripcion de la venta </span>
+                                @Html.ValidationMessageFor(model => model.Descripcion)
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fecha</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" placeholder="@DateTime.Now">
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.ApellidoCliente, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ApellidoCliente)
-                    @Html.ValidationMessageFor(model => model.ApellidoCliente)
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.MetodoDePago, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(Model => Model.MetodoDePago, (List<SelectListItem>)ViewBag.MetodoDePagoList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.FacturaId, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(Model => Model.FacturaId, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.FacturaId)
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.MailCliente, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.MailCliente)
-                    @Html.ValidationMessageFor(model => model.MailCliente)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.Telefono, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Telefono)
-                    @Html.ValidationMessageFor(model => model.Telefono)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.Celular, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Celular)
-                    @Html.ValidationMessageFor(model => model.Celular)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.Direccion, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Direccion)
-                    @Html.ValidationMessageFor(model => model.Direccion)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.FacturaId, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FacturaId)
-                    @Html.ValidationMessageFor(model => model.FacturaId)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.Descripcion, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Descripcion)
-                    @Html.ValidationMessageFor(model => model.Descripcion)
-                </div>
-            </div>
-        </fieldset>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input id="btnNuevaVenta" class="btn btn-info btn-md" type="submit" value="Venta SIN Factura" />
-        </div>
-    </div>
 
+                <h3 class="form-section">Cliente</h3>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Cliente.Id, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Cliente.Id, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Cliente.Id)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Cliente.Nombre, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Cliente.Nombre, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Cliente.Nombre)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Cliente.Apellido, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Cliente.Apellido, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Cliente.Apellido)
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Cliente.Mail, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Cliente.Mail, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Cliente.Mail)
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Cliente.Telefono, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Cliente.Telefono, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Cliente.Telefono)
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Cliente.Celular, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Cliente.Celular, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Cliente.Celular)
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Cliente.Direccion, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Cliente.Direccion, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Cliente.Direccion)
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Vendedor, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Vendedor, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Vendedor)
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+
+                <br />
+
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <input id="btnNuevaVenta" class="btn btn-info btn-md" type="submit" value="Venta SIN Factura" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
 }
 <script type="text/javascript">
+    $("#Cliente_Id").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/Cliente/Index",
+                type: "POST",
+                dataType: "json",
+                data: { Prefix: request.term },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item.DisplayName, value: item.Id };
+                    }))
 
-    $(document).ready(function () {
-        $("#ClienteId").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/Cliente/Index",
-                    type: "POST",
-                    dataType: "json",
-                    data: { Prefix: request.term },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.DisplayName, value: item.Id };
-                        }))
+                }
+            })
+        },
+        select: function (event, ui) {
+            ui.item.value;
+            $.ajax({
+                url: "/Cliente/Get",
+                type: "POST",
+                dataType: "json",
+                data: { ClienteId: ui.item.value },
+                success: function (data) {
+                    console.info(data);
+                    $("#Cliente_Nombre").val(data.Nombre);
+                    $("#Cliente_Apellido").val(data.Apellido);
+                    $("#Cliente_Mail").val(data.Mail);
+                    $("#Cliente_Telefono").val(data.Telefono);
+                    $("#Cliente_Celular").val(data.Celular);
+                    $("#Cliente_Direccion").val(data.Direccion);
+                }
+            })
+        },
+    });
 
-                    }
-                })
-            },
-            select: function (event, ui) {
-                ui.item.value;
-                $.ajax({
-                    url: "/Cliente/Get",
-                    type: "POST",
-                    dataType: "json",
-                    data: { ClienteId: ui.item.value },
-                    success: function (data) {
-                        console.info(data);
-                        $("#NombreCliente").val(data.Nombre);
-                        $("#ApellidoCliente").val(data.Apellido);
-                        $("#MailCliente").val(data.Mail);
-                        $("#Telefono").val(data.Telefono);
-                        $("#Celular").val(data.Celular);
-                        $("#Direccion").val(data.Direccion);
-                    }
-                })
-            },
-        });
+    $("#btnNuevaVenta").click(function () {
+        if ($("#FacturaId").val() == "") {
+            alert("Estas creando una venta sin factura, quieres avanzar?");
+        }
+    });
 
-        $("#btnNuevaVenta").click(function () {
-            if ($("#FacturaId").val() == "") {
-                alert("Estas creando una venta sin factura, quieres avanzar?");
-            }
-        });
-
-        $("#FacturaId").on('input', function () {
-            if ($("#FacturaId").val() == "") {
-                $("#btnNuevaVenta").val("Venta SIN Factura");
-                $("#btnNuevaVenta").removeClass("btn-success");
-                $("#btnNuevaVenta").addClass("btn-info");
-            } else {
-                $("#btnNuevaVenta").val("Venta CON Factura");
-                $("#btnNuevaVenta").removeClass("btn-info");
-                $("#btnNuevaVenta").addClass("btn-success");
-            }
-        });
-    })
-
-</script>  
+    $("#FacturaId").on('input', function () {
+        if ($("#FacturaId").val() == "") {
+            $("#btnNuevaVenta").val("Venta SIN Factura");
+            $("#btnNuevaVenta").removeClass("btn-success");
+            $("#btnNuevaVenta").addClass("btn-info");
+        } else {
+            $("#btnNuevaVenta").val("Venta CON Factura");
+            $("#btnNuevaVenta").removeClass("btn-info");
+            $("#btnNuevaVenta").addClass("btn-success");
+        }
+    });
+</script>

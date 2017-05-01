@@ -33,8 +33,8 @@ namespace FastService.Controllers
         // GET: /Payment/Create
         public ActionResult Create()
         {
-            var acc1 = new SelectListItem() { Text = "luislopezfv@gmail.com", Value = "1", Selected = true };
-            var acc2 = new SelectListItem() { Text = "pagosfastservice@gmail.com", Value = "2", Selected = false };
+            var acc1 = new SelectListItem() { Text = "luislopezfv@gmail.com", Value = "1", Selected = false };
+            var acc2 = new SelectListItem() { Text = "pagosfastservice@gmail.com", Value = "2", Selected = true };
             ViewBag.MercadoPagoAccList = new List<SelectListItem>() { acc2, acc1 };
             return PartialView("PaymentCreate");
         }

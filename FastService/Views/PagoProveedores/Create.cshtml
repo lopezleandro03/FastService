@@ -1,0 +1,198 @@
+﻿@model FastService.Models.CompraModel
+
+@using (Ajax.BeginForm("Create", "Compra", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess", OnFailure = "OnError" }))
+{
+    <div class="portlet-body form">
+        <form action="#" class="form-horizontal">
+            <div class="form-body">
+                <h3 class="form-section">Compra</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Origen, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(Model => Model.Origen, (List<SelectListItem>)ViewBag.PuntoDeVentaList)
+                                @Html.ValidationMessageFor(model => model.Origen)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Monto, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Monto, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Monto)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Descripcion, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(Model => Model.Descripcion, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Descripcion)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Monto, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Monto)
+                                @Html.ValidationMessageFor(model => model.Monto)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="form-section">Proveedor</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Proveedor.CUIT, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(Model => Model.Proveedor.CUIT, (List<SelectListItem>)ViewBag.PuntoDeVentaList)
+                                @Html.ValidationMessageFor(model => model.Proveedor.CUIT)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Proveedor.RazonSocial, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Proveedor.RazonSocial)
+                                @Html.ValidationMessageFor(model => model.Proveedor.RazonSocial)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Proveedor.Mail, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(Model => Model.Proveedor.Mail)
+                                @Html.ValidationMessageFor(model => model.Proveedor.Mail)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Proveedor.Telefono2, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Proveedor.Telefono2)
+                                @Html.ValidationMessageFor(model => model.Proveedor.Telefono2)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="form-section">Pago</h3>
+
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.MetodoDePago, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(Model => Model.MetodoDePago, (List<SelectListItem>)ViewBag.MetodoDePagoList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.NroCuotas, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(Model => Model.NroCuotas, (List<SelectListItem>)ViewBag.NroCuotasList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/span-->
+                <div id="divFormaDePago">
+
+                </div>
+
+                <br />
+
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <input id="btnNuevaVenta" class="btn btn-info btn-md red" type="submit" value="Compra SIN Factura" />
+                            <input id="btnNuevaVenta" class="btn btn-info btn-md" type="submit" value="Compra CON Factura" />
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#Proveedor_CUIT").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Proveedor/Index",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.DisplayName, value: item.Id };
+                        }))
+
+                    }
+                })
+            },
+            select: function (event, ui) {
+                ui.item.value;
+                $.ajax({
+                    url: "/Proveedor/Get",
+                    type: "POST",
+                    dataType: "json",
+                    data: { id: ui.item.value },
+                    success: function (data) {
+                        console.info(data);
+                        $("#Proveedor_Nombre").val(data.Nombre);
+                        $("#Proveedor_Mail").val(data.Mail);
+                        $("#Proveedor_Telefono").val(data.Telefono);
+                        $("#Proveedor_Celular").val(data.Celular);
+                        $("#Proveedor_Direccion").val(data.Direccion);
+                    }
+                })
+            },
+        });
+
+        $("#btnNuevaCompra").click(function () {
+            if ($("#FacturaId").val() == "") {
+                alert("Estas creando una compra sin factura, quieres avanzar?");
+            }
+        });
+
+        $("#FacturaId").on('input', function () {
+            if ($("#FacturaId").val() == "") {
+                $("#btnNuevaCompra").val("Compra SIN Factura");
+                $("#btnNuevaCompra").removeClass("btn-success");
+                $("#btnNuevaCompra").addClass("btn-info");
+            } else {
+                $("#btnNuevaCompra").val("Compra CON Factura");
+                $("#btnNuevaCompra").removeClass("btn-info");
+                $("#btnNuevaCompra").addClass("btn-success");
+            }
+        });
+
+        $("#NroCuotas").change(function () {
+            if ($("#MetodoDePago").val() != '') {
+                $.ajax({
+                    url: "/Venta/GetMetodoDePago/" + $("#MetodoDePago").val() + "/" + $("#NroCuotas").val(),
+                    success: function (data) {
+                        $("#divFormaDePago").html("")
+                        $("#divFormaDePago").append(data)
+                    }
+                })
+            }
+        });
+    })
+
+</script>

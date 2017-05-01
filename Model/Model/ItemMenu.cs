@@ -28,6 +28,7 @@ namespace Model.Model
         public string Controlador { get; set; }
         public string Accion { get; set; }
         public string Parametros { get; set; }
+        public string Icon { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RoleMenu> RoleMenu { get; set; }

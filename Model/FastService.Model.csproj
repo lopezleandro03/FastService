@@ -79,6 +79,12 @@
     <Compile Include="Model\ItemMenu.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\MetodoPago.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Pago.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Proveedor.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>

@@ -37,15 +37,15 @@ namespace FastService.Controllers
         }
 
         [HttpPost]
-        public JsonResult Get(string ClienteId)
+        public JsonResult Get(string id)
         {
-            var Proveedor = _db.Proveedor.Find(Convert.ToInt32(ClienteId));
+            var Proveedor = _db.Proveedor.Find(Convert.ToInt32(id));
             var model = new ProveedorModel()
             {
-                Id = Proveedor.ToString(),
-                Nombre = Proveedor.Nombre,
-                Telefono = Proveedor.Telefono1,
-                Celular = Proveedor.Telefono2,
+                CUIT = Proveedor.ProveedorId.ToString(),
+                RazonSocial = Proveedor.Nombre,
+                Telefono1 = Proveedor.Telefono1,
+                Telefono2 = Proveedor.Telefono2,
                 Direccion = Proveedor.Direccion,
                 Mail = Proveedor.Mail
             };
@@ -57,12 +57,13 @@ namespace FastService.Controllers
         public JsonResult Index(string Prefix)
         {
             //Note : you can bind same list from database  
-            var ObjList = (from x in _db.Proveedor select new ProveedorModel() { Id = x.ProveedorId.ToString(), Nombre = x.Nombre }).ToList();
+            var ObjList = (from x in _db.Proveedor select new ProveedorModel()
+            { CUIT = x.ProveedorId.ToString(), RazonSocial = x.Nombre }).ToList();
 
             //Searching records from list using LINQ query  
             var Nombre = (from N in ObjList
-                                 where N.Nombre.Contains(Prefix) || N.Nombre.StartsWith(Prefix)
-                                 select new { N.DisplayName, N.Id }
+                                 where N.RazonSocial.ToLower().Contains(Prefix.ToLower()) || N.RazonSocial.ToLower().StartsWith(Prefix.ToLower())
+                                 select new { N.DisplayName, N.CUIT }
                                  ).ToList();
 
             return Json(Nombre, JsonRequestBehavior.AllowGet);

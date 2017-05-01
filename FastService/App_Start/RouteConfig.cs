@@ -18,6 +18,13 @@ namespace FastService
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Venta",
+                url: "{controller}/{action}/{id}/{cuotas}",
+                defaults: new { controller = "Venta", action = "Create", id = UrlParameter.Optional }
+            );
+
         }
     }
 }

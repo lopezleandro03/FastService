@@ -2,145 +2,168 @@
 
 @using (Ajax.BeginForm("Create", "Compra", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess", OnFailure = "OnError" }))
 {
-    @Html.AntiForgeryToken()
-    <h3 class="Nueva Compra">Nueva venta</h3>
-    <hr />
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true)
-        <div class="form-group ">
-            @Html.LabelFor(model => model.Origen, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(Model => Model.Origen, (List<SelectListItem>)ViewBag.PuntoDeVentaList)
-                @Html.ValidationMessageFor(model => model.Origen)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Monto, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Monto)
-                @Html.ValidationMessageFor(model => model.Monto)
-            </div>
-        </div>
-        <fieldset name="Datos Cliente">
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.ProveedorId, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ProveedorId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ProveedorId)
+    <div class="portlet-body form">
+        <form action="#" class="form-horizontal">
+            <div class="form-body">
+                <h3 class="form-section">Compra</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Origen, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(Model => Model.Origen, (List<SelectListItem>)ViewBag.PuntoDeVentaList, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Origen)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Monto, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Monto, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Monto)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Descripcion, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(Model => Model.Descripcion, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Descripcion)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="form-section">Proveedor</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Proveedor.CUIT, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(Model => Model.Proveedor.CUIT, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Proveedor.CUIT)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Proveedor.RazonSocial, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Proveedor.RazonSocial, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Proveedor.RazonSocial)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Proveedor.Mail, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(Model => Model.Proveedor.Mail, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Proveedor.Mail)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Proveedor.Direccion, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Proveedor.Direccion, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Proveedor.Direccion)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Proveedor.Telefono1, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Proveedor.Telefono1, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Proveedor.Telefono1)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Proveedor.Telefono2, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(Model => Model.Proveedor.Telefono2, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Proveedor.Telefono2)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <input id="btnNuevaCompra" class="btn btn-info btn-md" type="submit" value="Aceptar" />
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.ProveedorNombre, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ProveedorNombre)
-                    @Html.ValidationMessageFor(model => model.ProveedorNombre)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.Mail, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Mail)
-                    @Html.ValidationMessageFor(model => model.Mail)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.Telefono, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Telefono)
-                    @Html.ValidationMessageFor(model => model.Telefono)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.Celular, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Celular)
-                    @Html.ValidationMessageFor(model => model.Celular)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.Direccion, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Direccion)
-                    @Html.ValidationMessageFor(model => model.Direccion)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.FacturaId, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FacturaId)
-                    @Html.ValidationMessageFor(model => model.FacturaId)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(Model => Model.Descripcion, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Descripcion)
-                    @Html.ValidationMessageFor(model => model.Descripcion)
-                </div>
-            </div>
-        </fieldset>
+        </form>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input id="btnNuevaCompra" class="btn btn-info btn-md" type="submit" value="Compra SIN Factura" />
-        </div>
-    </div>
-
 }
+
 <script type="text/javascript">
+    $("#Proveedor_RazonSocial").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/Proveedor/Index",
+                type: "POST",
+                dataType: "json",
+                data: { Prefix: request.term },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item.DisplayName, value: item.CUIT };
+                    }))
 
-    $(document).ready(function () {
-        $("#ProveedorId").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/Proveedor/Index",
-                    type: "POST",
-                    dataType: "json",
-                    data: { Prefix: request.term },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.DisplayName, value: item.Id };
-                        }))
+                }
+            })
+        },
+        select: function (event, ui) {
+            ui.item.value;
+            $.ajax({
+                url: "/Proveedor/Get",
+                type: "POST",
+                dataType: "json",
+                data: { id: ui.item.value },
+                success: function (data) {
+                    $("#Proveedor_CUIT").val(data.CUIT);
+                    $("#Proveedor_RazonSocial").val(data.RazonSocial);
+                    $("#Proveedor_Mail").val(data.Mail);
+                    $("#Proveedor_Telefono").val(data.Telefono);
+                    $("#Proveedor_Celular").val(data.Celular);
+                    $("#Proveedor_Direccion").val(data.Direccion);
+                }
+            });
+        },
+    });
 
-                    }
-                })
-            },
-            select: function (event, ui) {
-                ui.item.value;
-                $.ajax({
-                    url: "/Proveedor/Get",
-                    type: "POST",
-                    dataType: "json",
-                    data: { ClienteId: ui.item.value },
-                    success: function (data) {
-                        console.info(data);
-                        $("#ProveedorNombre").val(data.Nombre);
-                        $("#Mail").val(data.Mail);
-                        $("#Telefono").val(data.Telefono);
-                        $("#Celular").val(data.Celular);
-                        $("#Direccion").val(data.Direccion);
-                    }
-                })
-            },
-        });
+    $("#btnNuevaCompra").click(function () {
+        if ($("#FacturaId").val() == "") {
+            alert("Estas creando una compra sin factura, quieres avanzar?");
+        }
+    });
 
-        $("#btnNuevaCompra").click(function () {
-            if ($("#FacturaId").val() == "") {
-                alert("Estas creando una compra sin factura, quieres avanzar?");
-            }
-        });
+    $("#FacturaId").on('input', function () {
+        if ($("#FacturaId").val() == "") {
+            $("#btnNuevaCompra").val("Compra SIN Factura");
+            $("#btnNuevaCompra").removeClass("btn-success");
+            $("#btnNuevaCompra").addClass("btn-info");
+        } else {
+            $("#btnNuevaCompra").val("Compra CON Factura");
+            $("#btnNuevaCompra").removeClass("btn-info");
+            $("#btnNuevaCompra").addClass("btn-success");
+        }
+    });
 
-        $("#FacturaId").on('input', function () {
-            if ($("#FacturaId").val() == "") {
-                $("#btnNuevaCompra").val("Compra SIN Factura");
-                $("#btnNuevaCompra").removeClass("btn-success");
-                $("#btnNuevaCompra").addClass("btn-info");
-            } else {
-                $("#btnNuevaCompra").val("Compra CON Factura");
-                $("#btnNuevaCompra").removeClass("btn-info");
-                $("#btnNuevaCompra").addClass("btn-success");
-            }
-        });
-    })
+</script>
 
-</script>  
+

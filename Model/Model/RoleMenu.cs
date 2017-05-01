@@ -18,7 +18,7 @@ namespace Model.Model
         public int RolId { get; set; }
         public int ItemMenuId { get; set; }
     
-        public virtual ItemMenu ItemMenu { get; set; }
         public virtual Role Role { get; set; }
+        public virtual ItemMenu ItemMenu { get; set; }
     }
 }

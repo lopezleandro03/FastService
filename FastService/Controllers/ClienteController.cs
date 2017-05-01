@@ -30,7 +30,7 @@ namespace FastService.Controllers
             var cliente = _db.Cliente.Find(Convert.ToInt32(ClienteId));
             var model = new ClienteModel()
             {
-                Id = cliente.ClienteId.ToString(),
+                Id = cliente.ClienteId,
                 Nombre = cliente.Nombre,
                 Apellido = cliente.Apellido,
                 Telefono = cliente.Telefono1,
@@ -46,11 +46,11 @@ namespace FastService.Controllers
         public JsonResult Index(string Prefix)
         {
             //Note : you can bind same list from database  
-            var ObjList = (from x in _db.Cliente select new ClienteModel() { Id = x.ClienteId.ToString(), Nombre = x.Nombre, Apellido = x.Apellido }).ToList();
+            var ObjList = (from x in _db.Cliente select new ClienteModel() { Id = x.ClienteId, Nombre = x.Nombre, Apellido = x.Apellido }).ToList();
 
             //Searching records from list using LINQ query  
             var NombreCliente = (from N in ObjList
-                                 where N.Id.StartsWith(Prefix)
+                                 where N.Id.ToString().StartsWith(Prefix)
                                  select new { N.DisplayName, N.Id }
                                  ).ToList();
 

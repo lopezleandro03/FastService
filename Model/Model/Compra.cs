@@ -14,16 +14,25 @@ namespace Model.Model
     
     public partial class Compra
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Compra()
+        {
+            this.Pago = new HashSet<Pago>();
+        }
+    
         public int CompraId { get; set; }
         public int ProveedorId { get; set; }
         public decimal Monto { get; set; }
         public Nullable<int> FacturaId { get; set; }
         public int PuntoDeVentaId { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public string Comprador { get; set; }
+        public int Estado { get; set; }
+        public System.DateTime FechaCreacion { get; set; }
+        public string CreadoPor { get; set; }
     
         public virtual Factura Factura { get; set; }
         public virtual Proveedor Proveedor { get; set; }
         public virtual PuntoDeVenta PuntoDeVenta { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pago> Pago { get; set; }
     }
 }

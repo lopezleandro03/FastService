@@ -14,5 +14,6 @@ namespace FastService.Models.Login
         public string Controller { get; set; }
         public string Action { get; set; }
         public int? ParentId { get; set; }
+        public string Icon { get; set; }
     }
 }

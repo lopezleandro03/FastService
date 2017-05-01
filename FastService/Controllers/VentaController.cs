@@ -17,22 +17,29 @@ namespace FastService.Controllers
         public VentaController()
         {
             _dbContext = new FastServiceEntities();
-        } 
+        }
 
         // GET: Venta
         public ActionResult Index()
         {
-            return PartialView(from x in _dbContext.Venta select new VentaModel()
-            {
-                ApellidoCliente = x.Cliente.Apellido,
-                NombreCliente = x.Cliente.Nombre,
-                FacturaID = x.FacturaId.ToString(),
-                MailCliente = x.Cliente.Mail,
-                VentaId = x.VentaId,
-                Monto = x.Monto,
-                Origen = x.PuntoDeVenta.PuntoDeVentaId,
-                Vendedor = x.Vendedor
-            });
+            return PartialView(from x in _dbContext.Venta
+                               select new VentaModel()
+                               {
+                                   Cliente = new ClienteModel()
+                                   {
+                                       Apellido = x.Cliente.Apellido,
+                                       Nombre = x.Cliente.Nombre,
+                                       Celular = x.Cliente.Telefono1,
+                                       Mail = x.Cliente.Mail,
+                                       Direccion = x.Cliente.Direccion,
+                                       Id = x.Cliente.ClienteId,
+                                       Telefono = x.Cliente.Telefono2
+                                   },
+                                   VentaId = x.VentaId,
+                                   Monto = x.Monto,
+                                   Origen = x.PuntoDeVenta.PuntoDeVentaId,
+                                   Vendedor = x.Vendedor
+                               });
         }
 
         // GET: Venta/Details/5
@@ -50,7 +57,44 @@ namespace FastService.Controllers
                                             Text = y.Nombre,
                                             Value = y.PuntoDeVentaId.ToString()
                                         }).ToList();
+
+            ViewBag.MetodoDePagoList = (from y in _dbContext.MetodoPago
+                                        select new SelectListItem()
+                                        {
+                                            Text = y.Nombre,
+                                            Value = y.MetodoPagoId.ToString()
+                                        }).ToList();
+
+            ViewBag.NroCuotasList = (new List<SelectListItem>() {
+                new SelectListItem() { Selected = true, Text = "1", Value = "1"},
+                new SelectListItem() { Selected = false, Text = "2", Value = "2"},
+                new SelectListItem() { Selected = false, Text = "3", Value = "3"},
+                new SelectListItem() { Selected = false, Text = "4", Value = "4"},
+                new SelectListItem() { Selected = false, Text = "5", Value = "5"},
+                new SelectListItem() { Selected = false, Text = "6", Value = "6"}
+                                    }).ToList();
+
+
+
             return PartialView();
+        }
+
+        [HttpGet]
+        public ActionResult GetMetodoDePago(int id, int cuotas)
+        {
+            var metodo = (from x in _dbContext.MetodoPago where x.MetodoPagoId == id select x.Nombre).FirstOrDefault();
+            var model = new PagoConChequeModel()
+            {
+                NroCuotas = cuotas,
+                Cheques = new List<ChequeModel>()
+            };
+
+            for (int i = 0; i < cuotas; i++)
+                model.Cheques.Add(new ChequeModel());
+
+
+
+            return PartialView(string.Format("MetodoPago{0}", metodo), model);
         }
 
         // POST: Venta/Create
@@ -59,52 +103,74 @@ namespace FastService.Controllers
         {
             try
             {
-                var clienteId = Convert.ToInt32(collection.Get("ClienteId"));
-                var cliente = _dbContext.Cliente.Find(clienteId);
-
-                if (cliente != null)
+                if (!String.IsNullOrEmpty(collection.Get("Cliente.Id")) && (!String.IsNullOrWhiteSpace(collection.Get("Cliente.Id"))))
                 {
-                    cliente.Nombre = collection.Get("NombreCliente");
-                    cliente.Apellido = collection.Get("ApellidoCliente");
-                    cliente.Mail = collection.Get("MailCliente");
-                    cliente.Direccion = collection.Get("Direccion") ?? null;
-                    cliente.Telefono1 = collection.Get("Telefono") ?? null;
-                    cliente.Telefono2 = collection.Get("Celular") ?? null;
+                    var clienteId = Convert.ToInt32(collection.Get("Cliente.Id"));
+                    var cliente = _dbContext.Cliente.Find(clienteId);
+
+                    if (cliente != null)
+                    {
+                        cliente.Nombre = collection.Get("Cliente.Nombre");
+                        cliente.Apellido = collection.Get("Cliente.Apellido");
+                        cliente.Mail = collection.Get("Cliente.MailCliente");
+                        cliente.Direccion = collection.Get("Cliente.Direccion") ?? null;
+                        cliente.Telefono1 = collection.Get("Cliente.Telefono") ?? null;
+                        cliente.Telefono2 = collection.Get("Cliente.Celular") ?? null;
+                    }
+                    else
+                    {
+                        Cliente nuevoCliente = new Cliente()
+                        {
+                            ClienteId = clienteId,
+                            Nombre = collection.Get("Cliente.Nombre"),
+                            Apellido = collection.Get("Cliente.Apellido"),
+                            Mail = collection.Get("Cliente.Mail"),
+                            Direccion = collection.Get("Cliente.Direccion") ?? null,
+                            Telefono1 = collection.Get("Cliente.Telefono") ?? null,
+                            Telefono2 = collection.Get("Cliente.Celular") ?? null
+                        };
+
+                        _dbContext.Cliente.Add(nuevoCliente);
+                    }
+
+                    Venta model = new Venta()
+                    {
+                        FacturaId = null,
+                        ClienteId = Convert.ToInt32(collection.Get("Cliente.Id")),
+                        Monto = Convert.ToDecimal(collection.Get("Monto")),
+                        PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
+                        Fecha = DateTime.Now,
+                        Vendedor = System.Web.HttpContext.Current.Session["USER"].ToString(),
+                        MetodoPagoId = 1
+                    };
+
+                    _dbContext.Venta.Add(model);
+                    _dbContext.SaveChanges();
                 }
                 else
                 {
-                    Cliente nuevoCliente = new Cliente()
+                    Venta model = new Venta()
                     {
-                        ClienteId = clienteId,
-                        Nombre = collection.Get("NombreCliente"),
-                        Apellido = collection.Get("ApellidoCliente"),
-                        Mail = collection.Get("MailCliente"),
-                        Direccion = collection.Get("Direccion") ?? null,
-                        Telefono1 = collection.Get("Telefono") ?? null,
-                        Telefono2 = collection.Get("Celular") ?? null
+                        FacturaId = null,
+                        Monto = Convert.ToDecimal(collection.Get("Monto")),
+                        PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
+                        Fecha = DateTime.Now,
+                        Vendedor = System.Web.HttpContext.Current.Session["USER"].ToString(),
+                        MetodoPagoId = 1,
+                        ClienteId = Convert.ToInt32(collection.Get("Cliente.Id"))
                     };
 
-                    _dbContext.Cliente.Add(nuevoCliente);
+                    _dbContext.Venta.Add(model);
+                    _dbContext.SaveChanges();
                 }
 
-                Venta model = new Venta()
-                {
-                    FacturaId = null,
-                    ClienteId = Convert.ToInt32(collection.Get("ClienteId")),
-                    Monto = Convert.ToDecimal(collection.Get("Monto")),
-                    PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
-                    Fecha = DateTime.Now,
-                    Vendedor = "llopez7"
-                };
-
-                _dbContext.Venta.Add(model);
-                _dbContext.SaveChanges();
-
-                return RedirectToAction("Index");
+                var result = new { Success = "true", Message = "Completado!" };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return PartialView();
+                var result = new { Success = "false", Message = "Error!" };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
 

@@ -37,6 +37,23 @@ namespace FastService.Controllers
                                             Text = y.Nombre,
                                             Value = y.PuntoDeVentaId.ToString()
                                         }).ToList();
+
+            ViewBag.MetodoDePagoList = (from y in _dbContext.MetodoPago
+                                        select new SelectListItem()
+                                        {
+                                            Text = y.Nombre,
+                                            Value = y.MetodoPagoId.ToString()
+                                        }).ToList();
+
+            ViewBag.NroCuotasList = (new List<SelectListItem>() {
+                new SelectListItem() { Selected = true, Text = "1", Value = "1"},
+                new SelectListItem() { Selected = false, Text = "2", Value = "2"},
+                new SelectListItem() { Selected = false, Text = "3", Value = "3"},
+                new SelectListItem() { Selected = false, Text = "4", Value = "4"},
+                new SelectListItem() { Selected = false, Text = "5", Value = "5"},
+                new SelectListItem() { Selected = false, Text = "6", Value = "6"}
+                                    }).ToList();
+
             return PartialView();
         }
 
@@ -46,28 +63,28 @@ namespace FastService.Controllers
         {
             try
             {
-                var proveedorId = Convert.ToInt32(collection.Get("ProveedorId"));
+                var proveedorId = Convert.ToInt32(collection.Get("Proveedor.CUIT"));
                 var proveedor = _dbContext.Proveedor.Find(proveedorId);
 
                 if (proveedor != null)
                 {
-                    proveedor.Nombre = collection.Get("ProveedorNombre");
-                    proveedor.Mail = collection.Get("Mail");
-                    proveedor.Direccion = collection.Get("Direccion") ?? null;
-                    proveedor.Telefono1 = collection.Get("Telefono") ?? null;
-                    proveedor.Telefono2 = collection.Get("Celular") ?? null;
+                    proveedor.Nombre = collection.Get("Proveedor.RazonSocial");
+                    proveedor.Mail = collection.Get("Proveedor.Mail");
+                    proveedor.Direccion = collection.Get("Proveedor.Direccion") ?? null;
+                    proveedor.Telefono1 = collection.Get("Proveedor.Telefono1") ?? null;
+                    proveedor.Telefono2 = collection.Get("Proveedor.Telefono2") ?? null;
                 }
                 else
                 {
                     Proveedor nuevoCliente = new Proveedor()
                     {
                         ProveedorId = proveedorId,
-                        Nombre = collection.Get("ProveedorNombre"),
-                        Mail = collection.Get("Mail"),
-                        Direccion = collection.Get("Direccion") ?? null,
-                        Telefono1 = collection.Get("Telefono") ?? null,
-                        Telefono2 = collection.Get("Celular") ?? null
-                    };
+                        Nombre = collection.Get("Proveedor.RazonSocial"),
+                        Mail = collection.Get("Proveedor.Mail"),
+                        Direccion = collection.Get("Proveedor.Direccion") ?? null,
+                        Telefono1 = collection.Get("Proveedor.Telefono1") ?? null,
+                        Telefono2 = collection.Get("Proveedor.Telefono2") ?? null
+                };
 
                     _dbContext.Proveedor.Add(nuevoCliente);
                 }
@@ -75,21 +92,23 @@ namespace FastService.Controllers
                 Compra model = new Compra()
                 {
                     FacturaId = null,
-                    ProveedorId = Convert.ToInt32(collection.Get("ProveedorId")),
+                    ProveedorId = Convert.ToInt32(collection.Get("Proveedor.CUIT")),
                     Monto = Convert.ToDecimal(collection.Get("Monto")),
                     PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
-                    Fecha = DateTime.Now,
-                    Comprador = "llopez7"
+                    FechaCreacion = DateTime.Now,
+                    CreadoPor = System.Web.HttpContext.Current.Session["USER"].ToString()
                 };
 
                 _dbContext.Compra.Add(model);
                 _dbContext.SaveChanges();
 
-                return RedirectToAction("Index");
+                var result = new { Success = "true", Message = "Completado!" };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return PartialView();
+                var result = new { Success = "false", Message = "Error Message" };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
 

@@ -1,30 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace FastService.Models
 {
     public class VentaModel
     {
+        [Display(Name = "ID Venta")]
         public int VentaId { get; set; }
-        [DisplayName("DNI del cliente")]
-        public string ClienteId { get; set; }
-        public string NombreCliente { get; set; }
-        public string ApellidoCliente { get; set; }
-        public string MailCliente { get; set; }
-        public string Telefono { get; set; }
-        public string Celular { get; set; }
-        public string Direccion { get; set; }
-        public decimal Monto { get; set; }
-        public int? FacturaId { get; set; }
+        [Required]
+        [Display(Name = "Comercio")]
         public int Origen { get; set; }
-        public DateTime Fecha { get; set; } 
-        public string Vendedor { get; set; }
-        public string FacturaID { get; set; }
+        [Required]
+        [Display(Name = "Monto")]
+        public decimal Monto { get; set; }
         [DataType(DataType.MultilineText)]
-        public string Descripcion { get; set;}
+        public string Descripcion { get; set; }
+        public ClienteModel Cliente { get; set; }
+        public List<PagoModel> Pago { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Vendedor { get; set; }
+        [Display(Name = "Factura Nro.")]
+        public int FacturaId { get; set; }
+
+
+        [Display(Name = "Metodo de pago")]
+        public string MetodoDePago { get; set; }
+        [Display(Name = "Cantidad de cuotas")]
+        public int NroCuotas { get; set; }
+        public int Cuotas { get; set; }
+
     }
 }

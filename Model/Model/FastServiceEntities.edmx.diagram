@@ -4,28 +4,34 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="21b821443a9047a29a74012448881009" Name="Diagram1">
+      <Diagram DiagramId="21b821443a9047a29a74012448881009" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="FastServiceModel.Cliente" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FastServiceModel.Compra" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="FastServiceModel.Factura" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FastServiceModel.ItemMenu" Width="1.5" PointX="2.75" PointY="13.375" IsExpanded="true" />
         <EntityTypeShape EntityType="FastServiceModel.Proveedor" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="FastServiceModel.PuntoDeVenta" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="FastServiceModel.Role" Width="1.5" PointX="2.75" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FastServiceModel.Venta" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="FastServiceModel.RoleMenu" Width="1.5" PointX="5" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FastServiceModel.Usuario" Width="1.5" PointX="7.75" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="FastServiceModel.UsuarioRol" Width="1.5" PointX="5" PointY="12.75" IsExpanded="true" />
-        <AssociationConnector Association="FastServiceModel.FK__Venta__ClienteId__53385258" ManuallyRouted="false" />
-        <AssociationConnector Association="FastServiceModel.FK__Compra__FacturaI__5AD97420" ManuallyRouted="false" />
-        <AssociationConnector Association="FastServiceModel.FK__Compra__Proveedo__59E54FE7" ManuallyRouted="false" />
-        <AssociationConnector Association="FastServiceModel.FK__Compra__PuntoDeV__5BCD9859" ManuallyRouted="false" />
-        <AssociationConnector Association="FastServiceModel.FK__Venta__FacturaId__542C7691" ManuallyRouted="false" />
-        <AssociationConnector Association="FastServiceModel.FK_RoleMenu_ItemMenu" ManuallyRouted="false" />
-        <AssociationConnector Association="FastServiceModel.FK__Venta__PuntoDeVe__55209ACA" ManuallyRouted="false" />
         <AssociationConnector Association="FastServiceModel.FK_RoleMenu_Rol" ManuallyRouted="false" />
         <AssociationConnector Association="FastServiceModel.FK_UsuarioRol_Rol" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="FastServiceModel.MetodoPago" Width="1.5" PointX="2.625" PointY="14.625" />
+        <EntityTypeShape EntityType="FastServiceModel.ItemMenu" Width="1.5" PointX="8.375" PointY="1" />
+        <AssociationConnector Association="FastServiceModel.FK_RoleMenu_ItemMenu" />
+        <EntityTypeShape EntityType="FastServiceModel.Compra" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="FastServiceModel.Pago" Width="1.5" PointX="5.25" PointY="15.75" />
+        <AssociationConnector Association="FastServiceModel.FK__Compra__FacturaI__3CA9F2BB" />
+        <AssociationConnector Association="FastServiceModel.FK__Compra__Proveedo__3D9E16F4" />
+        <AssociationConnector Association="FastServiceModel.FK__Compra__PuntoDeV__3E923B2D" />
+        <AssociationConnector Association="FastServiceModel.FK__Pago__CompraId__575DE8F7" />
+        <EntityTypeShape EntityType="FastServiceModel.Venta" Width="1.5" PointX="6" PointY="2.875" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__ClienteId__61DB776A" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__ClienteId__62CF9BA3" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__FacturaId__63C3BFDC" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__FacturaId__64B7E415" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__PuntoDeVe__65AC084E" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__PuntoDeVe__66A02C87" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
