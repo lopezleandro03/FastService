@@ -459,8 +459,8 @@
     <Content Include="Content\assets\global\plugins\select2\js\select2.full.min.js" />
     <Content Include="Content\assets\global\plugins\select2\js\select2.js" />
     <Content Include="Content\assets\global\plugins\select2\js\select2.min.js" />
-    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.dev.svg" />
-    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Content\fonts\Simple-Line-Icons.dev.svg" />
+    <Content Include="Content\fonts\Simple-Line-Icons.svg" />
     <Content Include="Content\assets\global\plugins\simple-line-icons\icons-lte-ie7.js" />
     <Content Include="Content\assets\global\plugins\simple-line-icons\License.txt" />
     <Content Include="Content\assets\global\plugins\simple-line-icons\Readme.txt" />
@@ -747,6 +747,7 @@
     <Content Include="Content\jqvmap.css" />
     <Content Include="Content\site.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -766,9 +767,9 @@
     <Content Include="Content\assets\global\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\assets\global\plugins\jquery-slimscroll\README.md" />
     <Content Include="Content\assets\global\plugins\jquery-slimscroll\slimScroll.jquery.json" />
-    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.eot" />
-    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
-    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.woff" />
+    <Content Include="Content\fonts\Simple-Line-Icons.eot" />
+    <Content Include="Content\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Content\fonts\Simple-Line-Icons.woff" />
     <Content Include="Content\assets\global\plugins\morris\README.md" />
     <Content Include="Content\assets\global\plugins\bootstrap-wizard\additional-methods.min.js" />
     <Content Include="Content\assets\global\plugins\bootstrap-wizard\app.min.js" />
@@ -783,6 +784,11 @@
     <Content Include="Content\assets\global\plugins\bootstrap-wizard\layout.min.js" />
     <Content Include="Content\assets\global\plugins\bootstrap-wizard\quick-sidebar.min.js" />
     <Content Include="Content\assets\global\plugins\bootstrap-wizard\select2.full.min.js" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\daterangepicker.min.js" />
     <Content Include="Scripts\fullcalendar.min.js" />

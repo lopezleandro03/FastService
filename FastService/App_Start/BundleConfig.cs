@@ -12,7 +12,7 @@ namespace FastService
                         "~/Content/assets/global/plugins/jquery.min.js",
                         "~/Scripts/jquery-ui.min.js",
                         "~/Scripts/jquery.unobtrusive-ajax.min.js",
-                       "~/Content/assets/pages/scripts/form-wizard.js"
+                        "~/Content/assets/pages/scripts/form-wizard.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery.ui").Include(
