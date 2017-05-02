@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace FastService.Controllers
 {
-    public class CompraController : Controller
+    public class CompraController : BaseController
     {
 
         private FastServiceEntities _dbContext { get; set; }

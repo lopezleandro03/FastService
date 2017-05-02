@@ -3,6 +3,7 @@
 @using (Ajax.BeginForm("Create", "Venta", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess", OnFailure = "OnError" }))
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
     <div class="portlet-body form">
         <form action="#" class="form-horizontal">
             <div class="form-body">
@@ -177,6 +178,11 @@
         <!-- END FORM-->
     </div>
 }
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
 <script type="text/javascript">
     $("#Cliente_Id").autocomplete({
         source: function (request, response) {

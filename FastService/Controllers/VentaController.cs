@@ -8,11 +8,9 @@ using FastService.Models;
 
 namespace FastService.Controllers
 {
-    public class VentaController : Controller
+    public class VentaController : BaseController
     {
         private FastServiceEntities _dbContext { get; set; }
-
-
 
         public VentaController()
         {
@@ -73,9 +71,7 @@ namespace FastService.Controllers
                 new SelectListItem() { Selected = false, Text = "5", Value = "5"},
                 new SelectListItem() { Selected = false, Text = "6", Value = "6"}
                                     }).ToList();
-
-
-
+            
             return PartialView();
         }
 
@@ -101,77 +97,69 @@ namespace FastService.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            try
+            if (!String.IsNullOrEmpty(collection.Get("Cliente.Id")) && (!String.IsNullOrWhiteSpace(collection.Get("Cliente.Id"))))
             {
-                if (!String.IsNullOrEmpty(collection.Get("Cliente.Id")) && (!String.IsNullOrWhiteSpace(collection.Get("Cliente.Id"))))
+                var clienteId = Convert.ToInt32(collection.Get("Cliente.Id"));
+                var cliente = _dbContext.Cliente.Find(clienteId);
+
+                if (cliente != null)
                 {
-                    var clienteId = Convert.ToInt32(collection.Get("Cliente.Id"));
-                    var cliente = _dbContext.Cliente.Find(clienteId);
-
-                    if (cliente != null)
-                    {
-                        cliente.Nombre = collection.Get("Cliente.Nombre");
-                        cliente.Apellido = collection.Get("Cliente.Apellido");
-                        cliente.Mail = collection.Get("Cliente.MailCliente");
-                        cliente.Direccion = collection.Get("Cliente.Direccion") ?? null;
-                        cliente.Telefono1 = collection.Get("Cliente.Telefono") ?? null;
-                        cliente.Telefono2 = collection.Get("Cliente.Celular") ?? null;
-                    }
-                    else
-                    {
-                        Cliente nuevoCliente = new Cliente()
-                        {
-                            ClienteId = clienteId,
-                            Nombre = collection.Get("Cliente.Nombre"),
-                            Apellido = collection.Get("Cliente.Apellido"),
-                            Mail = collection.Get("Cliente.Mail"),
-                            Direccion = collection.Get("Cliente.Direccion") ?? null,
-                            Telefono1 = collection.Get("Cliente.Telefono") ?? null,
-                            Telefono2 = collection.Get("Cliente.Celular") ?? null
-                        };
-
-                        _dbContext.Cliente.Add(nuevoCliente);
-                    }
-
-                    Venta model = new Venta()
-                    {
-                        FacturaId = null,
-                        ClienteId = Convert.ToInt32(collection.Get("Cliente.Id")),
-                        Monto = Convert.ToDecimal(collection.Get("Monto")),
-                        PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
-                        Fecha = DateTime.Now,
-                        Vendedor = System.Web.HttpContext.Current.Session["USER"].ToString(),
-                        MetodoPagoId = 1
-                    };
-
-                    _dbContext.Venta.Add(model);
-                    _dbContext.SaveChanges();
+                    cliente.Nombre = collection.Get("Cliente.Nombre");
+                    cliente.Apellido = collection.Get("Cliente.Apellido");
+                    cliente.Mail = collection.Get("Cliente.MailCliente");
+                    cliente.Direccion = collection.Get("Cliente.Direccion") ?? null;
+                    cliente.Telefono1 = collection.Get("Cliente.Telefono") ?? null;
+                    cliente.Telefono2 = collection.Get("Cliente.Celular") ?? null;
                 }
                 else
                 {
-                    Venta model = new Venta()
+                    Cliente nuevoCliente = new Cliente()
                     {
-                        FacturaId = null,
-                        Monto = Convert.ToDecimal(collection.Get("Monto")),
-                        PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
-                        Fecha = DateTime.Now,
-                        Vendedor = System.Web.HttpContext.Current.Session["USER"].ToString(),
-                        MetodoPagoId = 1,
-                        ClienteId = Convert.ToInt32(collection.Get("Cliente.Id"))
+                        ClienteId = clienteId,
+                        Nombre = collection.Get("Cliente.Nombre"),
+                        Apellido = collection.Get("Cliente.Apellido"),
+                        Mail = collection.Get("Cliente.Mail"),
+                        Direccion = collection.Get("Cliente.Direccion") ?? null,
+                        Telefono1 = collection.Get("Cliente.Telefono") ?? null,
+                        Telefono2 = collection.Get("Cliente.Celular") ?? null
                     };
 
-                    _dbContext.Venta.Add(model);
-                    _dbContext.SaveChanges();
+                    _dbContext.Cliente.Add(nuevoCliente);
                 }
 
-                var result = new { Success = "true", Message = "Completado!" };
-                return Json(result, JsonRequestBehavior.AllowGet);
+                Venta model = new Venta()
+                {
+                    FacturaId = null,//string.IsNullOrEmpty(collection.Get("FacturaId")) ? null : Convert.ToInt32(collection.Get("FacturaId")),
+                    ClienteId = Convert.ToInt32(collection.Get("Cliente.Id")),
+                    Monto = Convert.ToDecimal(collection.Get("Monto")),
+                    PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
+                    Fecha = DateTime.Now,
+                    Vendedor = "Test",//TODO:System.Web.HttpContext.Current.Session["USER"].ToString(),
+                    MetodoPagoId = 1
+                };
+
+                _dbContext.Venta.Add(model);
+                _dbContext.SaveChanges();
             }
-            catch (Exception ex)
+            else
             {
-                var result = new { Success = "false", Message = "Error!" };
-                return Json(result, JsonRequestBehavior.AllowGet);
+                Venta model = new Venta()
+                {
+                    FacturaId = null,
+                    Monto = Convert.ToDecimal(collection.Get("Monto")),
+                    PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
+                    Fecha = DateTime.Now,
+                    Vendedor = System.Web.HttpContext.Current.Session["USER"].ToString(),
+                    MetodoPagoId = 1,
+                    ClienteId = Convert.ToInt32(collection.Get("Cliente.Id"))
+                };
+
+                _dbContext.Venta.Add(model);
+                _dbContext.SaveChanges();
             }
+
+            var result = new { Success = "true", Message = "Completado!" };
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Venta/Edit/5
