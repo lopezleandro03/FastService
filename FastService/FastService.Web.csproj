@@ -473,6 +473,7 @@
     <Content Include="Content\assets\global\plugins\select2\js\select2.full.min.js" />
     <Content Include="Content\assets\global\plugins\select2\js\select2.js" />
     <Content Include="Content\assets\global\plugins\select2\js\select2.min.js" />
+    <Content Include="Content\assets\layouts\layout5\img\fs_blanco.png" />
     <Content Include="Content\fonts\Simple-Line-Icons.dev.svg" />
     <Content Include="Content\fonts\Simple-Line-Icons.svg" />
     <Content Include="Content\assets\global\plugins\simple-line-icons\icons-lte-ie7.js" />
