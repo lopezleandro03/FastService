@@ -1,5 +1,9 @@
 ﻿@model FastService.Models.VentaModel
 
+<script src="~/Content/assets/pages/scripts/components-date-time-pickers.min.js"></script>
+<script src="~/Content/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<link href="~/Content/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+
 @using (Ajax.BeginForm("Create", "Venta", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess", OnFailure = "OnError" }))
 {
     @Html.AntiForgeryToken()
@@ -46,28 +50,31 @@
                     <!--/span-->
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Fecha</label>
+                            @Html.LabelFor(Model => Model.Fecha, new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="@DateTime.Now">
-                            </div>
+                                @Html.TextBoxFor(model => model.Fecha, new { @class = "form-control form-control-inline input-large date-picker", @text = DateTime.Now, @placeholder = "Seleccione una fecha" })
+
+                             </div>
+                            @*<input type="text" class="form-control" placeholder="@DateTime.Now">*@
                         </div>
                     </div>
                     <!--/span-->
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelFor(Model => Model.MetodoDePago, new { @class = "control-label col-md-3" })
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.FacturaId, new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.DropDownListFor(Model => Model.MetodoDePago, (List<SelectListItem>)ViewBag.MetodoDePagoList, new { @class = "form-control" })
+                                @Html.TextBoxFor(Model => Model.FacturaId, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.FacturaId)
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group ">
-                            @Html.LabelFor(model => model.FacturaId, new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.Facturado, new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.TextBoxFor(Model => Model.FacturaId, new { @class = "form-control" })
+                                @Html.CheckBoxFor(model => model.Facturado, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.FacturaId)
                             </div>
                         </div>
@@ -79,10 +86,10 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            @Html.LabelFor(Model => Model.Cliente.Id, new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(Model => Model.Cliente.Dni, new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.TextBoxFor(model => model.Cliente.Id, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Cliente.Id)
+                                @Html.TextBoxFor(model => model.Cliente.Dni, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Cliente.Dni)
                             </div>
                         </div>
                     </div>
@@ -152,15 +159,15 @@
                         </div>
                     </div>
                     <!--/span-->
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelFor(Model => Model.Vendedor, new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.TextBoxFor(model => model.Vendedor, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Vendedor)
+                    @*<div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(Model => Model.Vendedor, new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Vendedor, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Vendedor)
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </div>*@
                     <!--/span-->
                 </div>
 
@@ -169,7 +176,7 @@
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-md-12 text-right">
-                            <input id="btnNuevaVenta" class="btn btn-info btn-md" type="submit" value="Venta SIN Factura" />
+                            <input id="btnNuevaVenta" class="btn btn-info btn-md" type="submit" value="ACEPTAR" />
                         </div>
                     </div>
                 </div>
@@ -184,7 +191,7 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script type="text/javascript">
-    $("#Cliente_Id").autocomplete({
+    $("#Cliente_Dni").autocomplete({
         source: function (request, response) {
             $.ajax({
                 url: "/Cliente/Index",
@@ -193,7 +200,7 @@
                 data: { Prefix: request.term },
                 success: function (data) {
                     response($.map(data, function (item) {
-                        return { label: item.DisplayName, value: item.Id };
+                        return { label: item.DisplayName, value: item.Dni };
                     }))
 
                 }
@@ -219,21 +226,21 @@
         },
     });
 
-    $("#btnNuevaVenta").click(function () {
-        if ($("#FacturaId").val() == "") {
-            alert("Estas creando una venta sin factura, quieres avanzar?");
-        }
-    });
+    //$("#btnNuevaVenta").click(function () {
+    //    if ($("#FacturaId").val() == "") {
+    //        alert("Estas creando una venta sin factura, quieres avanzar?");
+    //    }
+    //});
 
-    $("#FacturaId").on('input', function () {
-        if ($("#FacturaId").val() == "") {
-            $("#btnNuevaVenta").val("Venta SIN Factura");
-            $("#btnNuevaVenta").removeClass("btn-success");
-            $("#btnNuevaVenta").addClass("btn-info");
-        } else {
-            $("#btnNuevaVenta").val("Venta CON Factura");
-            $("#btnNuevaVenta").removeClass("btn-info");
-            $("#btnNuevaVenta").addClass("btn-success");
-        }
-    });
+    //$("#FacturaId").on('input', function () {
+    //    if ($("#FacturaId").val() == "") {
+    //        $("#btnNuevaVenta").val("Venta SIN Factura");
+    //        $("#btnNuevaVenta").removeClass("btn-success");
+    //        $("#btnNuevaVenta").addClass("btn-info");
+    //    } else {
+    //        $("#btnNuevaVenta").val("Venta CON Factura");
+    //        $("#btnNuevaVenta").removeClass("btn-info");
+    //        $("#btnNuevaVenta").addClass("btn-success");
+    //    }
+    //});
 </script>

@@ -20,15 +20,14 @@ namespace Model.Model
             : base(CommonUtility.IsDevelopmentServer() ? "name=LocalFastServiceEntities" : "name=FastServiceEntities")
         {
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-
+    
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<Factura> Factura { get; set; }
-        public virtual DbSet<Proveedor> Proveedor { get; set; }
         public virtual DbSet<PuntoDeVenta> PuntoDeVenta { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<RoleMenu> RoleMenu { get; set; }
@@ -36,8 +35,12 @@ namespace Model.Model
         public virtual DbSet<UsuarioRol> UsuarioRol { get; set; }
         public virtual DbSet<MetodoPago> MetodoPago { get; set; }
         public virtual DbSet<ItemMenu> ItemMenu { get; set; }
-        public virtual DbSet<Compra> Compra { get; set; }
+        public virtual DbSet<TipoTransaccion> TipoTransaccion { get; set; }
         public virtual DbSet<Pago> Pago { get; set; }
         public virtual DbSet<Venta> Venta { get; set; }
+        public virtual DbSet<Proveedor> Proveedor { get; set; }
+        public virtual DbSet<Compra> Compra { get; set; }
+        public virtual DbSet<ProveedoresAcreedores> ProveedoresAcreedores { get; set; }
+        public virtual DbSet<ComprasAPagar> ComprasAPagar { get; set; }
     }
 }

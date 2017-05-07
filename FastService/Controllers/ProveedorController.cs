@@ -39,7 +39,7 @@ namespace FastService.Controllers
         [HttpPost]
         public JsonResult Get(string id)
         {
-            var Proveedor = _db.Proveedor.Find(Convert.ToInt32(id));
+            var Proveedor = _db.Proveedor.Find(id);
             var model = new ProveedorModel()
             {
                 CUIT = Proveedor.ProveedorId.ToString(),

@@ -33,5 +33,7 @@ namespace FastService.Models
             {
             }
         }
+
+        public List<CompraAPagarModel> ComprasAPagar{get;set;}
     }
 }

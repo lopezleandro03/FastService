@@ -186,8 +186,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClienteModel.cs" />
+    <Compile Include="Models\CompraAPagarModel.cs" />
     <Compile Include="Models\CompraModel.cs" />
     <Compile Include="Models\CorredorModel.cs" />
     <Compile Include="Models\CuotaModel.cs" />
@@ -862,6 +864,7 @@
     <Content Include="Views\Proveedor\Index.cshtml" />
     <Content Include="Views\PagoProveedores\CreatePagoWizard.cshtml" />
     <Content Include="Views\Shared\SuccessView.cshtml" />
+    <Content Include="Views\Compra\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

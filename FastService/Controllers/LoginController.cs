@@ -1,4 +1,4 @@
-﻿using FastService.Models.Login;
+﻿using FastService.Controllers;
 using Model.Model;
 using System.Linq;
 using System.Web.Mvc;
@@ -6,7 +6,7 @@ using System.Web.Routing;
 
 namespace EstudioCapra.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         public FastServiceEntities _dbContext { get; set; }
 
@@ -28,14 +28,18 @@ namespace EstudioCapra.Controllers
 
         public ActionResult Authenticate(FormCollection collection)
         {
-            var user = from x in _dbContext.Usuario
-                           where x.Email == collection.Get("Email").ToString() 
-                           && x.Contraseña == collection.Get("Contraseña").ToString()
-                           select x;
+            var Email = collection.Get("Email").ToString();
+            var Contraseña = collection.Get("Contraseña").ToString();
 
-            if (user != null)
+            var user = from x in _dbContext.Usuario
+                       where x.Email == Email
+                       && x.Contraseña == Contraseña
+                       select x;
+
+            if (user.Any())
             {
-                System.Web.HttpContext.Current.Session["USER"] = collection.Get("Email").ToString();
+                CurrentUserEmail = user.First().Email;
+                CurrentUserId = user.First().UserId;
 
                 return this.RedirectToAction("Index", new RouteValueDictionary(new
                 {
@@ -58,7 +62,8 @@ namespace EstudioCapra.Controllers
 
         public ActionResult LogOut()
         {
-            System.Web.HttpContext.Current.Session["USER"] = string.Empty;
+            CurrentUserEmail = string.Empty;
+            CurrentUserId = 0;
 
             var result = this.RedirectToAction("Index", new RouteValueDictionary(new
             {

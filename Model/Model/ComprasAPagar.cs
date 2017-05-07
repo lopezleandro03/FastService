@@ -12,14 +12,8 @@ namespace Model.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Compra
+    public partial class ComprasAPagar
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Compra()
-        {
-            this.Pago = new HashSet<Pago>();
-        }
-    
         public int CompraId { get; set; }
         public string ProveedorId { get; set; }
         public decimal Monto { get; set; }
@@ -28,10 +22,6 @@ namespace Model.Model
         public int Estado { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public int CreadoPor { get; set; }
-    
-        public virtual Proveedor Proveedor { get; set; }
-        public virtual PuntoDeVenta PuntoDeVenta { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pago> Pago { get; set; }
+        public decimal saldo { get; set; }
     }
 }

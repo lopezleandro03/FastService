@@ -9,7 +9,7 @@ namespace FastService.Models
     public class ClienteModel
     {
         [Display(Name = "DNI")]
-        public int Id { get; set; }
+        public int? Dni { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Mail { get; set; }
@@ -20,7 +20,7 @@ namespace FastService.Models
         {
             get
             {
-                return string.Format("[{0}]{1} {2}", Id, Apellido, Nombre); 
+                return string.Format("[{0}]{1} {2}", Dni, Apellido, Nombre); 
             }
             set
             {

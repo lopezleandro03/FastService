@@ -12,22 +12,13 @@ namespace Model.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Proveedor
+    public partial class ProveedoresAcreedores
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Proveedor()
-        {
-            this.Compra = new HashSet<Compra>();
-        }
-    
         public string ProveedorId { get; set; }
         public string Nombre { get; set; }
         public string Mail { get; set; }
         public string Telefono1 { get; set; }
         public string Telefono2 { get; set; }
         public string Direccion { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Compra> Compra { get; set; }
     }
 }

@@ -21,7 +21,16 @@ namespace Model.Model
         public System.DateTime FechaEmision { get; set; }
         public string NroReferencia { get; set; }
         public string Motivo { get; set; }
+        public int TipoTransaccionId { get; set; }
+        public Nullable<int> FacturaId { get; set; }
+        public Nullable<int> CreadoPor { get; set; }
+        public System.DateTime FechaCreacion { get; set; }
+        public int MetodoDePagoId { get; set; }
     
+        public virtual Factura Factura { get; set; }
+        public virtual Factura Factura1 { get; set; }
+        public virtual MetodoPago MetodoPago { get; set; }
+        public virtual TipoTransaccion TipoTransaccion { get; set; }
         public virtual Compra Compra { get; set; }
     }
 }

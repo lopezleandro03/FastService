@@ -50,15 +50,22 @@
                                         <div class="col-md-8 col-lg-offset-2">
                                             <div class="btn-group bootstrap-select bs-select form-control dropup">
                                                 <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" title="Relish" aria-expanded="false">
-                                                    <span class="filter-option pull-left" id="txtProveedor">@Model.Proveedores[0].Nombre</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span>
+                                                    @if (@Model.Proveedores.Any())
+                                                    {
+                                                        <span class="filter-option pull-left" id="txtProveedor">@Model.Proveedores[0].RazonSocial</span><span class="bs-caret"><span class="caret"></span></span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="filter-option pull-left" id="txtProveedor">No hay compras a pagar!</span><span class="bs-caret"><span class="caret"></span></span>
+                                                    }
                                                 </button>
                                                 <div class="dropdown-menu open" style="max-height: 339.41px; overflow: hidden; min-height: 0px;">
                                                     <ul class="dropdown-menu inner" role="menu" style="max-height: 337.41px; overflow-y: auto; min-height: 0px;">
                                                         @foreach (var proveedor in Model.Proveedores)
                                                         {
-                                                            <li class="liProveedor" id="@proveedor.ProveedorId" data-nombre="@proveedor.Nombre">
+                                                            <li class="liProveedor" id="@proveedor.CUIT" data-nombre="@proveedor.RazonSocial" data-cantCompras="@proveedor.ComprasAPagar.Count">
                                                                 <a tabindex="0" class="" style="" data-tokens="null">
-                                                                    <span class="text">@proveedor.Nombre</span><span class="fa fa-check check-mark"></span>
+                                                                    <span class="text">@proveedor.RazonSocial</span><span class="fa fa-check check-mark"></span>
                                                                 </a>
                                                             </li>
                                                         }
@@ -76,16 +83,16 @@
                                             <div class="mt-list-container list-simple ext-1">
                                                 @foreach (var proveedor in Model.Proveedores)
                                                 {
-                                                    <ul id="ulFacturas_@proveedor.ProveedorId" hidden>
-                                                        @foreach (var compra in proveedor.Compra)
+                                                    <ul id="ulFacturas_@proveedor.CUIT" class="ulFacturas" hidden>
+                                                        @foreach (var compra in proveedor.ComprasAPagar)
                                                         {
-                                                            <li class="mt-list-item done liCompra" value="@compra.CompraId" data-compraid="@compra.CompraId" data-monto="@compra.Monto">
+                                                            <li class="mt-list-item done liCompra" value="@compra.CompraId" data-compraid="@compra.CompraId" data-monto="@compra.Saldo">
                                                                 <div class="list-icon-container">
                                                                     <i class="icon-check"></i>
                                                                 </div>
                                                                 <div class="list-item-content">
                                                                     <h3>
-                                                                        Compra fecha: @compra.FechaCreacion por un monto de $@compra.Monto
+                                                                        Compra fecha: @compra.FechaCreacion.Date Total: $@compra.Monto Saldo: $@compra.Saldo
                                                                     </h3>
                                                                 </div>
                                                             </li>
@@ -197,12 +204,20 @@
     PagoModel.MetodoPago = new Object();
 
     $(".liProveedor").click(function () {
+        $(".ulFacturas").hide();
         $("#ulFacturas_" + $(this).attr("id")).show();
         PagoModel.Proveedor = $(this).attr("id");
         PagoModel.ProveedorNombre = $(this).data("nombre");
+        PagoModel.HasCompras = $(this).data("cantcompras") != "0" ? true : false;
         $("#txtProveedor").html("");
         $("#txtProveedor").html(PagoModel.ProveedorNombre);
-        $("#titleCompra").html("Seleccione compras a " + PagoModel.ProveedorNombre + " que desea pagar:");
+
+        if (PagoModel.HasCompras) {
+            $("#titleCompra").html("Seleccione compras a " + PagoModel.ProveedorNombre + " que desea pagar:");
+        } else {
+            $("#titleCompra").html("El Proveedor " + PagoModel.ProveedorNombre + " no tiene compras pendientes de pago.");
+        }
+
     });
 
     $(".liCompra").click(function () {
@@ -227,7 +242,6 @@
                     $(".chequeMonto").val((parseInt(PagoModel.Monto) / parseInt(PagoModel.MetodoPago.NroCuotas).toFixed(2)))
                 }
             })
-
         }
     });
 
@@ -247,10 +261,10 @@
             dataType: "json",
             data: JSON.stringify(PagoModel),
             success: function (data) {
-                alert(data);
+                OnSuccess(data);
             },
             error: function (data) {
-                alert("error")
+                alert("Oops hubo un error!")
             }
         });
     });

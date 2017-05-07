@@ -58,6 +58,9 @@
     <Compile Include="Model\Compra.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\ComprasAPagar.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Factura.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
@@ -88,6 +91,9 @@
     <Compile Include="Model\Proveedor.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\ProveedoresAcreedores.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\PuntoDeVenta.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
@@ -95,6 +101,9 @@
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\RoleMenu.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TipoTransaccion.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Usuario.cs">

@@ -12,22 +12,22 @@ namespace Model.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Proveedor
+    public partial class TipoTransaccion
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Proveedor()
+        public TipoTransaccion()
         {
-            this.Compra = new HashSet<Compra>();
+            this.Pago = new HashSet<Pago>();
+            this.Venta = new HashSet<Venta>();
         }
     
-        public string ProveedorId { get; set; }
+        public int TipoTransaccionId { get; set; }
         public string Nombre { get; set; }
-        public string Mail { get; set; }
-        public string Telefono1 { get; set; }
-        public string Telefono2 { get; set; }
-        public string Direccion { get; set; }
+        public string Descripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Compra> Compra { get; set; }
+        public virtual ICollection<Pago> Pago { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Venta> Venta { get; set; }
     }
 }

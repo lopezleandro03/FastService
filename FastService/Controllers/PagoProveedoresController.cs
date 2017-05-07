@@ -1,14 +1,14 @@
-﻿using FastService.Models;
+﻿using FastService.Helpers;
+using FastService.Models;
 using Model.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace FastService.Controllers
 {
-    public class PagoProveedoresController : Controller
+    public class PagoProveedoresController : BaseController
     {
         private FastServiceEntities _dbContext;
 
@@ -47,17 +47,14 @@ namespace FastService.Controllers
         // GET: PagoProveedores/Create
         public ActionResult Create()
         {
-            try
-            {
+            ViewBag.MetodoDePagoList = (from y in _dbContext.MetodoPago
+                                        select new SelectListItem()
+                                        {
+                                            Text = y.Nombre,
+                                            Value = y.MetodoPagoId.ToString()
+                                        }).ToList();
 
-                ViewBag.MetodoDePagoList = (from y in _dbContext.MetodoPago
-                                            select new SelectListItem()
-                                            {
-                                                Text = y.Nombre,
-                                                Value = y.MetodoPagoId.ToString()
-                                            }).ToList();
-
-                ViewBag.NroCuotasList = (new List<SelectListItem>() {
+            ViewBag.NroCuotasList = (new List<SelectListItem>() {
                 new SelectListItem() { Selected = true, Text = "1", Value = "1"},
                 new SelectListItem() { Selected = false, Text = "2", Value = "2"},
                 new SelectListItem() { Selected = false, Text = "3", Value = "3"},
@@ -66,55 +63,61 @@ namespace FastService.Controllers
                 new SelectListItem() { Selected = false, Text = "6", Value = "6"}
                                     }).ToList();
 
-                var model = new PagoWizardModel()
-                {
-                    MetodoDePago = "TEST",
-                    Proveedores = (from x in _dbContext.Proveedor select x).ToList()
-                };
-
-                return PartialView("CreatePagoWizard", model);
-
-            }
-            catch (Exception)
+            var model = new PagoWizardModel()
             {
+                MetodoDePago = "Def"//TODO:What the heck is that? 
+            };
 
-                throw;
-            }
+            var acreedores = (from p in _dbContext.ProveedoresAcreedores
+                              select new ProveedorModel
+                              {
+                                  RazonSocial = p.Nombre,
+                                  Mail = p.Mail,
+                                  CUIT = p.ProveedorId.ToString(),
+                                  ComprasAPagar = (from c in _dbContext.ComprasAPagar
+                                                   where c.ProveedorId == p.ProveedorId
+                                                   select new CompraAPagarModel
+                                                   {
+                                                       CompraId = c.CompraId,
+                                                       Monto = c.Monto,
+                                                       ProveedorId = c.ProveedorId,
+                                                       Saldo = c.saldo,
+                                                       FechaCreacion = c.FechaCreacion,
+                                                       Descripcion = c.Descripcion
+                                                   }).ToList()
+                              }).ToList();
+
+            model.Proveedores = acreedores;
+
+            return PartialView("CreatePagoWizard", model);
+
         }
 
         [HttpPost]
         public JsonResult Post(PagoModel pago)
         {
-            try
+            foreach (var cuota in pago.MetodoPago.Cuotas)
             {
-                foreach (var cuota in pago.MetodoPago.Cuotas)
+                var newPago = new Pago()
                 {
-                    var month = Convert.ToInt16(cuota.FechaDebito.Split('/')[0].TrimStart('0'));
-                    var day = Convert.ToInt16(cuota.FechaDebito.Split('/')[1].TrimStart('0'));
-                    var year = Convert.ToInt16(cuota.FechaDebito.Split('/')[2].TrimStart('0'));
+                    CompraId = Convert.ToInt32(pago.Compra),
+                    FechaDebito = DateHelper.ParseJSDate(cuota.FechaDebito),
+                    FechaEmision = DateTime.Now,
+                    Monto = Math.Round(cuota.Monto),
+                    NroReferencia = cuota.ChequeNro.ToString(),
+                    CreadoPor = CurrentUserId,
+                    FechaCreacion = DateTime.Now,
+                    MetodoDePagoId = pago.MetodoPago.Id,
+                    TipoTransaccionId = 1
+                };
 
-                    var newPago = new Pago()
-                    {
-                        CompraId = Convert.ToInt32(pago.Compra),
-                        FechaDebito = new DateTime(year, month, day),
-                        FechaEmision = DateTime.Now,
-                        Monto = cuota.Monto,
-                        NroReferencia = cuota.ChequeNro.ToString()
-                    };
-
-                    _dbContext.Pago.Add(newPago);
-                }
-
-                _dbContext.SaveChanges();
-
-                var resultOK = new { Success = "true" };
-                return Json(resultOK, JsonRequestBehavior.AllowGet);
+                _dbContext.Pago.Add(newPago);
             }
-            catch (Exception ex)
-            {
-                var resultOK = new { Success = "false" };
-                return Json(resultOK, JsonRequestBehavior.AllowGet);
-            }
+
+            _dbContext.SaveChanges();
+
+            var resultOK = new { Success = "true" };
+            return Json(resultOK, JsonRequestBehavior.AllowGet);
         }
 
         // POST: PagoProveedores/Create

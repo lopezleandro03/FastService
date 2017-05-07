@@ -14,8 +14,17 @@ namespace Model.Model
     
     public partial class MetodoPago
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MetodoPago()
+        {
+            this.Pago = new HashSet<Pago>();
+        }
+    
         public int MetodoPagoId { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pago> Pago { get; set; }
     }
 }

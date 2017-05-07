@@ -1,4 +1,5 @@
-﻿using Model.Model;
+﻿using FastService.Models;
+using Model.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,20 @@ namespace FastService.Controllers
         // GET: Compra
         public ActionResult Index()
         {
-            return PartialView();
+            return PartialView((from x in _dbContext.Compra
+                                select new CompraModel
+                                {
+                                    Comprador = "test",
+                                    CompraId = x.CompraId,
+                                    Descripcion = x.Descripcion,
+                                    Fecha = x.FechaCreacion,
+                                    Monto = x.Monto,
+                                    Origen = x.PuntoDeVentaId,
+                                    Proveedor = new ProveedorModel
+                                    {
+                                        RazonSocial = x.Proveedor.Nombre
+                                    }
+                                }).ToList());
         }
 
         // GET: Compra/Details/5
@@ -61,62 +75,49 @@ namespace FastService.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            try
-            {
-                var proveedorId = Convert.ToInt32(collection.Get("Proveedor.CUIT"));
-                var proveedor = _dbContext.Proveedor.Find(proveedorId);
+            var proveedorId = collection.Get("Proveedor.CUIT");
+            var proveedor = _dbContext.Proveedor.Find(proveedorId);
 
-                if (proveedor != null)
+            if (proveedor != null)
+            {
+                proveedor.Nombre = collection.Get("Proveedor.RazonSocial");
+                proveedor.Mail = collection.Get("Proveedor.Mail");
+                proveedor.Direccion = collection.Get("Proveedor.Direccion") ?? null;
+                proveedor.Telefono1 = collection.Get("Proveedor.Telefono1") ?? null;
+                proveedor.Telefono2 = collection.Get("Proveedor.Telefono2") ?? null;
+            }
+            else
+            {
+                Proveedor nuevoCliente = new Proveedor()
                 {
-                    proveedor.Nombre = collection.Get("Proveedor.RazonSocial");
-                    proveedor.Mail = collection.Get("Proveedor.Mail");
-                    proveedor.Direccion = collection.Get("Proveedor.Direccion") ?? null;
-                    proveedor.Telefono1 = collection.Get("Proveedor.Telefono1") ?? null;
-                    proveedor.Telefono2 = collection.Get("Proveedor.Telefono2") ?? null;
-                }
-                else
-                {
-                    Proveedor nuevoCliente = new Proveedor()
-                    {
-                        ProveedorId = proveedorId,
-                        Nombre = collection.Get("Proveedor.RazonSocial"),
-                        Mail = collection.Get("Proveedor.Mail"),
-                        Direccion = collection.Get("Proveedor.Direccion") ?? null,
-                        Telefono1 = collection.Get("Proveedor.Telefono1") ?? null,
-                        Telefono2 = collection.Get("Proveedor.Telefono2") ?? null
+                    ProveedorId = proveedorId,
+                    Nombre = collection.Get("Proveedor.RazonSocial"),
+                    Mail = collection.Get("Proveedor.Mail"),
+                    Direccion = collection.Get("Proveedor.Direccion") ?? null,
+                    Telefono1 = collection.Get("Proveedor.Telefono1") ?? null,
+                    Telefono2 = collection.Get("Proveedor.Telefono2") ?? null
                 };
 
-                    _dbContext.Proveedor.Add(nuevoCliente);
-                }
-
-                Compra model = new Compra()
-                {
-                    FacturaId = null,
-                    ProveedorId = Convert.ToInt32(collection.Get("Proveedor.CUIT")),
-                    Monto = Convert.ToDecimal(collection.Get("Monto")),
-                    PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
-                    FechaCreacion = DateTime.Now,
-                    CreadoPor = System.Web.HttpContext.Current.Session["USER"].ToString()
-                };
-
-                _dbContext.Compra.Add(model);
-                _dbContext.SaveChanges();
-
-                var result = new { Success = "true", Message = "Completado!" };
-                return Json(result, JsonRequestBehavior.AllowGet);
+                _dbContext.Proveedor.Add(nuevoCliente);
             }
-            catch (Exception ex)
+
+            Compra model = new Compra()
             {
-                var result = new { Success = "false", Message = "Error Message" };
-                return Json(result, JsonRequestBehavior.AllowGet);
-            }
+                ProveedorId = collection.Get("Proveedor.CUIT"),
+                Monto = Convert.ToDecimal(collection.Get("Monto")),
+                Descripcion = collection.Get("Descripcion"),
+                PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
+                FechaCreacion = DateTime.Now,
+                CreadoPor = CurrentUserId
+            };
+
+            _dbContext.Compra.Add(model);
+            _dbContext.SaveChanges();
+
+            var result = new { Success = "true", Message = "Completado!" };
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Compra/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
         // POST: Compra/Edit/5
         [HttpPost]

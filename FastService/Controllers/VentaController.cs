@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Linq;
 using System.Collections.Generic;
 using FastService.Models;
+using FastService.Helpers;
 
 namespace FastService.Controllers
 {
@@ -30,7 +31,7 @@ namespace FastService.Controllers
                                        Celular = x.Cliente.Telefono1,
                                        Mail = x.Cliente.Mail,
                                        Direccion = x.Cliente.Direccion,
-                                       Id = x.Cliente.ClienteId,
+                                       Dni = x.Cliente.ClienteId,
                                        Telefono = x.Cliente.Telefono2
                                    },
                                    VentaId = x.VentaId,
@@ -71,7 +72,7 @@ namespace FastService.Controllers
                 new SelectListItem() { Selected = false, Text = "5", Value = "5"},
                 new SelectListItem() { Selected = false, Text = "6", Value = "6"}
                                     }).ToList();
-            
+
             return PartialView();
         }
 
@@ -79,15 +80,26 @@ namespace FastService.Controllers
         public ActionResult GetMetodoDePago(int id, int cuotas)
         {
             var metodo = (from x in _dbContext.MetodoPago where x.MetodoPagoId == id select x.Nombre).FirstOrDefault();
-            var model = new PagoConChequeModel()
+            var model = new Object();
+            switch (metodo.ToUpper())
             {
-                NroCuotas = cuotas,
-                Cheques = new List<ChequeModel>()
-            };
+                case "CHEQUE":
+                    model = new PagoConChequeModel()
+                    {
+                        NroCuotas = cuotas,
+                        Cheques = new List<ChequeModel>()
+                    };
 
-            for (int i = 0; i < cuotas; i++)
-                model.Cheques.Add(new ChequeModel());
+                    for (int i = 0; i < cuotas; i++)
+                        ((PagoConChequeModel)model).Cheques.Add(new ChequeModel());
+                    break;
+                case "TRANSFERENCIA":
 
+                    break;
+                default:
+                    break;
+            }
+            
 
 
             return PartialView(string.Format("MetodoPago{0}", metodo), model);
@@ -97,9 +109,9 @@ namespace FastService.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            if (!String.IsNullOrEmpty(collection.Get("Cliente.Id")) && (!String.IsNullOrWhiteSpace(collection.Get("Cliente.Id"))))
+            if (!String.IsNullOrEmpty(collection.Get("Cliente.Dni")) && (!String.IsNullOrWhiteSpace(collection.Get("Cliente.Dni"))))
             {
-                var clienteId = Convert.ToInt32(collection.Get("Cliente.Id"));
+                var clienteId = Convert.ToInt32(collection.Get("Cliente.Dni"));
                 var cliente = _dbContext.Cliente.Find(clienteId);
 
                 if (cliente != null)
@@ -125,38 +137,26 @@ namespace FastService.Controllers
                     };
 
                     _dbContext.Cliente.Add(nuevoCliente);
+                    _dbContext.SaveChanges();
                 }
-
-                Venta model = new Venta()
-                {
-                    FacturaId = null,//string.IsNullOrEmpty(collection.Get("FacturaId")) ? null : Convert.ToInt32(collection.Get("FacturaId")),
-                    ClienteId = Convert.ToInt32(collection.Get("Cliente.Id")),
-                    Monto = Convert.ToDecimal(collection.Get("Monto")),
-                    PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
-                    Fecha = DateTime.Now,
-                    Vendedor = "Test",//TODO:System.Web.HttpContext.Current.Session["USER"].ToString(),
-                    MetodoPagoId = 1
-                };
-
-                _dbContext.Venta.Add(model);
-                _dbContext.SaveChanges();
             }
-            else
+
+            Venta model = new Venta()
             {
-                Venta model = new Venta()
-                {
-                    FacturaId = null,
-                    Monto = Convert.ToDecimal(collection.Get("Monto")),
-                    PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
-                    Fecha = DateTime.Now,
-                    Vendedor = System.Web.HttpContext.Current.Session["USER"].ToString(),
-                    MetodoPagoId = 1,
-                    ClienteId = Convert.ToInt32(collection.Get("Cliente.Id"))
-                };
+                FacturaId = null,
+                RefNumber = collection.Get("FacturaId"),
+                ClienteId = Convert.ToInt32(collection.Get("Cliente.Dni")),
+                Monto = Convert.ToDecimal(collection.Get("Monto")),
+                Descripcion = collection.Get("Descripcion"),
+                PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
+                Fecha = DateHelper.ParseJSDate(collection.Get("Fecha")),
+                Vendedor = CurrentUserId,
+                TipoTransaccionId = collection.Get("Facturado").Split(',').First() == "true" ? 1 : 2,
+                MetodoPagoId = 1
+            };
 
-                _dbContext.Venta.Add(model);
-                _dbContext.SaveChanges();
-            }
+            _dbContext.Venta.Add(model);
+            _dbContext.SaveChanges();
 
             var result = new { Success = "true", Message = "Completado!" };
             return Json(result, JsonRequestBehavior.AllowGet);

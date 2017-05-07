@@ -9,7 +9,7 @@ namespace FastService.Models
 {
     public class PagoWizardModel
     {
-        public List<Proveedor> Proveedores { get; set; }
+        public List<ProveedorModel> Proveedores { get; set; }
         public string MetodoPago { get; set; }
         [Display(Name = "Metodo de pago")]
         public string MetodoDePago { get; set; }

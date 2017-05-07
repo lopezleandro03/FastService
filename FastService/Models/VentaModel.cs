@@ -12,7 +12,7 @@ namespace FastService.Models
         [Display(Name = "Comercio")]
         public int Origen { get; set; }
         [Required]
-        [RegularExpression(@"[0-9]*\.?[0-9]+", ErrorMessage = "{0} Debe ser un monto correcto")]
+        [RegularExpression(@"[0-9]*\.?[0-9]+", ErrorMessage = "{0} debe ser un monto correcto, por ejemplo 5250.50")]
         [Display(Name = "Monto")]
         public decimal Monto { get; set; }
         [DataType(DataType.MultilineText)]
@@ -20,10 +20,11 @@ namespace FastService.Models
         public ClienteModel Cliente { get; set; }
         public List<PagoModel> Pago { get; set; }
         public DateTime Fecha { get; set; }
-        public string Vendedor { get; set; }
+        public int Vendedor { get; set; }
         [Display(Name = "Factura Nro.")]
         public int? FacturaId { get; set; }
-
+        [Display(Name = "Venta Facturada?")]
+        public bool Facturado { get; set; }
 
         [Display(Name = "Metodo de pago")]
         public string MetodoDePago { get; set; }

@@ -1,33 +1,30 @@
 ﻿@model IEnumerable<FastService.Models.VentaModel>
 
-<p>
-    <button id="btnNuevaVenta">Nueva Venta</button>
-</p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.VentaId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClienteId)
+            @Html.DisplayNameFor(model => model.Cliente.Dni)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NombreCliente)
+            @Html.DisplayNameFor(model => model.Cliente.Nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ApellidoCliente)
+            @Html.DisplayNameFor(model => model.Cliente.Apellido)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MailCliente)
+            @Html.DisplayNameFor(model => model.Cliente.Mail)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Telefono)
+            @Html.DisplayNameFor(model => model.Cliente.Telefono)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Celular)
+            @Html.DisplayNameFor(model => model.Cliente.Celular)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Direccion)
+            @Html.DisplayNameFor(model => model.Cliente.Direccion)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Monto)
@@ -45,7 +42,7 @@
             @Html.DisplayNameFor(model => model.Vendedor)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FacturaID)
+            @Html.DisplayNameFor(model => model.Facturado)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Descripcion)
@@ -59,25 +56,25 @@
             @Html.DisplayFor(modelItem => item.VentaId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ClienteId)
+            @Html.DisplayFor(modelItem => item.Cliente.Dni)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NombreCliente)
+            @Html.DisplayFor(modelItem => item.Cliente.Nombre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ApellidoCliente)
+            @Html.DisplayFor(modelItem => item.Cliente.Apellido)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.MailCliente)
+            @Html.DisplayFor(modelItem => item.Cliente.Mail)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Telefono)
+            @Html.DisplayFor(modelItem => item.Cliente.Telefono)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Celular)
+            @Html.DisplayFor(modelItem => item.Cliente.Celular)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Direccion)
+            @Html.DisplayFor(modelItem => item.Cliente.Direccion)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Monto)
@@ -95,15 +92,10 @@
             @Html.DisplayFor(modelItem => item.Vendedor)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FacturaID)
+            @Html.DisplayFor(modelItem => item.Facturado)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
 }

@@ -6,7 +6,7 @@ using System.Web.Routing;
 
 namespace FastService.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public FastServiceEntities _dbContext { get; set; }
 
@@ -17,7 +17,7 @@ namespace FastService.Controllers
 
         public ActionResult Index()
         {
-            bool flag = string.IsNullOrEmpty(System.Web.HttpContext.Current.Session["USER"] as string);
+            bool flag = string.IsNullOrEmpty(base.CurrentUserEmail);
             ActionResult result;
 
             if (flag) //Just for testing
@@ -30,12 +30,10 @@ namespace FastService.Controllers
             }
             else
             {
-                var user = System.Web.HttpContext.Current.Session["USER"] as string;
-                
                 var model = (from x in _dbContext.UsuarioRol
                              join u in _dbContext.Usuario on x.UserId equals u.UserId
                              join r in _dbContext.Role on x.RolId equals r.RolId
-                             where u.Email == user
+                             where u.Email == CurrentUserEmail
                              select new MenuModel()
                              {
                                  Nombre = u.Nombre,
