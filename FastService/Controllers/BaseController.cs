@@ -23,8 +23,19 @@ namespace FastService.Controllers
             Exception e = filterContext.Exception;
             //Log Exception e
             var logger = LogManager.GetCurrentClassLogger();
+            var logInfo = new LogEventInfo();
+            logInfo.Properties["EventDateTime"] = DateTime.Now;
+            logInfo.Properties["EventLevel"] = LogLevel.Error;
+            logInfo.Properties["UserName"] = CurrentUserEmail ?? string.Empty;
+            logInfo.Properties["EventMessage"] = e.Message ?? string.Empty;
+            //logInfo.Properties["ErrorSource"] = e.Source ;
+            //logInfo.Properties["ErrorClass"] = e.;
+            //logInfo.Properties["ErrorMethod"] = ;
+            logInfo.Properties["ErrorMessage"] = e.StackTrace ?? string.Empty;
+            logInfo.Properties["InnerErrorMessage"] = e.InnerException.Message ?? string.Empty;
 
-            logger.Log(LogLevel.Error, e, e.Message);
+            logger.Log(LogLevel.Error, logInfo);
+            //logger.Log(LogLevel.Error, e, e.Message);
 
             filterContext.ExceptionHandled = true;
 
