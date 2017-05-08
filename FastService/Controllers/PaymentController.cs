@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace FastService.Controllers
 {
-    public class PaymentController : Controller
+    public class PaymentController : BaseController
     {
         //
         // GET: /Payment/

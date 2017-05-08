@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FastService.Controllers
 {
-    public class ClienteController : Controller
+    public class ClienteController : BaseController
     {
         public FastServiceEntities _db { get; set; }
         // GET: Cliente
