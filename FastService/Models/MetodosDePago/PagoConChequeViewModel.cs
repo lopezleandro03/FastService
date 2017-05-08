@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
-namespace FastService.Models
+namespace FastService.Models.MetodosDePago
 {
-    public class PagoConChequeModel
+    public class PagoConChequeViewModel
     {
         [Display(Name = "Numero Cuotas")]
         public int NroCuotas { get; set; }

@@ -187,7 +187,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DateHelper.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\CompraAPagarModel.cs" />
     <Compile Include="Models\CompraModel.cs" />
@@ -196,9 +195,11 @@
     <Compile Include="Models\Login\LoginModel.cs" />
     <Compile Include="Models\Login\MenuItemModel.cs" />
     <Compile Include="Models\Login\MenuModel.cs" />
-    <Compile Include="Models\MetodoPagoModel.cs" />
-    <Compile Include="Models\PagoConCheque.cs" />
+    <Compile Include="Models\MetodosDePago\MetodoPagoModel.cs" />
+    <Compile Include="Models\MetodosDePago\PagoConChequeViewModel.cs" />
     <Compile Include="Models\ChequeModel.cs" />
+    <Compile Include="Models\MetodosDePago\PagoConEfectivoViewModel.cs" />
+    <Compile Include="Models\MetodosDePago\PagoConTransferenciaViewModel.cs" />
     <Compile Include="Models\PagoModel.cs" />
     <Compile Include="Models\PagoWizardModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
@@ -859,13 +860,14 @@
     <Content Include="Views\Compra\Create.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Venta\Index.cshtml" />
-    <Content Include="Views\Compra\MetodoPagoCheque.cshtml" />
     <Content Include="Views\Venta\MetodoPagoCheque.cshtml" />
     <Content Include="Views\PagoProveedores\Create.cshtml" />
     <Content Include="Views\Proveedor\Index.cshtml" />
     <Content Include="Views\PagoProveedores\CreatePagoWizard.cshtml" />
     <Content Include="Views\Shared\SuccessView.cshtml" />
     <Content Include="Views\Compra\Index.cshtml" />
+    <Content Include="Views\Venta\MetodoPagoTransferencia.cshtml" />
+    <Content Include="Views\Venta\MetodoPagoEfectivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

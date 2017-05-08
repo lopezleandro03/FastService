@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using FastService.Models;
 using FastService.Helpers;
+using FastService.Models.MetodosDePago;
 
 namespace FastService.Controllers
 {
@@ -79,23 +80,31 @@ namespace FastService.Controllers
         [HttpGet]
         public ActionResult GetMetodoDePago(int id, int cuotas)
         {
-            var metodo = (from x in _dbContext.MetodoPago where x.MetodoPagoId == id select x.Nombre).FirstOrDefault();
+            var metodo = (from x in _dbContext.MetodoPago where x.MetodoPagoId == id select x.Nombre.ToUpper()).FirstOrDefault();
             var model = new Object();
-            switch (metodo.ToUpper())
+            switch (metodo)
             {
                 case "CHEQUE":
-                    model = new PagoConChequeModel()
+                    model = new PagoConChequeViewModel()
                     {
                         NroCuotas = cuotas,
                         Cheques = new List<ChequeModel>()
                     };
 
                     for (int i = 0; i < cuotas; i++)
-                        ((PagoConChequeModel)model).Cheques.Add(new ChequeModel());
+                        ((PagoConChequeViewModel)model).Cheques.Add(new ChequeModel());
                     break;
+
                 case "TRANSFERENCIA":
+                    model = new PagoConTransferenciaViewModel();
+                    
+                    break;
+
+                case "EFECTIVO":
+                    model = new Models.MetodosDePago.PagoConEfectivoViewModel();
 
                     break;
+
                 default:
                     break;
             }

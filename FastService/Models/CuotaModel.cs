@@ -7,7 +7,7 @@ namespace FastService.Models
 {
     public class CuotaModel
     {
-        public int ChequeNro { get; set; }
+        public int RefNumber { get; set; }
         public string FechaDebito { get; set; }
         public decimal Monto { get; set; }
         

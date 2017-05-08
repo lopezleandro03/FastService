@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using FastService.Models.MetodosDePago;
 
 namespace FastService.Models
 {
@@ -9,6 +6,7 @@ namespace FastService.Models
     {
         public int Proveedor { get; set; }
         public int Compra { get; set; }
+        public int Facturado { get; set; }
         public MetodoPagoModel MetodoPago { get; set; }
     }
 }

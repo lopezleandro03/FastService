@@ -96,22 +96,64 @@ namespace FastService.Controllers
         [HttpPost]
         public JsonResult Post(PagoModel pago)
         {
-            foreach (var cuota in pago.MetodoPago.Cuotas)
-            {
-                var newPago = new Pago()
-                {
-                    CompraId = Convert.ToInt32(pago.Compra),
-                    FechaDebito = DateHelper.ParseJSDate(cuota.FechaDebito),
-                    FechaEmision = DateTime.Now,
-                    Monto = Math.Round(cuota.Monto),
-                    NroReferencia = cuota.ChequeNro.ToString(),
-                    CreadoPor = CurrentUserId,
-                    FechaCreacion = DateTime.Now,
-                    MetodoDePagoId = pago.MetodoPago.Id,
-                    TipoTransaccionId = 1
-                };
+            var metodo = (from x in _dbContext.MetodoPago where x.MetodoPagoId == pago.MetodoPago.Id select x.Nombre.ToUpper()).FirstOrDefault();
 
-                _dbContext.Pago.Add(newPago);
+            switch (metodo)
+            {
+                case "CHEQUE":
+
+                    foreach (var cuota in pago.MetodoPago.Cuotas)
+                    {
+                        var nuevoPagoCheque = new Pago()
+                        {
+                            CompraId = Convert.ToInt32(pago.Compra),
+                            FechaDebito = DateHelper.ParseJSDate(cuota.FechaDebito),
+                            FechaEmision = DateTime.Now,
+                            Monto = Math.Round(cuota.Monto),
+                            NroReferencia = cuota.RefNumber.ToString(),
+                            CreadoPor = CurrentUserId,
+                            FechaCreacion = DateTime.Now,
+                            MetodoDePagoId = pago.MetodoPago.Id,
+                            TipoTransaccionId = 1
+                        };
+
+                        _dbContext.Pago.Add(nuevoPagoCheque);
+                    }
+
+                    break;
+                case "TRANSFERENCIA":
+                    var nuevoPagoTransf = new Pago()
+                    {
+                        CompraId = Convert.ToInt32(pago.Compra),
+                        FechaDebito = DateHelper.ParseJSDate(pago.MetodoPago.Cuotas.First().FechaDebito),
+                        FechaEmision = DateTime.Now,
+                        Monto = Math.Round(pago.MetodoPago.Cuotas.First().Monto),
+                        NroReferencia = pago.MetodoPago.Cuotas.First().RefNumber.ToString(),
+                        CreadoPor = CurrentUserId,
+                        FechaCreacion = DateTime.Now,
+                        MetodoDePagoId = pago.MetodoPago.Id,
+                        TipoTransaccionId = 1
+                    };
+                    _dbContext.Pago.Add(nuevoPagoTransf);
+                    break;
+                case "EFECTIVO":
+                    var nuevoPagoEfect = new Pago()
+                    {
+                        CompraId = Convert.ToInt32(pago.Compra),
+                        FechaDebito = DateHelper.ParseJSDate(pago.MetodoPago.Cuotas.First().FechaDebito),
+                        FechaEmision = DateTime.Now,
+                        Monto = Math.Round(pago.MetodoPago.Cuotas.First().Monto),
+                        NroReferencia = pago.MetodoPago.Cuotas.First().RefNumber.ToString(),
+                        CreadoPor = CurrentUserId,
+                        FechaCreacion = DateTime.Now,
+                        MetodoDePagoId = pago.MetodoPago.Id,
+                        TipoTransaccionId = pago.Facturado
+                    };
+                    _dbContext.Pago.Add(nuevoPagoEfect);
+
+                    break;
+                default:
+                    break;
             }
 
             _dbContext.SaveChanges();

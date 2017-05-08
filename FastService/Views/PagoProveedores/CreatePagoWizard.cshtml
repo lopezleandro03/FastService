@@ -115,19 +115,17 @@
                                                 <div class="col-md-7">
                                                     <select class="form-control" id="MetodoPago">
                                                         <option value="1" selected>Cheque</option>
-                                                        <option value="2">Mercado Pago</option>
                                                         <option value="3">Efectivo</option>
                                                         <option value="4">Transferencia Bancaria</option>
-                                                        <option value="5">Tarjeta de Crédito</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            <div id ="divNroCuotas" class="form-group">
                                                 <label class="col-md-5 control-label">Nro. de Cuotas</label>
                                                 <div class="col-md-7">
-                                                    <select class="form-control" id="NroCuotas">
+                                                    <select class="form-control" id="NroCuotas" hidden>
                                                         <option value="0" selected>Seleccione cant. de cuotas</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -169,27 +167,8 @@
                 </form>
             </div>
         </div>
-
-    </div>
-
-</div>
-<div class="modal fade" id="modalNuevaTarea" role="dialog">
-    <div class="modal-dialog">
-        <div id="divNuevaTarea" class="portlet box red">
-
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-gift"></i>Nueva Tarea
-                </div>
-            </div>
-            <div class="portlet-body form">
-
-            </div>
-        </div>
     </div>
 </div>
-
-
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
@@ -202,6 +181,40 @@
     //PagoModel.Proveedor = new Object();
     //PagoModel.Compra = new Object();
     PagoModel.MetodoPago = new Object();
+
+    function loadMetodoPago() {
+        PagoModel.MetodoPago.Id = $("#MetodoPago").val();
+
+        switch (PagoModel.MetodoPago.Id) {
+            case '1':
+                PagoModel.MetodoPago.NroCuotas = $("#NroCuotas").val();
+                break;
+            default:
+                break;
+        }
+
+        $.ajax({
+            url: "/Venta/GetMetodoDePago/" + $("#MetodoPago").val() + "/" + $("#NroCuotas").val(),
+            success: function (data) {
+                $("#divFormaDePago").html("")
+                $("#divFormaDePago").append(data)
+
+                switch (PagoModel.MetodoPago.Id) {
+                    case '1':
+                        $(".chequeMonto").val((parseInt(PagoModel.Monto) / parseInt(PagoModel.MetodoPago.NroCuotas).toFixed(2)));
+                        break;
+                    case '3':
+                        $("#monto").val(parseInt(PagoModel.Monto));
+                        break;
+                    case '4':
+                        $("#monto").val(parseInt(PagoModel.Monto));
+                        break;
+                    default:
+                        $("#monto").val(parseInt(PagoModel.Monto));
+                }
+            }
+        });
+    }
 
     $(".liProveedor").click(function () {
         $(".ulFacturas").hide();
@@ -229,30 +242,42 @@
 
     });
 
-    $("#NroCuotas").change(function () {
-        if ($("#MetodoDePago").val() != '') {
-            PagoModel.MetodoPago.Id = $("#MetodoPago").val();
-            PagoModel.MetodoPago.NroCuotas = $("#NroCuotas").val();
-
-            $.ajax({
-                url: "/Venta/GetMetodoDePago/" + $("#MetodoPago").val() + "/" + $("#NroCuotas").val(),
-                success: function (data) {
-                    $("#divFormaDePago").html("")
-                    $("#divFormaDePago").append(data)
-                    $(".chequeMonto").val((parseInt(PagoModel.Monto) / parseInt(PagoModel.MetodoPago.NroCuotas).toFixed(2)))
-                }
-            })
+    $("#MetodoPago").change(function () {
+        $("#divNroCuotas").hide();
+        if ($("#MetodoPago").val() == '1')
+            $("#divNroCuotas").show();
+        else {
+            loadMetodoPago();
         }
+    });
+
+    $("#NroCuotas").change(function () {
+        loadMetodoPago();
     });
 
     $("#btnAceptar").click(function () {
         PagoModel.MetodoPago.Cuotas = new Array();
-        for (var i = 0; i < PagoModel.MetodoPago.NroCuotas; i++) {
-            PagoModel.MetodoPago.Cuotas[i] = new Object();
-            PagoModel.MetodoPago.Cuotas[i].ChequeNro = $("#NroCheque_" + i).val();
-            PagoModel.MetodoPago.Cuotas[i].FechaDebito = $("#FechaDebito_" + i).val();
-            PagoModel.MetodoPago.Cuotas[i].Monto = $("#Monto_" + i).val();
-        };
+        switch (PagoModel.MetodoPago.Id) {
+            case '1':
+                for (var i = 0; i < PagoModel.MetodoPago.NroCuotas; i++) {
+                    PagoModel.MetodoPago.Cuotas[i] = new Object();
+                    PagoModel.MetodoPago.Cuotas[i].RefNumber = $("#NroCheque_" + i).val();
+                    PagoModel.MetodoPago.Cuotas[i].FechaDebito = $("#FechaDebito_" + i).val();
+                    PagoModel.MetodoPago.Cuotas[i].Monto = $("#Monto_" + i).val();
+                };
+                break;
+            case '3':
+                PagoModel.MetodoPago.Cuotas[0] = new Object();
+                PagoModel.MetodoPago.Cuotas[0].FechaDebito = $("#Fecha").val();
+                PagoModel.MetodoPago.Cuotas[0].Monto = $("#monto").val();
+                break;
+            case '4':
+                PagoModel.MetodoPago.Cuotas[0] = new Object();
+                PagoModel.MetodoPago.Cuotas[0].FechaDebito = $("#Fecha").val();
+                PagoModel.MetodoPago.Cuotas[0].Monto = $("#monto").val();
+                PagoModel.Facturado = $("#Facturado").is(':checked') == true ? "1" : "2";
+            default:
+        }
 
         $.ajax({
             url: "/PagoProveedores/Post",
@@ -270,4 +295,3 @@
     });
 
 </script>
-
