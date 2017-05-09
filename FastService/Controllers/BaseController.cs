@@ -34,8 +34,8 @@ namespace FastService.Controllers
             logInfo.Properties["ErrorMessage"] = e.StackTrace ?? string.Empty;
             logInfo.Properties["InnerErrorMessage"] = e.InnerException.Message ?? string.Empty;
 
-            logger.Log(LogLevel.Error, logInfo);
-            //logger.Log(LogLevel.Error, e, e.Message);
+            //logger.Log(LogLevel.Error, logInfo);
+            logger.Log(LogLevel.Error, e, e.StackTrace);
 
             filterContext.ExceptionHandled = true;
 
