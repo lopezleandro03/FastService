@@ -119,7 +119,9 @@ namespace FastService.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            if (!String.IsNullOrEmpty(collection.Get("Cliente.Dni")) && (!String.IsNullOrWhiteSpace(collection.Get("Cliente.Dni"))))
+            bool esClienteValido = (!String.IsNullOrEmpty(collection.Get("Cliente.Dni")) && !String.IsNullOrWhiteSpace(collection.Get("Cliente.Dni")));
+
+            if (esClienteValido)
             {
                 var clienteId = Convert.ToInt32(collection.Get("Cliente.Dni"));
                 var cliente = _dbContext.Cliente.Find(clienteId);
@@ -150,13 +152,12 @@ namespace FastService.Controllers
                     _dbContext.SaveChanges();
                 }
             }
+            
 
             Venta model = new Venta()
             {
                 FacturaId = null,
                 RefNumber = collection.Get("FacturaId"),
-                ClienteId = Convert.ToInt32(collection.Get("Cliente.Dni")),
-                Monto = Convert.ToDecimal(collection.Get("Monto")),
                 Descripcion = collection.Get("Descripcion"),
                 PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
                 Fecha = DateHelper.ParseJSDate(collection.Get("Fecha")),
@@ -164,6 +165,20 @@ namespace FastService.Controllers
                 TipoTransaccionId = collection.Get("Facturado").Split(',').First() == "true" ? 1 : 2,
                 MetodoPagoId = 1
             };
+
+            var c = System.Threading.Thread.CurrentThread.CurrentCulture;
+            var s = c.NumberFormat.CurrencyDecimalSeparator;
+
+
+            var montoStr = collection.Get("Monto"); 
+            montoStr = montoStr.Replace(",", s);
+            montoStr = montoStr.Replace(".", s);
+            var monto = Convert.ToDecimal(montoStr);
+
+            model.Monto = monto;
+
+            if (esClienteValido)
+                model.ClienteId = Convert.ToInt32(collection.Get("Cliente.Dni"));
 
             _dbContext.Venta.Add(model);
             _dbContext.SaveChanges();
