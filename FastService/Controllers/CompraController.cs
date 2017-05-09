@@ -23,12 +23,12 @@ namespace FastService.Controllers
             return PartialView((from x in _dbContext.Compra
                                 select new CompraModel
                                 {
-                                    Comprador = "test",
                                     CompraId = x.CompraId,
                                     Descripcion = x.Descripcion,
                                     Fecha = x.FechaCreacion,
                                     Monto = x.Monto,
                                     Origen = x.PuntoDeVentaId,
+                                    OrigenNombre = x.PuntoDeVenta.Nombre,
                                     Proveedor = new ProveedorModel
                                     {
                                         RazonSocial = x.Proveedor.Nombre

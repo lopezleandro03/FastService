@@ -38,6 +38,7 @@ namespace FastService.Controllers
                                    VentaId = x.VentaId,
                                    Monto = x.Monto,
                                    Origen = x.PuntoDeVenta.PuntoDeVentaId,
+                                   OrigenNombre = x.PuntoDeVenta.Nombre,
                                    Vendedor = x.Vendedor
                                });
         }

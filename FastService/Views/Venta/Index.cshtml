@@ -2,6 +2,10 @@
 
 <table class="table">
     <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.OrigenNombre)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.VentaId)
         </th>
@@ -15,46 +19,33 @@
             @Html.DisplayNameFor(model => model.Cliente.Apellido)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cliente.Mail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cliente.Telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cliente.Celular)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cliente.Direccion)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Monto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FacturaId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Origen)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Fecha)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Vendedor)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Facturado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.OrigenNombre)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.VentaId)
         </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.Cliente.Dni)
         </td>
@@ -65,37 +56,22 @@
             @Html.DisplayFor(modelItem => item.Cliente.Apellido)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Cliente.Mail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cliente.Telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cliente.Celular)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cliente.Direccion)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Monto)
         </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.FacturaId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Origen)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Fecha)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Vendedor)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.Facturado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
         </td>
     </tr>
 }

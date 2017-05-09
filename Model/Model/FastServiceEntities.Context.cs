@@ -17,7 +17,7 @@ namespace Model.Model
     public partial class FastServiceEntities : DbContext
     {
         public FastServiceEntities()
-            : base(CommonUtility.IsDevelopmentServer() ? "name=LocalFastServiceEntities" : "name=FastServiceEntities")
+            : base(!CommonUtility.IsDevelopmentServer() ? "name=LocalFastServiceEntities" : "name=FastServiceEntities")
         {
         }
     

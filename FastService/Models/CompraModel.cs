@@ -12,6 +12,7 @@ namespace FastService.Models
         [Required]
         [Display(Name = "Comercio")]
         public int Origen { get; set; }
+        public string OrigenNombre { get; set; }
         public int CompraId { get; set; }
         [Required]
         [RegularExpression(@"[0-9]*\.?[0-9]+", ErrorMessage = "{0} Debe ser un monto correcto")]
