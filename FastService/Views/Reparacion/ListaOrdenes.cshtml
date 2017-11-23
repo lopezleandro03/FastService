@@ -1,0 +1,34 @@
+﻿@model FastService.Models.OrdenesIndexViewModel
+<table>
+    <tr>
+        <th>
+            <h3>Ordenes</h3>
+        </th>
+
+        @foreach (var r in Model.Ordenes)
+            {
+        <tr>
+            <td class="OrdenHeader">
+                @Html.DisplayFor(x => r.NroOrden) + @Html.DisplayFor(x => r.Cliente.Nombre)
+                <button data-url='@Url.Action("Details")/@r.NroOrden' class="button-ver-orden">ver</button>
+        </tr>
+        }
+    </table>
+
+    <style>
+        .OrdenHeader {
+            font-size: large;
+            font-style: normal;
+        }
+    </style>
+
+    <script>
+        $(".button-ver-orden").click(function (e) {
+            $.ajax({
+                url: $(this).data("url"),
+                success: function (data) {
+                    $("#OrdenResumen").html(data);
+                }
+            })
+        });
+    </script>

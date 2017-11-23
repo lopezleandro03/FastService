@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -182,6 +183,7 @@
     <Compile Include="Controllers\PagoProveedoresController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
+    <Compile Include="Controllers\ReparacionController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -200,10 +202,13 @@
     <Compile Include="Models\ChequeModel.cs" />
     <Compile Include="Models\MetodosDePago\PagoConEfectivoViewModel.cs" />
     <Compile Include="Models\MetodosDePago\PagoConTransferenciaViewModel.cs" />
+    <Compile Include="Models\NovedadModel.cs" />
     <Compile Include="Models\PagoModel.cs" />
     <Compile Include="Models\PagoWizardModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\ProveedorModel.cs" />
+    <Compile Include="Models\OrdenesIndexViewModel.cs" />
+    <Compile Include="Models\OrdenModel.cs" />
     <Compile Include="Models\VentaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -868,6 +873,11 @@
     <Content Include="Views\Compra\Index.cshtml" />
     <Content Include="Views\Venta\MetodoPagoTransferencia.cshtml" />
     <Content Include="Views\Venta\MetodoPagoEfectivo.cshtml" />
+    <Content Include="Views\Reparacion\NuevaOrden.cshtml" />
+    <Content Include="Views\Reparacion\Index.cshtml" />
+    <Content Include="Views\Reparacion\ListaOrdenes.cshtml" />
+    <Content Include="Views\Reparacion\OrdenResumen.cshtml" />
+    <Content Include="Views\Reparacion\PanelAccion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

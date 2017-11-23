@@ -1,0 +1,134 @@
+﻿@model FastService.Models.OrdenesIndexViewModel
+
+<h4>Estado y Asignacion</h4>
+<div class="row">
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.NroOrden)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.NroOrden, new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.EstadoDesc)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.EstadoDesc, new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.EstadoFecha)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.EstadoFecha, new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.Garantia)
+        @Html.CheckBoxFor(Model => Model.OrdenActiva.Garantia, new { @class = "form-control left" })
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.ResponsableNombre)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.ResponsableNombre, new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.TecnicoNombre)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.TecnicoNombre, new { @class = "form-control" })
+    </div>
+</div>
+
+<h4>Datos del Cliente</h4>
+<div class="row">
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.Cliente.Nombre)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.Cliente.Nombre, new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.Cliente.Apellido)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.Cliente.Apellido, new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.Cliente.Mail)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.Cliente.Mail, new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.Cliente.Dni)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.Cliente.Dni, new { @class = "form-control" })
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.Cliente.Mail)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.Cliente.Mail, new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.Cliente.Telefono)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.Cliente.Telefono, new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.Cliente.Celular)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.Cliente.Celular, new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.Cliente.Direccion)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.Cliente.Direccion, new { @class = "form-control" })
+    </div>
+</div>
+
+<h4>Datos del Aparato</h4>
+<div class="row">
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.MarcaDesc)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.MarcaDesc, new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.NroSerie)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.NroSerie, new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(Model => Model.OrdenActiva.Modelo)
+        @Html.TextBoxFor(Model => Model.OrdenActiva.Modelo, new { @class = "form-control" })
+    </div>
+</div>
+
+<h4>Novedades</h4>
+<div class="row">
+    <div class="col-md-3">
+        @if (Model.OrdenActiva.Novedades != null)
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrdenActiva.Novedades.First().Fecha)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrdenActiva.Novedades.First().Descripcion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrdenActiva.Novedades.First().Monto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrdenActiva.Novedades.First().Observacion)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.OrdenActiva.Novedades)
+                {
+                    <tr>
+                        <td>
+                            @Html.TextBoxFor(Item => item.Fecha)
+                        </td>
+                        <td>
+                            @Html.TextAreaFor(Item => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(Item => item.Monto)
+                        </td>
+                        <td>
+                            @Html.TextAreaFor(Item => item.Observacion)
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <h4> No hay novedades cargadas</h4>
+        }
+    </div>
+</div>

@@ -61,6 +61,9 @@
     <Compile Include="Model\ComprasAPagar.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\EstadoReparacion.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Factura.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
@@ -82,7 +85,16 @@
     <Compile Include="Model\ItemMenu.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Logs.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Marca.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\MetodoPago.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\novedad.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Pago.cs">
@@ -97,10 +109,19 @@
     <Compile Include="Model\PuntoDeVenta.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Reparacion.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Role.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\RoleMenu.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TipoDispositivo.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TipoNovedad.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TipoTransaccion.cs">
@@ -152,6 +173,7 @@
       <Name>FastService.Backend</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

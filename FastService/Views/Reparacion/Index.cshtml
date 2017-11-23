@@ -1,0 +1,15 @@
+﻿@model FastService.Models.OrdenesIndexViewModel
+
+<div class="row">
+    <div id="listaOrdenes" class="col-md-2">
+        @RenderPage("ListaOrdenes.cshtml", Model)
+    </div>
+
+    <div id="OrdenResumen" class="col-md-8">
+        @RenderPage("OrdenResumen.cshtml", Model)
+    </div>
+
+    <div id="OrdenResumen" class="col-md-2">
+        @RenderPage("PanelAccion.cshtml", Model)
+    </div>
+</div>
