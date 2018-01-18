@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace FastService.Models
 {
@@ -6,5 +7,6 @@ namespace FastService.Models
     {
         public List<OrdenModel> Ordenes { get; set; }
         public OrdenModel OrdenActiva { get; set; }
+        public bool NuevaOrden { get; internal set; }
     }
 }

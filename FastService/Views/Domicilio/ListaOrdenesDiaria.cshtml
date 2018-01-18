@@ -1,0 +1,36 @@
+﻿@model FastService.Models.DomicilioViewModel
+
+<th>
+    <h3>Ordenes del dia</h3>
+</th>
+
+<hr>
+
+<ul class="list-group ListaOrdenes">
+    @foreach (var r in Model.OrdenesDelDia)
+    {
+        <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-rem-orden">
+            <div class="OrdenListNro">
+                <b> @Html.DisplayFor(x => r.NroOrden)</b>
+            </div>
+            <div class="OrdenListSummary">
+                @Html.DisplayFor(x => r.Cliente.PrettyName)
+            </div>
+            <div class="OrdenListHints">
+                <span class="badge badge-info">@Html.DisplayFor(x => r.Cliente.Dir.Ciudad)</span>
+            </div>
+        </li>
+    }
+</ul>
+
+<script>
+    $(".li-rem-orden").click(function (e) {
+
+        $.ajax({
+            url: "@Url.Action("Remove")?id=" + $(this).data("id"),
+            success: function (data) {
+                $("#domicilioIndex").html(data);
+            }
+        })
+    });
+</script>

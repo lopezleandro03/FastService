@@ -26,18 +26,22 @@ namespace Model.Model
         }
     
         public virtual DbSet<Cliente> Cliente { get; set; }
+        public virtual DbSet<Comercio> Comercio { get; set; }
         public virtual DbSet<Compra> Compra { get; set; }
+        public virtual DbSet<Direccion> Direccion { get; set; }
         public virtual DbSet<EstadoReparacion> EstadoReparacion { get; set; }
         public virtual DbSet<Factura> Factura { get; set; }
         public virtual DbSet<ItemMenu> ItemMenu { get; set; }
         public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Marca> Marca { get; set; }
         public virtual DbSet<MetodoPago> MetodoPago { get; set; }
-        public virtual DbSet<novedad> novedad { get; set; }
+        public virtual DbSet<Modelo> Modelo { get; set; }
+        public virtual DbSet<Novedad> Novedad { get; set; }
         public virtual DbSet<Pago> Pago { get; set; }
         public virtual DbSet<Proveedor> Proveedor { get; set; }
         public virtual DbSet<PuntoDeVenta> PuntoDeVenta { get; set; }
         public virtual DbSet<Reparacion> Reparacion { get; set; }
+        public virtual DbSet<ReparacionDetalle> ReparacionDetalle { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<TipoDispositivo> TipoDispositivo { get; set; }
         public virtual DbSet<TipoNovedad> TipoNovedad { get; set; }

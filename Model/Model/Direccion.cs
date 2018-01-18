@@ -12,24 +12,28 @@ namespace Model.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Proveedor
+    public partial class Direccion
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Proveedor()
+        public Direccion()
         {
-            this.Compra = new HashSet<Compra>();
+            this.Cliente = new HashSet<Cliente>();
         }
     
-        public string ProveedorId { get; set; }
-        public string Nombre { get; set; }
-        public string Mail { get; set; }
-        public string Contacto { get; set; }
-        public string Telefono1 { get; set; }
-        public string Telefono2 { get; set; }
-        public string Direccion { get; set; }
-        public string Localidad { get; set; }
+        public int DireccionId { get; set; }
+        public string Altura { get; set; }
+        public string Calle { get; set; }
+        public string Ciudad { get; set; }
+        public string Provincia { get; set; }
+        public string CodigoPostal { get; set; }
+        public string Pais { get; set; }
+        public string Comentarios { get; set; }
+        public Nullable<decimal> Latitud { get; set; }
+        public Nullable<decimal> Longitud { get; set; }
+        public System.DateTime ChangedOn { get; set; }
+        public int ChangedBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Compra> Compra { get; set; }
+        public virtual ICollection<Cliente> Cliente { get; set; }
     }
 }

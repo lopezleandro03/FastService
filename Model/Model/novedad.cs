@@ -12,7 +12,7 @@ namespace Model.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class novedad
+    public partial class Novedad
     {
         public int novedadId { get; set; }
         public int reparacionId { get; set; }

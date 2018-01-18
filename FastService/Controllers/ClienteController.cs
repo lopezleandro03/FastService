@@ -27,10 +27,11 @@ namespace FastService.Controllers
         [HttpPost]
         public JsonResult Get(string ClienteId)
         {
-            var cliente = _db.Cliente.Find(Convert.ToInt32(ClienteId));
+            var cliente = _db.Cliente.Where(x=>x.Dni.ToString() == ClienteId).FirstOrDefault();
+
             var model = new ClienteModel()
             {
-                Dni = cliente.ClienteId,
+                Dni = cliente.Dni,
                 Nombre = cliente.Nombre,
                 Apellido = cliente.Apellido,
                 Telefono = cliente.Telefono1,
@@ -46,11 +47,10 @@ namespace FastService.Controllers
         public JsonResult Index(string Prefix)
         {
             //Note : you can bind same list from database  
-            var ObjList = (from x in _db.Cliente select new ClienteModel() { Dni = x.ClienteId, Nombre = x.Nombre, Apellido = x.Apellido }).ToList();
+            var ObjList = (from x in _db.Cliente where x.Dni.ToString().Contains(Prefix) select new ClienteModel() { Dni = x.Dni, Nombre = x.Nombre, Apellido = x.Apellido }).Take(20).ToList();
 
             //Searching records from list using LINQ query  
             var NombreCliente = (from N in ObjList
-                                 where N.Dni.ToString().StartsWith(Prefix)
                                  select new { N.DisplayName, N.Dni }
                                  ).ToList();
 

@@ -1,0 +1,39 @@
+﻿@model FastService.Models.DomicilioViewModel
+
+<th>
+    <h3>Ordenes pendientes</h3>
+    @* <input id="inputSearchCriteria" class="form-control" type="text" placeholder="Buscar" />*@
+</th>
+
+<hr>
+
+<ul class="list-group ListaOrdenes">
+    @foreach (var r in Model.OrdenesPendientes)
+    {
+        <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-add-orden">
+            <div class="OrdenListNro">
+                <b> @Html.DisplayFor(x => r.NroOrden)</b>
+            </div>
+            <div class="OrdenListSummary">
+                @Html.DisplayFor(x => r.Cliente.PrettyName)
+            </div>
+            <div class="OrdenListHints">
+                <span class="badge badge-info">@Html.DisplayFor(x => r.Cliente.Dir.Ciudad)</span>
+            </div>
+        </li>
+    }
+</ul>
+
+
+<script>
+    $(".li-add-orden").click(function (e) {
+
+        $.ajax({
+            url: "@Url.Action("Add")?id=" + $(this).data("id"),
+            cache: false,
+            success: function (data) {
+                $("#domicilioIndex").replaceWith(data);
+            }
+        })
+    });
+</script>

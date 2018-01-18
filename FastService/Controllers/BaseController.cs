@@ -21,22 +21,22 @@ namespace FastService.Controllers
         protected override void OnException(ExceptionContext filterContext)
         {
             Exception e = filterContext.Exception;
-            var logger = LogManager.GetCurrentClassLogger();
-            //var logInfo = new LogEventInfo();
-            //logInfo.Properties["EventDateTime"] = DateTime.Now;
-            //logInfo.Properties["EventLevel"] = LogLevel.Error;
-            //logInfo.Properties["UserName"] = CurrentUserEmail ?? string.Empty;
-            //logInfo.Properties["EventMessage"] = e.Message ?? string.Empty;
-            ////logInfo.Properties["ErrorSource"] = e.Source ;
-            ////logInfo.Properties["ErrorClass"] = e.;
-            ////logInfo.Properties["ErrorMethod"] = ;
-            //logInfo.Properties["ErrorMessage"] = e.StackTrace ?? string.Empty;
-            //logInfo.Properties["InnerErrorMessage"] = e.InnerException.Message ?? string.Empty;
+            //var logger = LogManager.GetCurrentClassLogger();
+            ////var logInfo = new LogEventInfo();
+            ////logInfo.Properties["EventDateTime"] = DateTime.Now;
+            ////logInfo.Properties["EventLevel"] = LogLevel.Error;
+            ////logInfo.Properties["UserName"] = CurrentUserEmail ?? string.Empty;
+            ////logInfo.Properties["EventMessage"] = e.Message ?? string.Empty;
+            //////logInfo.Properties["ErrorSource"] = e.Source ;
+            //////logInfo.Properties["ErrorClass"] = e.;
+            //////logInfo.Properties["ErrorMethod"] = ;
+            ////logInfo.Properties["ErrorMessage"] = e.StackTrace ?? string.Empty;
+            ////logInfo.Properties["InnerErrorMessage"] = e.InnerException.Message ?? string.Empty;
 
-            //logger.Log(LogLevel.Error, logInfo);
-            logger.Log(LogLevel.Error, e, e.StackTrace);
+            ////logger.Log(LogLevel.Error, logInfo);
+            //logger.Log(LogLevel.Error, e, e.StackTrace);
 
-            filterContext.ExceptionHandled = true;
+            //filterContext.ExceptionHandled = true;
 
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {

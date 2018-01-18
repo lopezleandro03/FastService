@@ -1,0 +1,126 @@
+﻿using FastService.Common;
+using FastService.Helpers;
+using FastService.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace FastService.Controllers
+{
+    public class DomicilioController : BaseController
+    {
+        private OrdenHelper _ordenHelper { get; set; }
+        private DomicilioViewModel Model
+        {
+            get
+            {
+                return (DomicilioViewModel)System.Web.HttpContext.Current.Session["DOMICILIOVIEWMODEL"];
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["DOMICILIOVIEWMODEL"] = value;
+            }
+        }
+        private string Origen { get; set; }
+        private string Destino { get; set; }
+        // GET: Domicilio
+
+        public DomicilioController()
+        {
+            _ordenHelper = new OrdenHelper();
+            Origen = "-34.784654,-58.315066"; //FastService
+            Destino = "-34.784654,-58.315066"; //FastService
+        }
+
+        public ActionResult Index()
+        {
+            Model = new DomicilioViewModel()
+            {
+                OrdenesPendientes = _ordenHelper.GetOrdenesADomicilio(),
+                OrdenesDelDia = new List<OrdenModel>()
+            };
+
+            Model.MapaRutaUrl = new GoogleMapsHelper().GetDirectionApiUrl(Origen, Destino, Model.GetWayPoints());
+
+            return PartialView(Model);
+        }
+
+        // GET: Domicilio/Create
+        public ActionResult Add(int id)
+        {
+            if (Model.OrdenesPendientes.Where(x => x.NroOrden == id).FirstOrDefault() != null)
+            {
+                Model.OrdenesDelDia.Add(Model.OrdenesPendientes.Where(x => x.NroOrden == id).FirstOrDefault());
+                Model.OrdenesPendientes.Remove(Model.OrdenesPendientes.Where(x => x.NroOrden == id).FirstOrDefault());
+                Model.MapaRutaUrl = new GoogleMapsHelper().GetDirectionApiUrl(Origen, Destino, Model.GetWayPoints());
+            }
+
+            Model.OrdenesPendientes = Model.OrdenesPendientes.OrderByDescending(x => x.NroOrden).ToList();
+            Model.OrdenesDelDia = Model.OrdenesDelDia.OrderByDescending(x => x.NroOrden).ToList();
+
+            return PartialView("Index", Model);
+        }
+
+        public ActionResult Remove(int id)
+        {
+            if (Model.OrdenesDelDia.Where(x => x.NroOrden == id).FirstOrDefault() != null)
+            {
+                Model.OrdenesPendientes.Add(Model.OrdenesDelDia.Where(x => x.NroOrden == id).FirstOrDefault());
+                Model.OrdenesDelDia.Remove(Model.OrdenesDelDia.Where(x => x.NroOrden == id).FirstOrDefault());
+                Model.MapaRutaUrl = new GoogleMapsHelper().GetDirectionApiUrl(Origen, Destino, Model.GetWayPoints());
+            }
+
+            Model.OrdenesPendientes = Model.OrdenesPendientes.OrderByDescending(x => x.NroOrden).ToList();
+            Model.OrdenesDelDia = Model.OrdenesDelDia.OrderByDescending(x => x.NroOrden).ToList();
+
+            return PartialView("Index", Model);
+        }
+
+
+        // GET: Domicilio/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: Domicilio/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Domicilio/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: Domicilio/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
+}

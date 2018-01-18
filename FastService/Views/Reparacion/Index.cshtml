@@ -1,6 +1,23 @@
 ﻿@model FastService.Models.OrdenesIndexViewModel
 
 <div class="row">
+    <div class="col-lg-12">
+        <div id="modalNuevaNovedad" class="modal" aria-hidden="true" style="display: none;">
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div id="modalSearchMap" class="modal" aria-hidden="true" style="display: none;">
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
     <div id="listaOrdenes" class="col-md-2">
         @RenderPage("ListaOrdenes.cshtml", Model)
     </div>
@@ -9,7 +26,7 @@
         @RenderPage("OrdenResumen.cshtml", Model)
     </div>
 
-    <div id="OrdenResumen" class="col-md-2">
+    <div id="PanelAccion" class="col-md-2">
         @RenderPage("PanelAccion.cshtml", Model)
     </div>
 </div>

@@ -1,34 +1,125 @@
 ﻿@model FastService.Models.OrdenesIndexViewModel
-<table>
-    <tr>
-        <th>
-            <h3>Ordenes</h3>
-        </th>
+<th>
+    <h3>Ordenes</h3> 
+    <hr>
+    <input id="inputSearchCriteria" class="form-control" type="text" placeholder="Buscar" />
+</th>
 
-        @foreach (var r in Model.Ordenes)
-            {
-        <tr>
-            <td class="OrdenHeader">
-                @Html.DisplayFor(x => r.NroOrden) + @Html.DisplayFor(x => r.Cliente.Nombre)
-                <button data-url='@Url.Action("Details")/@r.NroOrden' class="button-ver-orden">ver</button>
-        </tr>
+<ul class="list-group ListaOrdenes">
+    @foreach (var r in Model.Ordenes)
+    {
+        if (Model.OrdenActiva == r)
+        {
+            <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item active li-ver-orden" data-url='@Url.Action("Details")/@r.NroOrden'>
+                <div class="OrdenListNro">
+                    <b> @Html.DisplayFor(x => r.NroOrden)</b>
+                </div>
+                <div class="OrdenListSummary">
+                    @Html.DisplayFor(x => r.Cliente.PrettyName)
+                </div>
+                <div class="OrdenListHints">
+                    @if (r.EstadoDesc == "RECHAZADO")
+                    {
+                        <span class="badge badge-danger">@Html.DisplayFor(x => r.EstadoDesc)</span>
+                    }
+                    else if (r.EstadoDesc == "CONTROLAR")
+                    {
+                        <span class="badge badge-warning">@Html.DisplayFor(x => r.EstadoDesc)</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-info">@Html.DisplayFor(x => r.EstadoDesc)</span>
+                    }
+
+                    <span class="badge badge-info">@Html.DisplayFor(x => r.TecnicoNombre)</span>
+                </div>
+            </li>
         }
-    </table>
+        else
+        {
+            <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-ver-orden" data-url='@Url.Action("Details")/@r.NroOrden'>
+                <div class="OrdenListNro">
+                    <b> @Html.DisplayFor(x => r.NroOrden)</b>
+                </div>
+                <div class="OrdenListSummary">
+                    @Html.DisplayFor(x => r.Cliente.PrettyName)
+                </div>
+                <div class="OrdenListHints">
+                    @if (r.EstadoDesc == "RECHAZADO")
+                    {
+                        <span class="badge badge-danger">@Html.DisplayFor(x => r.EstadoDesc)</span>
+                    }
+                    else if (r.EstadoDesc == "CONTROLAR")
+                    {
+                        <span class="badge badge-warning">@Html.DisplayFor(x => r.EstadoDesc)</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-info">@Html.DisplayFor(x => r.EstadoDesc)</span>
+                    }
 
-    <style>
-        .OrdenHeader {
-            font-size: large;
-            font-style: normal;
+                    <span class="badge badge-info">@Html.DisplayFor(x => r.TecnicoNombre)</span>
+
+                </div>
+            </li>
         }
-    </style>
 
-    <script>
-        $(".button-ver-orden").click(function (e) {
-            $.ajax({
-                url: $(this).data("url"),
-                success: function (data) {
-                    $("#OrdenResumen").html(data);
-                }
-            })
-        });
-    </script>
+    }
+</ul>
+
+<style>
+    .OrdenHeader {
+        font-size: large;
+        font-style: normal;
+    }
+
+    .OrdenListNro {
+        font-size: large;
+        font-style: normal;
+    }
+
+    .OrdenListSummary {
+        font-size: medium;
+        font-style: normal;
+    }
+
+    .OrdenListHints {
+        font-size: medium;
+        font-style: normal;
+    }
+
+    .li-ver-orden {
+        font-size: large;
+        font-style: normal;
+    }
+
+    .ListaOrdenes {
+        max-height: 1024px;
+        overflow-y: scroll;
+    }
+</style>
+
+<script>
+    $(".li-ver-orden").click(function (e) {
+
+        $("li").removeClass("active");
+        $("#" + $(this).data("id")).addClass("active");
+
+        $.ajax({
+            url: $(this).data("url"),
+            success: function (data) {
+                $("#OrdenResumen").html(data);
+            }
+        })
+    });
+
+    $("#inputSearchCriteria").focusout(function (e) {
+        $.ajax({
+            url: "@Url.Action("Filter","Reparacion")/?searchCriteria=" + $(this).val(),
+            success: function (data) {
+                $(".page-content").html(data);
+            }
+        })
+    });
+
+</script>

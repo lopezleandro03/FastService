@@ -32,9 +32,9 @@ namespace FastService
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      //"~/Content/jquery-ui.min.css",
-                      //"~/Content/jquery-ui.structure.min.css",
-                      //"~/Content/jquery-ui.theme.min.css",
+                      "~/Content/jquery-ui.min.css",
+                      "~/Content/jquery-ui.structure.min.css",
+                      "~/Content/jquery-ui.theme.min.css",
                       "~/css/hover.css",//y
                       "~/Content/site.css",//y
                       "~/Content/assets/global/plugins/bootstrap/css/bootstrap.min.css",//y

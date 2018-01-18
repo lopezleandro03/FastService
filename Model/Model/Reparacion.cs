@@ -19,18 +19,21 @@ namespace Model.Model
         public int EmpleadoAsignadoId { get; set; }
         public int TecnicoAsignadoId { get; set; }
         public int EstadoReparacionId { get; set; }
+        public Nullable<int> ComercioId { get; set; }
         public int MarcaId { get; set; }
         public int TipoDispositivoId { get; set; }
-        public int ReparacionDetalleId { get; set; }
-        public bool Garantia { get; set; }
+        public Nullable<int> ReparacionDetalleId { get; set; }
         public string ModificadoPor { get; set; }
         public System.DateTime ModificadoEn { get; set; }
     
         public virtual Cliente Cliente { get; set; }
+        public virtual Comercio Comercio { get; set; }
         public virtual EstadoReparacion EstadoReparacion { get; set; }
         public virtual Marca Marca { get; set; }
         public virtual Usuario Usuario { get; set; }
+        public virtual ReparacionDetalle ReparacionDetalle { get; set; }
         public virtual Usuario Usuario1 { get; set; }
         public virtual TipoDispositivo TipoDispositivo { get; set; }
+        public virtual TipoDispositivo TipoDispositivo1 { get; set; }
     }
 }

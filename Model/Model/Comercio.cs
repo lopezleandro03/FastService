@@ -12,24 +12,28 @@ namespace Model.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Proveedor
+    public partial class Comercio
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Proveedor()
+        public Comercio()
         {
-            this.Compra = new HashSet<Compra>();
+            this.Reparacion = new HashSet<Reparacion>();
         }
     
-        public string ProveedorId { get; set; }
-        public string Nombre { get; set; }
-        public string Mail { get; set; }
+        public int ComercioId { get; set; }
+        public string Code { get; set; }
+        public string Descripcion { get; set; }
         public string Contacto { get; set; }
-        public string Telefono1 { get; set; }
-        public string Telefono2 { get; set; }
         public string Direccion { get; set; }
         public string Localidad { get; set; }
+        public string Mail { get; set; }
+        public string Telefono { get; set; }
+        public string Telefono2 { get; set; }
+        public string cuit { get; set; }
+        public string modificadoPor { get; set; }
+        public Nullable<System.DateTime> modificadoEn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Compra> Compra { get; set; }
+        public virtual ICollection<Reparacion> Reparacion { get; set; }
     }
 }

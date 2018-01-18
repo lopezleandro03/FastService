@@ -1,16 +1,114 @@
 ﻿@model FastService.Models.OrdenesIndexViewModel
 
 <h3>Acciones</h3>
-<button> TEST </button>
+<hr>
+<div class="row">
+    <div class="col-md-12 text-center">
+        <input id="nuevaOrden" data-tipo="1" class="btn btn-success btn-md" type="button" value="NUEVA ORDEN" />
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-12 text-center">
+        <input class="btn btn-info btn-md" type="button" value="IMPRIMIR" />
+    </div>
+</div>
 
-<button> TEST </button>
+<hr>
 
-<button> TEST </button>
+<div class="row">
+    <div class="col-md-12 text-center">
+        <input data-tipo="1" class="btn btn-info btn-md reparacionActionButton" type="button" value="PRESUP. INFORMADO" />
+    </div>
+</div>
 
-<button> TEST </button>
+<br>
 
-<button> TEST </button>
+<div class="row">
+    <div class="col-md-12 text-center">
+        <input data-tipo="1" class="btn btn-success btn-md reparacionActionButton" type="button" value="ACEPTA" />
+    </div>
+</div>
 
-<button> TEST </button>
+<br>
 
-<button> TEST </button>
+<div class="row">
+    <div class="col-md-12 text-center">
+        <input data-tipo="2" class="btn btn-danger btn-md reparacionActionButton" type="button" value="RECHAZA" />
+    </div>
+</div>
+
+<br>
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <input data-tipo="2" class="btn btn-info btn-md reparacionActionButton" type="button" value="NOTA/RECLAMO" />
+    </div>
+</div>
+
+<br>
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <input data-tipo="2" class="btn btn-info btn-md reparacionActionButton" type="button" value="ENTREGAR" />
+    </div>
+</div>
+
+
+<br>
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <input data-tipo="3" class="btn btn-info btn-md reparacionActionButton" type="button" value="REINGRESO" />
+    </div>
+</div>
+
+<br>
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <input data-tipo="2" class="btn btn-info btn-md reparacionActionButton" type="button" value="LLAMADO" />
+    </div>
+</div>
+
+<br>
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <input data-tipo="1" class="btn btn-info btn-md reparacionActionButton" type="button" value="RETIRA" />
+    </div>
+</div>
+
+<br>
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <input data-tipo="1" class="btn btn-info btn-md reparacionActionButton" type="button" value="SENA" />
+    </div>
+</div>
+
+
+<script>
+    $("#nuevaOrden").click(function () {
+
+        $.ajax({
+            url: "@Url.Action("Create","Reparacion")",
+            success: function (data) {
+                $("#OrdenResumen").html(data);
+            }
+        })
+
+    })
+
+    $(".reparacionActionButton").click(function () {
+
+        $.ajax({
+            url: "@Url.Action("Novedad","Reparacion")/?tipo=" + $(this).data("tipo"),
+            success: function (data) {
+                $("#modalNuevaNovedad").html(data);
+                $("#modalNuevaNovedad").modal();
+            }
+        })
+
+    })
+</script>

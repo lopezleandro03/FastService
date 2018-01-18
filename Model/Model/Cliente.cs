@@ -29,9 +29,12 @@ namespace Model.Model
         public string Telefono1 { get; set; }
         public string Telefono2 { get; set; }
         public string Direccion { get; set; }
+        public Nullable<int> DireccionId { get; set; }
+        public string Localidad { get; set; }
         public Nullable<double> Latitud { get; set; }
         public Nullable<double> Longitud { get; set; }
     
+        public virtual Direccion Direccion1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reparacion> Reparacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

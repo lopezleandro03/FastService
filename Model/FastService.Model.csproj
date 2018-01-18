@@ -55,10 +55,16 @@
     <Compile Include="Model\Cliente.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Comercio.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Compra.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ComprasAPagar.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Direccion.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\EstadoReparacion.cs">
@@ -94,7 +100,10 @@
     <Compile Include="Model\MetodoPago.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\novedad.cs">
+    <Compile Include="Model\Modelo.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Novedad.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Pago.cs">
@@ -110,6 +119,9 @@
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Reparacion.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ReparacionDetalle.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Role.cs">

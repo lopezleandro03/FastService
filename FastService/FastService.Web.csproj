@@ -175,9 +175,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Common\OrdenHelper.cs" />
+    <Compile Include="Controllers\AgendaController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
+    <Compile Include="Controllers\DomicilioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PagoProveedoresController.cs" />
@@ -189,11 +192,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DateHelper.cs" />
+    <Compile Include="Helpers\GoogleMapsHelper.cs" />
+    <Compile Include="Models\DireccionModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\CompraAPagarModel.cs" />
     <Compile Include="Models\CompraModel.cs" />
     <Compile Include="Models\CorredorModel.cs" />
     <Compile Include="Models\CuotaModel.cs" />
+    <Compile Include="Controllers\GoogleMapsController.cs" />
     <Compile Include="Models\Login\LoginModel.cs" />
     <Compile Include="Models\Login\MenuItemModel.cs" />
     <Compile Include="Models\Login\MenuModel.cs" />
@@ -203,6 +209,7 @@
     <Compile Include="Models\MetodosDePago\PagoConEfectivoViewModel.cs" />
     <Compile Include="Models\MetodosDePago\PagoConTransferenciaViewModel.cs" />
     <Compile Include="Models\NovedadModel.cs" />
+    <Compile Include="Models\DomicilioViewModel.cs" />
     <Compile Include="Models\PagoModel.cs" />
     <Compile Include="Models\PagoWizardModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
@@ -878,6 +885,19 @@
     <Content Include="Views\Reparacion\ListaOrdenes.cshtml" />
     <Content Include="Views\Reparacion\OrdenResumen.cshtml" />
     <Content Include="Views\Reparacion\PanelAccion.cshtml" />
+    <Content Include="Views\Reparacion\NovedadConPresupuesto.cshtml" />
+    <Content Include="Views\Reparacion\NovedadReingreso.cshtml" />
+    <Content Include="Views\Reparacion\NovedadSimple.cshtml" />
+    <Content Include="Views\Agenda\AgendarReparacion.cshtml" />
+    <Content Include="Views\Domicilio\Index.cshtml" />
+    <Content Include="Views\Domicilio\ListaOrdenes.cshtml" />
+    <Content Include="Views\Domicilio\ListaOrdenesDiaria.cshtml" />
+    <Content Include="Views\Domicilio\MapaDeRuta.cshtml" />
+    <Content Include="Views\GoogleMaps\SearchMap.cshtml" />
+    <Content Include="Views\GoogleMaps\SearchMapModal.cshtml" />
+    <Content Include="Views\GoogleMaps\AutoCompleteAddressForm.cshtml" />
+    <Content Include="Views\GoogleMaps\AutoCompleteAddressFormModal.cshtml" />
+    <Content Include="Views\GoogleMaps\AutoCompleteAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

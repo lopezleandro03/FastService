@@ -12,15 +12,15 @@ namespace Model.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class ProveedoresAcreedores
+    public partial class Modelo
     {
-        public string ProveedorId { get; set; }
-        public string Nombre { get; set; }
-        public string Mail { get; set; }
-        public string Contacto { get; set; }
-        public string Telefono1 { get; set; }
-        public string Telefono2 { get; set; }
-        public string Direccion { get; set; }
-        public string Localidad { get; set; }
+        public int DispositivoModeloId { get; set; }
+        public Nullable<int> MarcaId { get; set; }
+        public Nullable<int> TipoId { get; set; }
+        public string Modelo1 { get; set; }
+        public string Code { get; set; }
+        public string Descripcion { get; set; }
+        public string modificadoPor { get; set; }
+        public Nullable<System.DateTime> modificadoEn { get; set; }
     }
 }

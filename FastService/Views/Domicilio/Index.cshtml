@@ -1,0 +1,43 @@
+﻿@model FastService.Models.DomicilioViewModel
+
+<div id="domicilioIndex" class="row">
+    <div id="listaOrdenes" class="col-md-2">
+        @RenderPage("ListaOrdenes.cshtml", Model)
+    </div>
+
+    <div id="listaOrdenesDiaria" class="col-md-2">
+        @RenderPage("ListaOrdenesDiaria.cshtml", Model)
+    </div>
+
+    <div id="MapaDeRuta" class="col-md-8" style="overflow:scroll;">
+        @RenderPage("MapaDeRuta.cshtml", Model)
+    </div>
+</div>
+
+
+<style>
+    .OrdenHeader {
+        font-size: large;
+        font-style: normal;
+    }
+
+    .OrdenListNro {
+        font-size: x-large;
+        font-style: normal;
+    }
+
+    .OrdenListSummary {
+        font-size: large;
+        font-style: normal;
+    }
+
+    .li-add-orden {
+        font-size: large;
+        font-style: normal;
+    }
+
+    .ListaOrdenes {
+        max-height: 760px;
+        overflow-y: scroll;
+    }
+</style>
