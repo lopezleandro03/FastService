@@ -1,5 +1,7 @@
 ﻿using FastService.Common;
 using FastService.Models;
+using FastService.Models.Reports;
+using Microsoft.Reporting.WebForms;
 using Model.Model;
 using System;
 using System.Collections.Generic;
@@ -7,6 +9,7 @@ using System.Linq;
 using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
+using TRIAD.Website.Reports;
 
 namespace FastService.Controllers
 {
@@ -46,25 +49,40 @@ namespace FastService.Controllers
         // GET: Reparacion
         public ActionResult Index()
         {
+            var auxOrdenActiva = 0;
+            if (OrdenesModel != null && OrdenesModel.OrdenActiva != null)
+                auxOrdenActiva = OrdenesModel.OrdenActiva.NroOrden;
+
             InitializeViewBag();
             IsMyOrdersMode = false;
 
             OrdenesModel = new OrdenesIndexViewModel();
             OrdenesModel.Ordenes = _OrdenHelper.GetOrdenes(IsMyOrdersMode, null, CurrentUserId);
-            OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.First();
+
+            if (auxOrdenActiva != 0)
+                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.Where(x => x.NroOrden == auxOrdenActiva).FirstOrDefault();
+            else
+                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.First();
 
             return PartialView(OrdenesModel);
         }
 
         public ActionResult MyIndex()
         {
+            var auxOrdenActiva = 0;
+            if (OrdenesModel != null)
+                auxOrdenActiva = OrdenesModel.OrdenActiva.NroOrden;
+
             InitializeViewBag();
             IsMyOrdersMode = true;
 
             OrdenesModel = new OrdenesIndexViewModel();
             OrdenesModel.Ordenes = _OrdenHelper.GetOrdenes(IsMyOrdersMode, null, CurrentUserId);
-            OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.First();
 
+            if (auxOrdenActiva != 0)
+                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.Where(x => x.NroOrden == auxOrdenActiva).FirstOrDefault();
+            else
+                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.First();
 
             return PartialView("Index", OrdenesModel);
         }
@@ -107,16 +125,19 @@ namespace FastService.Controllers
             model.TecnicoNombre = OrdenesModel.OrdenActiva.TecnicoNombre;
             model.Monto = 0;
             model.Material = 0;
+            model.TipoNovedadId = tipo;
 
-            if (tipo == 1)
+            InitializeViewBag();
+
+            if (tipo == (int)NovedadTipo.PRESUPINFOR || tipo == (int)NovedadTipo.ENTREGA)
             {
                 return PartialView("NovedadConPresupuesto", model);
             }
-            else if (tipo == 2)
+            else if (tipo == (int)NovedadTipo.ACEPTA || tipo == (int)NovedadTipo.RECHAZA || tipo == (int)NovedadTipo.NOTA || tipo == (int)NovedadTipo.LLAMADO)
             {
                 return PartialView("NovedadSimple", model);
             }
-            else if (tipo == 3)
+            else if (tipo == (int)NovedadTipo.REINGRESO)
             {
                 return PartialView("NovedadReingreso", model);
             }
@@ -129,19 +150,84 @@ namespace FastService.Controllers
         [HttpPost]
         public ActionResult Novedad(NovedadModel model)
         {
+            //cache active order
             var nroOrdenActiva = OrdenesModel.OrdenActiva.NroOrden;
 
-            _db.Novedad.Add(new Novedad()
-            {
-                reparacionId = OrdenesModel.OrdenActiva.NroOrden,
-                observacion = model.Observacion,
-                monto = model.Monto,
-                tipoNovedadId = 1,
-                modificadoPor = CurrentUserId.ToString(),
-                modificadoEn = DateTime.Now
-            });
+            TransactionOptions opt = new TransactionOptions();
+            opt.IsolationLevel = IsolationLevel.ReadCommitted;
+            opt.Timeout = TimeSpan.MaxValue;
 
-            _db.SaveChanges();
+            using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required, opt))
+            {
+                try
+                {
+                    _db.Novedad.Add(new Novedad()
+                    {
+                        reparacionId = OrdenesModel.OrdenActiva.NroOrden,
+                        observacion = model.Observacion,
+                        monto = model.Monto,
+                        tipoNovedadId = model.TipoNovedadId,
+                        UserId = CurrentUserId,
+                        modificadoPor = CurrentUserId.ToString(),
+                        modificadoEn = DateTime.Now
+                    });
+
+                    var orden = _db.Reparacion.Find(nroOrdenActiva);
+                    orden.TecnicoAsignadoId = model.TecnicoId;
+                    orden.ReparacionDetalle.Presupuesto = model.Monto == 0 ? orden.ReparacionDetalle.Presupuesto : model.Monto;
+
+                    var estados = _db.EstadoReparacion.Select(x => x).ToList();
+
+                    if (orden != null)
+                    {
+                        if (model.TipoNovedadId == (int)NovedadTipo.ACEPTA)
+                        {
+                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.AREPARAR).First().EstadoReparacionId;
+                        }
+                        if (model.TipoNovedadId == (int)NovedadTipo.RECHAZA)
+                        {
+                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.RECHAZADO).First().EstadoReparacionId;
+                        }
+                        if (model.TipoNovedadId == (int)NovedadTipo.REINGRESO)
+                        {
+                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.REINGRESADO).First().EstadoReparacionId;
+                        }
+                        if (model.TipoNovedadId == (int)NovedadTipo.PRESUPINFOR)
+                        {
+                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PRESUPUESTADO).First().EstadoReparacionId;
+                        }
+                        if (model.TipoNovedadId == (int)NovedadTipo.RETIRA || model.TipoNovedadId == (int)NovedadTipo.ENTREGA)
+                        {
+                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.RETIRADO).First().EstadoReparacionId;
+                            orden.ReparacionDetalle.Precio = model.Monto;
+
+                            var venta = new Venta()
+                            {
+                                ClienteId = orden.ClienteId,
+                                Descripcion = "Pago por servicio de FastService orden ",
+                                Fecha = DateTime.Now,
+                                Monto = (decimal)orden.ReparacionDetalle.Precio,
+                                RefNumber = orden.ReparacionId.ToString(),
+                                PuntoDeVentaId = 1,
+                                FacturaId = null,
+                                MetodoPagoId = 1,
+                                TipoTransaccionId = 1,
+                                Vendedor = orden.EmpleadoAsignadoId
+                            };
+
+                            _db.Venta.Add(venta);
+                        }
+                    }
+
+                    _db.SaveChanges();
+                    ts.Complete();
+                }
+                catch (Exception ex)
+                {
+                    ts.Dispose();
+                    throw ex;
+                }
+            }
 
             InitializeViewBag();
 
@@ -151,7 +237,7 @@ namespace FastService.Controllers
                 OrdenActiva = OrdenesModel.Ordenes.Where(x => x.NroOrden == nroOrdenActiva).FirstOrDefault()
             };
 
-            return PartialView("OrdenResumen", OrdenesModel);
+            return RedirectToAction("Index");
         }
 
         // POST: Reparacion/Create
@@ -164,7 +250,7 @@ namespace FastService.Controllers
                 OrdenesModel.NuevaOrden = true;
                 OrdenesModel.OrdenActiva.EstadoFecha = DateTime.Now;
                 OrdenesModel.OrdenActiva.NroOrden = OrdenesModel.Ordenes.Select(x => x.NroOrden).Max() + 1;
-                OrdenesModel.OrdenActiva.EstadoDesc = "NUEVA";
+                OrdenesModel.OrdenActiva.EstadoDesc = ReparacionEstado.NUEVA;
 
                 InitializeViewBag();
 
@@ -267,6 +353,8 @@ namespace FastService.Controllers
 
                         _db.SaveChanges();
 
+                        var estados = _db.EstadoReparacion.Select(x => x);
+
                         _db.Reparacion.Add(new Reparacion()
                         {
                             ReparacionId = model.OrdenActiva.NroOrden,
@@ -274,7 +362,7 @@ namespace FastService.Controllers
                             ClienteId = cli.ClienteId,
                             EmpleadoAsignadoId = model.OrdenActiva.ResponsableId,
                             TecnicoAsignadoId = model.OrdenActiva.TecnicoId,
-                            EstadoReparacionId = 1,
+                            EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.INGRESADO).First().EstadoReparacionId,
                             ComercioId = model.OrdenActiva.Garantia ? (int?)model.OrdenActiva.Comercio.ComercioId : 1,
                             MarcaId = model.OrdenActiva.MarcaId,
                             TipoDispositivoId = model.OrdenActiva.TipoId,
@@ -330,6 +418,25 @@ namespace FastService.Controllers
         {
             return View();
         }
+
+        public ActionResult ImprimirRecibo()
+        {
+            string reportName = "Recibo.pdf";
+            string reportFilePath = "~/Reports/Recibo.rdl";
+            var reportType = ReportType.PDF;
+            var contentType = string.Format("application/{0}", reportType.ToString().ToLower());
+
+            List<ReportDataSource> dataSources = new List<ReportDataSource>();
+
+            dataSources.Add(new ReportDataSource("Reparacion", _OrdenHelper.GetReparacionReciboData(OrdenesModel.OrdenActiva.NroOrden)));
+            var report = new ReportHelper();
+            var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, null, reportType);
+            Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
+
+            return File(result, contentType);
+        }
+
+
 
         private void InitializeViewBag()
         {

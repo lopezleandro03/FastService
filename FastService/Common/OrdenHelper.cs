@@ -1,4 +1,5 @@
 ﻿using FastService.Models;
+using FastService.Models.Reports;
 using Model.Model;
 using System;
 using System.Collections.Generic;
@@ -224,7 +225,7 @@ namespace FastService.Common
                            Garantia = r.ReparacionDetalle.EsGarantia,
                            Domicilio = r.ReparacionDetalle.EsDomicilio,
                            EstadoCodigo = r.EstadoReparacionId,
-                                   EstadoDesc = r.EstadoReparacion.nombre.ToUpper(),
+                           EstadoDesc = r.EstadoReparacion.nombre.ToUpper(),
                            EstadoFecha = r.ModificadoEn,
 
                            ResponsableId = r.EmpleadoAsignadoId,
@@ -273,18 +274,66 @@ namespace FastService.Common
             return Ordenes;
         }
 
-            private List<NovedadModel> GetNovedades(int reparacionId)
+        private List<NovedadModel> GetNovedades(int reparacionId)
         {
-            return (from n in _db.Novedad
+            return  (from n in _db.Novedad
                     where n.reparacionId == reparacionId
                     select new NovedadModel()
                     {
                         Id = n.novedadId,
                         Fecha = n.modificadoEn,
                         Observacion = n.observacion,
-                        Descripcion = "Not Mapped",
+                        Descripcion = (from x in _db.TipoNovedad where x.TipoNovedadId == n.tipoNovedadId select x.nombre.ToUpper()).FirstOrDefault(),
                         Monto = n.monto
                     })?.OrderByDescending(x => x.Fecha)?.ToList();
+
+        }
+
+        internal IList<ReciboReportModel> GetReparacionReciboData(int id)
+        {
+            IList<ReciboReportModel> data = (from r in _db.Reparacion
+                                             join rd in _db.ReparacionDetalle on r.ReparacionDetalleId equals rd.ReparacionDetalleId
+                                             join c in _db.Cliente on r.ClienteId equals c.ClienteId
+                                             where r.ReparacionId == id
+                                             select new ReciboReportModel()
+                                             {
+                                                 ReparacionId = r.ReparacionId,
+                                                 ClienteId = r.ClienteId,
+                                                 EmpleadoAsignadoId = r.EmpleadoAsignadoId,
+                                                 TecnicoAsignadoId = r.TecnicoAsignadoId,
+                                                 EstadoReparacionId = r.EstadoReparacionId,
+                                                 ComercioId = r.ComercioId,
+                                                 MarcaId = r.MarcaId,
+                                                 TipoDispositivoId = r.TipoDispositivoId,
+                                                 ReparacionDetalleId = r.ReparacionDetalleId,
+                                                 ModificadoPor = r.ModificadoPor,
+                                                 ModificadoEn = r.ModificadoEn,
+                                                 EsGarantia = rd.EsGarantia,
+                                                 EsDomicilio = rd.EsDomicilio,
+                                                 NroReferencia = rd.NroReferencia,
+                                                 FechoCompra = rd.FechoCompra,
+                                                 NroFactura = rd.NroFactura,
+                                                 Presupuesto = rd.Presupuesto,
+                                                 PresupuestoFecha = rd.PresupuestoFecha,
+                                                 Precio = rd.Precio,
+                                                 Modelo = rd.Modelo,
+                                                 Serie = rd.Serie,
+                                                 Serbus = rd.Serbus,
+                                                 Dni = c.Dni,
+                                                 Nombre = c.Nombre,
+                                                 Apellido = c.Apellido,
+                                                 Mail = c.Mail,
+                                                 Telefono1 = c.Telefono1,
+                                                 Telefono2 = c.Telefono2,
+                                                 Direccion = c.Direccion,
+                                                 DireccionId = c.DireccionId,
+                                                 Localidad = c.Localidad,
+                                                 Latitud = c.Latitud,
+                                                 Longitud = c.Longitud
+                                             }).ToList();
+
+            return data;
+
         }
     }
 }

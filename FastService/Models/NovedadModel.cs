@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,6 +10,8 @@ namespace FastService.Models
     {
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
+
+        [Display(Name = "Novedad")]
         public string Descripcion { get; set; }
         public string Observacion { get; set; }
 
@@ -22,6 +25,6 @@ namespace FastService.Models
         public string ResponsableNombre { get; set; }
 
         public string TipoReingreso { get; set; }
-
+        public int TipoNovedadId { get; set; }
     }
 }

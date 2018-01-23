@@ -399,10 +399,18 @@
             </div>
         </div>
     </div>
+
+    <div id="spinner" class="spinner">
+        <span class="inner"></span>
+        <span class="inner"></span>
+        <span class="inner"></span>
+    </div>
+
+    <link href="~/Content/spinner.css" rel="stylesheet" />
+    <script src="~/Scripts/AjaxHelper.js"></script>
     <script src="~/Content/assets/global/plugins/jquery.min.js" type="text/javascript"> </script>
 
     @Scripts.Render("~/bundles/jquery")
-
     @*@Scripts.Render("~/bundles/jqueryval")*@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery.ui")
@@ -415,63 +423,56 @@
 
 <script>
     $(function () {
-        $.ajax({
-            type: 'GET',
-            url: "/@Model.DefaultController/@Model.DefaultAction",
-            contentType: "html",
-            dataType: "html",
-            success: function (data) {
+        ajaxGet(
+            "/@Model.DefaultController/@Model.DefaultAction",
+            function (data) {
                 $(".page-content").html(data);
             },
-            error: function (data) {
+            function (data) {
                 alert("Oops, este modulo no ha sido implementado aun...");
             }
-        });
+        );
     });
 
     $(".asyncAction").click(function () {
-        $.ajax({
-            type: 'GET',
-            url: "/" + $(this).data("controller") + "/" + $(this).data("action"),
-            contentType: "html",
-            dataType: "html",
-            success: function (data) {
+        ajaxGet(
+            "/" + $(this).data("controller") + "/" + $(this).data("action"),
+            function (data) {
                 $(".dropdown-fw").removeClass("open");
                 $(".page-content").html(data)
             },
-            error: function (data) {
+            function () {
                 alert("Oops, este modulo no ha sido implementado...");
-            }
-        });
+            },
+        );
+    })
 
-    });
+    //function OnSuccess(result) {
+    //    if (result.Success == "true") {
+    //        $("#modalSuccess").modal();
+    //        $.ajax({
+    //            type: 'GET',
+    //            url: "/Venta/Create",
+    //            contentType: "html",
+    //            dataType: "html",
+    //            success: function (data) {
 
-    function OnSuccess(result) {
-        if (result.Success == "true") {
-            $("#modalSuccess").modal();
-            $.ajax({
-                type: 'GET',
-                url: "/Venta/Create",
-                contentType: "html",
-                dataType: "html",
-                success: function (data) {
+    //                $(".page-content").html(data);
+    //            },
+    //            error: function (data) {
+    //                $("#modalError").modal();
+    //                //alert("Oops, ocurrio un error procesando su solicitud...");
+    //            }
+    //        });
+    //    } else {
+    //        $("#modalError").modal();
+    //        //alert("Oops, ocurrio un error procesando su solicitud...");
+    //    }
+    //}
 
-                    $(".page-content").html(data);
-                },
-                error: function (data) {
-                    $("#modalError").modal();
-                    //alert("Oops, ocurrio un error procesando su solicitud...");
-                }
-            });
-        } else {
-            $("#modalError").modal();
-            //alert("Oops, ocurrio un error procesando su solicitud...");
-        }
-    }
-
-    function OnError(result) {
-        //alert("Oops, ha ocurrido un error procesando su solicitud...");
-        //$(".page-content").html(data);
-        $("#modalError").modal();
-    }
+    //function OnError(result) {
+    //    //alert("Oops, ha ocurrido un error procesando su solicitud...");
+    //    //$(".page-content").html(data);
+    //    $("#modalError").modal();
+    //}
 </script>

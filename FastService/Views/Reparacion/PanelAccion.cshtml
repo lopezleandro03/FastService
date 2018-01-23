@@ -10,7 +10,7 @@
 <br>
 <div class="row">
     <div class="col-md-12 text-center">
-        <input class="btn btn-info btn-md" type="button" value="IMPRIMIR" />
+        <input id="imprimirBtn" class="btn btn-info btn-md" type="button" value="IMPRIMIR" />
     </div>
 </div>
 
@@ -18,7 +18,7 @@
 
 <div class="row">
     <div class="col-md-12 text-center">
-        <input data-tipo="1" class="btn btn-info btn-md reparacionActionButton" type="button" value="PRESUP. INFORMADO" />
+        <input data-tipo="2" class="btn btn-info btn-md reparacionActionButton" type="button" value="PRESUP. INFORMADO" />
     </div>
 </div>
 
@@ -26,7 +26,7 @@
 
 <div class="row">
     <div class="col-md-12 text-center">
-        <input data-tipo="1" class="btn btn-success btn-md reparacionActionButton" type="button" value="ACEPTA" />
+        <input data-tipo="3" class="btn btn-success btn-md reparacionActionButton" type="button" value="ACEPTA" />
     </div>
 </div>
 
@@ -34,7 +34,7 @@
 
 <div class="row">
     <div class="col-md-12 text-center">
-        <input data-tipo="2" class="btn btn-danger btn-md reparacionActionButton" type="button" value="RECHAZA" />
+        <input data-tipo="23" class="btn btn-danger btn-md reparacionActionButton" type="button" value="RECHAZA" />
     </div>
 </div>
 
@@ -42,7 +42,7 @@
 
 <div class="row">
     <div class="col-md-12 text-center">
-        <input data-tipo="2" class="btn btn-info btn-md reparacionActionButton" type="button" value="NOTA/RECLAMO" />
+        <input data-tipo="17" class="btn btn-info btn-md reparacionActionButton" type="button" value="NOTA/RECLAMO" />
     </div>
 </div>
 
@@ -50,7 +50,7 @@
 
 <div class="row">
     <div class="col-md-12 text-center">
-        <input data-tipo="2" class="btn btn-info btn-md reparacionActionButton" type="button" value="ENTREGAR" />
+        <input data-tipo="7" class="btn btn-info btn-md reparacionActionButton" type="button" value="ENTREGAR" />
     </div>
 </div>
 
@@ -59,7 +59,7 @@
 
 <div class="row">
     <div class="col-md-12 text-center">
-        <input data-tipo="3" class="btn btn-info btn-md reparacionActionButton" type="button" value="REINGRESO" />
+        <input data-tipo="24" class="btn btn-info btn-md reparacionActionButton" type="button" value="REINGRESO" />
     </div>
 </div>
 
@@ -67,7 +67,7 @@
 
 <div class="row">
     <div class="col-md-12 text-center">
-        <input data-tipo="2" class="btn btn-info btn-md reparacionActionButton" type="button" value="LLAMADO" />
+        <input data-tipo="18" class="btn btn-info btn-md reparacionActionButton" type="button" value="LLAMADO" />
     </div>
 </div>
 
@@ -75,7 +75,7 @@
 
 <div class="row">
     <div class="col-md-12 text-center">
-        <input data-tipo="1" class="btn btn-info btn-md reparacionActionButton" type="button" value="RETIRA" />
+        <input data-tipo="5" class="btn btn-info btn-md reparacionActionButton" type="button" value="RETIRA" />
     </div>
 </div>
 
@@ -83,32 +83,37 @@
 
 <div class="row">
     <div class="col-md-12 text-center">
-        <input data-tipo="1" class="btn btn-info btn-md reparacionActionButton" type="button" value="SENA" />
+        <input data-tipo="26" class="btn btn-info btn-md reparacionActionButton" type="button" value="SENA" />
     </div>
 </div>
 
 
 <script>
-    $("#nuevaOrden").click(function () {
 
-        $.ajax({
-            url: "@Url.Action("Create","Reparacion")",
-            success: function (data) {
+    function ImprimirRecibo(){
+          window.open('@Url.Action("ImprimirRecibo")', '_blank');
+    }
+
+    $("#nuevaOrden").click(function () {
+        ajaxGetNoCustomError(
+            "@Url.Action("Create","Reparacion")",
+            function (data) {
                 $("#OrdenResumen").html(data);
             }
-        })
-
+        );
     })
 
     $(".reparacionActionButton").click(function () {
-
-        $.ajax({
-            url: "@Url.Action("Novedad","Reparacion")/?tipo=" + $(this).data("tipo"),
-            success: function (data) {
+        ajaxGetNoCustomError(
+            "@Url.Action("Novedad","Reparacion")/?tipo=" + $(this).data("tipo"),
+            function (data) {
                 $("#modalNuevaNovedad").html(data);
                 $("#modalNuevaNovedad").modal();
             }
-        })
+        );
+    })
 
+    $("#imprimirBtn").click(function () {
+        ImprimirRecibo();
     })
 </script>

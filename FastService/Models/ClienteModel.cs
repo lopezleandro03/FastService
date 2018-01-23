@@ -10,7 +10,7 @@ namespace FastService.Models
     public class ClienteModel
     {
         [Required]
-        [Display(Name = "DNI")]
+        [Display(Name = "Documento")]
         public int? Dni { get; set; }
         
         [Required]

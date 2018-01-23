@@ -1,6 +1,6 @@
 ﻿@model FastService.Models.OrdenesIndexViewModel
 <th>
-    <h3>Ordenes</h3> 
+    <h3>Ordenes</h3>
     <hr>
     <input id="inputSearchCriteria" class="form-control" type="text" placeholder="Buscar" />
 </th>
@@ -25,6 +25,10 @@
                     else if (r.EstadoDesc == "CONTROLAR")
                     {
                         <span class="badge badge-warning">@Html.DisplayFor(x => r.EstadoDesc)</span>
+                    }
+                    else if (r.EstadoDesc == "RETIRADO")
+                    {
+                        <span class="badge badge-success">@Html.DisplayFor(x => r.EstadoDesc)</span>
                     }
                     else
                     {
@@ -52,6 +56,10 @@
                     else if (r.EstadoDesc == "CONTROLAR")
                     {
                         <span class="badge badge-warning">@Html.DisplayFor(x => r.EstadoDesc)</span>
+                    }
+                    else if (r.EstadoDesc == "RETIRADO")
+                    {
+                        <span class="badge badge-success">@Html.DisplayFor(x => r.EstadoDesc)</span>
                     }
                     else
                     {
@@ -105,21 +113,21 @@
         $("li").removeClass("active");
         $("#" + $(this).data("id")).addClass("active");
 
-        $.ajax({
-            url: $(this).data("url"),
-            success: function (data) {
-                $("#OrdenResumen").html(data);
-            }
-        })
+        ajaxGetNoCustomError(
+             $(this).data("url"),
+             function (data) {
+                 $("#OrdenResumen").html(data);
+             }
+        );
     });
 
     $("#inputSearchCriteria").focusout(function (e) {
-        $.ajax({
-            url: "@Url.Action("Filter","Reparacion")/?searchCriteria=" + $(this).val(),
-            success: function (data) {
+        ajaxGetNoCustomError(
+            "@Url.Action("Filter","Reparacion")/?searchCriteria=" + $(this).val(),
+            function (data) {
                 $(".page-content").html(data);
             }
-        })
+        );
     });
 
 </script>

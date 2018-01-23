@@ -6,7 +6,7 @@
         <h4 id="modalNuevaNovedadHeader" class="modal-title">Nueva Novedad</h4>
     </div>
 
-    @using (Ajax.BeginForm("Novedad", "Reparacion", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess(data)", OnFailure = "OnError" }))
+    @using (Ajax.BeginForm("Novedad", "Reparacion", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess(data)", OnFailure = "OnError", LoadingElementId = "spinner" }))
     {
         <div width="100%" id="modalNuevaNovedadBody" class="modal-body">
 
@@ -23,7 +23,7 @@
             <div class="row-fluid">
                 <div class="col-md-12">
                     @Html.LabelFor(model => model.TecnicoNombre)
-                    @Html.TextBoxFor(model => model.TecnicoNombre, new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
                 </div>
             </div>
 
@@ -48,6 +48,7 @@
                 </div>
             </div>
 
+            @Html.HiddenFor(model => model.TipoNovedadId)
         </div>
 
         <div class="modal-footer">
@@ -60,8 +61,8 @@
 
 <script>
     function OnSuccess(data) {
-        $("#OrdenResumen").html(data);
         $(".simplemodal-close").trigger("click");
+        $(".page-content").html(data);
     }
 </script>
 

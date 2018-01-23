@@ -1,66 +1,66 @@
 ﻿@model FastService.Models.OrdenesIndexViewModel
 
-@using (Ajax.BeginForm("Save", "Reparacion", new AjaxOptions { HttpMethod = "Post", OnSuccess = "Done(data)", OnFailure = "OnError" }))
+@using (Ajax.BeginForm("Save", "Reparacion", new AjaxOptions { HttpMethod = "Post", OnSuccess = "Done(data)", OnFailure = "OnError", LoadingElementId = "spinner" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <h3>Estado y Asignacion</h3>
-        <hr>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OrdenActiva.NroOrden)
+                @Html.TextBoxFor(model => model.OrdenActiva.NroOrden, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrdenActiva.NroOrden)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OrdenActiva.EstadoDesc)
+                @Html.TextBoxFor(model => model.OrdenActiva.EstadoDesc, new { @class = "form-control", @disabled = true })
+                @Html.ValidationMessageFor(model => model.OrdenActiva.EstadoDesc)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OrdenActiva.EstadoFecha)
+                @Html.TextBoxFor(model => model.OrdenActiva.EstadoFecha, new { @class = "form-control", @disabled = true })
+                @Html.ValidationMessageFor(model => model.OrdenActiva.EstadoFecha)
+            </div>
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.OrdenActiva.Domicilio)
+                @Html.CheckBoxFor(model => model.OrdenActiva.Domicilio, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrdenActiva.Domicilio)
+            </div>
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.OrdenActiva.Garantia)
+                @Html.CheckBoxFor(model => model.OrdenActiva.Garantia, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrdenActiva.Garantia)
+            </div>
+        </div>
+    </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-3">
-                    @Html.LabelFor(model => model.OrdenActiva.NroOrden)
-                    @Html.TextBoxFor(model => model.OrdenActiva.NroOrden, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.OrdenActiva.NroOrden)
+                    @Html.LabelFor(model => model.OrdenActiva.Presupuesto)
+                    @Html.TextBoxFor(model => model.OrdenActiva.Presupuesto, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OrdenActiva.Presupuesto)
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(model => model.OrdenActiva.EstadoDesc)
-                    @Html.TextBoxFor(model => model.OrdenActiva.EstadoDesc, new { @class = "form-control", @disabled = true })
-                    @Html.ValidationMessageFor(model => model.OrdenActiva.EstadoDesc)
+                    @Html.LabelFor(model => model.OrdenActiva.Monto)
+                    @Html.TextBoxFor(model => model.OrdenActiva.Monto, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OrdenActiva.Monto)
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(model => model.OrdenActiva.EstadoFecha)
-                    @Html.TextBoxFor(model => model.OrdenActiva.EstadoFecha, new { @class = "form-control", @disabled = true })
-                    @Html.ValidationMessageFor(model => model.OrdenActiva.EstadoFecha)
+                    @Html.LabelFor(model => model.OrdenActiva.ResponsableNombre)
+                    @Html.DropDownListFor(model => model.OrdenActiva.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OrdenActiva.ResponsableId)
                 </div>
-                <div class="col-md-1">
-                    @Html.LabelFor(model => model.OrdenActiva.Domicilio)
-                    @Html.CheckBoxFor(model => model.OrdenActiva.Domicilio, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.OrdenActiva.Domicilio)
-                </div>
-                <div class="col-md-1">
-                    @Html.LabelFor(model => model.OrdenActiva.Garantia)
-                    @Html.CheckBoxFor(model => model.OrdenActiva.Garantia, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.OrdenActiva.Garantia)
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.OrdenActiva.TecnicoNombre)
+                    @Html.DropDownListFor(model => model.OrdenActiva.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OrdenActiva.TecnicoId)
                 </div>
             </div>
         </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.OrdenActiva.Presupuesto)
-                        @Html.TextBoxFor(model => model.OrdenActiva.Presupuesto, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.OrdenActiva.Presupuesto)
-                    </div>
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.OrdenActiva.Monto)
-                        @Html.TextBoxFor(model => model.OrdenActiva.Monto, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.OrdenActiva.Monto)
-                    </div>
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.OrdenActiva.ResponsableNombre)
-                        @Html.DropDownListFor(model => model.OrdenActiva.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.OrdenActiva.ResponsableId)
-                    </div>
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.OrdenActiva.TecnicoNombre)
-                        @Html.DropDownListFor(model => model.OrdenActiva.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.OrdenActiva.TecnicoId)
-                    </div>
-                </div>
-            </div>
 
 
             <h3 class="form-section">
@@ -272,7 +272,7 @@
     }
 
     form .row {
-        padding-top:10px;
+        padding-top: 10px;
     }
 </style>
 
