@@ -1,0 +1,99 @@
+﻿@model FastService.Models.VentaSummary
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption caption-green">
+                    <span class="caption-subject text-uppercase">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <h5>Ventas sin factura</h5>
+                <h5>Ventas con factura</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="portlet" data-period="d">
+            <div class="portlet-title">
+                <div class="caption caption-green">
+                    <span class="caption-subject text-uppercase">Hoy</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <h5>$@Model.ResumenDiario.TotalVentasSinFactura</h5>
+                <h5>$@Model.ResumenDiario.TotalVentasConFactura</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="portlet" data-period="d">
+            <div class="portlet-title">
+                <div class="caption caption-green">
+                    <span class="caption-subject text-uppercase">Semana</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <h5>$@Model.ResumenSemanal.TotalVentasSinFactura</h5>
+                <h5>$@Model.ResumenSemanal.TotalVentasConFactura</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="portlet" data-period="m">
+            <div class="portlet-title">
+                <div class="caption caption-green">
+                    <span class="caption-subject text-uppercase">Mes</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <h5>$@Model.ResumenMensual.TotalVentasSinFactura</h5>
+                <h5>$@Model.ResumenMensual.TotalVentasConFactura</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="portlet" data-period="y">
+            <div class="portlet-title">
+                <div class="caption caption-green">
+                    <span class="caption-subject text-uppercase">Año</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <h5>$@Model.ResumenAnual.TotalVentasSinFactura</h5>
+                <h5>$@Model.ResumenAnual.TotalVentasConFactura</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div id="chart">
+    @RenderPage("Chart.cshtml", Model)
+</div>
+
+
+<style>
+    .activePortlet {
+        font-size: large;
+        font-style: normal;
+    }
+</style>
+
+<script>
+    $(".portlet").click(function () {
+            ajaxGetNoCustomError(
+            "@Url.Action("Resumen","Venta")/?period=" + $(this).data("period"),
+            function (data) {
+                $("#chart").html(data);
+
+                $(".portlet").removeClass("activePortlet");
+                $(this).addClass("activePortlet");
+            });
+    });
+
+</script>

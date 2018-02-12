@@ -17,6 +17,7 @@ namespace Model.Model
         public int VentaId { get; set; }
         public Nullable<int> ClienteId { get; set; }
         public decimal Monto { get; set; }
+        public bool Facturado { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> FacturaId { get; set; }
         public string RefNumber { get; set; }

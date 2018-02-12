@@ -90,7 +90,7 @@ namespace FastService
                        "~/Content/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js",
                        "~/Content/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js",
                        "~/Content/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js",
-                       "~/Content/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js",
+                       "~/Content/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usdpe.js",
                        "~/Content/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js",
                        "~/Content/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js",
                        "~/Content/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js",

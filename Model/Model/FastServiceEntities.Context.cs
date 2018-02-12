@@ -48,9 +48,16 @@ namespace Model.Model
         public virtual DbSet<TipoTransaccion> TipoTransaccion { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Venta> Venta { get; set; }
+        public virtual DbSet<oldcliente> oldcliente { get; set; }
+        public virtual DbSet<oldEstadoRep> oldEstadoRep { get; set; }
+        public virtual DbSet<oldresponsable> oldresponsable { get; set; }
+        public virtual DbSet<oldtecnico> oldtecnico { get; set; }
         public virtual DbSet<RoleMenu> RoleMenu { get; set; }
         public virtual DbSet<UsuarioRol> UsuarioRol { get; set; }
-        public virtual DbSet<ComprasAPagar> ComprasAPagar { get; set; }
-        public virtual DbSet<ProveedoresAcreedores> ProveedoresAcreedores { get; set; }
+        public virtual DbSet<vw_ComprasAPagar> vw_ComprasAPagar { get; set; }
+        public virtual DbSet<vw_ProveedoresAcreedores> vw_ProveedoresAcreedores { get; set; }
+        public virtual DbSet<vw_VentasAnuales> vw_VentasAnuales { get; set; }
+        public virtual DbSet<vw_VentasDiarias> vw_VentasDiarias { get; set; }
+        public virtual DbSet<vw_VentasMensuales> vw_VentasMensuales { get; set; }
     }
 }

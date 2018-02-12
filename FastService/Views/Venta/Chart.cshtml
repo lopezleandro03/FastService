@@ -1,0 +1,38 @@
+﻿@model FastService.Models.VentaSummary
+
+<div>
+    <canvas id="resumenChart" width="300" height="100"></canvas>
+</div>
+
+<script>
+    var ctx = $("#resumenChart");
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: @Model.ResumenActivo.Chart.Labels,
+            datasets: [
+            @foreach (var ds in Model.ResumenActivo.Chart.Datasets)
+            {
+                if (ds == Model.ResumenActivo.Chart.Datasets.Last())
+                {
+                     @Html.Raw(ds.DrawLast())
+                }
+                else
+                {
+                     @Html.Raw(ds.Draw())
+                }
+            }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            }
+        }
+    });
+</script>

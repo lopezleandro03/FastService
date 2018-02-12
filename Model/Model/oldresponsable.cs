@@ -12,15 +12,10 @@ namespace Model.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class ProveedoresAcreedores
+    public partial class oldresponsable
     {
-        public string ProveedorId { get; set; }
-        public string Nombre { get; set; }
-        public string Mail { get; set; }
-        public string Contacto { get; set; }
-        public string Telefono1 { get; set; }
-        public string Telefono2 { get; set; }
-        public string Direccion { get; set; }
-        public string Localidad { get; set; }
+        public Nullable<int> nroRes { get; set; }
+        public string nombre { get; set; }
+        public string activo { get; set; }
     }
 }

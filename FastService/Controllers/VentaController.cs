@@ -43,6 +43,20 @@ namespace FastService.Controllers
                                });
         }
 
+        public ActionResult Resumen()
+        {
+            var model = new VentaSummary();
+
+            return PartialView(model);
+        }
+
+        public ActionResult Chart(char period)
+        {
+            var model = new VentaSummary(period);
+
+            return PartialView(model);
+        }
+
         // GET: Venta/Details/5
         public ActionResult Details(int id)
         {
@@ -98,7 +112,7 @@ namespace FastService.Controllers
 
                 case "TRANSFERENCIA":
                     model = new PagoConTransferenciaViewModel();
-                    
+
                     break;
 
                 case "EFECTIVO":
@@ -109,7 +123,7 @@ namespace FastService.Controllers
                 default:
                     break;
             }
-            
+
 
 
             return PartialView(string.Format("MetodoPago{0}", metodo), model);
@@ -152,7 +166,7 @@ namespace FastService.Controllers
                     _dbContext.SaveChanges();
                 }
             }
-            
+
 
             Venta model = new Venta()
             {
@@ -170,7 +184,7 @@ namespace FastService.Controllers
             var s = c.NumberFormat.CurrencyDecimalSeparator;
 
 
-            var montoStr = collection.Get("Monto"); 
+            var montoStr = collection.Get("Monto");
             montoStr = montoStr.Replace(",", s);
             montoStr = montoStr.Replace(".", s);
             var monto = Convert.ToDecimal(montoStr);

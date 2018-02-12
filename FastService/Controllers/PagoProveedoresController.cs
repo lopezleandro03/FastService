@@ -68,13 +68,13 @@ namespace FastService.Controllers
                 MetodoDePago = "Def"//TODO:What the heck is that? 
             };
 
-            var acreedores = (from p in _dbContext.ProveedoresAcreedores
+            var acreedores = (from p in _dbContext.vw_ProveedoresAcreedores
                               select new ProveedorModel
                               {
                                   RazonSocial = p.Nombre,
                                   Mail = p.Mail,
                                   CUIT = p.ProveedorId.ToString(),
-                                  ComprasAPagar = (from c in _dbContext.ComprasAPagar
+                                  ComprasAPagar = (from c in _dbContext.vw_ComprasAPagar
                                                    where c.ProveedorId == p.ProveedorId
                                                    select new CompraAPagarModel
                                                    {

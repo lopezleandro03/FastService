@@ -1,96 +1,81 @@
 ﻿@model IEnumerable<FastService.Models.VentaModel>
 
-<table class="table table-condensed">
-    <tr>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-condensed table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.VentaId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrigenNombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cliente.Dni)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cliente.Nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cliente.Apellido)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Monto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Descripcion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Fecha)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Facturado)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FacturaId)
+                        </th>
+                    </tr>
+                </thead>
 
-        <th>
-            @Html.DisplayNameFor(model => model.OrigenNombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VentaId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cliente.Dni)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cliente.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cliente.Apellido)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Monto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FacturaId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Facturado)
-        </th>
-        <th></th>
-    </tr>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.VentaId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrigenNombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cliente.Dni)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cliente.Apellido)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Monto)
+                            </td>
 
-@foreach (var item in Model) {
-    <tr>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.OrigenNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VentaId)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.Cliente.Dni)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cliente.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cliente.Apellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Monto)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.FacturaId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.Facturado)
-        </td>
-    </tr>
-}
-
-</table>
-
-<script>
-    $("#btnNuevaVenta").click(function () {
-        $.ajax({
-            type: 'GET',
-            url: "/Venta/Create",
-            contentType: "html",
-            dataType: "html",
-            success: function (data) {
-                $(".page-content").html(data);
-            },
-            error: function (data) {
-                alert("Oops, este modulo no ha sido implementado aun...");
-            }
-        });
-    });
-</script>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fecha)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Facturado)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FacturaId)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

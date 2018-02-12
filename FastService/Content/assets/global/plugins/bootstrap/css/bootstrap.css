@@ -258,7 +258,7 @@ th {
 .glyphicon-plus:before {
   content: "\002b"; }
 
-.glyphicon-euro:before,
+.glyphicon-usd:before,
 .glyphicon-eur:before {
   content: "\20ac"; }
 
