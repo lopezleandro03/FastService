@@ -48,10 +48,6 @@ namespace Model.Model
         public virtual DbSet<TipoTransaccion> TipoTransaccion { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Venta> Venta { get; set; }
-        public virtual DbSet<oldcliente> oldcliente { get; set; }
-        public virtual DbSet<oldEstadoRep> oldEstadoRep { get; set; }
-        public virtual DbSet<oldresponsable> oldresponsable { get; set; }
-        public virtual DbSet<oldtecnico> oldtecnico { get; set; }
         public virtual DbSet<RoleMenu> RoleMenu { get; set; }
         public virtual DbSet<UsuarioRol> UsuarioRol { get; set; }
         public virtual DbSet<vw_ComprasAPagar> vw_ComprasAPagar { get; set; }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a868bcd49fa94207bebc818db68c0d3c" Name="Diagram1">
+        <EntityTypeShape EntityType="FastServiceModel.Cliente" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Comercio" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Compra" Width="1.5" PointX="5.75" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Direccion" Width="1.5" PointX="1.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.EstadoReparacion" Width="1.5" PointX="0.75" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Factura" Width="1.5" PointX="5.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.ItemMenu" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Logs" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Marca" Width="1.5" PointX="0.75" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.MetodoPago" Width="1.5" PointX="5.75" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Modelo" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Novedad" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Pago" Width="1.5" PointX="8" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Proveedor" Width="1.5" PointX="3.5" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.PuntoDeVenta" Width="1.5" PointX="3.5" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Reparacion" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.ReparacionDetalle" Width="1.5" PointX="0.75" PointY="28.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Role" Width="1.5" PointX="10.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.TipoDispositivo" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.TipoNovedad" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.TipoTransaccion" Width="1.5" PointX="5.75" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Usuario" Width="1.5" PointX="0.75" PointY="33" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.Venta" Width="1.5" PointX="8" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.RoleMenu" Width="1.5" PointX="13" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.UsuarioRol" Width="1.5" PointX="13" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.vw_ComprasAPagar" Width="1.5" PointX="3.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.vw_ProveedoresAcreedores" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.vw_VentasAnuales" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.vw_VentasDiarias" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastServiceModel.vw_VentasMensuales" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="FastServiceModel.FK__Cliente__Direcci__351DDF8C" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Reparacio__Clien__76EBA2E9" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__ClienteId__0AF29B96" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Reparacio__Comer__7D98A078" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Compra__Proveedo__7F80E8EA" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Compra__PuntoDeV__00750D23" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Pago__CompraId__0169315C" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Reparacio__Estad__79C80F94" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Pago__FacturaId__035179CE" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Pago__FacturaId__04459E07" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__FacturaId__090A5324" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__FacturaId__09FE775D" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK_RoleMenu_ItemMenu" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Reparacio__Marca__7ABC33CD" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Pago__MetodoDePa__0539C240" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Pago__TipoTransa__025D5595" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__PuntoDeVe__0BE6BFCF" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__PuntoDeVe__0CDAE408" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Reparacio__Emple__77DFC722" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Reparacio__Repar__7CA47C3F" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Reparacio__Tecni__78D3EB5B" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Reparacio__TipoD__7BB05806" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Reparacio__TipoD__7E8CC4B1" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK_RoleMenu_Rol" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK_UsuarioRol_Rol" ManuallyRouted="false" />
+        <AssociationConnector Association="FastServiceModel.FK__Venta__TipoTrans__0DCF0841" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

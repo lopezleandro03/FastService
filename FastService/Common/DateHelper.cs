@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Globalization;
 
 namespace FastService.Common
 {
@@ -9,28 +6,9 @@ namespace FastService.Common
     {
         public string GetDayName(int i)
         {
-            if (i == 1)
-                return DayOfWeek.Sunday.ToString();
+            CultureInfo spanish = new CultureInfo("es-AR");
 
-            if (i == 2)
-                return DayOfWeek.Monday.ToString();
-
-            if (i == 3)
-                return DayOfWeek.Tuesday.ToString();
-
-            if (i == 4)
-                return DayOfWeek.Wednesday.ToString();
-
-            if (i == 5)
-                return DayOfWeek.Thursday.ToString();
-
-            if (i == 6)
-                return DayOfWeek.Friday.ToString();
-
-            if (i == 7)
-                return DayOfWeek.Saturday.ToString();
-
-            return "error";
+            return spanish.DateTimeFormat.DayNames[i];
         }
 
         internal string GetMonthName(int i)

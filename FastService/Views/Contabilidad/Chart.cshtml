@@ -1,4 +1,4 @@
-﻿@model FastService.Models.VentaSummary
+﻿@model FastService.Models.Charts.IDrawable
 
 <div>
     <canvas id="resumenChart" width="300" height="100"></canvas>
@@ -10,18 +10,11 @@
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: @Model.ResumenActivo.Chart.Labels,
+            labels: @Html.Raw(Model.ResumenActivo.Chart.Labels),
             datasets: [
             @foreach (var ds in Model.ResumenActivo.Chart.Datasets)
             {
-                if (ds == Model.ResumenActivo.Chart.Datasets.Last())
-                {
-                     @Html.Raw(ds.DrawLast())
-                }
-                else
-                {
-                     @Html.Raw(ds.Draw())
-                }
+                @Html.Raw(ds.Draw())
             }
             ]
         },
@@ -30,6 +23,10 @@
                 yAxes: [{
                     ticks: {
                         beginAtZero: false
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Monto $'
                     }
                 }]
             }

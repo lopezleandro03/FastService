@@ -1,7 +1,7 @@
-﻿@model FastService.Models.OrdenesIndexViewModel
-
+﻿@model FastService.Models.Orden.IIndexModel
 <div class="row">
     <div class="col-lg-12">
+
         <div id="modalNuevaNovedad" class="modal" aria-hidden="true" style="display: none;">
 
         </div>
@@ -19,7 +19,14 @@
 <div class="row">
 
     <div id="listaOrdenes" class="col-md-2">
-        @RenderPage("ListaOrdenes.cshtml", Model)
+        @if (Model.IsMyVIew)
+        {
+            @RenderPage("MiListaOrdenes.cshtml", Model)
+        }
+        else
+        {
+            @RenderPage("ListaOrdenes.cshtml", Model)
+        }
     </div>
 
     <div id="OrdenResumen" class="col-md-8">
@@ -30,3 +37,11 @@
         @RenderPage("PanelAccion.cshtml", Model)
     </div>
 </div>
+
+<style>
+    hr {
+        margin-top: 3px !important;
+        margin-bottom: 3px !important;
+    }
+</style>
+

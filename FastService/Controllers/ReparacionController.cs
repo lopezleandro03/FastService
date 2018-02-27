@@ -1,21 +1,19 @@
 ﻿using FastService.Common;
 using FastService.Models;
-using FastService.Models.Reports;
+using FastService.Models.Orden;
 using Microsoft.Reporting.WebForms;
 using Model.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
-using System.Web;
 using System.Web.Mvc;
-using TRIAD.Website.Reports;
 
 namespace FastService.Controllers
 {
     public class ReparacionController : BaseController
     {
-        private OrdenesIndexViewModel OrdenesModel
+        private IIndexModel OrdenesModel
         {
             get
             {
@@ -62,7 +60,12 @@ namespace FastService.Controllers
             if (auxOrdenActiva != 0)
                 OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.Where(x => x.NroOrden == auxOrdenActiva).FirstOrDefault();
             else
+            { 
+                OrdenesModel.OrdenActiva = new OrdenModel();
                 OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.First();
+            }
+
+            OrdenesModel.IsTecnico = CurrentUserRoles.Exists(x => x.ToUpper() == AplicationRole.TECNICO);
 
             return PartialView(OrdenesModel);
         }
@@ -70,7 +73,7 @@ namespace FastService.Controllers
         public ActionResult MyIndex()
         {
             var auxOrdenActiva = 0;
-            if (OrdenesModel != null)
+            if (OrdenesModel != null && OrdenesModel.OrdenActiva != null)
                 auxOrdenActiva = OrdenesModel.OrdenActiva.NroOrden;
 
             InitializeViewBag();
@@ -82,22 +85,25 @@ namespace FastService.Controllers
             if (auxOrdenActiva != 0)
                 OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.Where(x => x.NroOrden == auxOrdenActiva).FirstOrDefault();
             else
-                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.First();
+                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes?.First();
+
+            OrdenesModel.IsTecnico = CurrentUserRoles.Exists(x => x.ToUpper() == AplicationRole.TECNICO);
+            OrdenesModel.IsMyVIew = true;
 
             return PartialView("Index", OrdenesModel);
         }
         // GET: Reparacion
         public ActionResult Filter(string searchCriteria)
         {
-            var model = new OrdenesIndexViewModel();
             InitializeViewBag();
+            OrdenesModel.Ordenes = _OrdenHelper.GetOrdenes(IsMyOrdersMode, searchCriteria, CurrentUserId);
 
-            OrdenesModel = new OrdenesIndexViewModel();
-            OrdenesModel.Ordenes = _OrdenHelper.GetOrdenes(IsMyOrdersMode, null, CurrentUserId);
-            OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.First();
+            if (OrdenesModel.Ordenes.Any())
+            {
+                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes?.First();
+            }
 
-
-            return PartialView("index", OrdenesModel);
+            return PartialView("Index", OrdenesModel);
         }
 
         // GET: Reparacion/Details/5
@@ -129,11 +135,20 @@ namespace FastService.Controllers
 
             InitializeViewBag();
 
-            if (tipo == (int)NovedadTipo.PRESUPINFOR || tipo == (int)NovedadTipo.ENTREGA)
+            if (tipo == (int)NovedadTipo.PRESUPINFOR 
+                || tipo == (int)NovedadTipo.ENTREGA 
+                || tipo == (int)NovedadTipo.REPDOMICILIO 
+                || tipo == (int)NovedadTipo.REPARADO)
             {
                 return PartialView("NovedadConPresupuesto", model);
             }
-            else if (tipo == (int)NovedadTipo.ACEPTA || tipo == (int)NovedadTipo.RECHAZA || tipo == (int)NovedadTipo.NOTA || tipo == (int)NovedadTipo.LLAMADO)
+            else if (tipo == (int)NovedadTipo.ACEPTA 
+                || tipo == (int)NovedadTipo.RECHAZA 
+                || tipo == (int)NovedadTipo.NOTA 
+                || tipo == (int)NovedadTipo.LLAMADO
+                || tipo == (int)NovedadTipo.VERIFICAR
+                || tipo == (int)NovedadTipo.ACONTROLAR
+                || tipo == (int)NovedadTipo.ESPERAREPUESTO)
             {
                 return PartialView("NovedadSimple", model);
             }
@@ -204,14 +219,14 @@ namespace FastService.Controllers
                             var venta = new Venta()
                             {
                                 ClienteId = orden.ClienteId,
-                                Descripcion = "Pago por servicio de FastService orden ",
+                                Descripcion = $"Pago por servicio de FastService orden {orden.ReparacionId}",
                                 Fecha = DateTime.Now,
                                 Monto = (decimal)orden.ReparacionDetalle.Precio,
-                                RefNumber = orden.ReparacionId.ToString(),
+                                RefNumber = model.NroReferencia,
                                 PuntoDeVentaId = 1,
                                 FacturaId = null,
                                 MetodoPagoId = 1,
-                                TipoTransaccionId = 1,
+                                TipoTransaccionId = model.Facturado ? 1 : 2,
                                 Vendedor = orden.EmpleadoAsignadoId
                             };
 
@@ -300,6 +315,8 @@ namespace FastService.Controllers
                                 ChangedOn = DateTime.Now
                             }
                         };
+
+                        _db.Cliente.Add(cli);
                     }
                     else
                     {
@@ -326,8 +343,6 @@ namespace FastService.Controllers
                         cli.Direccion1.ChangedOn = DateTime.Now;
                     }
 
-                    _db.Cliente.Add(cli);
-
                     var rep = _db.Reparacion.Find(model.OrdenActiva.NroOrden);
                     if (rep == null)
                     {
@@ -339,7 +354,7 @@ namespace FastService.Controllers
 
                             Presupuesto = Convert.ToDecimal(model.OrdenActiva.Presupuesto),
                             PresupuestoFecha = DateTime.Now,
-                            Precio = null,
+                            Precio = model.OrdenActiva.Monto,
 
                             Modelo = model.OrdenActiva.Modelo,
                             Serie = model.OrdenActiva.NroSerie,
@@ -392,7 +407,7 @@ namespace FastService.Controllers
                             repDet.NroReferencia = string.Empty;
                             repDet.Presupuesto = Convert.ToDecimal(model.OrdenActiva.Presupuesto);
                             repDet.PresupuestoFecha = DateTime.Now;
-                            repDet.Precio = null;
+                            repDet.Precio = model.OrdenActiva.Monto;
                             repDet.Modelo = model.OrdenActiva.Modelo;
                             repDet.Serie = model.OrdenActiva.NroSerie;
                             repDet.Serbus = model.OrdenActiva.SerBus; //To be corrected
@@ -422,6 +437,8 @@ namespace FastService.Controllers
         public ActionResult ImprimirRecibo()
         {
             string reportName = "Recibo.pdf";
+
+            //string reportFilePath = "C:/Users/Leandro/source/repos/FastService/FastService.Reports/bin/DebugRecibo.rdl";
             string reportFilePath = "~/Reports/Recibo.rdl";
             var reportType = ReportType.PDF;
             var contentType = string.Format("application/{0}", reportType.ToString().ToLower());

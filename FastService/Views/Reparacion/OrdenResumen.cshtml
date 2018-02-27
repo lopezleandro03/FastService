@@ -37,62 +37,62 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OrdenActiva.Presupuesto)
+                @Html.TextBoxFor(model => model.OrdenActiva.Presupuesto, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrdenActiva.Presupuesto)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OrdenActiva.Monto)
+                @Html.TextBoxFor(model => model.OrdenActiva.Monto, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrdenActiva.Monto)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OrdenActiva.ResponsableNombre)
+                @Html.DropDownListFor(model => model.OrdenActiva.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrdenActiva.ResponsableId)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OrdenActiva.TecnicoNombre)
+                @Html.DropDownListFor(model => model.OrdenActiva.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrdenActiva.TecnicoId)
+            </div>
+        </div>
+    </div>
+
+
+    <h3 class="form-section">
+        Cliente
+    </h3>
+        <hr>
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-3">
-                    @Html.LabelFor(model => model.OrdenActiva.Presupuesto)
-                    @Html.TextBoxFor(model => model.OrdenActiva.Presupuesto, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.OrdenActiva.Presupuesto)
+                    <div class="ui-widget">
+                        @Html.LabelFor(model => model.OrdenActiva.Cliente.Dni)
+                        @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dni, new { @class = "form-control ac-cliente", @id = "Cliente_Dni" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Dni)
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(model => model.OrdenActiva.Monto)
-                    @Html.TextBoxFor(model => model.OrdenActiva.Monto, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.OrdenActiva.Monto)
+                    @Html.LabelFor(model => model.OrdenActiva.Cliente.Nombre)
+                    @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Nombre, new { @class = "form-control ac-cliente", @id = "Cliente_Nombre" })
+                    @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Nombre)
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(model => model.OrdenActiva.ResponsableNombre)
-                    @Html.DropDownListFor(model => model.OrdenActiva.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.OrdenActiva.ResponsableId)
+                    @Html.LabelFor(model => model.OrdenActiva.Cliente.Apellido)
+                    @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Apellido, new { @class = "form-control ac-cliente", @id = "Cliente_Apellido" })
+                    @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Apellido)
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(model => model.OrdenActiva.TecnicoNombre)
-                    @Html.DropDownListFor(model => model.OrdenActiva.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.OrdenActiva.TecnicoId)
+                    @Html.LabelFor(model => model.OrdenActiva.Cliente.Mail)
+                    @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Mail, new { @class = "form-control ac-cliente", @id = "Cliente_Mail" })
+                    @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Mail)
                 </div>
             </div>
         </div>
-
-
-            <h3 class="form-section">
-                Datos del Cliente
-            </h3>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-3">
-                        <div class="ui-widget">
-                            @Html.LabelFor(model => model.OrdenActiva.Cliente.Dni)
-                            @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dni, new { @class = "form-control", @id = "Cliente_Dni" })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Dni)
-                    </div>
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.OrdenActiva.Cliente.Nombre)
-                        @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Nombre, new { @class = "form-control", @id = "Cliente_Nombre" })
-                        @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Nombre)
-                    </div>
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.OrdenActiva.Cliente.Apellido)
-                        @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Apellido, new { @class = "form-control", @id = "Cliente_Apellido" })
-                        @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Apellido)
-                    </div>
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.OrdenActiva.Cliente.Mail)
-                        @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Mail, new { @class = "form-control", @id = "Cliente_Mail" })
-                        @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Mail)
-                    </div>
-                </div>
-            </div>
 
             <div class="row">
                 <div class="col-md-12">
@@ -149,16 +149,16 @@
 
             </div>
 
-            <h3 class="form-section">Datos del Aparato</h3>
+            <h3 class="form-section">Aparato</h3>
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         @Html.LabelFor(model => model.OrdenActiva.TipoDesc)
                         @Html.DropDownListFor(model => model.OrdenActiva.TipoId, (List<SelectListItem>)ViewBag.ListaTipoDispositivo, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.OrdenActiva.TipoId)
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         @Html.LabelFor(model => model.OrdenActiva.MarcaDesc)
                         @Html.DropDownListFor(model => model.OrdenActiva.MarcaId, (List<SelectListItem>)ViewBag.ListaMarcas, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.OrdenActiva.MarcaId)
@@ -173,12 +173,17 @@
                         @Html.TextBoxFor(model => model.OrdenActiva.Modelo, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.OrdenActiva.Modelo)
                     </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.OrdenActiva.Ubicacion)
+                        @Html.TextBoxFor(model => model.OrdenActiva.Ubicacion, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.OrdenActiva.Ubicacion)
+                    </div>
                 </div>
             </div>
 
             <div hidden id="datosComercioDiv">
 
-                <h3 class="form-section">Datos del Comercio</h3>
+                <h3 class="form-section">Comercio</h3>
                 <hr>
                 <div class="row">
                     <div class="col-md-12">
@@ -206,7 +211,7 @@
             <div class="form-actions">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <input id="btnGuardarOrden" class="btn btn-success" type="submit" value="GUARDAR" />
+                        <input id="btnGuardarOrden" class="btn btn-success" type="submit" value="GUARDAR" style="display:none" />
                     </div>
                 </div>
             </div>
@@ -215,10 +220,9 @@
 @if (!Model.NuevaOrden)
 {
     <h3 class="form-section">Novedades</h3>
-    <hr>
     <div class="row ListaNovedades">
         <div class="col-md-12">
-            @if (Model.OrdenActiva.Novedades != null)
+            @if (Model.OrdenActiva.Novedades != null && Model.OrdenActiva.Novedades.Any())
             {
                 <table class="table table-bordered">
                     <tr>
@@ -257,7 +261,7 @@
             }
             else
             {
-                <h4> No hay novedades cargadas</h4>
+                <h4> No hay novedades cargadas para esta orden</h4>
             }
         </div>
     </div>
@@ -278,7 +282,7 @@
 
 <script>
 
-    $("#Cliente_Dni").autocomplete({
+    $(".ac-cliente").autocomplete({
         source: function (request, response) {
             $.ajax({
                 url: "/Cliente/Index",
@@ -301,6 +305,7 @@
                 dataType: "json",
                 data: { ClienteId: ui.item.value },
                 success: function (data) {
+                    $("#Cliente_Dni").val(data.Dni);
                     $("#Cliente_Nombre").val(data.Nombre);
                     $("#Cliente_Apellido").val(data.Apellido);
                     $("#Cliente_Mail").val(data.Mail);

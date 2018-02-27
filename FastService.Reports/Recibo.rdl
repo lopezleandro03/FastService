@@ -168,21 +168,15 @@ WHERE (R.ReparacionId = 107037)</CommandText>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>4.57639in</Width>
+                  <Width>5.07921in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1in</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>4.67361in</Width>
+                  <Width>5.3673in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.25in</Height>
+                  <Height>0.28588in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -223,68 +217,6 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox8">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox8</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox12">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox12</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
                         <Textbox Name="ModificadoEn">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -292,7 +224,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Centro de Servicios: FastService FS S.R.L</Value>
+                                  <Value>Centro de Servicios: Fast Service FS S.R.L</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -318,7 +250,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.25in</Height>
+                  <Height>0.27636in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -345,68 +277,6 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>ClienteId</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox9">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox9</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox13">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox13</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -454,136 +324,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.25in</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox14">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox14</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox15">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox15</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox17">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox17</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox18">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox18</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>0.25in</Height>
+                  <Height>0.24782in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -610,68 +351,6 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Nombre</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox20">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox20</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox22">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox22</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -724,7 +403,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.25in</Height>
+                  <Height>0.25734in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -749,68 +428,6 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Apellido</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox25">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox25</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox27">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox27</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -863,7 +480,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.25in</Height>
+                  <Height>0.29539in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -888,68 +505,6 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Direccion</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox30">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox30</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox32">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox32</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1002,7 +557,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.25in</Height>
+                  <Height>0.25734in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1029,68 +584,6 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Mail</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox35">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox35</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox36">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox36</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1137,7 +630,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.25in</Height>
+                  <Height>0.27636in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1164,68 +657,6 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Telefono1</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox39">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox39</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox40">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox40</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1277,8 +708,6 @@ WHERE (R.ReparacionId = 107037)</CommandText>
               <TablixMembers>
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
-                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -1293,16 +722,15 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                     <TablixMember />
                     <TablixMember />
                     <TablixMember />
-                    <TablixMember />
                   </TablixMembers>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>Reparacion</DataSetName>
-            <Top>0.25694in</Top>
-            <Left>0.76611in</Left>
-            <Height>2in</Height>
-            <Width>11.25in</Width>
+            <Top>0.15221in</Top>
+            <Left>0.13889in</Left>
+            <Height>1.89649in</Height>
+            <Width>10.44651in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1316,18 +744,17 @@ WHERE (R.ReparacionId = 107037)</CommandText>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>1) Los términos y condiciones de la garantía están sujetos al resultado del diagnostico técnico. Durante el ingreso Samsung Electronics Argentina S.A. (SEASA) solo valida que el plazo de garantía del equipo no haya caducado. Si por alguna razón su equipo estuviera excluido de la garantía, Samsung se lo informará así¬ como el presupuesto de reparación.
-2) Los equipos fuera de garantía tienen un cargo fijo no reembolsable por diagnostico (no sujeto al resultado del mismo).
+                    <Value>1) Los términos y condiciones de la garantía están sujetos al resultado del diagnostico técnico. Durante el ingreso FastService S.R.L. solo valida que el plazo de garantía del equipo no haya caducado. Si por alguna razón su equipo estuviera excluido de la garantía, FastService se lo informará así como el presupuesto de reparación.
 3) No se aceptan reclamos por falta de accesorios o piezas no detalladas en la presente orden al momento de la entrega o retiro, si no han sido declarados en su ingreso. Verifique que figuren los mismos antes de firmar la orden de ingreso al servicio técnico.
-4) El cliente toma conocimiento y acepta conocer que durante el proceso de diagnostico, configuración o reparación, los datos almacenados dentro del equipo pueden modificarse o eliminarse de la memoria interna, tarjeta de memoria o SIM, incluye fotografías, agenda, programas o cualquier otro dato no precargado de fabrica, no siendo nada de ello imputable a SEASA. La responsabilidad de efectuar una copia de respaldo es exclusiva del cliente y debe ser previa al ingreso del equipo a service.
+4) El cliente toma conocimiento y acepta conocer que durante el proceso de diagnostico, configuración o reparación, los datos almacenados dentro del equipo pueden modificarse o eliminarse de la memoria interna, tarjeta de memoria o SIM, incluye fotografías, agenda, programas o cualquier otro dato no precargado de fabrica, no siendo nada de ello imputable a FastService. La responsabilidad de efectuar una copia de respaldo es exclusiva del cliente y debe ser previa al ingreso del equipo a service.
 5) El plazo estimado de reparación de los equipos es de 30 (treinta) días, sujeto a disponibilidad de repuestos en el país. En caso de que no hubiera stock de repuestos, se le notificará el plazo estimado para la reparación de su equipo, siendo su decisión el retiro o permanencia de la unidad en el service.
-6) En caso de no retirar el equipo dentro de un plazo de 90 (noventa) días contados desde la fecha de ingreso al servicio, o 20 (veinte) días contados desde la notificación que el equipo ha sido reparado será¡ considerado producto abandonado, pudiéndosele cobrar los gastos de depósito y guarda del equipo. Si luego de cumplidos los plazos mencionados y de haber sido notificado de la situación anteriormente referida, Ud. no retira su equipo y/o paga el saldo en concepto de diagnostico, reparación y/o deposito del equipo, Samsung podrá disponer a su criterio de la unidad sin previo aviso.
-7) El Cliente debe informe al momento de ingresar el equipo fuera de garantía o de aceptar el presupuesto si desea recibir las piezas reemplazadas, de lo contrario SEASA realizará su tratamiento acorde a las políticas de medio ambiente vigentes, no siendo posible su entrega al cliente.
+6) En caso de no retirar el equipo dentro de un plazo de 90 (noventa) días contados desde la fecha de ingreso al servicio, o 20 (veinte) días contados desde la notificación que el equipo ha sido reparado será¡ considerado producto abandonado, pudiéndosele cobrar los gastos de depósito y guarda del equipo. Si luego de cumplidos los plazos mencionados y de haber sido notificado de la situación anteriormente referida, Ud. no retira su equipo y/o paga el saldo en concepto de diagnostico, reparación y/o deposito del equipo, FastService podrá disponer a su criterio de la unidad sin previo aviso.
+7) El Cliente debe informe al momento de ingresar el equipo fuera de garantía o de aceptar el presupuesto si desea recibir las piezas reemplazadas, de lo contrario FastService realizará su tratamiento acorde a las políticas de medio ambiente vigentes, no siendo posible su entrega al cliente.
 Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Arial</FontFamily>
-                      <FontSize>7.5pt</FontSize>
+                      <FontSize>8pt</FontSize>
                       <FontWeight>Normal</FontWeight>
                       <TextDecoration>None</TextDecoration>
                       <Color>#333333</Color>
@@ -1346,18 +773,18 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Arial</FontFamily>
-                      <FontSize>7.5pt</FontSize>
+                      <FontSize>8pt</FontSize>
                       <FontWeight>Normal</FontWeight>
                       <TextDecoration>Underline</TextDecoration>
                       <Color>Blue</Color>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>El cliente toma conocimiento y acepta conocer que su información personal e información de su dispositivo será utilizada por Samsung para prestarle el Servicio solicitado, identificarlo como Usuario de nuestros Productos y Servicios, saber cómo utiliza nuestros Productos y Servicios para mejorar su experiencia y desarrollar productos y servicios nuevos, con fines de evaluación y análisis de mercado, realizar sorteos, concursos o promociones y para proporcionarle contenidos, recomendaciones y publicidad personalizados. A tal efecto, Samsung podrá compartir su información con empresas del grupo Samsung, socios comerciales, proveedores de servicios y autoridades competentes localizados dentro o fuera de la República Argentina (como por ejemplo: Corea del Sur). Para más información visite nuestra política de privacidad global, las cuales Ud. consiente al utilizar nuestros productos y firmar esta orden de servicio.0</Value>
+                    <Value>El cliente toma conocimiento y acepta conocer que su información personal e información de su dispositivo será utilizada por FastService para prestarle el Servicio solicitado, identificarlo como Usuario de nuestros Servicios, saber cómo utiliza nuestros Productos y Servicios para mejorar su experiencia y desarrollar productos y servicios nuevos, con fines de evaluación y análisis de mercado, realizar sorteos, concursos o promociones y para proporcionarle contenidos, recomendaciones y publicidad personalizados. A tal efecto, FastService podrá compartir su información con empresas del grupo Samsung, socios comerciales, proveedores de servicios y autoridades competentes localizados dentro o fuera de la República Argentina (como por ejemplo: Corea del Sur). Para más información visite nuestra política de privacidad global, las cuales Ud. consiente al utilizar nuestros productos y firmar esta orden de servicio.</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Arial</FontFamily>
-                      <FontSize>7.5pt</FontSize>
+                      <FontSize>8pt</FontSize>
                       <FontWeight>Normal</FontWeight>
                       <TextDecoration>None</TextDecoration>
                       <Color>#333333</Color>
@@ -1368,10 +795,10 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox43</rd:DefaultName>
-            <Top>2.4675in</Top>
-            <Left>0.44667in</Left>
-            <Height>2.69444in</Height>
-            <Width>12.35417in</Width>
+            <Top>2.91in</Top>
+            <Left>0.17269in</Left>
+            <Height>2.56031in</Height>
+            <Width>10.44651in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -1384,34 +811,20 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>5.48611in</Height>
+        <Height>13.89457cm</Height>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Style>Solid</Style>
           </Border>
         </Style>
       </Body>
-      <Width>12.80084in</Width>
+      <Width>27.29027cm</Width>
       <Page>
         <PageHeader>
-          <Height>1.24306in</Height>
+          <Height>2.36095cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
-            <Image Name="logo">
-              <Source>Embedded</Source>
-              <Value>logo</Value>
-              <Sizing>FitProportional</Sizing>
-              <Top>0.17361in</Top>
-              <Left>0.44667in</Left>
-              <Height>0.8125in</Height>
-              <Width>2.66667in</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-              </Style>
-            </Image>
             <Textbox Name="Textbox1">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
@@ -1421,7 +834,7 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
                     <TextRun>
                       <Value>Orden de Servicio</Value>
                       <Style>
-                        <FontSize>48pt</FontSize>
+                        <FontSize>36pt</FontSize>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -1429,11 +842,10 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.17361in</Top>
-              <Left>6.99528in</Left>
-              <Height>0.69444in</Height>
-              <Width>5.76861in</Width>
-              <ZIndex>1</ZIndex>
+              <Top>0.06145in</Top>
+              <Left>0.125in</Left>
+              <Height>0.8125in</Height>
+              <Width>5.2825in</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1444,6 +856,21 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
+            <Image Name="logo">
+              <Source>Embedded</Source>
+              <Value>logo</Value>
+              <Sizing>FitProportional</Sizing>
+              <Top>0.01807in</Top>
+              <Left>8.70947in</Left>
+              <Height>0.8125in</Height>
+              <Width>1.90973in</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Image>
           </ReportItems>
           <Style>
             <Border>
@@ -1452,15 +879,15 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>1in</Height>
+          <Height>2.54cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
             <Line Name="Line1">
-              <Top>0.74528in</Top>
-              <Left>2.43278in</Left>
+              <Top>0.71807in</Top>
+              <Left>2.68012in</Left>
               <Height>0in</Height>
-              <Width>2.73389in</Width>
+              <Width>2.1527in</Width>
               <Style>
                 <Border>
                   <Style>Solid</Style>
@@ -1468,10 +895,10 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
               </Style>
             </Line>
             <Line Name="Line2">
-              <Top>0.74528in</Top>
-              <Left>8.73139in</Left>
+              <Top>0.71807in</Top>
+              <Left>8.25207in</Left>
               <Height>0in</Height>
-              <Width>2.73389in</Width>
+              <Width>2.21068in</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -1494,10 +921,10 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox44</rd:DefaultName>
-              <Top>0.28694in</Top>
-              <Left>0.44667in</Left>
+              <Top>0.50974in</Top>
+              <Left>0.26389in</Left>
               <Height>0.33333in</Height>
-              <Width>1.8125in</Width>
+              <Width>2.07886in</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>
@@ -1516,7 +943,7 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Atendido Por:</Value>
+                      <Value>Firma representante de Fast Service:</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
@@ -1524,10 +951,10 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox45</rd:DefaultName>
-              <Top>0.23833in</Top>
-              <Left>7.3425in</Left>
-              <Height>0.25in</Height>
-              <Width>1in</Width>
+              <Top>0.48833in</Top>
+              <Left>5.54861in</Left>
+              <Height>0.35474in</Height>
+              <Width>2.38889in</Width>
               <ZIndex>3</ZIndex>
               <Style>
                 <Border>
@@ -1546,12 +973,13 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>11.69in</PageHeight>
-        <PageWidth>8.27in</PageWidth>
-        <LeftMargin>1in</LeftMargin>
-        <RightMargin>1in</RightMargin>
-        <TopMargin>1in</TopMargin>
-        <BottomMargin>1in</BottomMargin>
+        <PageHeight>21cm</PageHeight>
+        <PageWidth>29.7cm</PageWidth>
+        <LeftMargin>0.8cm</LeftMargin>
+        <RightMargin>0.8cm</RightMargin>
+        <TopMargin>0.5cm</TopMargin>
+        <BottomMargin>0.5cm</BottomMargin>
+        <ColumnSpacing>1.27cm</ColumnSpacing>
         <Style />
       </Page>
     </ReportSection>
@@ -1559,7 +987,7 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
+      <NumberOfRows>1</NumberOfRows>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <EmbeddedImages>
@@ -1570,6 +998,6 @@ Para mayor información, consultar la Ley 24.240, defensa del consumidor.</Value
 q+i2o8XQQGTNJBDmQvUWwjeTfeKK357BoApg3r0ETLr8qms1fH2vYg0PbecDP1jomtOdvk8zPLnNfTxK+3g26InOOWfdN0G7QWBuXl332q/I29n+7DEYXpVOKc7XVZW+pa45Sl3Z6JxrFyg/Q8Ms7SNF5J+8IM514xaPVw3MEUftsvO6w8zxNQNQH12PQQt/96rvtYmjdiJZj2TAUlRSZMNtv55MqwcaglaV5YAgAA0BaAgC0BAEoCEIQEMQgIYANAQBaAgC0BAEoCEIQEMAGoIANAQBaAgC0BDUo98CDACxlrKDASsbJAAAAABJRU5ErkJggg==</ImageData>
     </EmbeddedImage>
   </EmbeddedImages>
-  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>386713e4-0915-4e8b-8642-9200d8b32aa8</rd:ReportID>
 </Report>

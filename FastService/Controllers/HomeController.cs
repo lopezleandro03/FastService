@@ -40,6 +40,10 @@ namespace FastService.Controllers
                                  Apellido = u.Apellido,
                                  DefaultController = r.DefaultController,
                                  DefaultAction = r.DefaultAction,
+                                 Roles = (from ur in _dbContext.UsuarioRol
+                                          join ro in _dbContext.Role on ur.RolId equals ro.RolId
+                                          where ur.UserId == u.UserId
+                                          select ro.Nombre).ToList(),
                                  MenuItems = (from rm in _dbContext.RoleMenu
                                               join i in _dbContext.ItemMenu on rm.ItemMenuId equals i.ItemMenuId
                                               where rm.RolId == x.RolId
@@ -55,13 +59,13 @@ namespace FastService.Controllers
                                               }).ToList()
                              }).ToList().FirstOrDefault();
 
+                CurrentUserRoles = model.Roles;
                 result = this.View(model);
-
             }
-            
+
+
             return result;
         }
-
 
         public ActionResult About()
         {

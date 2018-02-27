@@ -1,5 +1,6 @@
 ﻿using NLog;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace FastService.Controllers
@@ -16,6 +17,12 @@ namespace FastService.Controllers
         {
             get { return System.Web.HttpContext.Current.Session["USERID"] == null ? 0 : Convert.ToInt16(System.Web.HttpContext.Current.Session["USERID"]); }
             set { System.Web.HttpContext.Current.Session["USERID"] = value; }
+        }
+
+        public List<string> CurrentUserRoles
+        {
+            get { return System.Web.HttpContext.Current.Session["USERROLES"] == null ? null : (List<string>)System.Web.HttpContext.Current.Session["USERROLES"]; }
+            set { System.Web.HttpContext.Current.Session["USERROLES"] = value; }
         }
 
         protected override void OnException(ExceptionContext filterContext)

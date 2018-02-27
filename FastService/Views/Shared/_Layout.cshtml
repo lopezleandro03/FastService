@@ -15,56 +15,7 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
     <meta charset="utf-8">
-
-    <!-- BEGIN LAYOUT FIRST STYLES -->
     <link href="//fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css">
-    <!-- END LAYOUT FIRST STYLES -->
-    @*<!-- BEGIN GLOBAL MANDATORY STYLES -->
-        <link href="~/Content/hover.min.css" rel="stylesheet" />
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">
-        <link href="../Content/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="../Content/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
-        <link href="../Content/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="../Content/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
-        <!-- END GLOBAL MANDATORY STYLES -->
-
-        <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="../Content/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css">
-        <link href="../Content/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css">
-        <!-- END THEME GLOBAL STYLES -->
-
-        <!-- BEGIN PAGE LEVEL STYLES -->
-        <link href="../Content/assets/pages/css/pricing.min.css" rel="stylesheet" type="text/css">
-        <!-- END PAGE LEVEL STYLES -->
-
-        <!-- BEGIN THEME LAYOUT STYLES -->
-        <link href="../Content/assets/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css">
-        <link href="../Content/assets/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css">
-        <!-- END THEME LAYOUT STYLES -->
-
-        <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <link href="../Content/assets/pages/css/profile-2.min.css" rel="stylesheet" type="text/css">
-        <link href="~/Content/fullcalendar.css" rel="stylesheet" />
-        <link href="~/Content/daterangepicker.min.css" rel="stylesheet" />
-        <link href="~/Content/bootstrap-fileinput.css" rel="stylesheet" />
-        <link href="~/Content/jqvmap.css" rel="stylesheet" />
-        <link href="~/Content/site.min.css" rel="stylesheet" />
-        <!-- END PAGE LEVEL PLUGINS -->
-
-        <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="../Content/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-        <link href="../Content/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
-        <!-- END THEME GLOBAL STYLES -->
-
-        <!-- BEGIN THEME LAYOUT STYLES -->
-        <link href="../Content/assets/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
-        <link href="../Content/assets/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
-        <link href="~/Content/assets/global/plugins/bootstrap-modal/bootstrap-modal-bs3patch.css" rel="stylesheet" />
-        <link href="~/Content/assets/global/plugins/bootstrap-modal/bootstrap-modal.css" rel="stylesheet" />
-        <!-- END THEME LAYOUT STYLES -->*@
-
-
-
     @Styles.Render("~/Content/css")
     <script src="//fast.eager.io/STdfgLRpM6.js"></script>
 </head>
@@ -95,12 +46,40 @@
                         </a>
                         <!-- END LOGO -->
                         <!-- BEGIN SEARCH -->
-                        <form class="search" action="extra_search.html" method="GET">
-                            <input type="name" class="form-control" name="query" placeholder="Buscar...">
-                            <a href="javascript:;" class="btn submit md-skip">
-                                <i class="fa fa-search"></i>
+
+                        <form class="search">
+                            <input id="inputSearchCriteria" class="form-control" placeholder="Buscar..." autocomplete="off">
+                            <a id="btnSearch" class="btn md-skip">
+                                <i class="fa fa-search fa-x"></i>
                             </a>
                         </form>
+
+                        @*<script>
+                            $("#inputSearchCriteria").keypress(function (e) {
+                                e.preventDefault();
+                                if (e.which == 13) {
+                                    alert('You pressed enter!');
+                                }
+                            });
+
+                            $('#search').on('keyup keypress', function (e) {
+                                var keyCode = e.keyCode || e.which;
+                                if (keyCode === 13) {
+                                    e.preventDefault();
+                                    return false;
+                                }
+                            });
+                        </script>*@
+
+                        <style>
+                            #inputSearchCriteria {
+                                height: 40px;
+                                font-size: medium;
+                                background-color: white;
+                            }
+                        </style>
+
+
                         <!-- END SEARCH -->
                         <!-- BEGIN TOPBAR ACTIONS -->
                         <div class="topbar-actions">
@@ -245,7 +224,7 @@
 
         <!-- END HEADER -->
         <div class="container-fluid">
-            <div class="page-content" style="padding-top: 15px !important">
+            <div class="page-content" style="padding-top: 5px !important">
                 @RenderBody()
             </div>
             <!-- BEGIN FOOTER -->
@@ -414,7 +393,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     @Scripts.Render("~/bundles/jquery")
-    @*@Scripts.Render("~/bundles/jqueryval")*@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery.ui")
     @Scripts.Render("~/bundles/bootstrap")
@@ -450,32 +428,8 @@
         );
     })
 
-    //function OnSuccess(result) {
-    //    if (result.Success == "true") {
-    //        $("#modalSuccess").modal();
-    //        $.ajax({
-    //            type: 'GET',
-    //            url: "/Venta/Create",
-    //            contentType: "html",
-    //            dataType: "html",
-    //            success: function (data) {
+    $("body").click(function () {
+        $("li").removeClass("open");
+    });
 
-    //                $(".page-content").html(data);
-    //            },
-    //            error: function (data) {
-    //                $("#modalError").modal();
-    //                //alert("Oops, ocurrio un error procesando su solicitud...");
-    //            }
-    //        });
-    //    } else {
-    //        $("#modalError").modal();
-    //        //alert("Oops, ocurrio un error procesando su solicitud...");
-    //    }
-    //}
-
-    //function OnError(result) {
-    //    //alert("Oops, ha ocurrido un error procesando su solicitud...");
-    //    //$(".page-content").html(data);
-    //    $("#modalError").modal();
-    //}
 </script>

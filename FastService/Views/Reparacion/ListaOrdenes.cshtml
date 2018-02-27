@@ -1,8 +1,16 @@
-﻿@model FastService.Models.OrdenesIndexViewModel
+﻿@model FastService.Models.Orden.IIndexModel
 <th>
-    <h3>Ordenes</h3>
-    <hr>
-    <input id="inputSearchCriteria" class="form-control" type="text" placeholder="Buscar" />
+    <h3>Trabajos</h3>
+    @*<div class="row">
+        <div class="col-md-9">
+            <input id="inputSearchCriteria" class="form-control" type="text" placeholder="Buscar" />
+        </div>
+        <div class="col-md-pull-1">
+            <button id="btnSearch" class="btn-info">
+                <span class="fa fa-search" style="font-size:large;"></span>
+            </button>
+        </div>
+    </div>*@
 </th>
 
 <ul class="list-group ListaOrdenes">
@@ -10,66 +18,88 @@
     {
         if (Model.OrdenActiva == r)
         {
-            <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item active li-ver-orden" data-url='@Url.Action("Details")/@r.NroOrden'>
-                <div class="OrdenListNro">
-                    <b> @Html.DisplayFor(x => r.NroOrden)</b>
-                </div>
-                <div class="OrdenListSummary">
-                    @Html.DisplayFor(x => r.Cliente.PrettyName)
-                </div>
-                <div class="OrdenListHints">
-                    @if (r.EstadoDesc == "RECHAZADO")
+        <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item active li-ver-orden" data-url='@Url.Action("Details")/@r.NroOrden'>
+
+            <div class="OrdenListNro">
+                <b> @Html.DisplayFor(x => r.NroOrden)</b>
+            </div>
+            <div class="OrdenListSummary">
+                @Html.DisplayFor(x => r.Cliente.PrettyName)
+            </div>
+            <div class="OrdenListHints">
+                @if (r.EstadoDesc == "RECHAZADO")
                     {
-                        <span class="badge badge-danger">@Html.DisplayFor(x => r.EstadoDesc)</span>
+            <span class="badge badge-danger">@Html.DisplayFor(x => r.EstadoDesc)</span>
                     }
                     else if (r.EstadoDesc == "CONTROLAR")
                     {
-                        <span class="badge badge-warning">@Html.DisplayFor(x => r.EstadoDesc)</span>
+            <span class="badge badge-warning">@Html.DisplayFor(x => r.EstadoDesc)</span>
                     }
                     else if (r.EstadoDesc == "RETIRADO")
                     {
-                        <span class="badge badge-success">@Html.DisplayFor(x => r.EstadoDesc)</span>
+            <span class="badge badge-success">@Html.DisplayFor(x => r.EstadoDesc)</span>
                     }
                     else
                     {
-                        <span class="badge badge-info">@Html.DisplayFor(x => r.EstadoDesc)</span>
+            <span class="badge badge-info">@Html.DisplayFor(x => r.EstadoDesc)</span>
                     }
 
-                    <span class="badge badge-info">@Html.DisplayFor(x => r.TecnicoNombre)</span>
-                </div>
-            </li>
+                <span class="badge badge-info">@Html.DisplayFor(x => r.TecnicoNombre)</span>
+
+                @if (r.Domicilio)
+                    {
+            <i class="glyphicon glyphicon-home"></i>
+                    }
+
+                @if (r.Garantia)
+                    {
+            <i class="glyphicon glyphicon-bookmark"></i>
+                    }
+
+            </div>
+        </li>
         }
         else
         {
-            <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-ver-orden" data-url='@Url.Action("Details")/@r.NroOrden'>
-                <div class="OrdenListNro">
-                    <b> @Html.DisplayFor(x => r.NroOrden)</b>
-                </div>
-                <div class="OrdenListSummary">
-                    @Html.DisplayFor(x => r.Cliente.PrettyName)
-                </div>
-                <div class="OrdenListHints">
-                    @if (r.EstadoDesc == "RECHAZADO")
+        <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-ver-orden" data-url='@Url.Action("Details")/@r.NroOrden'>
+            <div class="OrdenListNro">
+                <b> @Html.DisplayFor(x => r.NroOrden)</b>
+            </div>
+            <div class="OrdenListSummary">
+                @Html.DisplayFor(x => r.Cliente.PrettyName)
+            </div>
+            <div class="OrdenListHints">
+                @if (r.EstadoDesc == "RECHAZADO")
                     {
-                        <span class="badge badge-danger">@Html.DisplayFor(x => r.EstadoDesc)</span>
+            <span class="badge badge-danger">@Html.DisplayFor(x => r.EstadoDesc)</span>
                     }
                     else if (r.EstadoDesc == "CONTROLAR")
                     {
-                        <span class="badge badge-warning">@Html.DisplayFor(x => r.EstadoDesc)</span>
+            <span class="badge badge-warning">@Html.DisplayFor(x => r.EstadoDesc)</span>
                     }
                     else if (r.EstadoDesc == "RETIRADO")
                     {
-                        <span class="badge badge-success">@Html.DisplayFor(x => r.EstadoDesc)</span>
+            <span class="badge badge-success">@Html.DisplayFor(x => r.EstadoDesc)</span>
                     }
                     else
                     {
-                        <span class="badge badge-info">@Html.DisplayFor(x => r.EstadoDesc)</span>
+            <span class="badge badge-info">@Html.DisplayFor(x => r.EstadoDesc)</span>
                     }
 
-                    <span class="badge badge-info">@Html.DisplayFor(x => r.TecnicoNombre)</span>
+                <span class="badge badge-info">@Html.DisplayFor(x => r.TecnicoNombre)</span>
 
-                </div>
-            </li>
+                @if (r.Domicilio)
+                    {
+            <i class="glyphicon glyphicon-home"></i>
+                    }
+
+                @if (r.Garantia)
+                    {
+            <i class="glyphicon glyphicon-bookmark"></i>
+                    }
+
+            </div>
+        </li>
         }
 
     }
@@ -105,29 +135,48 @@
         max-height: 1024px;
         overflow-y: scroll;
     }
+
+    .ListaMisOrdenes {
+        max-height: 450px;
+        overflow-y: scroll;
+    }
+
+    /*#inputSearchCriteria {
+        height: 50px;
+        font-size: x-large;
+        border-bottom-style: solid;
+        margin-bottom: 15px;
+        padding-right: 0px;
+    }
+
+    #btnSearch {
+        height: 50px;
+        width: 50px;
+        padding-left: 0px !important;
+    }*/
 </style>
 
 <script>
     $(".li-ver-orden").click(function (e) {
-
         $("li").removeClass("active");
         $("#" + $(this).data("id")).addClass("active");
 
         ajaxGetNoCustomError(
-             $(this).data("url"),
-             function (data) {
-                 $("#OrdenResumen").html(data);
-             }
-        );
-    });
-
-    $("#inputSearchCriteria").focusout(function (e) {
-        ajaxGetNoCustomError(
-            "@Url.Action("Filter","Reparacion")/?searchCriteria=" + $(this).val(),
+            $(this).data("url"),
             function (data) {
-                $(".page-content").html(data);
+                $("#OrdenResumen").html(data);
             }
         );
     });
+
+
+    $("#btnSearch").click(function (e) {
+            ajaxGetNoCustomError(
+                "@Url.Action("Filter","Reparacion")/?searchCriteria=" + $("#inputSearchCriteria").val(),
+                function (data) {
+                    $(".page-content").html(data)
+                }
+            );
+        });
 
 </script>

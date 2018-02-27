@@ -24,12 +24,14 @@ namespace FastService.Models
         [Required]
         [Display(Name = "Presupuesto")]
         [RegularExpression(@"[0-9]*\.?[0-9]+", ErrorMessage = "{0} debe ser un monto correcto, por ejemplo 5250.50")]
-        public double Presupuesto { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal Presupuesto { get; set; }
 
         [Required]
         [RegularExpression(@"[0-9]*\.?[0-9]+", ErrorMessage = "{0} debe ser un monto correcto, por ejemplo 5250.50")]
         [Display(Name = "Monto Final")]
-        public double Monto { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal Monto { get; set; }
 
         [Required]
         public int ResponsableId { get; set; }
@@ -64,6 +66,9 @@ namespace FastService.Models
         [Required]
         [Display(Name = "SerBus")]
         public string SerBus { get; set; }
+
+        [Display(Name = "Ubicacion")]
+        public string Ubicacion { get; set; }
 
         public ClienteModel Cliente { get; set; }
         public Model.Model.Comercio Comercio { get; set; }

@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="col-md-2">
-        <div class="portlet" data-period="d">
+        <div class="portlet" data-period="w">
             <div class="portlet-title">
                 <div class="caption caption-green">
                     <span class="caption-subject text-uppercase">Semana</span>
@@ -43,7 +43,7 @@
         </div>
     </div>
     <div class="col-md-2">
-        <div class="portlet" data-period="m">
+        <div class="portlet activePortlet" data-period="m">
             <div class="portlet-title">
                 <div class="caption caption-green">
                     <span class="caption-subject text-uppercase">Mes</span>
@@ -70,8 +70,6 @@
     </div>
 </div>
 
-<hr>
-
 <div id="chart">
     @RenderPage("Chart.cshtml", Model)
 </div>
@@ -79,20 +77,22 @@
 
 <style>
     .activePortlet {
-        font-size: large;
-        font-style: normal;
+        font-weight: bold;
+        font-style: italic;
+        border-style: dotted;
+        padding: 5px;
     }
 </style>
 
 <script>
-    $(".portlet").click(function () {
-            ajaxGetNoCustomError(
-            "@Url.Action("Resumen","Venta")/?period=" + $(this).data("period"),
-            function (data) {
-                $("#chart").html(data);
+    $(".portlet").click(function (e) {
+            $(".portlet").removeClass("activePortlet");
+            $(this).addClass("activePortlet");
 
-                $(".portlet").removeClass("activePortlet");
-                $(this).addClass("activePortlet");
+            ajaxGetNoCustomError(
+                "@Url.Action("VentaChart","Contabilidad")/?period=" + $(this).data("period"),
+                function (data) {
+                    $("#chart").html(data);
             });
     });
 

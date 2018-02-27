@@ -1,0 +1,144 @@
+﻿@model FastService.Models.BalanceSummary
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption caption-green">
+                    <span class="caption-subject text-uppercase">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <h5>Ventas sin factura</h5>
+                <h5>Ventas con factura</h5>
+                <h5>Ventas Total</h5>
+                <hr>
+                <h5>Compras sin factura</h5>
+                <h5>Compras con factura</h5>
+                <h5>Compras Total</h5>
+                <hr>
+                <h5 class="bold">Balance con factura</h5>
+                <h5 class="bold">Balance sin factura</h5>
+                <h5 class="bold">Balance Total</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="portlet" data-period="d">
+            <div class="portlet-title">
+                <div class="caption caption-green">
+                    <span class="caption-subject text-uppercase">Hoy</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <h5>$@Model.ResumenDiario.TotalVentasSinFactura</h5>
+                <h5>$@Model.ResumenDiario.TotalVentasConFactura</h5>
+                <h5>$@Model.ResumenDiario.TotalVentas</h5>
+                <hr>
+                <h5>$@Model.ResumenDiario.TotalComprasSinFactura</h5>
+                <h5>$@Model.ResumenDiario.TotalComprasSinFactura</h5>
+                <h5>$@Model.ResumenDiario.TotalCompras</h5>
+                <hr>
+                <h5 class="bold">$@Model.ResumenDiario.BalanceSinFactura</h5>
+                <h5 class="bold">$@Model.ResumenDiario.BalanceConFactura</h5>
+                <h5 class="bold">$@Model.ResumenDiario.BalanceTotal</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="portlet" data-period="w">
+            <div class="portlet-title">
+                <div class="caption caption-green">
+                    <span class="caption-subject text-uppercase">Semana</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <h5>$@Model.ResumenSemanal.TotalVentasSinFactura</h5>
+                <h5>$@Model.ResumenSemanal.TotalVentasConFactura</h5>
+                <h5>$@Model.ResumenSemanal.TotalVentas</h5>
+                <hr>
+                <h5>$@Model.ResumenSemanal.TotalComprasSinFactura</h5>
+                <h5>$@Model.ResumenSemanal.TotalComprasSinFactura</h5>
+                <h5>$@Model.ResumenSemanal.TotalCompras</h5>
+                <hr>        
+                <h5 class="bold">$@Model.ResumenSemanal.BalanceSinFactura</h5>
+                <h5 class="bold">$@Model.ResumenSemanal.BalanceConFactura</h5>
+                <h5 class="bold">$@Model.ResumenSemanal.BalanceTotal</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="portlet activePortlet" data-period="m">
+            <div class="portlet-title">
+                <div class="caption caption-green">
+                    <span class="caption-subject text-uppercase">Mes</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <h5>$@Model.ResumenMensual.TotalVentasSinFactura</h5>
+                <h5>$@Model.ResumenMensual.TotalVentasConFactura</h5>
+                <h5>$@Model.ResumenMensual.TotalVentas</h5>
+                <hr>
+                <h5>$@Model.ResumenMensual.TotalComprasSinFactura</h5>
+                <h5>$@Model.ResumenMensual.TotalComprasSinFactura</h5>
+                <h5>$@Model.ResumenMensual.TotalCompras</h5>
+                <hr>        
+                <h5 class="bold">$@Model.ResumenMensual.BalanceSinFactura</h5>
+                <h5 class="bold">$@Model.ResumenMensual.BalanceConFactura</h5>
+                <h5 class="bold">$@Model.ResumenMensual.BalanceTotal</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="portlet" data-period="y">
+            <div class="portlet-title">
+                <div class="caption caption-green">
+                    <span class="caption-subject text-uppercase">Año</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <h5>$@Model.ResumenAnual.TotalVentasSinFactura</h5>
+                <h5>$@Model.ResumenAnual.TotalVentasConFactura</h5>
+                <h5>$@Model.ResumenAnual.TotalVentas</h5>
+                <hr>
+                <h5>$@Model.ResumenAnual.TotalComprasSinFactura</h5>
+                <h5>$@Model.ResumenAnual.TotalComprasSinFactura</h5>
+                <h5>$@Model.ResumenAnual.TotalCompras</h5>
+                <hr>        
+                <h5 class="bold">$@Model.ResumenAnual.BalanceSinFactura</h5>
+                <h5 class="bold">$@Model.ResumenAnual.BalanceConFactura</h5>
+                <h5 class="bold">$@Model.ResumenAnual.BalanceTotal</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="chart">
+    @RenderPage("Chart.cshtml", Model)
+</div>
+
+
+<style>
+    .activePortlet {
+        font-weight: bold;
+        font-style: italic;
+        border-style: dotted;
+        padding: 5px;
+    }
+</style>
+
+<script>
+    $(".portlet").click(function (e) {
+            $(".portlet").removeClass("activePortlet");
+            $(this).addClass("activePortlet");
+
+            ajaxGetNoCustomError(
+                "@Url.Action("BalanceChart","Contabilidad")/?period=" + $(this).data("period"),
+                function (data) {
+                    $("#chart").html(data);
+            });
+    });
+
+</script>

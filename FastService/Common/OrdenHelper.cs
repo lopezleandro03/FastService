@@ -37,6 +37,9 @@ namespace FastService.Common
                            || r.Usuario1.Nombre == searchCriteria.Trim()
                            || r.Usuario1.Apellido == searchCriteria.Trim()
                            || r.Usuario1.Email == searchCriteria.Trim())
+                           || r.ReparacionDetalle.Serie == searchCriteria.Trim()
+                           || r.ReparacionDetalle.Serbus == searchCriteria.Trim()
+                           || r.ReparacionDetalle.NroReferencia == searchCriteria.Trim()
                            select new OrdenModel()
                            {
                                NroOrden = r.ReparacionId,
@@ -50,6 +53,9 @@ namespace FastService.Common
                                ResponsableNombre = r.Usuario.Nombre,
                                TecnicoId = r.EmpleadoAsignadoId,
                                TecnicoNombre = r.Usuario1.Nombre,
+
+                               Presupuesto = r.ReparacionDetalle.Presupuesto ?? 0,
+                               Monto = r.ReparacionDetalle.Precio ?? 0,
 
                                MarcaId = r.MarcaId,
                                MarcaDesc = r.Marca.nombre,
@@ -88,7 +94,7 @@ namespace FastService.Common
 
                                }
 
-                           })?.OrderByDescending(x => x.NroOrden)?.Take(20)?.ToList();
+                           })?.OrderByDescending(x => x.NroOrden)?.Take(100)?.ToList();
 
             }
             else
@@ -111,6 +117,9 @@ namespace FastService.Common
                                    ResponsableNombre = r.Usuario.Nombre,
                                    TecnicoId = r.TecnicoAsignadoId,
                                    TecnicoNombre = r.Usuario1.Nombre,
+                                   
+                                   Presupuesto = r.ReparacionDetalle.Presupuesto ?? 0,
+                                   Monto = r.ReparacionDetalle.Precio ?? 0,
 
                                    MarcaId = r.MarcaId,
                                    MarcaDesc = r.Marca.nombre,
@@ -148,7 +157,7 @@ namespace FastService.Common
                                        Celular = r.Cliente.Telefono2
                                    }
 
-                               }).OrderByDescending(x => x.NroOrden).Take(30).ToList();
+                               }).OrderByDescending(x => x.NroOrden).Take(100).ToList();
                 }
                 else
                 {
@@ -167,6 +176,9 @@ namespace FastService.Common
                                    TecnicoId = r.TecnicoAsignadoId,
                                    TecnicoNombre = r.Usuario1.Nombre,
 
+                                   Presupuesto = r.ReparacionDetalle.Presupuesto ?? 0,
+                                   Monto = r.ReparacionDetalle.Precio ?? 0,
+
                                    MarcaId = r.MarcaId,
                                    MarcaDesc = r.Marca.nombre,
 
@@ -203,7 +215,7 @@ namespace FastService.Common
                                        Celular = r.Cliente.Telefono2
                                    }
 
-                               }).OrderByDescending(x => x.NroOrden).Take(20).ToList();
+                               }).OrderByDescending(x => x.NroOrden).Take(100).ToList();
                 }
             }
 
@@ -219,6 +231,7 @@ namespace FastService.Common
 
             Ordenes = (from r in _db.Reparacion
                        where r.ReparacionDetalle.EsDomicilio == true
+                          && r.EstadoReparacion.nombre == ReparacionEstado.INGRESADO.ToString()
                        select new OrdenModel()
                        {
                            NroOrden = r.ReparacionId,
@@ -232,6 +245,9 @@ namespace FastService.Common
                            ResponsableNombre = r.Usuario.Nombre,
                            TecnicoId = r.TecnicoAsignadoId,
                            TecnicoNombre = r.Usuario1.Nombre,
+
+                           Presupuesto = r.ReparacionDetalle.Presupuesto ?? 0,
+                           Monto = r.ReparacionDetalle.Precio ?? 0,
 
                            MarcaId = r.MarcaId,
                            MarcaDesc = r.Marca.nombre,

@@ -50,24 +50,43 @@ nrores,
 null
 from  oldresponsable where activo = 'true'
 
+--clean up duplicated records
+if ((select 1 from tempdb.sys.tables where name like '%tokeep%') > 0)
+	drop table #tokeep
+
+create table #tokeep (timestamp varchar(20),nrotra varchar(20) )
+
+insert #tokeep 
+select MAX(timestamp), nrotra from oldtranu group by nrotra having COUNT(nrotra) > 1
+union
+select MAX(timestamp), nrotra from oldtranu group by nrotra having COUNT(nrotra) = 1
+
+delete t
+from oldtranu t
+left join #tokeep d on t.nrotra = d.nrotra and t.timestamp = d.timestamp
+where d.nrotra is null 
+
+delete oldtranu where timestamp  =''
+
 --Migra detalle de reparaciones
 insert reparaciondetalle
-select CASE o.garantia WHEN 'C' THEN 1 ELSE 0 END,  
-0,--to be determined
+select 
+CASE o.garantia WHEN 'C' THEN 1 ELSE 0 END,  
+CASE o.movil WHEN 0 THEN 0 ELSE 1 END,--to be determined
 o.nrotra,
 null,
 null,
-CASE PRECIO WHEN '.00' THEN 0 ELSE SUBSTRING(PRECIO,0,CHARINDEX('.',precio)) END,
+CASE PRECIO WHEN '.00' THEN 0 ELSE SUBSTRING(PRECIO,0,CHARINDEX('.',precio)) END as precio,
 getdate(),
-CASE PRECIO WHEN '.00' THEN 0 ELSE SUBSTRING(PRECIO,0,CHARINDEX('.',precio)) END,
+CASE PRECIO WHEN '.00' THEN 0 ELSE SUBSTRING(PRECIO,0,CHARINDEX('.',precio)) END as presup,
 modelo,
 serie,
 serbus,
 'sysadmin',
 getdate()
 from oldtranu o
-where not exists (select top 1 1 from oldtranu o2 where o2.timestamp > o.timestamp and o2.nrotra = o.nrotra)
-and not exists (select top 1 1 from oldtranu o2 where o2.nrocli > o.nrocli and o2.nrotra = o.nrotra)
+--where not exists (select top 1 1 from oldtranu o2 where o2.timestamp > o.timestamp and o2.nrotra = o.nrotra)
+--and not exists (select top 1 1 from oldtranu o2 where o2.nrocli > o.nrocli and o2.nrotra = o.nrotra)
 
 --Migro transacciones a reparaciones
 insert reparacion
@@ -84,8 +103,8 @@ rd.reparaciondetalleid,
 getdate()
 from oldtranu o
 join reparacionDetalle rd on o.nrotra = rd.nroReferencia
-where not exists (select top 1 1 from oldtranu o2 where o2.timestamp > o.timestamp and o2.nrotra = o.nrotra)
-and not exists (select top 1 1 from oldtranu o2 where o2.nrocli > o.nrocli and o2.nrotra = o.nrotra)
+--where not exists (select top 1 1 from oldtranu o2 where o2.timestamp > o.timestamp and o2.nrotra = o.nrotra)
+--and not exists (select top 1 1 from oldtranu o2 where o2.nrocli > o.nrocli and o2.nrotra = o.nrotra)
 
 ----Migro novedades
 insert novedad 
@@ -98,4 +117,8 @@ observ,
 'sysadmin',
 getdate()
 from oldobserv o join oldnovedad n on n.transac = o.transac order by nrotra asc
+
+--select * from oldtranu where nrotra = 521
+--select nrotra from oldtranu group by nrotra having COUNT(nrotra) > 1
+
 

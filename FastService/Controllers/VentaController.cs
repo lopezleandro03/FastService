@@ -43,20 +43,6 @@ namespace FastService.Controllers
                                });
         }
 
-        public ActionResult Resumen()
-        {
-            var model = new VentaSummary();
-
-            return PartialView(model);
-        }
-
-        public ActionResult Chart(char period)
-        {
-            var model = new VentaSummary(period);
-
-            return PartialView(model);
-        }
-
         // GET: Venta/Details/5
         public ActionResult Details(int id)
         {
@@ -131,68 +117,61 @@ namespace FastService.Controllers
 
         // POST: Venta/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(VentaModel venta)
         {
-            bool esClienteValido = (!String.IsNullOrEmpty(collection.Get("Cliente.Dni")) && !String.IsNullOrWhiteSpace(collection.Get("Cliente.Dni")));
+            var cliente = _dbContext.Cliente.FirstOrDefault(x => x.Dni == venta.Cliente.Dni);
 
-            if (esClienteValido)
+            if (cliente != null)
             {
-                var clienteId = Convert.ToInt32(collection.Get("Cliente.Dni"));
-                var cliente = _dbContext.Cliente.Find(clienteId);
-
-                if (cliente != null)
-                {
-                    cliente.Nombre = collection.Get("Cliente.Nombre");
-                    cliente.Apellido = collection.Get("Cliente.Apellido");
-                    cliente.Mail = collection.Get("Cliente.MailCliente");
-                    cliente.Direccion = collection.Get("Cliente.Direccion") ?? null;
-                    cliente.Telefono1 = collection.Get("Cliente.Telefono") ?? null;
-                    cliente.Telefono2 = collection.Get("Cliente.Celular") ?? null;
-                }
-                else
-                {
-                    Cliente nuevoCliente = new Cliente()
-                    {
-                        ClienteId = clienteId,
-                        Nombre = collection.Get("Cliente.Nombre"),
-                        Apellido = collection.Get("Cliente.Apellido"),
-                        Mail = collection.Get("Cliente.Mail"),
-                        Direccion = collection.Get("Cliente.Direccion") ?? null,
-                        Telefono1 = collection.Get("Cliente.Telefono") ?? null,
-                        Telefono2 = collection.Get("Cliente.Celular") ?? null
-                    };
-
-                    _dbContext.Cliente.Add(nuevoCliente);
-                    _dbContext.SaveChanges();
-                }
+                cliente.Dni = venta.Cliente.Dni;
+                cliente.Nombre = venta.Cliente.Nombre;
+                cliente.Apellido = venta.Cliente.Apellido;
+                cliente.Mail = venta.Cliente.Mail;
+                cliente.Direccion = venta.Cliente.Direccion;
+                cliente.Telefono1 = venta.Cliente.Telefono;
+                cliente.Telefono2 = venta.Cliente.Celular;
             }
+            else
+            {
+                cliente = new Cliente()
+                {
+                    Dni = venta.Cliente.Dni,
+                    Nombre = venta.Cliente.Nombre,
+                    Apellido = venta.Cliente.Apellido,
+                    Mail = venta.Cliente.Mail,
+                    Direccion = venta.Cliente.Direccion,
+                    Telefono1 = venta.Cliente.Telefono,
+                    Telefono2 = venta.Cliente.Celular
+                };
 
+                _dbContext.Cliente.Add(cliente);
+                _dbContext.SaveChanges();
+            }
 
             Venta model = new Venta()
             {
                 FacturaId = null,
-                RefNumber = collection.Get("FacturaId"),
-                Descripcion = collection.Get("Descripcion"),
-                PuntoDeVentaId = Convert.ToInt16(collection.Get("Origen")),
-                Fecha = DateHelper.ParseJSDate(collection.Get("Fecha")),
+                RefNumber = venta.FacturaId,
+                Descripcion = venta.Descripcion,
+                PuntoDeVentaId = venta.Origen,
+                Fecha = venta.Fecha,
                 Vendedor = CurrentUserId,
-                TipoTransaccionId = collection.Get("Facturado").Split(',').First() == "true" ? 1 : 2,
-                MetodoPagoId = 1
+                Facturado = venta.Facturado,
+                TipoTransaccionId = venta.Facturado ? 1 : 2,
+                MetodoPagoId = 1,
+                Monto = venta.Monto,
+                ClienteId = cliente.ClienteId
             };
 
-            var c = System.Threading.Thread.CurrentThread.CurrentCulture;
-            var s = c.NumberFormat.CurrencyDecimalSeparator;
+            //var c = System.Threading.Thread.CurrentThread.CurrentCulture;
+            //var s = c.NumberFormat.CurrencyDecimalSeparator;
 
+            //var montoStr = collection.Get("Monto");
+            //montoStr = montoStr.Replace(",", s);
+            //montoStr = montoStr.Replace(".", s);
+            //var monto = Convert.ToDecimal(montoStr);
 
-            var montoStr = collection.Get("Monto");
-            montoStr = montoStr.Replace(",", s);
-            montoStr = montoStr.Replace(".", s);
-            var monto = Convert.ToDecimal(montoStr);
-
-            model.Monto = monto;
-
-            if (esClienteValido)
-                model.ClienteId = Convert.ToInt32(collection.Get("Cliente.Dni"));
+            //model.Monto = monto;
 
             _dbContext.Venta.Add(model);
             _dbContext.SaveChanges();

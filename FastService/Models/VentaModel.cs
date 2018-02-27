@@ -23,7 +23,7 @@ namespace FastService.Models
         public DateTime Fecha { get; set; }
         public int Vendedor { get; set; }
         [Display(Name = "Factura Nro.")]
-        public int? FacturaId { get; set; }
+        public string FacturaId { get; set; }
         [Display(Name = "Venta Facturada?")]
         public bool Facturado { get; set; }
 

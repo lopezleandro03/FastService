@@ -17,6 +17,16 @@ namespace FastService.Models
 
         public decimal? Monto { get; set; }
         public double Material { get; set; }
+        public bool Facturado
+        {
+            get
+            {
+                return !String.IsNullOrEmpty(NroReferencia) && !string.IsNullOrWhiteSpace(NroReferencia);
+            }
+        }
+
+        [Display(Name = "Numero de Factura")]
+        public string NroReferencia { get; set; }
 
         public int TecnicoId { get; set; }
         public string TecnicoNombre { get; set; }

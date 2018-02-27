@@ -9,6 +9,10 @@ namespace FastService.Models
     public class Chart
     {
         public List<ChartDataSet> Datasets { get; set; }
+        public string Color1 = "#c91de8";
+        public string Color2 = "#e81d3c";
+        public string Color3 = "#29ef05";
+        public string Color4 = "#05efcb";
 
         public string Labels
         {
@@ -51,7 +55,7 @@ namespace FastService.Models
         public string LabelsToJson()
         {
             var json = JsonConvert.SerializeObject(DataPoints);
-            return json.Replace("\"", "");
+            return json;
         }
 
         public string DataToJson()
@@ -72,11 +76,6 @@ namespace FastService.Models
                           "},";
 
             return charDef;
-        }
-
-        public string DrawLast()
-        {
-            return Draw() + ",";
         }
     }
 }

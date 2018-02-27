@@ -2,9 +2,10 @@
 
 <h3>Acciones</h3>
 <hr>
+<br>
 <div class="row">
     <div class="col-md-12 text-center">
-        <input id="nuevaOrden" data-tipo="1" class="btn btn-success btn-md" type="button" value="NUEVA ORDEN" />
+        <input id="guardarBtn" class="btn btn-success btn-md" type="button" value="GUARDAR" />
     </div>
 </div>
 <br>
@@ -13,80 +14,148 @@
         <input id="imprimirBtn" class="btn btn-info btn-md" type="button" value="IMPRIMIR" />
     </div>
 </div>
+<br>
+<div class="row">
+    <div class="col-md-12 text-center">
+        <input id="nuevaOrden" data-tipo="1" class="btn btn-info btn-md" type="button" value="NUEVA ORDEN" />
+    </div>
+</div>
 
+<br>
 <hr>
-
-<div class="row">
-    <div class="col-md-12 text-center">
-        <input data-tipo="2" class="btn btn-info btn-md reparacionActionButton" type="button" value="PRESUP. INFORMADO" />
-    </div>
-</div>
-
 <br>
 
-<div class="row">
-    <div class="col-md-12 text-center">
-        <input data-tipo="3" class="btn btn-success btn-md reparacionActionButton" type="button" value="ACEPTA" />
+@if (!Model.IsTecnico)
+{
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="2" class="btn btn-info btn-md reparacionActionButton" type="button" value="PRESUP. INFORMADO" />
+        </div>
     </div>
-</div>
 
-<br>
+    <br>
 
-<div class="row">
-    <div class="col-md-12 text-center">
-        <input data-tipo="23" class="btn btn-danger btn-md reparacionActionButton" type="button" value="RECHAZA" />
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="3" class="btn btn-success btn-md reparacionActionButton" type="button" value="ACEPTA" />
+        </div>
     </div>
-</div>
 
-<br>
+    <br>
 
-<div class="row">
-    <div class="col-md-12 text-center">
-        <input data-tipo="17" class="btn btn-info btn-md reparacionActionButton" type="button" value="NOTA/RECLAMO" />
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="23" class="btn btn-danger btn-md reparacionActionButton" type="button" value="RECHAZA" />
+        </div>
     </div>
-</div>
 
-<br>
+    <br>
 
-<div class="row">
-    <div class="col-md-12 text-center">
-        <input data-tipo="7" class="btn btn-info btn-md reparacionActionButton" type="button" value="ENTREGAR" />
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="17" class="btn btn-info btn-md reparacionActionButton" type="button" value="NOTA/RECLAMO" />
+        </div>
     </div>
-</div>
 
+    <br>
 
-<br>
-
-<div class="row">
-    <div class="col-md-12 text-center">
-        <input data-tipo="24" class="btn btn-info btn-md reparacionActionButton" type="button" value="REINGRESO" />
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="7" class="btn btn-info btn-md reparacionActionButton" type="button" value="ENTREGAR" />
+        </div>
     </div>
-</div>
 
-<br>
 
-<div class="row">
-    <div class="col-md-12 text-center">
-        <input data-tipo="18" class="btn btn-info btn-md reparacionActionButton" type="button" value="LLAMADO" />
+    <br>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="24" class="btn btn-info btn-md reparacionActionButton" type="button" value="REINGRESO" />
+        </div>
     </div>
-</div>
 
-<br>
+    <br>
 
-<div class="row">
-    <div class="col-md-12 text-center">
-        <input data-tipo="5" class="btn btn-info btn-md reparacionActionButton" type="button" value="RETIRA" />
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="18" class="btn btn-info btn-md reparacionActionButton" type="button" value="LLAMADO" />
+        </div>
     </div>
-</div>
 
-<br>
+    <br>
 
-<div class="row">
-    <div class="col-md-12 text-center">
-        <input data-tipo="26" class="btn btn-info btn-md reparacionActionButton" type="button" value="SENA" />
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="5" class="btn btn-info btn-md reparacionActionButton" type="button" value="RETIRA" />
+        </div>
     </div>
-</div>
 
+    <br>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="26" class="btn btn-info btn-md reparacionActionButton" type="button" value="SENA" />
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="2" class="btn btn-info btn-md reparacionActionButton" type="button" value="PRESUPUESTO" />
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="4" class="btn btn-info btn-md reparacionActionButton" type="button" value="REPARADO" />
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="23" class="btn btn-danger btn-md reparacionActionButton" type="button" value="RECHAZA" />
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="16" class="btn btn-info btn-md reparacionActionButton" type="button" value="ESPERA RESPUESTO" />
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="39" class="btn btn-info btn-md reparacionActionButton" type="button" value="VERIFICAR" />
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="40" class="btn btn-info btn-md reparacionActionButton" type="button" value="REP. DOMICILIO" />
+        </div>
+    </div>
+
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input data-tipo="33" class="btn btn-info btn-md reparacionActionButton" type="button" value="A CONTROL" />
+        </div>
+    </div>
+
+}
 
 <script>
 
@@ -116,4 +185,9 @@
     $("#imprimirBtn").click(function () {
         ImprimirRecibo();
     })
+
+    $("#guardarBtn").click(function () {
+        $("#btnGuardarOrden").trigger("click");
+    })
+
 </script>

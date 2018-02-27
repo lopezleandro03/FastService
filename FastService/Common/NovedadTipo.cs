@@ -16,6 +16,11 @@ namespace FastService.Common
         REINGRESO = 24,
         LLAMADO = 18,
         RETIRA = 7,
-        SENA = 26
+        SENA = 26,
+        ESPERAREPUESTO = 16,
+        VERIFICAR = 39,
+        REPDOMICILIO = 40,
+        ACONTROLAR = 33,
+        REPARADO = 4
     };
 }

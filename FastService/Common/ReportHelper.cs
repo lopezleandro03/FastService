@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TRIAD.Website.Reports
+namespace FastService.Common
 {
     public class ReportHelper
     {
