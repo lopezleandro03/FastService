@@ -18,5 +18,9 @@ namespace FastService.Models
         public Nullable<decimal> Longitud { get; set; }
         public System.DateTime ChangedOn { get; set; }
         public int ChangedBy { get; set; }
+        [Display(Name = "Entre calle 1")]
+        public string Calle2 { get; set; }
+        [Display(Name = "Entre calle 2")]
+        public string Calle3 { get; set; }
     }
 }

@@ -55,21 +55,21 @@
                         </form>
 
                         @*<script>
-                            $("#inputSearchCriteria").keypress(function (e) {
-                                e.preventDefault();
-                                if (e.which == 13) {
-                                    alert('You pressed enter!');
-                                }
-                            });
-
-                            $('#search').on('keyup keypress', function (e) {
-                                var keyCode = e.keyCode || e.which;
-                                if (keyCode === 13) {
+                                $("#inputSearchCriteria").keypress(function (e) {
                                     e.preventDefault();
-                                    return false;
-                                }
-                            });
-                        </script>*@
+                                    if (e.which == 13) {
+                                        alert('You pressed enter!');
+                                    }
+                                });
+
+                                $('#search').on('keyup keypress', function (e) {
+                                    var keyCode = e.keyCode || e.which;
+                                    if (keyCode === 13) {
+                                        e.preventDefault();
+                                        return false;
+                                    }
+                                });
+                            </script>*@
 
                         <style>
                             #inputSearchCriteria {
@@ -200,10 +200,10 @@
 
                                     @if (Model.MenuItems.Where(x => x.ParentId == menu.MenuId).Count() > 0)
                                     {
-                                        <ul class="dropdown-menu dropdown-menu-fw">
+                                        <ul class="dropdown-menu dropdown-menu-fw fade-in-up grey-cararra">
                                             @foreach (var menuItem in Model.MenuItems.Where(x => x.ParentId == menu.MenuId))
                     {
-                                                <li class="asyncAction" data-controller="@menuItem.Controller" data-action="@menuItem.Action">
+                                                <li class="asyncAction text-uppercase" data-controller="@menuItem.Controller" data-action="@menuItem.Action">
                                                     <a href="javascript:;">
                                                         <i class="@menuItem.Icon"></i> @menuItem.DisplayName.Trim()
                                                     </a>
@@ -224,12 +224,15 @@
 
         <!-- END HEADER -->
         <div class="container-fluid">
+
+            @RenderPage("_ModalSuccess.cshtml")
+            @RenderPage("_ModalError.cshtml")
             <div class="page-content" style="padding-top: 5px !important">
                 @RenderBody()
             </div>
             <!-- BEGIN FOOTER -->
             <p class="copyright">
-                2016 &copy; FS SRL
+                2018 &copy; FS SRL
             </p>
             <a href="#index" class="go2top">
                 <i class="icon-arrow-up"></i>
@@ -350,40 +353,8 @@
             </div>
         </div>
     </div>
-    <!--Modal section-->
-    <div class="modal fade" id="modalError" role="basic" aria-hidden="true" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" aria-hidden="true" type="button" data-dismiss="modal"></button>
-                <h4 class="modal-title">Error</h4>
-            </div>
-            <div class="modal-body"> Oops hubo un error, intente de nuevo! </div>
-            <div class="modal-footer">
-                <button class="btn dark btn-outline" type="button" data-dismiss="modal">Close</button>
-                <!--<button class="btn green" type="button">Save changes</button>-->
-            </div>
-        </div>
-    </div>
 
-    <div class="modal fade" id="modalSuccess" role="basic" aria-hidden="true" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" aria-hidden="true" type="button" data-dismiss="modal"></button>
-                <h4 class="modal-title">Hecho!</h4>
-            </div>
-            <div class="modal-body"> Operacion completada! </div>
-            <div class="modal-footer">
-                <button class="btn dark btn-outline" type="button" data-dismiss="modal">Close</button>
-                <!--<button class="btn green" type="button">Save changes</button>-->
-            </div>
-        </div>
-    </div>
-
-    <div id="spinner" class="spinner">
-        <span class="inner"></span>
-        <span class="inner"></span>
-        <span class="inner"></span>
-    </div>
+    @RenderPage("_Spinner.cshtml")
 
     <link href="~/Content/spinner.css" rel="stylesheet" />
     <script src="~/Scripts/AjaxHelper.js"></script>

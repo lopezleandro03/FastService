@@ -9,20 +9,108 @@ namespace FastService.Controllers
     {
         public string CurrentUserEmail
         {
-            get { return System.Web.HttpContext.Current.Session["USERMAIL"] == null ? null : System.Web.HttpContext.Current.Session["USERMAIL"].ToString(); }
-            set { System.Web.HttpContext.Current.Session["USERMAIL"] = value; }
+            get
+            {
+                if (System.Web.HttpContext.Current.Session["USERMAIL"] != null)
+                {
+                    return System.Web.HttpContext.Current.Session["USERMAIL"].ToString();
+                }
+                else if (GetCookie("USERMAIL") != null)
+                {
+                    System.Web.HttpContext.Current.Session["USERMAIL"] = GetCookie("USERMAIL");
+                    return System.Web.HttpContext.Current.Session["USERMAIL"].ToString();
+                }
+                return null;
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["USERMAIL"] = value;
+                SetCookie("USERMAIL", value);
+            }
+        }
+
+        public string CurrentUserLogin
+        {
+            get
+            {
+                if (System.Web.HttpContext.Current.Session["USERLOGIN"] != null)
+                {
+                    return System.Web.HttpContext.Current.Session["USERLOGIN"].ToString();
+                }
+                else if (GetCookie("USERLOGIN") != null)
+                {
+                    System.Web.HttpContext.Current.Session["USERLOGIN"] = GetCookie("USERLOGIN");
+                    return System.Web.HttpContext.Current.Session["USERLOGIN"].ToString();
+                }
+                return null;
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["USERLOGIN"] = value;
+                SetCookie("USERLOGIN", value);
+            }
         }
 
         public int CurrentUserId
         {
-            get { return System.Web.HttpContext.Current.Session["USERID"] == null ? 0 : Convert.ToInt16(System.Web.HttpContext.Current.Session["USERID"]); }
-            set { System.Web.HttpContext.Current.Session["USERID"] = value; }
+            get
+            {
+                if (System.Web.HttpContext.Current.Session["USERID"] != null)
+                {
+                    return Convert.ToInt16(System.Web.HttpContext.Current.Session["USERID"]);
+                }
+                else if (GetCookie("USERID") != null)
+                {
+                    System.Web.HttpContext.Current.Session["USERID"] = GetCookie("USERID");
+                    return Convert.ToInt16(System.Web.HttpContext.Current.Session["USERID"]);
+                }
+
+                return 0;
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["USERID"] = value;
+                SetCookie("USERID", value.ToString());
+            }
         }
 
         public List<string> CurrentUserRoles
         {
-            get { return System.Web.HttpContext.Current.Session["USERROLES"] == null ? null : (List<string>)System.Web.HttpContext.Current.Session["USERROLES"]; }
-            set { System.Web.HttpContext.Current.Session["USERROLES"] = value; }
+            get
+            {
+                if (System.Web.HttpContext.Current.Session["USERROLES"] != null)
+                {
+                    return (List<string>)System.Web.HttpContext.Current.Session["USERROLES"];
+                }
+                else if (GetCookie("USERROLES") != null)
+                {
+                    System.Web.HttpContext.Current.Session["USERROLES"] = GetCookie("USERROLES");
+                    return (List<string>)System.Web.HttpContext.Current.Session["USERROLES"];
+                }
+
+                return null;
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["USERROLES"] = value;
+                SetCookie("USERROLES", value.ToString());
+            }
+        }
+
+
+        public string GetCookie(string cookie)
+        {
+            if (Request.Cookies[cookie] != null)
+            {
+                return Request.Cookies[cookie].Value.ToString();
+            }
+
+            return null;
+        }
+
+        public void SetCookie(string cookie, string value)
+        {
+            Response.Cookies[cookie].Value = value;
         }
 
         protected override void OnException(ExceptionContext filterContext)

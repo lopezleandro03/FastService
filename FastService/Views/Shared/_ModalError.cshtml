@@ -1,0 +1,31 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+
+        <div class="modal fade" id="modalError" role="basic" aria-hidden="true" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" aria-hidden="true" type="button" data-dismiss="modal"></button>
+                    <h3 class="modal-title">Error!</h3>
+                </div>
+                <i class="glyphicon glyphicon-remove-circle errorIcon"></i>
+                <div class="modal-body errorMessage text-center"> Hubo un problema guardando los cambios, intenta de nuevo!</div>
+                <div class="modal-footer">
+                    <button class="btn dark btn-outline btn-info" type="button" data-dismiss="modal">Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .errorIcon {
+        font-size: 200px !important;
+        color: indianred;
+        margin-top: 20%;
+        margin-left: 30%;
+    }
+
+    .errorMessage {
+        font-size: 25px !important;
+    }
+</style>

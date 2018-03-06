@@ -11,17 +11,17 @@ namespace FastService.Models
         public OrdenModel OrdenActiva { get; set; }
         public bool NuevaOrden { get; set; }
         public bool IsTecnico { get; set; }
-        public bool IsMyVIew {get;set;}
+        public bool IsMyVIew { get; set; }
 
         public List<OrdenModel> OrdenesAReparar
         {
-            get { return (from x in Ordenes where x.EstadoDesc == ReparacionEstado.AREPARAR select x).ToList(); }
+            get { return (from x in Ordenes where x.EstadoDesc == ReparacionEstado.AREPARAR select x).OrderByDescending(x => x.FechaUltimaNovedad).ToList(); }
             set { }
         }
 
         public List<OrdenModel> OrdenesEnEspera
         {
-            get { return (from x in Ordenes where x.EstadoDesc != ReparacionEstado.AREPARAR select x).ToList(); }
+            get { return (from x in Ordenes where x.EstadoDesc != ReparacionEstado.AREPARAR select x).OrderByDescending(x => x.FechaUltimaNovedad).ToList(); }
             set { }
         }
 

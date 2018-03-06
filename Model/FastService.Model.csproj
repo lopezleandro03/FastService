@@ -53,109 +53,109 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Cliente.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Comercio.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Compra.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Direccion.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\EstadoReparacion.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Factura.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\FastServiceEntitties.Context.cs">
+    <Compile Include="Model\FastServiceEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FastServiceEntitties.Context.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\FastServiceEntitties.cs">
+    <Compile Include="Model\FastServiceEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\FastServiceEntitties.Designer.cs">
+    <Compile Include="Model\FastServiceEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FastServiceEntitties.edmx</DependentUpon>
+      <DependentUpon>FastServiceEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\ItemMenu.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Logs.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Marca.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\MetodoPago.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Modelo.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Novedad.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Pago.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Proveedor.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\PuntoDeVenta.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Reparacion.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ReparacionDetalle.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Role.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\RoleMenu.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TipoDispositivo.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TipoNovedad.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TipoTransaccion.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Usuario.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\UsuarioRol.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Venta.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\vw_ComprasAPagar.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\vw_ProveedoresAcreedores.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\vw_VentasAnuales.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\vw_VentasDiarias.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\vw_VentasMensuales.cs">
-      <DependentUpon>FastServiceEntitties.tt</DependentUpon>
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -163,12 +163,12 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="Model\FastServiceEntitties.edmx">
+    <EntityDeploy Include="Model\FastServiceEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FastServiceEntitties.Designer.cs</LastGenOutput>
+      <LastGenOutput>FastServiceEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model\FastServiceEntitties.edmx.diagram">
-      <DependentUpon>FastServiceEntitties.edmx</DependentUpon>
+    <None Include="Model\FastServiceEntities.edmx.diagram">
+      <DependentUpon>FastServiceEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -177,15 +177,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ModelFastService.sql" />
-    <Content Include="Model\FastServiceEntitties.Context.tt">
+    <Content Include="Model\FastServiceEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FastServiceEntitties.edmx</DependentUpon>
-      <LastGenOutput>FastServiceEntitties.Context.cs</LastGenOutput>
+      <DependentUpon>FastServiceEntities.edmx</DependentUpon>
+      <LastGenOutput>FastServiceEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model\FastServiceEntitties.tt">
+    <Content Include="Model\FastServiceEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FastServiceEntitties.edmx</DependentUpon>
-      <LastGenOutput>FastServiceEntitties.cs</LastGenOutput>
+      <DependentUpon>FastServiceEntities.edmx</DependentUpon>
+      <LastGenOutput>FastServiceEntities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

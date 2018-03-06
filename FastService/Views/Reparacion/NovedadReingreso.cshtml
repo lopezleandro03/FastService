@@ -6,7 +6,7 @@
         <h4 id="modalNuevaNovedadHeader" class="modal-title">Nueva Novedad</h4>
     </div>
 
-    @using (Ajax.BeginForm("Novedad", "Reparacion", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess(data)", OnFailure = "OnError", LoadingElementId = "spinner" }))
+    @using (Ajax.BeginForm("Novedad", "Reparacion", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccessNovedad(data)", OnFailure = "OnErrorNovedad", LoadingElementId = "spinner" }))
     {
         <div id="modalNuevaNovedadBody" class="modal-body">
 
@@ -39,13 +39,6 @@
     }
 
 </div>
-
-<script>
-    function OnSuccess(data) {
-        $(".simplemodal-close").trigger("click");
-        $(".page-content").html(data);
-    }
-</script>
 
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Model.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace FastService.Models
 {
@@ -71,7 +73,22 @@ namespace FastService.Models
         public string Ubicacion { get; set; }
 
         public ClienteModel Cliente { get; set; }
-        public Model.Model.Comercio Comercio { get; set; }
-        public List<NovedadModel> Novedades {get;set;}
+        public Comercio Comercio { get; set; }
+        public List<NovedadModel> Novedades { get; set; }
+        public DateTime FechaUltimaNovedad
+        {
+            get
+            {
+                if (Novedades != null)
+                {
+                    return Novedades.Max(x => x.Fecha);
+                }
+                else
+                {
+                    return DateTime.Now.AddDays(-99);
+                }
+            }
+            set { }
+        }
     }
 }

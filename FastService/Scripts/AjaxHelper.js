@@ -7,8 +7,14 @@
         beforeSend: function () {
             $(".spinner").show();
         },
-        success: function (data) { success(data) },
-        error: function () { error() },
+        success: function (data) {
+            success(data);
+            $("#modalSuccess").modal();
+        },
+        error: function () {
+            error();
+            $("#modalError").modal();
+        },
         complete: function () {
             $(".spinner").hide();
         }
@@ -25,8 +31,13 @@ function ajaxGetNoCustomError(url, success) {
         beforeSend: function () {
             $(".spinner").show();
         },
-        success: function (data) { success(data) },
-        error: function () { alert("Ocurrio un error, intente de nuevo") },
+        success: function (data) {
+            success(data);
+            $("#modalSuccess").modal();
+        },
+        error: function () {
+            $("#modalError").modal();
+        },
         complete: function () {
             $(".spinner").hide();
         }
@@ -42,8 +53,14 @@ function ajaxPost(url, success, error) {
         beforeSend: function () {
             $(".spinner").show();
         },
-        success: function (data) { success(data) },
-        error: function () { error() },
+        success: function (data) {
+            success(data);
+            $("#modalSuccess").modal();
+        },
+        error: function () {
+            error();
+            $("#modalError").modal();
+        },
         complete: function () {
             $(".spinner").hide();
         }
@@ -60,8 +77,13 @@ function ajaxPostNoCustomError(url, success) {
         beforeSend: function () {
             $(".spinner").show();
         },
-        success: function (data) { success(data) },
-        error: function () { alert("Ocurrio un error, intente de nuevo") },
+        success: function (data) {
+            success(data);
+            $("#modalSuccess").modal();
+        },
+        error: function () {
+            $("#modalError").modal();
+        },
         complete: function () {
             $(".spinner").hide();
         }

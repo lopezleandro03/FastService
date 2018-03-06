@@ -18,7 +18,7 @@ namespace Model.Model
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public Nullable<bool> activo { get; set; }
-        public string modificadoPor { get; set; }
         public Nullable<System.DateTime> modificadoEn { get; set; }
+        public Nullable<int> modificadoPor { get; set; }
     }
 }

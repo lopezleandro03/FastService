@@ -16,7 +16,7 @@ namespace FastService.Common
         public static string VISITADO => "VISITADO";
         public static string PARAENTREGAR => "PARA ENTREGAR";
         public static string ESPERA => "ESPERA";
-        public static string ESPREPUESTO => "ESPREPUESTO";
+        public static string ESPREPUESTO => "ESP. REPUESTO";
         public static string RECHAZOPRESUP => "RECHAZO PRESUP.";
         public static string REINGRESADO => "REINGRESADO";
         public static string INGRESADO => "INGRESADO";

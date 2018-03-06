@@ -32,8 +32,9 @@ namespace Model.Model
         public string Modelo { get; set; }
         public string Serie { get; set; }
         public string Serbus { get; set; }
-        public string ModificadoPor { get; set; }
+        public string Unicacion { get; set; }
         public System.DateTime ModificadoEn { get; set; }
+        public int ModificadoPor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reparacion> Reparacion { get; set; }

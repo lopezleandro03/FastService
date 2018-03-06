@@ -30,8 +30,8 @@ namespace Model.Model
         public string Telefono { get; set; }
         public string Telefono2 { get; set; }
         public string cuit { get; set; }
-        public string modificadoPor { get; set; }
         public Nullable<System.DateTime> modificadoEn { get; set; }
+        public Nullable<int> modificadoPor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reparacion> Reparacion { get; set; }

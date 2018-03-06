@@ -9,14 +9,6 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-12">
-        <div id="modalSearchMap" class="modal" aria-hidden="true" style="display: none;">
-
-        </div>
-    </div>
-</div>
-
-<div class="row">
 
     <div id="listaOrdenes" class="col-md-2">
         @if (Model.IsMyVIew)
@@ -44,4 +36,16 @@
         margin-bottom: 3px !important;
     }
 </style>
+
+<script>
+    function OnErrorNovedad() {
+        $(".simplemodal-close").trigger("click");
+        OnError();
+    }
+
+    function OnSuccessNovedad() {
+        $(".simplemodal-close").trigger("click");
+        Done();
+    }
+</script>
 

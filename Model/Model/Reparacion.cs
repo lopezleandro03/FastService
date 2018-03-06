@@ -23,8 +23,10 @@ namespace Model.Model
         public int MarcaId { get; set; }
         public int TipoDispositivoId { get; set; }
         public Nullable<int> ReparacionDetalleId { get; set; }
-        public string ModificadoPor { get; set; }
         public System.DateTime ModificadoEn { get; set; }
+        public Nullable<int> ModificadoPor { get; set; }
+        public System.DateTime CreadoEn { get; set; }
+        public Nullable<int> CreadoPor { get; set; }
     
         public virtual Cliente Cliente { get; set; }
         public virtual Comercio Comercio { get; set; }

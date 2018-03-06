@@ -1,16 +1,16 @@
-insert EstadoReparacion values ('SIN DETERMINAR', 'Sin Determinar','Sin determinar',1,'sysadmin',getdate())
-insert marca values ('SIN DETERMINAR','Codigo de marca utilizado durante la migracion para transacciones sin marca','sysadmin',getdate())
-insert tipodispositivo values ('SIN DETERMINAR', 'Sin determinar','sysadmim',getdate())
+insert EstadoReparacion values ('SIN DETERMINAR', 'Sin Determinar','Sin determinar',1,getdate(),99)
+insert marca values ('SIN DETERMINAR','Codigo de marca utilizado durante la migracion para transacciones sin marca',getdate(),99)
+insert tipodispositivo values ('SIN DETERMINAR', 'Sin determinar',getdate(),99)
 insert cliente values(99999999,'SIN DETERMINAR', 'SIN DETERMINAR','sindeterminar@gmail.com','SIN DETERMINAR', 'SIN DETERMINAR', 'SIN DETERMINAR',null, 'SIN DETERMINAR', null,null)
-insert Comercio values('SIN DETERMINAR', null,null,null,null,null,null,null,null,'sysadmin', getdate())
+insert Comercio values('SIN DETERMINAR', null,null,null,null,null,null,null,null,getdate(),99)
 
 --migrate estados
 insert EstadoReparacion
-select nombre, descripcion,categoria,activo,modificadoPor,modificadoEn from oldEstadoRep
+select nombre, descripcion,categoria,activo,modificadoEn,modificadoPor from oldEstadoRep
 
 --insert direccion placeholder
 insert direccion
-select null,null,null,null,null,null,null,null,null,getdate(),nrocli
+select null,null,null,null,null,null,null,null,null,null,null,getdate(),nrocli
 from oldcliente
 
 --Migro clientes
@@ -27,28 +27,42 @@ RTRIM(LTRIM(direcc)) + ' entre ' + RTRIM(Ltrim(ecalle1)) + ' y ' + ltrim(rtrim(e
 from oldcliente
 
 --Migro respobsables y tecnicos a usuarios
-insert Usuario values ('sinasignar@gmail.com','SIN ASIGNAR','SIN ASIGNAR','84123124','','',null)
+insert Usuario values ('sinasignar@gmail.com','SIN ASIGNAR','SIN ASIGNAR','SIN ASIGNAR','SIN ASIGNAR','84123124','','',1)
 
 insert usuario 
 select 
 SUBSTRING(nombre,0,CHARINDEX(' ',nombre)),
+SUBSTRING(nombre,0,CHARINDEX(' ',nombre)) + '@gmail.com',
 SUBSTRING(nombre,0,CHARINDEX(' ',nombre)),
 SUBSTRING(nombre,CHARINDEX(' ',nombre),LEN(nombre)),
 '123456',
 nrotec,
 '',
-null
-from oldtecnico where activo = 'true'
+null,
+case activo when 'True' then 1 else 0 end
+from oldtecnico
 union
 select 
 SUBSTRING(nombre,0,CHARINDEX(' ',nombre)),
+SUBSTRING(nombre,0,CHARINDEX(' ',nombre)) + '@gmail.com',
 SUBSTRING(nombre,0,CHARINDEX(' ',nombre)),
 SUBSTRING(nombre,CHARINDEX(' ',nombre),LEN(nombre)),
 '123456',
 nrores,
 '',
-null
-from  oldresponsable where activo = 'true'
+null,
+case activo when 'True' then 1 else 0 end
+from  oldresponsable
+
+--grant access to tecnicos
+insert UsuarioRol
+values ((SELECT top 1 Rolid from Role where Nombre = 'Tecnico'),(select top 1 UserId from Usuario where Nombre = 'ROBERTO' and ltrim(rtrim(Apellido)) = 'ARROYO'))
+
+insert UsuarioRol
+values ((SELECT top 1 Rolid from Role where Nombre = 'Tecnico'),(select top 1 UserId from Usuario where Nombre = 'JUAN' and Apellido = ' KLICHUK'))
+
+insert UsuarioRol
+values ((SELECT top 1 Rolid from Role where Nombre = 'Tecnico'),(select top 1 UserId from Usuario where Nombre = 'JAVIER' and Apellido = ''))
 
 --clean up duplicated records
 if ((select 1 from tempdb.sys.tables where name like '%tokeep%') > 0)
@@ -82,11 +96,10 @@ CASE PRECIO WHEN '.00' THEN 0 ELSE SUBSTRING(PRECIO,0,CHARINDEX('.',precio)) END
 modelo,
 serie,
 serbus,
-'sysadmin',
-getdate()
+ubicacion,
+getdate(),
+99
 from oldtranu o
---where not exists (select top 1 1 from oldtranu o2 where o2.timestamp > o.timestamp and o2.nrotra = o.nrotra)
---and not exists (select top 1 1 from oldtranu o2 where o2.nrocli > o.nrocli and o2.nrotra = o.nrotra)
 
 --Migro transacciones a reparaciones
 insert reparacion
@@ -99,12 +112,12 @@ ISNULL((select top 1 c.ComercioId from Comercio c where c.telefono2 = nrocom),(s
 ISNULL((select top 1 m.MarcaId from Marca m where m.descripcion = nromar),(select top 1 m2.marcaid from marca m2 where nombre = 'SIN DETERMINAR')),
 ISNULL((select top 1 t.tipoDispositivoid from tipoDispositivo t where t.descripcion = nrotip),(select top 1 t2.TipoDispositivoId from tipoDispositivo t2 where t2.nombre = 'SIN DETERMINAR')),
 rd.reparaciondetalleid,
-'sysadmin',
-getdate()
+desde,
+99,
+desde,
+99
 from oldtranu o
 join reparacionDetalle rd on o.nrotra = rd.nroReferencia
---where not exists (select top 1 1 from oldtranu o2 where o2.timestamp > o.timestamp and o2.nrotra = o.nrotra)
---and not exists (select top 1 1 from oldtranu o2 where o2.nrocli > o.nrocli and o2.nrotra = o.nrotra)
 
 ----Migro novedades
 insert novedad 
@@ -114,11 +127,6 @@ isnull((select top 1 userid from Usuario where Direccion = nrotec),(select c2.us
 codnov,
 case pesos when '' then 0 else isnull(pesos,0) end,
 observ,
-'sysadmin',
-getdate()
+fecha,
+99
 from oldobserv o join oldnovedad n on n.transac = o.transac order by nrotra asc
-
---select * from oldtranu where nrotra = 521
---select nrotra from oldtranu group by nrotra having COUNT(nrotra) > 1
-
-

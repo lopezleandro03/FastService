@@ -66,53 +66,53 @@
     <h3 class="form-section">
         Cliente
     </h3>
-        <hr>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <div class="ui-widget">
+                    @Html.LabelFor(model => model.OrdenActiva.Cliente.Dni)
+                    @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dni, new { @class = "form-control ac-cliente", @id = "Cliente_Dni" })
+                </div>
+                @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Dni)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OrdenActiva.Cliente.Nombre)
+                @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Nombre, new { @class = "form-control ac-cliente", @id = "Cliente_Nombre" })
+                @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Nombre)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OrdenActiva.Cliente.Apellido)
+                @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Apellido, new { @class = "form-control ac-cliente", @id = "Cliente_Apellido" })
+                @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Apellido)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OrdenActiva.Cliente.Mail)
+                @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Mail, new { @class = "form-control ac-cliente", @id = "Cliente_Mail" })
+                @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Mail)
+            </div>
+        </div>
+    </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-3">
-                    <div class="ui-widget">
-                        @Html.LabelFor(model => model.OrdenActiva.Cliente.Dni)
-                        @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dni, new { @class = "form-control ac-cliente", @id = "Cliente_Dni" })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Dni)
+                    @Html.LabelFor(model => model.OrdenActiva.Cliente.Telefono)
+                    @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Telefono, new { @class = "form-control", @id = "Cliente_Telefono" })
+                    @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Telefono)
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(model => model.OrdenActiva.Cliente.Nombre)
-                    @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Nombre, new { @class = "form-control ac-cliente", @id = "Cliente_Nombre" })
-                    @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Nombre)
+                    @Html.LabelFor(model => model.OrdenActiva.Cliente.Celular)
+                    @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Celular, new { @class = "form-control", @id = "Cliente_Celular" })
+                    @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Celular)
                 </div>
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.OrdenActiva.Cliente.Apellido)
-                    @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Apellido, new { @class = "form-control ac-cliente", @id = "Cliente_Apellido" })
-                    @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Apellido)
-                </div>
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.OrdenActiva.Cliente.Mail)
-                    @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Mail, new { @class = "form-control ac-cliente", @id = "Cliente_Mail" })
-                    @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Mail)
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.OrdenActiva.Cliente.Direccion)
+                    @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Direccion, new { @class = "form-control", @id = "Cliente_Direccion", @style = "max-width:700px !important", @placeholder = "Ingrese una direccion" })
+                    @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Direccion)
                 </div>
             </div>
         </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.OrdenActiva.Cliente.Telefono)
-                        @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Telefono, new { @class = "form-control", @id = "Cliente_Telefono" })
-                        @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Telefono)
-                    </div>
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.OrdenActiva.Cliente.Celular)
-                        @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Celular, new { @class = "form-control", @id = "Cliente_Celular" })
-                        @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Celular)
-                    </div>
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.OrdenActiva.Cliente.Direccion)
-                        @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Direccion, new { @class = "form-control", @id = "Cliente_Direccion", @style = "max-width:700px !important", @placeholder = "Ingrese una direccion" })
-                        @Html.ValidationMessageFor(model => model.OrdenActiva.Cliente.Direccion)
-                    </div>
-                </div>
-            </div>
 
             <div class="row">
                 <div class="col-md-12">
@@ -125,6 +125,14 @@
                         @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dir.Altura, new { @class = "form-control", @id = "street_number" })
                     </div>
                     <div class="col-md-2">
+                        @Html.LabelFor(model => model.OrdenActiva.Cliente.Dir.Calle2)
+                        @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dir.Calle2, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.OrdenActiva.Cliente.Dir.Calle3)
+                        @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dir.Calle3, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
                         @Html.LabelFor(model => model.OrdenActiva.Cliente.Dir.Ciudad)
                         @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dir.Ciudad, new { @class = "form-control", @id = "locality" })
                     </div>
@@ -132,11 +140,12 @@
                         @Html.LabelFor(model => model.OrdenActiva.Cliente.Dir.CodigoPostal)
                         @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dir.CodigoPostal, new { @class = "form-control", @id = "postal_code" })
                     </div>
-                    <div class="col-md-2">
+
+                    <div hidden>
                         @Html.LabelFor(model => model.OrdenActiva.Cliente.Dir.Provincia)
                         @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dir.Provincia, new { @class = "form-control", @id = "administrative_area_level_1" })
                     </div>
-                    <div class="col-md-2">
+                    <div hidden>
                         @Html.LabelFor(model => model.OrdenActiva.Cliente.Dir.Pais)
                         @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dir.Pais, new { @class = "form-control", @id = "country" })
                     </div>
@@ -222,7 +231,7 @@
     <h3 class="form-section">Novedades</h3>
     <div class="row ListaNovedades">
         <div class="col-md-12">
-            @if (Model.OrdenActiva.Novedades != null && Model.OrdenActiva.Novedades.Any())
+            @if (Model.OrdenActiva.Novedades != null)
             {
                 <table class="table table-bordered">
                     <tr>
@@ -318,12 +327,12 @@
     });
 
     function Done(data) {
-        alert("Guardado con exito!");
+        $("#modalSuccess").modal();
         $(".page-content").html(data);
     }
 
     function OnError(data) {
-        alert("Ocurrio un error intentado grabar los cambios, intente de nuevo!");
+        $("#modalError").modal();
     }
 
     $(function () {

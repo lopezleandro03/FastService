@@ -79,6 +79,8 @@ namespace FastService.Common
                                           select new DireccionModel()
                                           {
                                               Calle = d.Calle,
+                                              Calle2 = d.Calle2,
+                                              Calle3 = d.Calle3,
                                               Altura = d.Altura,
                                               Ciudad = d.Ciudad,
                                               CodigoPostal = d.CodigoPostal,
@@ -117,7 +119,7 @@ namespace FastService.Common
                                    ResponsableNombre = r.Usuario.Nombre,
                                    TecnicoId = r.TecnicoAsignadoId,
                                    TecnicoNombre = r.Usuario1.Nombre,
-                                   
+
                                    Presupuesto = r.ReparacionDetalle.Presupuesto ?? 0,
                                    Monto = r.ReparacionDetalle.Precio ?? 0,
 
@@ -143,6 +145,8 @@ namespace FastService.Common
                                               select new DireccionModel()
                                               {
                                                   Calle = d.Calle,
+                                                  Calle2 = d.Calle2,
+                                                  Calle3 = d.Calle3,
                                                   Altura = d.Altura,
                                                   Ciudad = d.Ciudad,
                                                   CodigoPostal = d.CodigoPostal,
@@ -201,6 +205,8 @@ namespace FastService.Common
                                               select new DireccionModel()
                                               {
                                                   Calle = d.Calle,
+                                                  Calle2 = d.Calle2,
+                                                  Calle3 = d.Calle3,
                                                   Altura = d.Altura,
                                                   Ciudad = d.Ciudad,
                                                   CodigoPostal = d.CodigoPostal,
@@ -219,8 +225,21 @@ namespace FastService.Common
                 }
             }
 
-            foreach (var item in Ordenes)
-                item.Novedades = GetNovedades(item.NroOrden);
+            var cacheNov = (from o in Ordenes join n in _db.Novedad on o.NroOrden equals n.reparacionId select n).ToList();
+
+            foreach (var orden in Ordenes)
+            {
+                orden.Novedades = (from n in cacheNov
+                                   where n.reparacionId == orden.NroOrden
+                                   select new NovedadModel()
+                                   {
+                                       Id = n.novedadId,
+                                       Fecha = n.modificadoEn,
+                                       Observacion = n.observacion,
+                                       Descripcion = (from x in _db.TipoNovedad where x.TipoNovedadId == n.tipoNovedadId select x.nombre.ToUpper()).FirstOrDefault(),
+                                       Monto = n.monto
+                                   })?.OrderByDescending(x => x.Fecha)?.ToList();
+            }
 
             return Ordenes;
         }
@@ -290,20 +309,20 @@ namespace FastService.Common
             return Ordenes;
         }
 
-        private List<NovedadModel> GetNovedades(int reparacionId)
-        {
-            return  (from n in _db.Novedad
-                    where n.reparacionId == reparacionId
-                    select new NovedadModel()
-                    {
-                        Id = n.novedadId,
-                        Fecha = n.modificadoEn,
-                        Observacion = n.observacion,
-                        Descripcion = (from x in _db.TipoNovedad where x.TipoNovedadId == n.tipoNovedadId select x.nombre.ToUpper()).FirstOrDefault(),
-                        Monto = n.monto
-                    })?.OrderByDescending(x => x.Fecha)?.ToList();
+        //private List<NovedadModel> GetNovedades(int reparacionId)
+        //{
+        //    return  (from n in _db.Novedad
+        //            where n.reparacionId == reparacionId
+        //            select new NovedadModel()
+        //            {
+        //                Id = n.novedadId,
+        //                Fecha = n.modificadoEn,
+        //                Observacion = n.observacion,
+        //                Descripcion = (from x in _db.TipoNovedad where x.TipoNovedadId == n.tipoNovedadId select x.nombre.ToUpper()).FirstOrDefault(),
+        //                Monto = n.monto
+        //            })?.OrderByDescending(x => x.Fecha)?.ToList();
 
-        }
+        //}
 
         internal IList<ReciboReportModel> GetReparacionReciboData(int id)
         {

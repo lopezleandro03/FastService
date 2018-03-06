@@ -23,6 +23,8 @@ namespace Model.Model
         public int DireccionId { get; set; }
         public string Altura { get; set; }
         public string Calle { get; set; }
+        public string Calle2 { get; set; }
+        public string Calle3 { get; set; }
         public string Ciudad { get; set; }
         public string Provincia { get; set; }
         public string CodigoPostal { get; set; }

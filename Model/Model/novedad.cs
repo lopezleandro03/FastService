@@ -20,7 +20,7 @@ namespace Model.Model
         public int tipoNovedadId { get; set; }
         public Nullable<decimal> monto { get; set; }
         public string observacion { get; set; }
-        public string modificadoPor { get; set; }
         public System.DateTime modificadoEn { get; set; }
+        public Nullable<int> modificadoPor { get; set; }
     }
 }

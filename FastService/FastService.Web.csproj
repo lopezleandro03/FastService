@@ -923,7 +923,6 @@
     <Content Include="Views\PagoProveedores\Create.cshtml" />
     <Content Include="Views\Proveedor\Index.cshtml" />
     <Content Include="Views\PagoProveedores\CreatePagoWizard.cshtml" />
-    <Content Include="Views\Shared\SuccessView.cshtml" />
     <Content Include="Views\Compra\Index.cshtml" />
     <Content Include="Views\Venta\MetodoPagoTransferencia.cshtml" />
     <Content Include="Views\Venta\MetodoPagoEfectivo.cshtml" />
@@ -949,6 +948,9 @@
     <Content Include="Views\Contabilidad\Chart.cshtml" />
     <Content Include="Views\Contabilidad\Balance.cshtml" />
     <Content Include="Views\Reparacion\MiListaOrdenes.cshtml" />
+    <Content Include="Views\Shared\_ModalError.cshtml" />
+    <Content Include="Views\Shared\_ModalSuccess.cshtml" />
+    <Content Include="Views\Shared\_Spinner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

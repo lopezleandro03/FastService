@@ -17,13 +17,47 @@ namespace FastService.Controllers
         {
             get
             {
-                return (OrdenesIndexViewModel)System.Web.HttpContext.Current.Session["ORDENES"];
+                if (System.Web.HttpContext.Current.Session["ORDENES"] != null)
+                {
+                    return (OrdenesIndexViewModel)System.Web.HttpContext.Current.Session["ORDENES"];
+                }
+                else
+                {
+                    var temp = new OrdenesIndexViewModel();
+                    temp.Ordenes = _OrdenHelper.GetOrdenes(false, null, CurrentUserId);
+                    OrdenesModel = temp;
+                    return temp;
+                }
             }
             set
             {
                 System.Web.HttpContext.Current.Session["ORDENES"] = value;
             }
         }
+
+        private IIndexModel MyOrdenesModel
+        {
+            get
+            {
+
+                if (System.Web.HttpContext.Current.Session["MISORDENES"] != null)
+                {
+                    return (OrdenesIndexViewModel)System.Web.HttpContext.Current.Session["MISORDENES"];
+                }
+                else
+                {
+                    var temp = new OrdenesIndexViewModel();
+                    temp.Ordenes = _OrdenHelper.GetOrdenes(true, null, CurrentUserId);
+                    MyOrdenesModel = temp;
+                    return temp;
+                }
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["MISORDENES"] = value;
+            }
+        }
+
         private bool IsMyOrdersMode
         {
             get
@@ -35,6 +69,7 @@ namespace FastService.Controllers
                 System.Web.HttpContext.Current.Session["MODE"] = value;
             }
         }
+
         private FastServiceEntities _db { get; set; }
         private OrdenHelper _OrdenHelper { get; set; }
 
@@ -45,52 +80,41 @@ namespace FastService.Controllers
         }
 
         // GET: Reparacion
-        public ActionResult Index()
+        [OutputCache(NoStore = true, Duration = 0)]
+        public ActionResult Index(int ordenActive = 0)
         {
-            var auxOrdenActiva = 0;
-            if (OrdenesModel != null && OrdenesModel.OrdenActiva != null)
-                auxOrdenActiva = OrdenesModel.OrdenActiva.NroOrden;
-
             InitializeViewBag();
-            IsMyOrdersMode = false;
 
-            OrdenesModel = new OrdenesIndexViewModel();
-            OrdenesModel.Ordenes = _OrdenHelper.GetOrdenes(IsMyOrdersMode, null, CurrentUserId);
-
-            if (auxOrdenActiva != 0)
-                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.Where(x => x.NroOrden == auxOrdenActiva).FirstOrDefault();
+            if (ordenActive != 0)
+                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.Where(x => x.NroOrden == ordenActive).FirstOrDefault();
             else
-            { 
+            {
                 OrdenesModel.OrdenActiva = new OrdenModel();
                 OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.First();
             }
 
             OrdenesModel.IsTecnico = CurrentUserRoles.Exists(x => x.ToUpper() == AplicationRole.TECNICO);
+            OrdenesModel.IsMyVIew = false;
+            IsMyOrdersMode = false;
 
             return PartialView(OrdenesModel);
         }
 
-        public ActionResult MyIndex()
+        [OutputCache(NoStore = true, Duration = 0)]
+        public ActionResult MyIndex(int ordenActive = 0)
         {
-            var auxOrdenActiva = 0;
-            if (OrdenesModel != null && OrdenesModel.OrdenActiva != null)
-                auxOrdenActiva = OrdenesModel.OrdenActiva.NroOrden;
-
             InitializeViewBag();
+
+            if (ordenActive != 0)
+                MyOrdenesModel.OrdenActiva = MyOrdenesModel.Ordenes.Where(x => x.NroOrden == ordenActive).FirstOrDefault();
+            else
+                MyOrdenesModel.OrdenActiva = MyOrdenesModel.Ordenes?.First();
+
+            MyOrdenesModel.IsTecnico = CurrentUserRoles.Exists(x => x.ToUpper() == AplicationRole.TECNICO);
+            MyOrdenesModel.IsMyVIew = true;
             IsMyOrdersMode = true;
 
-            OrdenesModel = new OrdenesIndexViewModel();
-            OrdenesModel.Ordenes = _OrdenHelper.GetOrdenes(IsMyOrdersMode, null, CurrentUserId);
-
-            if (auxOrdenActiva != 0)
-                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.Where(x => x.NroOrden == auxOrdenActiva).FirstOrDefault();
-            else
-                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes?.First();
-
-            OrdenesModel.IsTecnico = CurrentUserRoles.Exists(x => x.ToUpper() == AplicationRole.TECNICO);
-            OrdenesModel.IsMyVIew = true;
-
-            return PartialView("Index", OrdenesModel);
+            return PartialView("Index", MyOrdenesModel);
         }
         // GET: Reparacion
         public ActionResult Filter(string searchCriteria)
@@ -109,14 +133,30 @@ namespace FastService.Controllers
         // GET: Reparacion/Details/5
         public ActionResult Details(int id)
         {
-            var orden = OrdenesModel.Ordenes.Where(x => x.NroOrden == id).FirstOrDefault();
-            InitializeViewBag();
-
-            if (orden != null)
+            if (IsMyOrdersMode)
             {
-                OrdenesModel.NuevaOrden = false;
-                OrdenesModel.OrdenActiva = orden;
-                return PartialView("OrdenResumen", OrdenesModel);
+                var orden = MyOrdenesModel.Ordenes.Where(x => x.NroOrden == id).FirstOrDefault();
+                InitializeViewBag();
+
+                if (orden != null)
+                {
+                    MyOrdenesModel.NuevaOrden = false;
+                    MyOrdenesModel.OrdenActiva = orden;
+                    return PartialView("OrdenResumen", MyOrdenesModel);
+                }
+
+            }
+            else
+            {
+                var orden = OrdenesModel.Ordenes.Where(x => x.NroOrden == id).FirstOrDefault();
+                InitializeViewBag();
+
+                if (orden != null)
+                {
+                    OrdenesModel.NuevaOrden = false;
+                    OrdenesModel.OrdenActiva = orden;
+                    return PartialView("OrdenResumen", OrdenesModel);
+                }
             }
 
             throw new Exception("Numero de orden no encontrada");
@@ -127,24 +167,32 @@ namespace FastService.Controllers
         public ActionResult Novedad(int tipo)
         {
             var model = new NovedadModel();
-            model.ResponsableNombre = OrdenesModel.OrdenActiva.ResponsableNombre;
-            model.TecnicoNombre = OrdenesModel.OrdenActiva.TecnicoNombre;
+            if (IsMyOrdersMode)
+            {
+                model.ResponsableNombre = MyOrdenesModel.OrdenActiva.ResponsableNombre;
+                model.TecnicoNombre = MyOrdenesModel.OrdenActiva.TecnicoNombre;
+            }
+            else
+            {
+                model.ResponsableNombre = OrdenesModel.OrdenActiva.ResponsableNombre;
+                model.TecnicoNombre = OrdenesModel.OrdenActiva.TecnicoNombre;
+            }
             model.Monto = 0;
             model.Material = 0;
             model.TipoNovedadId = tipo;
 
             InitializeViewBag();
 
-            if (tipo == (int)NovedadTipo.PRESUPINFOR 
-                || tipo == (int)NovedadTipo.ENTREGA 
-                || tipo == (int)NovedadTipo.REPDOMICILIO 
+            if (tipo == (int)NovedadTipo.PRESUPINFOR
+                || tipo == (int)NovedadTipo.ENTREGA
+                || tipo == (int)NovedadTipo.REPDOMICILIO
                 || tipo == (int)NovedadTipo.REPARADO)
             {
                 return PartialView("NovedadConPresupuesto", model);
             }
-            else if (tipo == (int)NovedadTipo.ACEPTA 
-                || tipo == (int)NovedadTipo.RECHAZA 
-                || tipo == (int)NovedadTipo.NOTA 
+            else if (tipo == (int)NovedadTipo.ACEPTA
+                || tipo == (int)NovedadTipo.RECHAZA
+                || tipo == (int)NovedadTipo.NOTA
                 || tipo == (int)NovedadTipo.LLAMADO
                 || tipo == (int)NovedadTipo.VERIFICAR
                 || tipo == (int)NovedadTipo.ACONTROLAR
@@ -166,7 +214,15 @@ namespace FastService.Controllers
         public ActionResult Novedad(NovedadModel model)
         {
             //cache active order
-            var nroOrdenActiva = OrdenesModel.OrdenActiva.NroOrden;
+            var nroOrdenActiva = 0;
+            if (IsMyOrdersMode)
+            {
+                nroOrdenActiva = MyOrdenesModel.OrdenActiva.NroOrden;
+            }
+            else
+            {
+                nroOrdenActiva = OrdenesModel.OrdenActiva.NroOrden;
+            }
 
             TransactionOptions opt = new TransactionOptions();
             opt.IsolationLevel = IsolationLevel.ReadCommitted;
@@ -178,12 +234,12 @@ namespace FastService.Controllers
                 {
                     _db.Novedad.Add(new Novedad()
                     {
-                        reparacionId = OrdenesModel.OrdenActiva.NroOrden,
+                        reparacionId = nroOrdenActiva,
                         observacion = model.Observacion,
                         monto = model.Monto,
                         tipoNovedadId = model.TipoNovedadId,
                         UserId = CurrentUserId,
-                        modificadoPor = CurrentUserId.ToString(),
+                        modificadoPor = CurrentUserId,
                         modificadoEn = DateTime.Now
                     });
 
@@ -207,31 +263,47 @@ namespace FastService.Controllers
                         {
                             orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.REINGRESADO).First().EstadoReparacionId;
                         }
+                        if (model.TipoNovedadId == (int)NovedadTipo.ESPERAREPUESTO)
+                        {
+                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.ESPREPUESTO).First().EstadoReparacionId;
+                        }
                         if (model.TipoNovedadId == (int)NovedadTipo.PRESUPINFOR)
                         {
                             orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PRESUPUESTADO).First().EstadoReparacionId;
+                            orden.ReparacionDetalle.Presupuesto = model.Monto;
+                            orden.ReparacionDetalle.PresupuestoFecha = DateTime.Now;
+                        }
+                        if (model.TipoNovedadId == (int)NovedadTipo.REPARADO)
+                        {
+                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.REPARADO).First().EstadoReparacionId;
                         }
                         if (model.TipoNovedadId == (int)NovedadTipo.RETIRA || model.TipoNovedadId == (int)NovedadTipo.ENTREGA)
                         {
                             orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.RETIRADO).First().EstadoReparacionId;
                             orden.ReparacionDetalle.Precio = model.Monto;
 
-                            var venta = new Venta()
+                            if (model.Monto > 0)
                             {
-                                ClienteId = orden.ClienteId,
-                                Descripcion = $"Pago por servicio de FastService orden {orden.ReparacionId}",
-                                Fecha = DateTime.Now,
-                                Monto = (decimal)orden.ReparacionDetalle.Precio,
-                                RefNumber = model.NroReferencia,
-                                PuntoDeVentaId = 1,
-                                FacturaId = null,
-                                MetodoPagoId = 1,
-                                TipoTransaccionId = model.Facturado ? 1 : 2,
-                                Vendedor = orden.EmpleadoAsignadoId
-                            };
+                                var venta = new Venta()
+                                {
+                                    ClienteId = orden.ClienteId,
+                                    Descripcion = $"Pago por servicio de FastService orden {orden.ReparacionId}",
+                                    Fecha = DateTime.Now,
+                                    Monto = (decimal)orden.ReparacionDetalle.Precio,
+                                    RefNumber = model.NroReferencia,
+                                    PuntoDeVentaId = 1,
+                                    FacturaId = null,
+                                    MetodoPagoId = 1,
+                                    TipoTransaccionId = model.Facturado ? 1 : 2,
+                                    Vendedor = orden.EmpleadoAsignadoId
+                                };
 
-                            _db.Venta.Add(venta);
+                                _db.Venta.Add(venta);
+                            }
                         }
+
+                        orden.ModificadoPor = CurrentUserId;
+                        orden.ModificadoEn = DateTime.Now;
                     }
 
                     _db.SaveChanges();
@@ -244,16 +316,19 @@ namespace FastService.Controllers
                 }
             }
 
-            InitializeViewBag();
+            RefreshCache();
 
-            OrdenesModel = new OrdenesIndexViewModel()
+            if (IsMyOrdersMode)
             {
-                Ordenes = _OrdenHelper.GetOrdenes(IsMyOrdersMode, null, CurrentUserId),
-                OrdenActiva = OrdenesModel.Ordenes.Where(x => x.NroOrden == nroOrdenActiva).FirstOrDefault()
-            };
-
-            return RedirectToAction("Index");
+                return RedirectToAction("MyIndex", nroOrdenActiva);
+            }
+            else
+            {
+                return RedirectToAction("Index", nroOrdenActiva);
+            }
         }
+
+
 
         // POST: Reparacion/Create
         [HttpGet]
@@ -304,6 +379,8 @@ namespace FastService.Controllers
                             Direccion1 = new Direccion()
                             {
                                 Calle = model.OrdenActiva.Cliente.Dir.Calle,
+                                Calle2 = model.OrdenActiva.Cliente.Dir.Calle2,
+                                Calle3 = model.OrdenActiva.Cliente.Dir.Calle3,
                                 Altura = model.OrdenActiva.Cliente.Dir.Altura,
                                 Ciudad = model.OrdenActiva.Cliente.Dir.Ciudad,
                                 CodigoPostal = model.OrdenActiva.Cliente.Dir.CodigoPostal,
@@ -333,6 +410,8 @@ namespace FastService.Controllers
 
                         cli.Direccion1.Calle = model.OrdenActiva.Cliente.Dir.Calle;
                         cli.Direccion1.Altura = model.OrdenActiva.Cliente.Dir.Altura;
+                        cli.Direccion1.Calle2 = model.OrdenActiva.Cliente.Dir.Calle2;
+                        cli.Direccion1.Calle3 = model.OrdenActiva.Cliente.Dir.Calle3;
                         cli.Direccion1.Ciudad = model.OrdenActiva.Cliente.Dir.Ciudad;
                         cli.Direccion1.CodigoPostal = model.OrdenActiva.Cliente.Dir.CodigoPostal;
                         cli.Direccion1.Provincia = model.OrdenActiva.Cliente.Dir.Provincia;
@@ -358,11 +437,17 @@ namespace FastService.Controllers
 
                             Modelo = model.OrdenActiva.Modelo,
                             Serie = model.OrdenActiva.NroSerie,
-                            Serbus = model.OrdenActiva.SerBus, //To be corrected
+                            Serbus = model.OrdenActiva.SerBus,
+                            Unicacion = model.OrdenActiva.Ubicacion,
 
                             ModificadoEn = DateTime.Now,
-                            ModificadoPor = CurrentUserId.ToString()
+                            ModificadoPor = CurrentUserId
                         };
+
+                        if (repDet.EsGarantia)
+                        {
+                            //Comercio info
+                        }
 
                         _db.ReparacionDetalle.Add(repDet);
 
@@ -382,7 +467,9 @@ namespace FastService.Controllers
                             MarcaId = model.OrdenActiva.MarcaId,
                             TipoDispositivoId = model.OrdenActiva.TipoId,
                             ModificadoEn = DateTime.Now,
-                            ModificadoPor = CurrentUserId.ToString(),
+                            ModificadoPor = CurrentUserId,
+                            CreadoEn = DateTime.Now,
+                            CreadoPor = CurrentUserId,
                         });
                     }
                     else
@@ -396,7 +483,7 @@ namespace FastService.Controllers
                         rep.TipoDispositivoId = model.OrdenActiva.TipoId == 0 ? rep.TipoDispositivoId : model.OrdenActiva.TipoId; ;
 
                         rep.ModificadoEn = DateTime.Now;
-                        rep.ModificadoPor = CurrentUserId.ToString();
+                        rep.ModificadoPor = CurrentUserId;
 
                         var repDet = _db.ReparacionDetalle.Find(rep.ReparacionDetalleId);
 
@@ -408,11 +495,14 @@ namespace FastService.Controllers
                             repDet.Presupuesto = Convert.ToDecimal(model.OrdenActiva.Presupuesto);
                             repDet.PresupuestoFecha = DateTime.Now;
                             repDet.Precio = model.OrdenActiva.Monto;
+
                             repDet.Modelo = model.OrdenActiva.Modelo;
                             repDet.Serie = model.OrdenActiva.NroSerie;
-                            repDet.Serbus = model.OrdenActiva.SerBus; //To be corrected
+                            repDet.Serbus = model.OrdenActiva.SerBus;
+                            repDet.Unicacion = model.OrdenActiva.Ubicacion;
+
                             repDet.ModificadoEn = DateTime.Now;
-                            repDet.ModificadoPor = CurrentUserId.ToString();
+                            repDet.ModificadoPor = CurrentUserId;
                         }
                     }
 
@@ -426,7 +516,16 @@ namespace FastService.Controllers
                 }
             }
 
-            return RedirectToAction("Index");
+            RefreshCache();
+
+            if (IsMyOrdersMode)
+            {
+                return RedirectToAction("MyIndex", model.OrdenActiva.NroOrden);
+            }
+            else
+            {
+                return RedirectToAction("Index", model.OrdenActiva.NroOrden);
+            }
         }
 
         public ActionResult Delete(int id)
@@ -451,6 +550,12 @@ namespace FastService.Controllers
             Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
 
             return File(result, contentType);
+        }
+
+        private void RefreshCache()
+        {
+            System.Web.HttpContext.Current.Session["ORDENES"] = null;
+            System.Web.HttpContext.Current.Session["MISORDENES"] = null;
         }
 
 
@@ -479,14 +584,17 @@ namespace FastService.Controllers
                                             }).ToList();
 
 
-            ViewBag.ListaTecnicos = (from y in _db.Usuario
+            ViewBag.ListaTecnicos = (from u in _db.Usuario
+                                     join ur in _db.UsuarioRol on u.UserId equals ur.UserId
+                                     where u.Activo && ur.Role.Nombre == "TECNICO"
                                      select new SelectListItem()
                                      {
-                                         Text = y.Nombre,
-                                         Value = y.UserId.ToString()
+                                         Text = u.Nombre,
+                                         Value = u.UserId.ToString()
                                      }).ToList();
 
             ViewBag.ListaResponsables = (from y in _db.Usuario
+                                         where y.Activo
                                          select new SelectListItem()
                                          {
                                              Text = y.Nombre,

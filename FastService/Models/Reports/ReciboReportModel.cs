@@ -16,7 +16,7 @@ namespace FastService.Models.Reports
         public int MarcaId { get; set; }
         public int TipoDispositivoId { get; set; }
         public int? ReparacionDetalleId { get; set; }
-        public string ModificadoPor { get; set; }
+        public int? ModificadoPor { get; set; }
         public DateTime ModificadoEn { get; set; }
         public bool EsGarantia { get; set; }
         public bool EsDomicilio { get; set; }

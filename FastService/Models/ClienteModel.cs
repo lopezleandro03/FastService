@@ -23,10 +23,8 @@ namespace FastService.Models
         [EmailAddress]
         public string Mail { get; set; }
 
-        [Required]
         public string Celular { get; set; }
 
-        [Required]
         public string Telefono { get; set; }
 
         [Required]

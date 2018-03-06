@@ -1,5 +1,6 @@
 ﻿using FastService.Controllers;
 using Model.Model;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -28,18 +29,21 @@ namespace EstudioCapra.Controllers
 
         public ActionResult Authenticate(FormCollection collection)
         {
-            var Email = collection.Get("Email").ToString();
+            var Login = collection.Get("Email").ToString();
             var Contraseña = collection.Get("Contraseña").ToString();
 
             var user = from x in _dbContext.Usuario
-                       where x.Email == Email
+                       where x.Email == Login
+                          || x.Login == Login
                        && x.Contraseña == Contraseña
+                       && x.Activo
                        select x;
 
             if (user.Any())
             {
                 CurrentUserEmail = user.First().Email;
                 CurrentUserId = user.First().UserId;
+                CurrentUserLogin = user.First().Login;
 
                 return this.RedirectToAction("Index", new RouteValueDictionary(new
                 {
@@ -56,14 +60,16 @@ namespace EstudioCapra.Controllers
                     loginStatus = "Login Failed"
                 }));
 
-                //return this.RedirectToAction("Index");
             }
         }
 
         public ActionResult LogOut()
         {
-            CurrentUserEmail = string.Empty;
+            CurrentUserEmail = null;
+            CurrentUserLogin = null;
             CurrentUserId = 0;
+
+            RemoveCookie("USERLOGIN");
 
             var result = this.RedirectToAction("Index", new RouteValueDictionary(new
             {
@@ -73,5 +79,14 @@ namespace EstudioCapra.Controllers
 
             return result;
         }
+
+        private void RemoveCookie(string cookie)
+        {
+            if (Request.Cookies[cookie] != null)
+            {
+                Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
+            }
+        }
+
     }
 }
