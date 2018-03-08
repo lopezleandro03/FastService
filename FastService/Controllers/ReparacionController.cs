@@ -213,14 +213,16 @@ namespace FastService.Controllers
         [HttpPost]
         public ActionResult Novedad(NovedadModel model)
         {
-            //cache active order
             var nroOrdenActiva = 0;
             if (IsMyOrdersMode)
             {
+                MyOrdenesModel = MyOrdenesModel.Sync(model);
+
                 nroOrdenActiva = MyOrdenesModel.OrdenActiva.NroOrden;
             }
             else
             {
+                OrdenesModel = OrdenesModel.Sync(model);
                 nroOrdenActiva = OrdenesModel.OrdenActiva.NroOrden;
             }
 
@@ -308,6 +310,7 @@ namespace FastService.Controllers
 
                     _db.SaveChanges();
                     ts.Complete();
+
                 }
                 catch (Exception ex)
                 {
@@ -316,19 +319,25 @@ namespace FastService.Controllers
                 }
             }
 
-            RefreshCache();
+            System.Web.HttpContext.Current.Session["MISORDENES"] = null;
+
+            InitializeViewBag();
+
+            MyOrdenesModel.OrdenActiva = MyOrdenesModel.Ordenes?.First();
+
+            MyOrdenesModel.IsTecnico = CurrentUserRoles.Exists(x => x.ToUpper() == AplicationRole.TECNICO);
+            MyOrdenesModel.IsMyVIew = true;
+            IsMyOrdersMode = true;
 
             if (IsMyOrdersMode)
             {
-                return RedirectToAction("MyIndex", nroOrdenActiva);
+                return PartialView("Index", MyOrdenesModel);
             }
             else
             {
                 return RedirectToAction("Index", nroOrdenActiva);
             }
         }
-
-
 
         // POST: Reparacion/Create
         [HttpGet]
@@ -359,6 +368,7 @@ namespace FastService.Controllers
             TransactionOptions opt = new TransactionOptions();
             opt.IsolationLevel = IsolationLevel.ReadCommitted;
             opt.Timeout = TimeSpan.MaxValue;
+
 
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required, opt))
             {
@@ -516,7 +526,7 @@ namespace FastService.Controllers
                 }
             }
 
-            RefreshCache();
+            //RefreshCache(model.OrdenActiva.NroOrden);
 
             if (IsMyOrdersMode)
             {
@@ -552,14 +562,12 @@ namespace FastService.Controllers
             return File(result, contentType);
         }
 
-        private void RefreshCache()
+        private void RefreshCache(int nroOrden)
         {
-            System.Web.HttpContext.Current.Session["ORDENES"] = null;
-            System.Web.HttpContext.Current.Session["MISORDENES"] = null;
+            var dbOrder = _OrdenHelper.GetOrden(nroOrden);
+
+            OrdenesModel.Ordenes.Where(d => d.NroOrden == nroOrden).First().Novedades = dbOrder.Novedades;
         }
-
-
-
         private void InitializeViewBag()
         {
             ViewBag.ListaMarcas = (from y in _db.Marca

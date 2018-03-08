@@ -75,6 +75,21 @@ namespace FastService.Models
         public ClienteModel Cliente { get; set; }
         public Comercio Comercio { get; set; }
         public List<NovedadModel> Novedades { get; set; }
+
+        public string ResumenAparato
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Modelo))
+                {
+                    return $"{TipoDesc}-{MarcaDesc}";
+                }
+
+                return $"{TipoDesc}-{MarcaDesc}-{Modelo}";
+            }
+            set { }
+        }
+
         public DateTime FechaUltimaNovedad
         {
             get

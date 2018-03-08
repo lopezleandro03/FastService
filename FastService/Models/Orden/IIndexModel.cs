@@ -11,5 +11,7 @@ namespace FastService.Models.Orden
         bool IsMyVIew { get; set; }
         List<OrdenModel> OrdenesAReparar { get; set; }
         List<OrdenModel> OrdenesEnEspera { get; set; }
+
+        OrdenesIndexViewModel Sync(NovedadModel model);
     }
 }

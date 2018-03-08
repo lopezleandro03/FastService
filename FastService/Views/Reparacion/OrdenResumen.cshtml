@@ -326,15 +326,6 @@
         },
     });
 
-    function Done(data) {
-        $("#modalSuccess").modal();
-        $(".page-content").html(data);
-    }
-
-    function OnError(data) {
-        $("#modalError").modal();
-    }
-
     $(function () {
         if ("@Model.OrdenActiva.Garantia" == "True") {
             $("#datosComercioDiv").removeAttr("hidden", true);
@@ -353,18 +344,7 @@
               success: function (data) {
                   $("#OrdenResumen").append(data);
                 }
-            });
-            @*$("#LocalizeButton").click(function () {
-
-                    $.ajax({
-                        url: "@Url.Action("AutoCompleteAddressFormModal", "GoogleMaps")",
-                        success: function (data) {
-                            $("#modalSearchMap").html(data);
-                            $("#modalSearchMap").modal();
-                        }
-                    });
-
-                });*@
+        });
     })
 </script>
 

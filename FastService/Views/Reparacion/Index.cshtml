@@ -47,5 +47,15 @@
         $(".simplemodal-close").trigger("click");
         Done();
     }
+
+    function Done(data) {
+        $("#modalSuccess").modal();
+        $(".page-content").html(data);
+    }
+
+    function OnError(data) {
+        $("#modalError").modal();
+    }
+
 </script>
 

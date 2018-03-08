@@ -3,13 +3,13 @@
         type: 'GET',
         url: url,
         contentType: "html",
+        cache: false,
         dataType: "html",
         beforeSend: function () {
             $(".spinner").show();
         },
         success: function (data) {
             success(data);
-            $("#modalSuccess").modal();
         },
         error: function () {
             error();
@@ -27,13 +27,13 @@ function ajaxGetNoCustomError(url, success) {
         type: 'GET',
         url: url,
         contentType: "html",
+        cache: false,
         dataType: "html",
         beforeSend: function () {
             $(".spinner").show();
         },
         success: function (data) {
             success(data);
-            $("#modalSuccess").modal();
         },
         error: function () {
             $("#modalError").modal();
@@ -49,6 +49,7 @@ function ajaxPost(url, success, error) {
         type: 'POST',
         url: url,
         contentType: "html",
+        cache: false,
         dataType: "html",
         beforeSend: function () {
             $(".spinner").show();
@@ -74,6 +75,7 @@ function ajaxPostNoCustomError(url, success) {
         url: url,
         contentType: "html",
         dataType: "html",
+        cache: false,
         beforeSend: function () {
             $(".spinner").show();
         },

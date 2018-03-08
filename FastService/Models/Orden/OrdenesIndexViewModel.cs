@@ -25,5 +25,14 @@ namespace FastService.Models
             set { }
         }
 
+        public OrdenesIndexViewModel Sync(NovedadModel model)
+        {
+            var ordenes = Ordenes.Where(x => x.NroOrden == this.OrdenActiva.NroOrden).FirstOrDefault();
+            var novedades = ordenes.Novedades;
+            novedades.Add(model);
+            this.Ordenes.Where(x => x.NroOrden == this.OrdenActiva.NroOrden).Select(y => y.Novedades = novedades);
+
+            return this;
+        }
     }
 }

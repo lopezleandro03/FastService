@@ -96,7 +96,7 @@ namespace FastService.Common
 
                                }
 
-                           })?.OrderByDescending(x => x.NroOrden)?.Take(100)?.ToList();
+                           })?.OrderByDescending(x => x.NroOrden)?.Take(50)?.ToList();
 
             }
             else
@@ -161,7 +161,7 @@ namespace FastService.Common
                                        Celular = r.Cliente.Telefono2
                                    }
 
-                               }).OrderByDescending(x => x.NroOrden).Take(100).ToList();
+                               }).OrderByDescending(x => x.NroOrden).Take(50).ToList();
                 }
                 else
                 {
@@ -221,11 +221,12 @@ namespace FastService.Common
                                        Celular = r.Cliente.Telefono2
                                    }
 
-                               }).OrderByDescending(x => x.NroOrden).Take(100).ToList();
+                               }).OrderByDescending(x => x.NroOrden).Take(50).ToList();
                 }
             }
 
             var cacheNov = (from o in Ordenes join n in _db.Novedad on o.NroOrden equals n.reparacionId select n).ToList();
+            var cacheTipoNov = (from x in _db.TipoNovedad select x).ToList();
 
             foreach (var orden in Ordenes)
             {
@@ -236,7 +237,7 @@ namespace FastService.Common
                                        Id = n.novedadId,
                                        Fecha = n.modificadoEn,
                                        Observacion = n.observacion,
-                                       Descripcion = (from x in _db.TipoNovedad where x.TipoNovedadId == n.tipoNovedadId select x.nombre.ToUpper()).FirstOrDefault(),
+                                       Descripcion = (from x in cacheTipoNov where x.TipoNovedadId == n.tipoNovedadId select x.nombre.ToUpper()).FirstOrDefault(),
                                        Monto = n.monto
                                    })?.OrderByDescending(x => x.Fecha)?.ToList();
             }
@@ -368,6 +369,77 @@ namespace FastService.Common
                                              }).ToList();
 
             return data;
+
+        }
+
+        public OrdenModel GetOrden(int nroOrden)
+        {
+            return (from r in _db.Reparacion
+                    where r.ReparacionId == nroOrden
+                    select new OrdenModel()
+                    {
+                        NroOrden = r.ReparacionId,
+                        Garantia = r.ReparacionDetalle.EsGarantia,
+                        Domicilio = r.ReparacionDetalle.EsDomicilio,
+                        EstadoCodigo = r.EstadoReparacionId,
+                        EstadoDesc = r.EstadoReparacion.nombre.ToUpper(),
+                        EstadoFecha = r.ModificadoEn,
+
+                        ResponsableId = r.EmpleadoAsignadoId,
+                        ResponsableNombre = r.Usuario.Nombre,
+                        TecnicoId = r.TecnicoAsignadoId,
+                        TecnicoNombre = r.Usuario1.Nombre,
+
+                        Presupuesto = r.ReparacionDetalle.Presupuesto ?? 0,
+                        Monto = r.ReparacionDetalle.Precio ?? 0,
+
+                        MarcaId = r.MarcaId,
+                        MarcaDesc = r.Marca.nombre,
+
+                        TipoId = r.TipoDispositivoId,
+                        TipoDesc = r.TipoDispositivo.nombre,
+                        Modelo = r.ReparacionDetalle.Modelo,
+                        NroSerie = r.ReparacionDetalle.Serie,
+
+                        Comercio = r.Comercio,
+
+                        Cliente = new ClienteModel()
+                        {
+                            Dni = r.Cliente.Dni,
+                            Nombre = r.Cliente.Nombre,
+                            Apellido = r.Cliente.Apellido,
+                            Mail = r.Cliente.Mail,
+                            Direccion = r.Cliente.Direccion,
+                            Dir = (from d in _db.Direccion
+                                   where d.DireccionId == r.Cliente.DireccionId
+                                   select new DireccionModel()
+                                   {
+                                       Calle = d.Calle,
+                                       Altura = d.Altura,
+                                       Ciudad = d.Ciudad,
+                                       CodigoPostal = d.CodigoPostal,
+                                       Provincia = d.Provincia,
+                                       Pais = d.Pais,
+                                       Latitud = d.Latitud,
+                                       Longitud = d.Longitud,
+                                       ChangedOn = d.ChangedOn,
+                                       ChangedBy = d.ChangedBy
+                                   }).ToList().FirstOrDefault(),
+                            Telefono = r.Cliente.Telefono1,
+                            Celular = r.Cliente.Telefono2
+                        },
+                        Novedades = (from n in _db.Novedad
+                                     where n.reparacionId == nroOrden
+                                     select new NovedadModel()
+                                     {
+                                         Id = n.novedadId,
+                                         Fecha = n.modificadoEn,
+                                         Observacion = n.observacion,
+                                         Descripcion = (from x in _db.TipoNovedad where x.TipoNovedadId == n.tipoNovedadId select x.nombre.ToUpper()).FirstOrDefault(),
+                                         Monto = n.monto
+                                     }).ToList()
+
+                    }).FirstOrDefault();
 
         }
     }
