@@ -18,6 +18,7 @@ namespace EstudioCapra.Controllers
 
         public ActionResult Index()
         {
+            HttpContext.Session.Abandon();
             return View();
         }
 

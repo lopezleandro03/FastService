@@ -951,6 +951,8 @@
     <Content Include="Views\Shared\_ModalError.cshtml" />
     <Content Include="Views\Shared\_ModalSuccess.cshtml" />
     <Content Include="Views\Shared\_Spinner.cshtml" />
+    <Content Include="Views\Reparacion\NovedadIndex.cshtml" />
+    <Content Include="Views\Reparacion\MyIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,13 +6,14 @@
         <h4 id="modalNuevaNovedadHeader" class="modal-title">Nueva Novedad</h4>
     </div>
 
-    @using (Ajax.BeginForm("Novedad", "Reparacion", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccessNovedad(data)", OnFailure = "OnErrorNovedad", LoadingElementId = "spinner" }))
+    @using (Ajax.BeginForm("Novedad", "Reparacion", new AjaxOptions { HttpMethod = "Post", OnBegin = "OnBeginNovedad", OnSuccess = "Done(data)", OnFailure = "OnError", LoadingElementId = "spinner" }))
     {
         <div id="modalNuevaNovedadBody" class="modal-body">
 
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
 
+            @Html.HiddenFor(model => model.Id)
             @Html.LabelFor(model => model.TecnicoNombre)
             @Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
 
@@ -21,13 +22,6 @@
 
             @Html.LabelFor(model => model.Monto)
             @Html.TextBoxFor(model => model.Monto, new { @class = "form-control" })
-
-            @*<div class="row-fluid">
-                    <div class="col-md-12">
-                        @Html.LabelFor(model => model.Material)
-                        @Html.TextBoxFor(model => model.Material, new { @class = "form-control" })
-                    </div>
-                </div>*@
 
             @Html.LabelFor(model => model.NroReferencia)
             @Html.TextBoxFor(model => model.NroReferencia, new { @class = "form-control" })

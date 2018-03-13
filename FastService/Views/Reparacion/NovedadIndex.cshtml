@@ -1,0 +1,110 @@
+﻿@model FastService.Models.OrdenesIndexViewModel
+
+@if (!Model.NuevaOrden)
+{
+    <h4 class="form-section">Novedades</h4>
+    <div class="row ListaNovedades">
+        <div class="col-md-12">
+            @if (Model.OrdenActiva.Novedades != null)
+            {
+                <table class="table table-bordered table-condensed">
+                    <tr>
+
+                        <th class="col-xs-3">
+                            @Html.DisplayNameFor(model => model.OrdenActiva.Novedades.First().Fecha)
+                        </th>
+                        <th class="col-xs-2">
+                            @Html.DisplayNameFor(model => model.OrdenActiva.Novedades.First().Descripcion)
+                        </th>
+                        <th class="col-xs-2">
+                            @Html.DisplayNameFor(model => model.OrdenActiva.Novedades.First().Monto)
+                        </th>
+                        <th class="col-xs-6">
+                            @Html.DisplayNameFor(model => model.OrdenActiva.Novedades.First().Observacion)
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model.OrdenActiva.Novedades.OrderByDescending(x => x.Fecha))
+                    {
+                        if (item == Model.OrdenActiva.Novedades.OrderByDescending(x => x.Fecha).First())
+                        {
+                            <tr data-id="@Html.DisplayFor(Item => item.Id)">
+
+                                <td class="editNov">
+                                    @Html.DisplayFor(Item => item.Fecha)
+                                </td>
+                                <td class="editNov">
+                                    @Html.DisplayFor(Item => item.Descripcion)
+                                </td>
+                                <td class="editNov">
+                                    @Html.DisplayFor(Item => item.Monto)
+                                </td>
+                                <td class="editNov">
+                                    @Html.DisplayFor(Item => item.Observacion)
+                                </td>
+                                <td>
+                                    <button class="btnNovRem btn-danger" data-id="@Html.DisplayFor(Item => item.Id)" type="button">
+                                        X
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+
+                            <tr data-id="@Html.DisplayFor(Item => item.Id)">
+
+                                <td>
+                                    @Html.DisplayFor(Item => item.Fecha)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(Item => item.Descripcion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(Item => item.Monto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(Item => item.Observacion)
+                                </td>
+                            </tr>
+
+                        }
+                    }
+                </table>
+            }
+            else
+            {
+                <h4> No hay novedades cargadas para esta orden</h4>
+            }
+        </div>
+    </div>
+
+}
+
+<style>
+    .ListaNovedades {
+        max-height: 190px;
+        overflow-y: scroll;
+    }
+</style>
+
+<script>
+    $(".btnNovRem").click(function (e) {
+        ajaxGetNoCustomError(
+            "@Url.Action("NovedadDelete","Reparacion")/?id=" + $(this).data("id"),
+            function (data) {
+                $("#divNovedades").html(data);
+            }
+        );
+    })
+
+    $(".editNov").click(function (e) {
+        ajaxGetNoCustomError(
+            "@Url.Action("NovedadEdit", "Reparacion")/?id=" + $(this).parent().data("id"),
+            function (data) {
+                $("#modalNuevaNovedad").html(data);
+                $("#modalNuevaNovedad").modal();
+            }
+        );
+    })
+</script>

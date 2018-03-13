@@ -40,6 +40,8 @@ namespace FastService.Common
                            || r.ReparacionDetalle.Serie == searchCriteria.Trim()
                            || r.ReparacionDetalle.Serbus == searchCriteria.Trim()
                            || r.ReparacionDetalle.NroReferencia == searchCriteria.Trim()
+                           || r.Comercio.Code == searchCriteria.Trim()
+                           || r.Comercio.Descripcion == searchCriteria.Trim()
                            select new OrdenModel()
                            {
                                NroOrden = r.ReparacionId,
@@ -96,7 +98,7 @@ namespace FastService.Common
 
                                }
 
-                           })?.OrderByDescending(x => x.NroOrden)?.Take(50)?.ToList();
+                           })?.OrderByDescending(x => x.EstadoFecha).Take(50)?.ToList();
 
             }
             else
@@ -104,8 +106,11 @@ namespace FastService.Common
                 if (OnlyMyOrders)
                 {
                     Ordenes = (from r in _db.Reparacion
-                               where r.Usuario.UserId == currentUserId
-                                  || r.Usuario1.UserId == currentUserId
+                               where r.Usuario1.UserId == currentUserId
+                                  && r.EstadoReparacion.nombre != ReparacionEstado.CANCELADO.ToString()
+                                  && r.EstadoReparacion.nombre != ReparacionEstado.RECHAZADO.ToString()
+                                  && r.EstadoReparacion.nombre != ReparacionEstado.RETIRADO.ToString()
+                                  && r.EstadoReparacion.nombre != ReparacionEstado.RECHAZOPRESUP.ToString()
                                select new OrdenModel()
                                {
                                    NroOrden = r.ReparacionId,
@@ -161,7 +166,7 @@ namespace FastService.Common
                                        Celular = r.Cliente.Telefono2
                                    }
 
-                               }).OrderByDescending(x => x.NroOrden).Take(50).ToList();
+                               })?.OrderByDescending(x => x.EstadoFecha).Take(50)?.ToList();
                 }
                 else
                 {
@@ -221,25 +226,27 @@ namespace FastService.Common
                                        Celular = r.Cliente.Telefono2
                                    }
 
-                               }).OrderByDescending(x => x.NroOrden).Take(50).ToList();
+                               })?.OrderByDescending(x => x.EstadoFecha).Take(50)?.ToList();
                 }
             }
 
-            var cacheNov = (from o in Ordenes join n in _db.Novedad on o.NroOrden equals n.reparacionId select n).ToList();
-            var cacheTipoNov = (from x in _db.TipoNovedad select x).ToList();
+            //var cacheNov = (from o in Ordenes join n in _db.Novedad on o.NroOrden equals n.reparacionId select n).ToList();
+            Dictionary<int, string> dicTipoNov = (from x in _db.TipoNovedad select new { x.TipoNovedadId, x.nombre }).ToDictionary(k => k.TipoNovedadId, v => v.nombre);
 
             foreach (var orden in Ordenes)
             {
-                orden.Novedades = (from n in cacheNov
+                orden.Novedades = (from n in _db.Novedad
                                    where n.reparacionId == orden.NroOrden
                                    select new NovedadModel()
                                    {
                                        Id = n.novedadId,
                                        Fecha = n.modificadoEn,
                                        Observacion = n.observacion,
-                                       Descripcion = (from x in cacheTipoNov where x.TipoNovedadId == n.tipoNovedadId select x.nombre.ToUpper()).FirstOrDefault(),
+                                       TipoNovedadId = n.tipoNovedadId,
                                        Monto = n.monto
-                                   })?.OrderByDescending(x => x.Fecha)?.ToList();
+                                   })?.ToList();
+
+                orden.Novedades.Select(x => x.Descripcion = dicTipoNov[x.TipoNovedadId]);
             }
 
             return Ordenes;
@@ -305,25 +312,10 @@ namespace FastService.Common
                                Celular = r.Cliente.Telefono2
                            }
 
-                       }).OrderByDescending(x => x.NroOrden).ToList();
+                       }).ToList();
 
             return Ordenes;
         }
-
-        //private List<NovedadModel> GetNovedades(int reparacionId)
-        //{
-        //    return  (from n in _db.Novedad
-        //            where n.reparacionId == reparacionId
-        //            select new NovedadModel()
-        //            {
-        //                Id = n.novedadId,
-        //                Fecha = n.modificadoEn,
-        //                Observacion = n.observacion,
-        //                Descripcion = (from x in _db.TipoNovedad where x.TipoNovedadId == n.tipoNovedadId select x.nombre.ToUpper()).FirstOrDefault(),
-        //                Monto = n.monto
-        //            })?.OrderByDescending(x => x.Fecha)?.ToList();
-
-        //}
 
         internal IList<ReciboReportModel> GetReparacionReciboData(int id)
         {

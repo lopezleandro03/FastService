@@ -42,34 +42,24 @@
                         <!-- BEGIN LOGO -->
                         <a id="index" class="page-logo" href="index.html">
                             <img src="../Content/assets/layouts/layout5/img/fs_blanco.png" alt="Logo">
-
                         </a>
                         <!-- END LOGO -->
                         <!-- BEGIN SEARCH -->
 
-                        <form class="search">
-                            <input id="inputSearchCriteria" class="form-control" placeholder="Buscar..." autocomplete="off">
-                            <a id="btnSearch" class="btn md-skip">
-                                <i class="fa fa-search fa-x"></i>
-                            </a>
-                        </form>
-
-                        @*<script>
-                                $("#inputSearchCriteria").keypress(function (e) {
-                                    e.preventDefault();
-                                    if (e.which == 13) {
-                                        alert('You pressed enter!');
-                                    }
-                                });
-
-                                $('#search').on('keyup keypress', function (e) {
-                                    var keyCode = e.keyCode || e.which;
-                                    if (keyCode === 13) {
-                                        e.preventDefault();
-                                        return false;
-                                    }
-                                });
-                            </script>*@
+                        <div class="row">
+                            <div id="divSearch" class="col-md-2" style="margin-left:30px;margin-top:15px"  hidden>
+                                    <input id="inputSearchCriteria" class="form-control" placeholder="Buscar..." autocomplete="off">
+                                    @*<a id="btnSearch" class="btn md-skip">
+                                        <i class="fa fa-search fa-x"></i>
+                                    </a>*@
+                            </div>
+                            <div  id="divFilterByTecnico"  class="col-md-2" style="margin-left:30px;margin-top:15px" hidden>
+                                @Html.DropDownListFor(x => x.UserId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control", @id = "ddlFilterByTecnico" })
+                            </div>
+                            @*<div id="divFilterByComercio" class="col-md-2" style="margin-left:30px;margin-top:15px"  hidden>
+                                @Html.DropDownList("ComercioFilter", (List<SelectListItem>)ViewBag.ListaComercio, new { @class = "form-control", @id = "ddlFilterByComercio" })
+                            </div>*@
+                        </div>
 
                         <style>
                             #inputSearchCriteria {
@@ -78,7 +68,6 @@
                                 background-color: white;
                             }
                         </style>
-
 
                         <!-- END SEARCH -->
                         <!-- BEGIN TOPBAR ACTIONS -->
@@ -387,6 +376,18 @@
     });
 
     $(".asyncAction").click(function () {
+        $("#divSearch").hide();
+        $("#divFilterByTecnico").hide();
+        //$("#divFilterByComercio").hide();
+
+        if ($(this).data("controller") == "Reparacion" && $(this).data("action") == "Index") {
+            $("#divSearch").show();
+            //$("#divFilterByComercio").show();
+        }
+        if ($(this).data("controller") == "Reparacion" && $(this).data("action") == "MyIndex") {
+            $("#divFilterByTecnico").show();
+        }
+
         ajaxGet(
             "/" + $(this).data("controller") + "/" + $(this).data("action"),
             function (data) {

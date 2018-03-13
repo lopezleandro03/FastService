@@ -14,5 +14,6 @@ namespace FastService.Models.Login
         public string DefaultAction { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
+        public object UserId { get; internal set; }
     }
 }

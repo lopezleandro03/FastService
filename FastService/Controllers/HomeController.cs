@@ -26,7 +26,7 @@ namespace FastService.Controllers
                     action = "Index"
                 }));
             }
-            
+
             var model = (from x in _dbContext.UsuarioRol
                          join u in _dbContext.Usuario on x.UserId equals u.UserId
                          join r in _dbContext.Role on x.RolId equals r.RolId
@@ -56,9 +56,11 @@ namespace FastService.Controllers
                                           }).ToList()
                          }).ToList().FirstOrDefault();
 
+            model.UserId = CurrentUserId; 
             CurrentUserRoles = model.Roles;
+            InitializeViewBag();
+
             return View(model);
         }
-
     }
 }

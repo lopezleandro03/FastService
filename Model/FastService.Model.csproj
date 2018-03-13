@@ -187,6 +187,8 @@
       <DependentUpon>FastServiceEntities.edmx</DependentUpon>
       <LastGenOutput>FastServiceEntities.cs</LastGenOutput>
     </Content>
+    <Content Include="MigrationProcess.sql" />
+    <Content Include="StagingTables.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Backend\FastService.Backend.csproj">

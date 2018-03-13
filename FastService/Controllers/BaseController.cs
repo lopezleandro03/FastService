@@ -1,7 +1,9 @@
-﻿using NLog;
+﻿using Model.Model;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace FastService.Controllers
 {
@@ -61,6 +63,7 @@ namespace FastService.Controllers
                 }
                 else if (GetCookie("USERID") != null)
                 {
+
                     System.Web.HttpContext.Current.Session["USERID"] = GetCookie("USERID");
                     return Convert.ToInt16(System.Web.HttpContext.Current.Session["USERID"]);
                 }
@@ -82,10 +85,14 @@ namespace FastService.Controllers
                 {
                     return (List<string>)System.Web.HttpContext.Current.Session["USERROLES"];
                 }
-                else if (GetCookie("USERROLES") != null)
+                else if (CurrentUserId != null)
                 {
-                    System.Web.HttpContext.Current.Session["USERROLES"] = GetCookie("USERROLES");
-                    return (List<string>)System.Web.HttpContext.Current.Session["USERROLES"];
+                    using (var db = new FastServiceEntities())
+                    {
+                        return (from x in db.UsuarioRol
+                                where x.UserId == CurrentUserId
+                                select x.Role.Nombre).ToList();
+                    }
                 }
 
                 return null;
@@ -93,7 +100,6 @@ namespace FastService.Controllers
             set
             {
                 System.Web.HttpContext.Current.Session["USERROLES"] = value;
-                SetCookie("USERROLES", value.ToString());
             }
         }
 
@@ -144,6 +150,55 @@ namespace FastService.Controllers
                 {
                     ViewName = "Error"
                 };
+            }
+        }
+
+        public void InitializeViewBag()
+        {
+            using (var _db = new FastServiceEntities())
+            {
+
+                ViewBag.ListaMarcas = (from y in _db.Marca
+                                       where y.nombre.Trim() != string.Empty
+                                       select new SelectListItem()
+                                       {
+                                           Text = y.nombre,
+                                           Value = y.MarcaId.ToString()
+                                       }).OrderBy(y => y.Text).ToList();
+
+                ViewBag.ListaComercio = (from y in _db.Comercio
+                                         where y.Code.Trim() != string.Empty
+                                         select new SelectListItem()
+                                         {
+                                             Text = y.Code,
+                                             Value = y.ComercioId.ToString()
+                                         }).OrderBy(y => y.Text).ToList();
+
+                ViewBag.ListaTipoDispositivo = (from y in _db.TipoDispositivo
+                                                where y.nombre.Trim() != string.Empty
+                                                select new SelectListItem()
+                                                {
+                                                    Text = y.nombre,
+                                                    Value = y.TipoDispositivoId.ToString()
+                                                }).OrderBy(y => y.Text).ToList();
+
+
+                ViewBag.ListaTecnicos = (from u in _db.Usuario
+                                         join ur in _db.UsuarioRol on u.UserId equals ur.UserId
+                                         where u.Activo && ur.Role.Nombre == "TECNICO"
+                                         select new SelectListItem()
+                                         {
+                                             Text = u.Nombre,
+                                             Value = u.UserId.ToString()
+                                         }).OrderBy(y => y.Text).ToList();
+
+                ViewBag.ListaResponsables = (from y in _db.Usuario
+                                             where y.Activo
+                                             select new SelectListItem()
+                                             {
+                                                 Text = y.Nombre,
+                                                 Value = y.UserId.ToString()
+                                             }).OrderBy(y => y.Text).ToList();
             }
         }
     }

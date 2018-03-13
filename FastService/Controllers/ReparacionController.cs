@@ -13,6 +13,11 @@ namespace FastService.Controllers
 {
     public class ReparacionController : BaseController
     {
+        private IIndexModel GetOrdenes()
+        {
+            return IsMyOrdersMode ? MyOrdenesModel : OrdenesModel;
+        }
+
         private IIndexModel OrdenesModel
         {
             get
@@ -81,16 +86,16 @@ namespace FastService.Controllers
 
         // GET: Reparacion
         [OutputCache(NoStore = true, Duration = 0)]
-        public ActionResult Index(int ordenActive = 0)
+        public ActionResult Index(int id = 0)
         {
             InitializeViewBag();
 
-            if (ordenActive != 0)
-                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.Where(x => x.NroOrden == ordenActive).FirstOrDefault();
+            if (id != 0)
+                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.Where(x => x.NroOrden == id).FirstOrDefault();
             else
             {
                 OrdenesModel.OrdenActiva = new OrdenModel();
-                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.First();
+                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.OrderByDescending(x => x.FechaUltimaNovedad).First();
             }
 
             OrdenesModel.IsTecnico = CurrentUserRoles.Exists(x => x.ToUpper() == AplicationRole.TECNICO);
@@ -101,20 +106,20 @@ namespace FastService.Controllers
         }
 
         [OutputCache(NoStore = true, Duration = 0)]
-        public ActionResult MyIndex(int ordenActive = 0)
+        public ActionResult MyIndex(int id = 0)
         {
             InitializeViewBag();
 
-            if (ordenActive != 0)
-                MyOrdenesModel.OrdenActiva = MyOrdenesModel.Ordenes.Where(x => x.NroOrden == ordenActive).FirstOrDefault();
+            if (id != 0)
+                MyOrdenesModel.OrdenActiva = MyOrdenesModel.Ordenes.Where(x => x.NroOrden == id).FirstOrDefault();
             else
-                MyOrdenesModel.OrdenActiva = MyOrdenesModel.Ordenes?.First();
+                MyOrdenesModel.OrdenActiva = MyOrdenesModel.Ordenes.OrderByDescending(x => x.FechaUltimaNovedad).First();
 
             MyOrdenesModel.IsTecnico = CurrentUserRoles.Exists(x => x.ToUpper() == AplicationRole.TECNICO);
             MyOrdenesModel.IsMyVIew = true;
             IsMyOrdersMode = true;
 
-            return PartialView("Index", MyOrdenesModel);
+            return PartialView("MyIndex", MyOrdenesModel);
         }
         // GET: Reparacion
         public ActionResult Filter(string searchCriteria)
@@ -124,12 +129,43 @@ namespace FastService.Controllers
 
             if (OrdenesModel.Ordenes.Any())
             {
-                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes?.First();
+                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes?.OrderByDescending(x => x.FechaUltimaNovedad).First();
+            }
+
+            if (IsMyOrdersMode)
+            {
+                return PartialView("MyIndex", OrdenesModel);
             }
 
             return PartialView("Index", OrdenesModel);
         }
 
+        public ActionResult FilterByTecnico(int id)
+        {
+            InitializeViewBag();
+            OrdenesModel.Ordenes = _OrdenHelper.GetOrdenes(IsMyOrdersMode, null, id);
+
+            if (OrdenesModel.Ordenes.Any())
+            {
+                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes?.First();
+            }
+
+            return PartialView("MyIndex", OrdenesModel);
+        }
+
+
+        //public ActionResult FilterByComercio(int id)
+        //{
+        //    InitializeViewBag();
+        //    OrdenesModel.Ordenes = _OrdenHelper.GetOrdenes(false, id.ToString(), CurrentUserId);
+
+        //    if (OrdenesModel.Ordenes.Any())
+        //    {
+        //        OrdenesModel.OrdenActiva = OrdenesModel.Ordenes?.First();
+        //    }
+
+        //    return PartialView("Index", OrdenesModel);
+        //}
         // GET: Reparacion/Details/5
         public ActionResult Details(int id)
         {
@@ -163,181 +199,6 @@ namespace FastService.Controllers
 
         }
 
-        [HttpGet]
-        public ActionResult Novedad(int tipo)
-        {
-            var model = new NovedadModel();
-            if (IsMyOrdersMode)
-            {
-                model.ResponsableNombre = MyOrdenesModel.OrdenActiva.ResponsableNombre;
-                model.TecnicoNombre = MyOrdenesModel.OrdenActiva.TecnicoNombre;
-            }
-            else
-            {
-                model.ResponsableNombre = OrdenesModel.OrdenActiva.ResponsableNombre;
-                model.TecnicoNombre = OrdenesModel.OrdenActiva.TecnicoNombre;
-            }
-            model.Monto = 0;
-            model.Material = 0;
-            model.TipoNovedadId = tipo;
-
-            InitializeViewBag();
-
-            if (tipo == (int)NovedadTipo.PRESUPINFOR
-                || tipo == (int)NovedadTipo.ENTREGA
-                || tipo == (int)NovedadTipo.REPDOMICILIO
-                || tipo == (int)NovedadTipo.REPARADO)
-            {
-                return PartialView("NovedadConPresupuesto", model);
-            }
-            else if (tipo == (int)NovedadTipo.ACEPTA
-                || tipo == (int)NovedadTipo.RECHAZA
-                || tipo == (int)NovedadTipo.NOTA
-                || tipo == (int)NovedadTipo.LLAMADO
-                || tipo == (int)NovedadTipo.VERIFICAR
-                || tipo == (int)NovedadTipo.ACONTROLAR
-                || tipo == (int)NovedadTipo.ESPERAREPUESTO)
-            {
-                return PartialView("NovedadSimple", model);
-            }
-            else if (tipo == (int)NovedadTipo.REINGRESO)
-            {
-                return PartialView("NovedadReingreso", model);
-            }
-            else
-            {
-                return PartialView("NovedadConPresupuesto", model);
-            }
-        }
-
-        [HttpPost]
-        public ActionResult Novedad(NovedadModel model)
-        {
-            var nroOrdenActiva = 0;
-            if (IsMyOrdersMode)
-            {
-                MyOrdenesModel = MyOrdenesModel.Sync(model);
-
-                nroOrdenActiva = MyOrdenesModel.OrdenActiva.NroOrden;
-            }
-            else
-            {
-                OrdenesModel = OrdenesModel.Sync(model);
-                nroOrdenActiva = OrdenesModel.OrdenActiva.NroOrden;
-            }
-
-            TransactionOptions opt = new TransactionOptions();
-            opt.IsolationLevel = IsolationLevel.ReadCommitted;
-            opt.Timeout = TimeSpan.MaxValue;
-
-            using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required, opt))
-            {
-                try
-                {
-                    _db.Novedad.Add(new Novedad()
-                    {
-                        reparacionId = nroOrdenActiva,
-                        observacion = model.Observacion,
-                        monto = model.Monto,
-                        tipoNovedadId = model.TipoNovedadId,
-                        UserId = CurrentUserId,
-                        modificadoPor = CurrentUserId,
-                        modificadoEn = DateTime.Now
-                    });
-
-                    var orden = _db.Reparacion.Find(nroOrdenActiva);
-                    orden.TecnicoAsignadoId = model.TecnicoId;
-                    orden.ReparacionDetalle.Presupuesto = model.Monto == 0 ? orden.ReparacionDetalle.Presupuesto : model.Monto;
-
-                    var estados = _db.EstadoReparacion.Select(x => x).ToList();
-
-                    if (orden != null)
-                    {
-                        if (model.TipoNovedadId == (int)NovedadTipo.ACEPTA)
-                        {
-                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.AREPARAR).First().EstadoReparacionId;
-                        }
-                        if (model.TipoNovedadId == (int)NovedadTipo.RECHAZA)
-                        {
-                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.RECHAZADO).First().EstadoReparacionId;
-                        }
-                        if (model.TipoNovedadId == (int)NovedadTipo.REINGRESO)
-                        {
-                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.REINGRESADO).First().EstadoReparacionId;
-                        }
-                        if (model.TipoNovedadId == (int)NovedadTipo.ESPERAREPUESTO)
-                        {
-                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.ESPREPUESTO).First().EstadoReparacionId;
-                        }
-                        if (model.TipoNovedadId == (int)NovedadTipo.PRESUPINFOR)
-                        {
-                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PRESUPUESTADO).First().EstadoReparacionId;
-                            orden.ReparacionDetalle.Presupuesto = model.Monto;
-                            orden.ReparacionDetalle.PresupuestoFecha = DateTime.Now;
-                        }
-                        if (model.TipoNovedadId == (int)NovedadTipo.REPARADO)
-                        {
-                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.REPARADO).First().EstadoReparacionId;
-                        }
-                        if (model.TipoNovedadId == (int)NovedadTipo.RETIRA || model.TipoNovedadId == (int)NovedadTipo.ENTREGA)
-                        {
-                            orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.RETIRADO).First().EstadoReparacionId;
-                            orden.ReparacionDetalle.Precio = model.Monto;
-
-                            if (model.Monto > 0)
-                            {
-                                var venta = new Venta()
-                                {
-                                    ClienteId = orden.ClienteId,
-                                    Descripcion = $"Pago por servicio de FastService orden {orden.ReparacionId}",
-                                    Fecha = DateTime.Now,
-                                    Monto = (decimal)orden.ReparacionDetalle.Precio,
-                                    RefNumber = model.NroReferencia,
-                                    PuntoDeVentaId = 1,
-                                    FacturaId = null,
-                                    MetodoPagoId = 1,
-                                    TipoTransaccionId = model.Facturado ? 1 : 2,
-                                    Vendedor = orden.EmpleadoAsignadoId
-                                };
-
-                                _db.Venta.Add(venta);
-                            }
-                        }
-
-                        orden.ModificadoPor = CurrentUserId;
-                        orden.ModificadoEn = DateTime.Now;
-                    }
-
-                    _db.SaveChanges();
-                    ts.Complete();
-
-                }
-                catch (Exception ex)
-                {
-                    ts.Dispose();
-                    throw ex;
-                }
-            }
-
-            System.Web.HttpContext.Current.Session["MISORDENES"] = null;
-
-            InitializeViewBag();
-
-            MyOrdenesModel.OrdenActiva = MyOrdenesModel.Ordenes?.First();
-
-            MyOrdenesModel.IsTecnico = CurrentUserRoles.Exists(x => x.ToUpper() == AplicationRole.TECNICO);
-            MyOrdenesModel.IsMyVIew = true;
-            IsMyOrdersMode = true;
-
-            if (IsMyOrdersMode)
-            {
-                return PartialView("Index", MyOrdenesModel);
-            }
-            else
-            {
-                return RedirectToAction("Index", nroOrdenActiva);
-            }
-        }
 
         // POST: Reparacion/Create
         [HttpGet]
@@ -368,7 +229,6 @@ namespace FastService.Controllers
             TransactionOptions opt = new TransactionOptions();
             opt.IsolationLevel = IsolationLevel.ReadCommitted;
             opt.Timeout = TimeSpan.MaxValue;
-
 
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required, opt))
             {
@@ -526,15 +386,15 @@ namespace FastService.Controllers
                 }
             }
 
-            //RefreshCache(model.OrdenActiva.NroOrden);
-
             if (IsMyOrdersMode)
             {
-                return RedirectToAction("MyIndex", model.OrdenActiva.NroOrden);
+                MyOrdenesModel.Sync();
+                return RedirectToAction("MyIndex", new { id = model.OrdenActiva.NroOrden });
             }
             else
             {
-                return RedirectToAction("Index", model.OrdenActiva.NroOrden);
+                OrdenesModel.Sync();
+                return RedirectToAction("Index", new { id = model.OrdenActiva.NroOrden });
             }
         }
 
@@ -562,52 +422,230 @@ namespace FastService.Controllers
             return File(result, contentType);
         }
 
-        private void RefreshCache(int nroOrden)
+        [HttpGet]
+        public ActionResult Novedad(int tipo)
         {
-            var dbOrder = _OrdenHelper.GetOrden(nroOrden);
+            var model = new NovedadModel();
+            if (IsMyOrdersMode)
+            {
+                model.ResponsableNombre = MyOrdenesModel.OrdenActiva.ResponsableNombre;
+                model.TecnicoNombre = MyOrdenesModel.OrdenActiva.TecnicoNombre;
+            }
+            else
+            {
+                model.ResponsableNombre = OrdenesModel.OrdenActiva.ResponsableNombre;
+                model.TecnicoNombre = OrdenesModel.OrdenActiva.TecnicoNombre;
+            }
+            model.Monto = 0;
+            model.Material = 0;
+            model.TipoNovedadId = tipo;
 
-            OrdenesModel.Ordenes.Where(d => d.NroOrden == nroOrden).First().Novedades = dbOrder.Novedades;
+            InitializeViewBag();
+
+            if (tipo == (int)NovedadTipo.PRESUPINFOR
+                || tipo == (int)NovedadTipo.ENTREGA
+                || tipo == (int)NovedadTipo.REPDOMICILIO
+                || tipo == (int)NovedadTipo.REPARADO)
+            {
+                return PartialView("NovedadConPresupuesto", model);
+            }
+            else if (tipo == (int)NovedadTipo.ACEPTA
+                || tipo == (int)NovedadTipo.RECHAZA
+                || tipo == (int)NovedadTipo.NOTA
+                || tipo == (int)NovedadTipo.LLAMADO
+                || tipo == (int)NovedadTipo.VERIFICAR
+                || tipo == (int)NovedadTipo.ACONTROLAR
+                || tipo == (int)NovedadTipo.ESPERAREPUESTO)
+            {
+                return PartialView("NovedadSimple", model);
+            }
+            else if (tipo == (int)NovedadTipo.REINGRESO)
+            {
+                return PartialView("NovedadReingreso", model);
+            }
+            else
+            {
+                return PartialView("NovedadConPresupuesto", model);
+            }
         }
-        private void InitializeViewBag()
+
+        [HttpPost]
+        public ActionResult Novedad(NovedadModel model)
         {
-            ViewBag.ListaMarcas = (from y in _db.Marca
-                                   select new SelectListItem()
-                                   {
-                                       Text = y.nombre,
-                                       Value = y.MarcaId.ToString()
-                                   }).ToList();
+            var ordenActiva = 0;
+            ordenActiva = GetOrdenes().OrdenActiva.NroOrden;
 
-            ViewBag.ListaComercio = (from y in _db.Comercio
-                                     select new SelectListItem()
-                                     {
-                                         Text = y.Code,
-                                         Value = y.ComercioId.ToString()
-                                     }).ToList();
+            TransactionOptions opt = new TransactionOptions();
+            opt.IsolationLevel = IsolationLevel.ReadCommitted;
+            opt.Timeout = TimeSpan.MaxValue;
 
-            ViewBag.ListaTipoDispositivo = (from y in _db.TipoDispositivo
-                                            select new SelectListItem()
-                                            {
-                                                Text = y.nombre,
-                                                Value = y.TipoDispositivoId.ToString()
-                                            }).ToList();
+            using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required, opt))
+            {
+                try
+                {
+                    if (model.Id == 0)
+                    {
+                        _db.Novedad.Add(new Novedad()
+                        {
+                            reparacionId = ordenActiva,
+                            observacion = model.Observacion,
+                            monto = model.Monto,
+                            tipoNovedadId = model.TipoNovedadId,
+                            UserId = CurrentUserId,
+                            modificadoPor = CurrentUserId,
+                            modificadoEn = DateTime.Now
+                        });
 
 
-            ViewBag.ListaTecnicos = (from u in _db.Usuario
-                                     join ur in _db.UsuarioRol on u.UserId equals ur.UserId
-                                     where u.Activo && ur.Role.Nombre == "TECNICO"
-                                     select new SelectListItem()
-                                     {
-                                         Text = u.Nombre,
-                                         Value = u.UserId.ToString()
-                                     }).ToList();
+                        var orden = _db.Reparacion.Find(ordenActiva);
+                        orden.TecnicoAsignadoId = model.TecnicoId;
+                        orden.ReparacionDetalle.Presupuesto = model.Monto == 0 ? orden.ReparacionDetalle.Presupuesto : model.Monto;
 
-            ViewBag.ListaResponsables = (from y in _db.Usuario
-                                         where y.Activo
-                                         select new SelectListItem()
-                                         {
-                                             Text = y.Nombre,
-                                             Value = y.UserId.ToString()
-                                         }).ToList();
+                        var estados = _db.EstadoReparacion.Select(x => x).ToList();
+
+                        if (orden != null)
+                        {
+                            if (model.TipoNovedadId == (int)NovedadTipo.ACEPTA)
+                            {
+                                orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.AREPARAR).First().EstadoReparacionId;
+                            }
+                            if (model.TipoNovedadId == (int)NovedadTipo.RECHAZA)
+                            {
+                                orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.RECHAZADO).First().EstadoReparacionId;
+                            }
+                            if (model.TipoNovedadId == (int)NovedadTipo.REINGRESO)
+                            {
+                                orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.REINGRESADO).First().EstadoReparacionId;
+                            }
+                            if (model.TipoNovedadId == (int)NovedadTipo.ESPERAREPUESTO)
+                            {
+                                orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.ESPREPUESTO).First().EstadoReparacionId;
+                            }
+                            if (model.TipoNovedadId == (int)NovedadTipo.PRESUPINFOR)
+                            {
+                                orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PRESUPUESTADO).First().EstadoReparacionId;
+                                orden.ReparacionDetalle.Presupuesto = model.Monto;
+                                orden.ReparacionDetalle.PresupuestoFecha = DateTime.Now;
+                            }
+                            if (model.TipoNovedadId == (int)NovedadTipo.REPARADO)
+                            {
+                                orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.REPARADO).First().EstadoReparacionId;
+                            }
+                            if (model.TipoNovedadId == (int)NovedadTipo.RETIRA || model.TipoNovedadId == (int)NovedadTipo.ENTREGA)
+                            {
+                                orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.RETIRADO).First().EstadoReparacionId;
+                                orden.ReparacionDetalle.Precio = model.Monto;
+
+                                if (model.Monto > 0)
+                                {
+                                    var venta = new Venta()
+                                    {
+                                        ClienteId = orden.ClienteId,
+                                        Descripcion = $"Pago por servicio de FastService orden {orden.ReparacionId}",
+                                        Fecha = DateTime.Now,
+                                        Monto = (decimal)orden.ReparacionDetalle.Precio,
+                                        RefNumber = model.NroReferencia,
+                                        PuntoDeVentaId = 1,
+                                        FacturaId = null,
+                                        MetodoPagoId = 1,
+                                        TipoTransaccionId = model.Facturado ? 1 : 2,
+                                        Vendedor = orden.EmpleadoAsignadoId
+                                    };
+
+                                    _db.Venta.Add(venta);
+                                }
+                            }
+
+                            orden.ModificadoPor = CurrentUserId;
+                            orden.ModificadoEn = DateTime.Now;
+                        }
+
+                    }
+                    else //edit novedad
+                    {
+                        var novedad = _db.Novedad.Find(model.Id);
+
+                        novedad.monto = model.Monto;
+                        novedad.observacion = model.Observacion;
+
+                        novedad.modificadoPor = CurrentUserId;
+                        novedad.modificadoEn = DateTime.Now;
+                    }
+
+                    _db.SaveChanges();
+                    ts.Complete();
+
+                }
+                catch (Exception ex)
+                {
+                    ts.Dispose();
+                    throw ex;
+                }
+            }
+
+
+            if (IsMyOrdersMode)
+            {
+                MyOrdenesModel.Sync(ordenActiva);
+                return RedirectToAction("MyIndex", new { id = ordenActiva });
+            }
+            else
+            {
+                OrdenesModel.Sync(ordenActiva);
+                return RedirectToAction("Index", new { id = ordenActiva });
+            }
+        }
+
+        public ActionResult NovedadDelete(int id)
+        {
+            var novedad = _db.Novedad.Find(id);
+            _db.Novedad.Remove(novedad);
+            _db.SaveChanges();
+
+            if (IsMyOrdersMode)
+            {
+                MyOrdenesModel.Sync();
+                return PartialView("NovedadIndex", MyOrdenesModel);
+            }
+            else
+            {
+                OrdenesModel.Sync();
+                return PartialView("NovedadIndex", OrdenesModel);
+            }
+
+        }
+
+        public ActionResult NovedadEdit(int id)
+        {
+            var model = GetOrdenes().OrdenActiva.Novedades.Where(x => x.Id == id).FirstOrDefault();
+            var tipo = model.TipoNovedadId;
+            InitializeViewBag();
+
+            if (tipo == (int)NovedadTipo.PRESUPINFOR
+            || tipo == (int)NovedadTipo.ENTREGA
+            || tipo == (int)NovedadTipo.REPDOMICILIO
+            || tipo == (int)NovedadTipo.REPARADO)
+            {
+                return PartialView("NovedadConPresupuesto", model);
+            }
+            else if (tipo == (int)NovedadTipo.ACEPTA
+                || tipo == (int)NovedadTipo.RECHAZA
+                || tipo == (int)NovedadTipo.NOTA
+                || tipo == (int)NovedadTipo.LLAMADO
+                || tipo == (int)NovedadTipo.VERIFICAR
+                || tipo == (int)NovedadTipo.ACONTROLAR
+                || tipo == (int)NovedadTipo.ESPERAREPUESTO)
+            {
+                return PartialView("NovedadSimple", model);
+            }
+            else if (tipo == (int)NovedadTipo.REINGRESO)
+            {
+                return PartialView("NovedadReingreso", model);
+            }
+            else
+            {
+                return PartialView("NovedadConPresupuesto", model);
+            }
 
         }
     }

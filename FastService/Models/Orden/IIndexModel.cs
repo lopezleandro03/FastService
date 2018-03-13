@@ -12,6 +12,8 @@ namespace FastService.Models.Orden
         List<OrdenModel> OrdenesAReparar { get; set; }
         List<OrdenModel> OrdenesEnEspera { get; set; }
 
-        OrdenesIndexViewModel Sync(NovedadModel model);
+        void Sync(int ordenNro);
+        void Sync();
+        void Order();
     }
 }

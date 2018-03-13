@@ -25,14 +25,26 @@ namespace FastService.Models
             set { }
         }
 
-        public OrdenesIndexViewModel Sync(NovedadModel model)
+        public void Sync(int ordenNro)
         {
-            var ordenes = Ordenes.Where(x => x.NroOrden == this.OrdenActiva.NroOrden).FirstOrDefault();
-            var novedades = ordenes.Novedades;
-            novedades.Add(model);
-            this.Ordenes.Where(x => x.NroOrden == this.OrdenActiva.NroOrden).Select(y => y.Novedades = novedades);
+            this.Ordenes.Remove(this.OrdenActiva);
+            this.OrdenActiva = new OrdenHelper().GetOrden(ordenNro);
+            this.Ordenes.Add(this.OrdenActiva);
+            Order();
+        }
 
-            return this;
+        public void Sync()
+        {
+            var ordenNro = OrdenActiva.NroOrden;
+            this.Ordenes.Remove(this.OrdenActiva);
+            this.OrdenActiva = new OrdenHelper().GetOrden(ordenNro);
+            this.Ordenes.Add(this.OrdenActiva);
+            Order();
+        }
+
+        public void Order()
+        {
+            this.Ordenes.OrderByDescending(x => x.FechaUltimaNovedad);
         }
     }
 }

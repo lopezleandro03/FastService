@@ -1,9 +1,9 @@
 ﻿@model FastService.Models.Orden.IIndexModel
 <th>
-    <h3>Trabajos en Progreso</h3>
+    <h4>Trabajos en Progreso</h4>
 </th>
 <ul class="list-group ListaMisOrdenes">
-    @foreach (var r in Model.OrdenesAReparar)
+    @foreach (var r in Model.OrdenesAReparar.OrderByDescending(x => x.FechaUltimaNovedad))
     {
         if (Model.OrdenActiva == r)
         {
@@ -40,9 +40,9 @@
                         <i class="glyphicon glyphicon-home"></i>
                     }
 
-                    @if (r.Garantia)
+                    @if (!r.Garantia)
                     {
-                        <i class="glyphicon glyphicon-bookmark"></i>
+                        <i class="glyphicon glyphicon-usd"></i>
                     }
 
                 </div>
@@ -82,9 +82,10 @@
                         <i class="glyphicon glyphicon-home"></i>
                     }
 
-                    @if (r.Garantia)
+
+                    @if (!r.Garantia)
                     {
-                        <i class="glyphicon glyphicon-bookmark"></i>
+                        <i class="glyphicon glyphicon-usd"></i>
                     }
 
                 </div>
@@ -95,11 +96,11 @@
 </ul>
 
 <th>
-    <h3>Trabajos en Espera</h3>
+    <h4>Trabajos en Espera</h4>
 </th>
 
 <ul class="list-group ListaMisOrdenes">
-    @foreach (var r in Model.OrdenesEnEspera)
+    @foreach (var r in Model.OrdenesEnEspera.OrderByDescending(x => x.FechaUltimaNovedad))
     {
         if (Model.OrdenActiva == r)
         {
@@ -109,7 +110,7 @@
                     <b> @Html.DisplayFor(x => r.NroOrden)</b>
                 </div>
                 <div class="OrdenListSummary">
-                    @Html.DisplayFor(x => r.Cliente.PrettyName)
+                    @Html.DisplayFor(x => r.ResumenAparato)
                 </div>
                 <div class="OrdenListHints">
                     @if (r.EstadoDesc == "RECHAZADO")
@@ -136,9 +137,9 @@
                         <i class="glyphicon glyphicon-home"></i>
                     }
 
-                    @if (r.Garantia)
+                    @if (!r.Garantia)
                     {
-                        <i class="glyphicon glyphicon-bookmark"></i>
+                        <i class="glyphicon glyphicon-usd"></i>
                     }
 
                 </div>
@@ -151,7 +152,7 @@
                     <b> @Html.DisplayFor(x => r.NroOrden)</b>
                 </div>
                 <div class="OrdenListSummary">
-                    @Html.DisplayFor(x => r.Cliente.PrettyName)
+                    @Html.DisplayFor(x => r.ResumenAparato)
                 </div>
                 <div class="OrdenListHints">
                     @if (r.EstadoDesc == "RECHAZADO")
@@ -178,9 +179,9 @@
                         <i class="glyphicon glyphicon-home"></i>
                     }
 
-                    @if (r.Garantia)
+                    @if (!r.Garantia)
                     {
-                        <i class="glyphicon glyphicon-bookmark"></i>
+                        <i class="glyphicon glyphicon-usd"></i>
                     }
 
                 </div>
@@ -240,14 +241,13 @@
         );
     });
 
-
-    $("#btnSearch").click(function (e) {
+    $("#ddlFilterByTecnico").change(function (e) {
             ajaxGetNoCustomError(
-                "@Url.Action("Filter","Reparacion")/?searchCriteria=" + $("#inputSearchCriteria").val(),
+                "@Url.Action("FilterByTecnico","Reparacion")/?id=" + $("#ddlFilterByTecnico").val(),
                 function (data) {
                     $(".page-content").html(data)
                 }
             );
-        });
-
+    });
+    
 </script>

@@ -23,6 +23,9 @@ namespace FastService.Models
         [Display(Name = "Fecha Estado")]
         public DateTime EstadoFecha { get; set; }
 
+        [Display(Name = "Fecha Conpra")]
+        public DateTime FechaCompra { get; set; }
+        
         [Required]
         [Display(Name = "Presupuesto")]
         [RegularExpression(@"[0-9]*\.?[0-9]+", ErrorMessage = "{0} debe ser un monto correcto, por ejemplo 5250.50")]
@@ -96,12 +99,17 @@ namespace FastService.Models
             {
                 if (Novedades != null)
                 {
-                    return Novedades.Max(x => x.Fecha);
+                    if (Novedades.Any())
+                    {
+                        return Novedades.Max(x => x.Fecha);
+                    }
                 }
                 else
                 {
                     return DateTime.Now.AddDays(-99);
                 }
+
+                return DateTime.Now.AddDays(-99);
             }
             set { }
         }
