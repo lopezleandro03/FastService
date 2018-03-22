@@ -414,9 +414,20 @@ namespace FastService.Controllers
 
             List<ReportDataSource> dataSources = new List<ReportDataSource>();
 
-            dataSources.Add(new ReportDataSource("Reparacion", _OrdenHelper.GetReparacionReciboData(OrdenesModel.OrdenActiva.NroOrden)));
+            dataSources.Add(new ReportDataSource("Reparacion", _OrdenHelper.GetReparacionReciboData(GetOrdenes().OrdenActiva.NroOrden)));
             var report = new ReportHelper();
-            var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, null, reportType);
+            var reportParameters = new List<ReportParameter>();
+
+            var param = new ReportParameter("ticket", GetOrdenes().OrdenActiva.NroOrden.ToString());
+            reportParameters.Add(param);
+
+            var param2 = new ReportParameter("cliente", GetOrdenes().OrdenActiva.Cliente.PrettyName);
+            reportParameters.Add(param2);
+
+            var param3 = new ReportParameter("fecha",GetOrdenes().OrdenActiva.EstadoFecha.ToShortDateString());
+            reportParameters.Add(param3);
+
+            var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, reportParameters, reportType);
             Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
 
             return File(result, contentType);

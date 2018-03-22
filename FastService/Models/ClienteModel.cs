@@ -64,5 +64,14 @@ namespace FastService.Models
         }
 
         public DireccionModel Dir { get; set; }
+        public string Calle { get; internal set; }
+        public string Altura { get; internal set; }
+        public string Calle2 { get; internal set; }
+        public string Calle3 { get; internal set; }
+        public object Pais { get; internal set; }
+        public string Provincia { get; internal set; }
+        public string CodigoPostal { get; internal set; }
+        public decimal? Latitud { get; internal set; }
+        public decimal? Longitud { get; internal set; }
     }
 }

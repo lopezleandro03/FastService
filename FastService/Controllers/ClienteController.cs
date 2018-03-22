@@ -40,6 +40,19 @@ namespace FastService.Controllers
                 Mail = cliente.Mail
             };
 
+            if (cliente.Direccion1 != null)
+            {
+                model.Calle = cliente.Direccion1.Calle;
+                model.Altura = cliente.Direccion1.Altura;
+                model.Calle2 = cliente.Direccion1.Calle2;
+                model.Calle3 = cliente.Direccion1.Calle3;
+                model.CodigoPostal = cliente.Direccion1.CodigoPostal;
+                model.Provincia = cliente.Direccion1.Provincia;
+                model.Pais = cliente.Direccion1.Pais;
+                model.Latitud = cliente.Direccion1.Latitud;
+                model.Longitud = cliente.Direccion1.Longitud;
+            }
+
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 

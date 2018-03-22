@@ -30,6 +30,7 @@ namespace Model.Model
         public string Telefono { get; set; }
         public string Telefono2 { get; set; }
         public string cuit { get; set; }
+        public bool activo { get; set; }
         public Nullable<System.DateTime> modificadoEn { get; set; }
         public Nullable<int> modificadoPor { get; set; }
     

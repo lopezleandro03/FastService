@@ -23,6 +23,7 @@ namespace Model.Model
         public int MarcaId { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
+        public bool activo { get; set; }
         public Nullable<System.DateTime> modificadoEn { get; set; }
         public Nullable<int> modificadoPor { get; set; }
     

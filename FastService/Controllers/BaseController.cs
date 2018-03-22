@@ -122,22 +122,22 @@ namespace FastService.Controllers
         protected override void OnException(ExceptionContext filterContext)
         {
             Exception e = filterContext.Exception;
-            //var logger = LogManager.GetCurrentClassLogger();
-            ////var logInfo = new LogEventInfo();
-            ////logInfo.Properties["EventDateTime"] = DateTime.Now;
-            ////logInfo.Properties["EventLevel"] = LogLevel.Error;
-            ////logInfo.Properties["UserName"] = CurrentUserEmail ?? string.Empty;
-            ////logInfo.Properties["EventMessage"] = e.Message ?? string.Empty;
-            //////logInfo.Properties["ErrorSource"] = e.Source ;
-            //////logInfo.Properties["ErrorClass"] = e.;
-            //////logInfo.Properties["ErrorMethod"] = ;
-            ////logInfo.Properties["ErrorMessage"] = e.StackTrace ?? string.Empty;
-            ////logInfo.Properties["InnerErrorMessage"] = e.InnerException.Message ?? string.Empty;
+            var logger = LogManager.GetCurrentClassLogger();
+            var logInfo = new LogEventInfo();
+            logInfo.Properties["EventDateTime"] = DateTime.Now;
+            logInfo.Properties["EventLevel"] = LogLevel.Error;
+            logInfo.Properties["UserName"] = CurrentUserEmail ?? string.Empty;
+            logInfo.Properties["EventMessage"] = e.Message ?? string.Empty;
+            //logInfo.Properties["ErrorSource"] = e.Source;
+            //logInfo.Properties["ErrorClass"] = e.;
+            //logInfo.Properties["ErrorMethod"] = ;
+            logInfo.Properties["ErrorMessage"] = e.StackTrace ?? string.Empty;
+            logInfo.Properties["InnerErrorMessage"] = e.InnerException.Message ?? string.Empty;
 
-            ////logger.Log(LogLevel.Error, logInfo);
-            //logger.Log(LogLevel.Error, e, e.StackTrace);
+            //logger.Log(LogLevel.Error, logInfo);
+            logger.Log(LogLevel.Error, e, e.StackTrace);
 
-            //filterContext.ExceptionHandled = true;
+            filterContext.ExceptionHandled = true;
 
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
@@ -146,10 +146,11 @@ namespace FastService.Controllers
             }
             else
             {
-                filterContext.Result = new PartialViewResult()
-                {
-                    ViewName = "Error"
-                };
+                throw e;
+                //filterContext.Result = new PartialViewResult()
+                //{
+                //    ViewName = "Error"
+                //};
             }
         }
 
@@ -160,6 +161,7 @@ namespace FastService.Controllers
 
                 ViewBag.ListaMarcas = (from y in _db.Marca
                                        where y.nombre.Trim() != string.Empty
+                                       && y.activo
                                        select new SelectListItem()
                                        {
                                            Text = y.nombre,
@@ -168,6 +170,7 @@ namespace FastService.Controllers
 
                 ViewBag.ListaComercio = (from y in _db.Comercio
                                          where y.Code.Trim() != string.Empty
+                                         && y.activo
                                          select new SelectListItem()
                                          {
                                              Text = y.Code,
@@ -176,12 +179,12 @@ namespace FastService.Controllers
 
                 ViewBag.ListaTipoDispositivo = (from y in _db.TipoDispositivo
                                                 where y.nombre.Trim() != string.Empty
+                                                && y.activo
                                                 select new SelectListItem()
                                                 {
                                                     Text = y.nombre,
                                                     Value = y.TipoDispositivoId.ToString()
                                                 }).OrderBy(y => y.Text).ToList();
-
 
                 ViewBag.ListaTecnicos = (from u in _db.Usuario
                                          join ur in _db.UsuarioRol on u.UserId equals ur.UserId

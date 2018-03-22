@@ -66,6 +66,7 @@ namespace FastService.Common
                                TipoDesc = r.TipoDispositivo.nombre,
                                Modelo = r.ReparacionDetalle.Modelo,
                                NroSerie = r.ReparacionDetalle.Serie,
+                               Ubicacion = r.ReparacionDetalle.Unicacion,
 
                                Comercio = r.Comercio,
 
@@ -135,6 +136,8 @@ namespace FastService.Common
                                    TipoDesc = r.TipoDispositivo.nombre,
                                    Modelo = r.ReparacionDetalle.Modelo,
                                    NroSerie = r.ReparacionDetalle.Serie,
+                                   Ubicacion = r.ReparacionDetalle.Unicacion,
+                                   FechaCompra = r.ReparacionDetalle.FechoCompra ?? DateTime.Now,
 
                                    Comercio = r.Comercio,
 
@@ -195,6 +198,8 @@ namespace FastService.Common
                                    TipoDesc = r.TipoDispositivo.nombre,
                                    Modelo = r.ReparacionDetalle.Modelo,
                                    NroSerie = r.ReparacionDetalle.Serie,
+                                   Ubicacion = r.ReparacionDetalle.Unicacion,
+                                   FechaCompra = r.ReparacionDetalle.FechoCompra ?? DateTime.Now,
 
                                    Comercio = r.Comercio,
 
@@ -283,6 +288,8 @@ namespace FastService.Common
                            TipoDesc = r.TipoDispositivo.nombre,
                            Modelo = r.ReparacionDetalle.Modelo,
                            NroSerie = r.ReparacionDetalle.Serie,
+                           Ubicacion = r.ReparacionDetalle.Unicacion,
+                           FechaCompra = r.ReparacionDetalle.FechoCompra ?? DateTime.Now,
 
                            Comercio = r.Comercio,
 
@@ -298,6 +305,8 @@ namespace FastService.Common
                                       select new DireccionModel()
                                       {
                                           Calle = d.Calle,
+                                          Calle2 = d.Calle2,
+                                          Calle3 = d.Calle3,
                                           Altura = d.Altura,
                                           Ciudad = d.Ciudad,
                                           CodigoPostal = d.CodigoPostal,
@@ -392,6 +401,7 @@ namespace FastService.Common
                         TipoDesc = r.TipoDispositivo.nombre,
                         Modelo = r.ReparacionDetalle.Modelo,
                         NroSerie = r.ReparacionDetalle.Serie,
+                        Ubicacion = r.ReparacionDetalle.Unicacion,
 
                         Comercio = r.Comercio,
 
@@ -407,6 +417,8 @@ namespace FastService.Common
                                    select new DireccionModel()
                                    {
                                        Calle = d.Calle,
+                                       Calle3 = d.Calle3,
+                                       Calle2 = d.Calle2,
                                        Altura = d.Altura,
                                        Ciudad = d.Ciudad,
                                        CodigoPostal = d.CodigoPostal,

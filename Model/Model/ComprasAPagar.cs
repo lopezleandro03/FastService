@@ -12,13 +12,17 @@ namespace Model.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class TipoNovedad
+    public partial class ComprasAPagar
     {
-        public int TipoNovedadId { get; set; }
-        public string nombre { get; set; }
-        public string descripcion { get; set; }
-        public bool activo { get; set; }
-        public Nullable<System.DateTime> modificadoEn { get; set; }
-        public Nullable<int> modificadoPor { get; set; }
+        public int CompraId { get; set; }
+        public string ProveedorId { get; set; }
+        public decimal Monto { get; set; }
+        public bool Facturado { get; set; }
+        public string Descripcion { get; set; }
+        public int PuntoDeVentaId { get; set; }
+        public int Estado { get; set; }
+        public System.DateTime FechaCreacion { get; set; }
+        public int CreadoPor { get; set; }
+        public decimal saldo { get; set; }
     }
 }

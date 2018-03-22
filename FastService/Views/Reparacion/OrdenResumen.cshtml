@@ -126,11 +126,11 @@
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.OrdenActiva.Cliente.Dir.Calle2)
-                @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dir.Calle2, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dir.Calle2, new { @class = "form-control", @id = "calle2" })
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.OrdenActiva.Cliente.Dir.Calle3)
-                @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dir.Calle3, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dir.Calle3, new { @class = "form-control" , @id = "calle3" })
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.OrdenActiva.Cliente.Dir.Ciudad)
@@ -226,7 +226,7 @@
     </div>
 }
 
-<div id="divNo">
+<div id="divNovedades">
     @RenderPage("NovedadIndex.cshtml", Model)
 </div>
 
@@ -270,8 +270,16 @@
                     $("#Cliente_Apellido").val(data.Apellido);
                     $("#Cliente_Mail").val(data.Mail);
                     $("#Cliente_Telefono").val(data.Telefono);
-                    $("#Cliente_Celular").val(data.Celular);
+                    $("#Cliente_Celular").val(data.Celular); 
                     $("#Cliente_Direccion").val(data.Direccion);
+                    $("#route").val(data.Calle);
+                    $("#street_number").val(data.Altura);
+                    $("#locality").val(data.Provincia);
+                    $("#postal_code").val(data.CodigoPostal); calle3
+                    //$("#administrative_area_level_1").val(data.CodigoPostal);
+                    $("#country").val(data.Pais);
+                    $("#calle2").val(data.Calle2);
+                    $("#calle3").val(data.Calle3); 
                 }
             })
         },

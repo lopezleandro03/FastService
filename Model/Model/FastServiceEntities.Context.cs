@@ -50,6 +50,8 @@ namespace Model.Model
         public virtual DbSet<Venta> Venta { get; set; }
         public virtual DbSet<RoleMenu> RoleMenu { get; set; }
         public virtual DbSet<UsuarioRol> UsuarioRol { get; set; }
+        public virtual DbSet<ComprasAPagar> ComprasAPagar { get; set; }
+        public virtual DbSet<ProveedoresAcreedores> ProveedoresAcreedores { get; set; }
         public virtual DbSet<vw_ComprasAPagar> vw_ComprasAPagar { get; set; }
         public virtual DbSet<vw_ProveedoresAcreedores> vw_ProveedoresAcreedores { get; set; }
         public virtual DbSet<vw_VentasAnuales> vw_VentasAnuales { get; set; }

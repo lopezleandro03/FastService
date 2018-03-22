@@ -20,6 +20,7 @@ namespace Model.Model
         public string Modelo1 { get; set; }
         public string Code { get; set; }
         public string Descripcion { get; set; }
+        public byte[] activo { get; set; }
         public Nullable<System.DateTime> modificadoEn { get; set; }
         public Nullable<int> modificadoPor { get; set; }
     }

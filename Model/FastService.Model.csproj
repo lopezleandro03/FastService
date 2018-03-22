@@ -61,6 +61,9 @@
     <Compile Include="Model\Compra.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\ComprasAPagar.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Direccion.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
@@ -107,6 +110,9 @@
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Proveedor.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ProveedoresAcreedores.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\PuntoDeVenta.cs">
@@ -177,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ModelFastService.sql" />
+    <Content Include="MigrationProcess.sql" />
     <Content Include="Model\FastServiceEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FastServiceEntities.edmx</DependentUpon>
@@ -187,7 +194,6 @@
       <DependentUpon>FastServiceEntities.edmx</DependentUpon>
       <LastGenOutput>FastServiceEntities.cs</LastGenOutput>
     </Content>
-    <Content Include="MigrationProcess.sql" />
     <Content Include="StagingTables.sql" />
   </ItemGroup>
   <ItemGroup>
