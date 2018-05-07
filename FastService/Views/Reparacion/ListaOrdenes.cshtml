@@ -1,7 +1,4 @@
 ﻿@model FastService.Models.Orden.IIndexModel
-@*<th>
-        <h4>Trabajos</h4>
-    </th>*@
 
 <ul class="list-group ListaOrdenes">
     @foreach (var r in Model.Ordenes.OrderByDescending(x => x.FechaUltimaNovedad))
@@ -12,6 +9,20 @@
 
                 <div class="OrdenListNro">
                     <b> @Html.DisplayFor(x => r.NroOrden)</b>
+
+                    @if (r.Domicilio)
+                    {
+                        <i class="glyphicon glyphicon-home"></i>
+                    }
+
+                    @if (!r.Garantia)
+                    {
+                        <span class="badge badge-info">C</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-info">E</span>
+                    }
                 </div>
                 <div class="OrdenListSummary">
                     @Html.DisplayFor(x => r.Cliente.PrettyName)
@@ -36,15 +47,6 @@
 
                     <span class="badge badge-info">@Html.DisplayFor(x => r.TecnicoNombre)</span>
 
-                    @if (r.Domicilio)
-                    {
-                        <i class="glyphicon glyphicon-home"></i>
-                    }
-
-                    @if (!r.Garantia)
-                    {
-                        <i class="glyphicon glyphicon-usd"></i>
-                    }
 
                 </div>
             </li>
@@ -54,6 +56,21 @@
             <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-ver-orden" data-url='@Url.Action("Details")/@r.NroOrden'>
                 <div class="OrdenListNro">
                     <b> @Html.DisplayFor(x => r.NroOrden)</b>
+
+                    @if (r.Domicilio)
+                    {
+                        <i class="glyphicon glyphicon-home"></i>
+                    }
+
+                    @if (!r.Garantia)
+                    {
+                        <span class="badge badge-info">C</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-info">E</span>
+                    }
+
                 </div>
                 <div class="OrdenListSummary">
                     @Html.DisplayFor(x => r.Cliente.PrettyName)
@@ -78,56 +95,12 @@
 
                     <span class="badge badge-info">@Html.DisplayFor(x => r.TecnicoNombre)</span>
 
-                    @if (r.Domicilio)
-                    {
-                        <i class="glyphicon glyphicon-home"></i>
-                    }
-
-
-                    @if (!r.Garantia)
-                    {
-                        <i class="glyphicon glyphicon-usd"></i>
-                    }
-
                 </div>
             </li>
         }
 
     }
 </ul>
-
-<style>
-    .OrdenHeader {
-        font-size: large;
-        font-style: normal;
-    }
-
-    .OrdenListNro {
-        font-size: large;
-        font-style: normal;
-    }
-
-    .OrdenListSummary {
-        font-size: medium;
-        font-style: normal;
-    }
-
-    .OrdenListHints {
-        font-size: medium;
-        font-style: normal;
-    }
-
-    .li-ver-orden {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-
-    .ListaOrdenes {
-        margin-top: 10px;
-        max-height: 900px;
-        overflow-y: scroll;
-    }
-</style>
 
 <script>
     $(".li-ver-orden").click(function (e) {
@@ -142,12 +115,4 @@
         );
     });
 
-        $("#ddlFilterByComercio").change(function (e) {
-            ajaxGetNoCustomError(
-                "@Url.Action("FilterByComercio","Reparacion")/?id=" + $("#ddlFilterByTecnico").val(),
-                function (data) {
-                    $(".page-content").html(data)
-                }
-            );
-    });
 </script>

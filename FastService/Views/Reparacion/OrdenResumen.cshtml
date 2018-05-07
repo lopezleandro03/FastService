@@ -1,4 +1,4 @@
-﻿@model FastService.Models.OrdenesIndexViewModel
+﻿@model FastService.Models.Orden.IIndexModel
 
 @using (Ajax.BeginForm("Save", "Reparacion", new AjaxOptions { HttpMethod = "Post", OnSuccess = "Done(data)", OnFailure = "OnError", LoadingElementId = "spinner" }))
 {
@@ -172,20 +172,25 @@
                 @Html.DropDownListFor(model => model.OrdenActiva.MarcaId, (List<SelectListItem>)ViewBag.ListaMarcas, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.OrdenActiva.MarcaId)
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 @Html.LabelFor(model => model.OrdenActiva.NroSerie)
                 @Html.TextBoxFor(model => model.OrdenActiva.NroSerie, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.OrdenActiva.NroSerie)
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 @Html.LabelFor(model => model.OrdenActiva.Modelo)
                 @Html.TextBoxFor(model => model.OrdenActiva.Modelo, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.OrdenActiva.Modelo)
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 @Html.LabelFor(model => model.OrdenActiva.Ubicacion)
                 @Html.TextBoxFor(model => model.OrdenActiva.Ubicacion, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.OrdenActiva.Ubicacion)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OrdenActiva.Accesorios)
+                @Html.TextAreaFor(model => model.OrdenActiva.Accesorios, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrdenActiva.Accesorios)
             </div>
         </div>
     </div>
@@ -208,7 +213,7 @@
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.OrdenActiva.FechaCompra)
-                    @Html.TextBoxFor(model => model.OrdenActiva.FechaCompra, new { @class = "form-control form-control-inline input-large date-picker", @text = DateTime.Now, @placeholder = "Seleccione una fecha" })
+                    @Html.TextBoxFor(model => model.OrdenActiva.FechaCompra, new { @class = "form-control form-control-inline input-large date-picker"})
                     @Html.ValidationMessageFor(model => model.OrdenActiva.FechaCompra)
                 </div>
             </div>

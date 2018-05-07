@@ -23,6 +23,9 @@ namespace Model.Model
         public int MarcaId { get; set; }
         public int TipoDispositivoId { get; set; }
         public Nullable<int> ReparacionDetalleId { get; set; }
+        public Nullable<System.DateTime> FechaEntrega { get; set; }
+        public Nullable<System.DateTime> InformadoEn { get; set; }
+        public Nullable<int> InformadoPor { get; set; }
         public System.DateTime ModificadoEn { get; set; }
         public Nullable<int> ModificadoPor { get; set; }
         public System.DateTime CreadoEn { get; set; }

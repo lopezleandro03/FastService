@@ -12,7 +12,7 @@ namespace FastService.Models
         [Required]
         [Display(Name = "Documento")]
         public int? Dni { get; set; }
-        
+
         [Required]
         public string Nombre { get; set; }
 
@@ -33,7 +33,7 @@ namespace FastService.Models
         {
             get
             {
-                return string.Format("{0}-{1} {2}", Dni, Apellido, Nombre).Trim(); 
+                return string.Format("{0}-{1} {2}", Dni, Apellido, Nombre).Trim();
             }
             set
             {
@@ -57,6 +57,26 @@ namespace FastService.Models
                     return Apellido.Trim().ToUpper();
                 }
                 else return "NO HAY INFORMACION DE CLIENTE";
+            }
+            set
+            {
+            }
+        }
+
+        public string PrettyAddress
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Calle) && !string.IsNullOrEmpty(Altura))
+                {
+                    return $"{Calle} {Altura}";
+                }
+                else if (!string.IsNullOrEmpty(Calle) && string.IsNullOrEmpty(Altura) && string.IsNullOrEmpty(Calle2) && string.IsNullOrEmpty(Calle3))
+                {
+                    return $"{Calle} {Altura} entre {Calle2} y {Calle3}";
+                }
+
+                return string.Empty;
             }
             set
             {

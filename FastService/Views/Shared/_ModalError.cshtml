@@ -28,4 +28,15 @@
     .errorMessage {
         font-size: 25px !important;
     }
+
+    #modalError {
+        margin-top: 50px;
+        z-index: 100000;
+    }
 </style>
+
+<script>
+    function OnError() {
+        $("#modalError").modal();
+    }
+</script>

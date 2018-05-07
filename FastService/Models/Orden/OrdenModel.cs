@@ -23,9 +23,11 @@ namespace FastService.Models
         [Display(Name = "Fecha Estado")]
         public DateTime EstadoFecha { get; set; }
 
-        [Display(Name = "Fecha Conpra")]
-        public DateTime FechaCompra { get; set; }
-        
+        public DateTime? InformadoEn { get; set; }
+
+        [Display(Name = "Fecha Compra")]
+        public DateTime? FechaCompra { get; set; }
+
         [Required]
         [Display(Name = "Presupuesto")]
         [RegularExpression(@"[0-9]*\.?[0-9]+", ErrorMessage = "{0} debe ser un monto correcto, por ejemplo 5250.50")]
@@ -113,5 +115,22 @@ namespace FastService.Models
             }
             set { }
         }
+
+        public int DiasDesdeUltimaNotification
+        {
+            get
+            {
+                if (InformadoEn != null)
+                {
+                    return (int)(DateTime.Now - (DateTime)InformadoEn).TotalDays;
+                }
+
+                return 0;
+            }
+            set { }
+        }
+
+        public string ReparacionDesc { get; set; }
+        public string Accesorios { get; set; }
     }
 }

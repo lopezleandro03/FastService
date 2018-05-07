@@ -27,7 +27,10 @@ RTRIM(LTRIM(direcc)) + ' entre ' + RTRIM(Ltrim(ecalle1)) + ' y ' + ltrim(rtrim(e
 from oldcliente
 
 --Migro respobsables y tecnicos a usuarios
+insert Usuario values ('MAXI','maxi.fastservice@gmail.com','MAXI','DANERI','123456','','','',1)
 insert Usuario values ('sinasignar@gmail.com','SIN ASIGNAR','SIN ASIGNAR','SIN ASIGNAR','SIN ASIGNAR','84123124','','',1)
+
+select * from Usuario
 
 insert usuario 
 select 
@@ -39,7 +42,7 @@ SUBSTRING(nombre,CHARINDEX(' ',nombre),LEN(nombre)),
 nrotec,
 '',
 null,
-case activo when 'True' then 1 else 0 end
+0
 from oldtecnico
 union
 select 
@@ -51,7 +54,7 @@ SUBSTRING(nombre,CHARINDEX(' ',nombre),LEN(nombre)),
 nrores,
 '',
 null,
-case activo when 'True' then 1 else 0 end
+0
 from  oldresponsable
 
 --grant access to tecnicos
@@ -70,6 +73,14 @@ values ((SELECT top 1 Rolid from Role where Nombre = 'Gerente'),(select top 1 Us
 insert UsuarioRol
 values ((SELECT top 1 Rolid from Role where Nombre = 'Tecnico'),(select top 1 UserId from Usuario where Nombre = 'LUIS' and Apellido = ''))
 
+--activate current users
+update Usuario 
+set Activo = 1 
+where (Nombre = 'ROBERTO' and ltrim(rtrim(Apellido)) = 'ARROYO') 
+or (Nombre = 'JUAN' and ltrim(rtrim(Apellido)) = 'KLICHUK')
+or (Nombre = 'JAVIER' and ltrim(rtrim(Apellido)) = '')
+or (Nombre = 'LUIS' and ltrim(rtrim(Apellido)) = '')
+or (Nombre = 'MAXI' and ltrim(rtrim(Apellido)) = 'DANERI')
 
 --clean up duplicated records
 if ((select 1 from tempdb.sys.tables where name like '%tokeep%') > 0)
@@ -88,6 +99,7 @@ left join #tokeep d on t.nrotra = d.nrotra and t.timestamp = d.timestamp
 where d.nrotra is null 
 
 delete oldtranu where timestamp  =''
+update oldtranu set fechacom = null where fechacom < '1800-03-22'
 
 --Migra detalle de reparaciones
 insert reparaciondetalle
@@ -95,7 +107,7 @@ select
 CASE o.garantia WHEN 'C' THEN 1 ELSE 0 END,  
 CASE o.movil WHEN 0 THEN 0 ELSE 1 END,--to be determined
 o.nrotra,
-null,
+o.fechacom,
 null,
 CASE PRECIO WHEN '.00' THEN 0 ELSE SUBSTRING(PRECIO,0,CHARINDEX('.',precio)) END as precio,
 getdate(),
@@ -104,6 +116,8 @@ modelo,
 serie,
 serbus,
 ubicacion,
+null,
+null,
 getdate(),
 99
 from oldtranu o
@@ -119,6 +133,9 @@ ISNULL((select top 1 c.ComercioId from Comercio c where c.telefono2 = nrocom),(s
 ISNULL((select top 1 m.MarcaId from Marca m where m.descripcion = nromar),(select top 1 m2.marcaid from marca m2 where nombre = 'SIN DETERMINAR')),
 ISNULL((select top 1 t.tipoDispositivoid from tipoDispositivo t where t.descripcion = nrotip),(select top 1 t2.TipoDispositivoId from tipoDispositivo t2 where t2.nombre = 'SIN DETERMINAR')),
 rd.reparaciondetalleid,
+null,
+null,
+null,
 desde,
 99,
 desde,

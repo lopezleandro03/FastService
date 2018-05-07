@@ -132,7 +132,7 @@ namespace FastService.Controllers
             //logInfo.Properties["ErrorClass"] = e.;
             //logInfo.Properties["ErrorMethod"] = ;
             logInfo.Properties["ErrorMessage"] = e.StackTrace ?? string.Empty;
-            logInfo.Properties["InnerErrorMessage"] = e.InnerException.Message ?? string.Empty;
+            logInfo.Properties["InnerErrorMessage"] = e?.InnerException?.Message ?? string.Empty;
 
             //logger.Log(LogLevel.Error, logInfo);
             logger.Log(LogLevel.Error, e, e.StackTrace);

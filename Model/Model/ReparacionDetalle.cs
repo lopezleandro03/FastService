@@ -33,6 +33,8 @@ namespace Model.Model
         public string Serie { get; set; }
         public string Serbus { get; set; }
         public string Unicacion { get; set; }
+        public string Accesorios { get; set; }
+        public string ReparacionDesc { get; set; }
         public System.DateTime ModificadoEn { get; set; }
         public int ModificadoPor { get; set; }
     

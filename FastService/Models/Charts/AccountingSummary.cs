@@ -80,7 +80,7 @@ namespace FastService.Models
                 TotalVentasConFactura = ventas.Where(x => x.Factura != null && x.Fecha.Date == DateTime.Now.Date).Sum(x => x.Monto);
                 TotalVentasSinFactura = ventas.Where(x => x.Factura == null && x.Fecha.Date == DateTime.Now.Date).Sum(x => x.Monto);
 
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     VentasSinFacturaChartDataSet.DataPoints.Add(new DateHelper().GetDayName(i));
                     VentasConFacturaChartDataSet.DataPoints.Add(new DateHelper().GetDayName(i));

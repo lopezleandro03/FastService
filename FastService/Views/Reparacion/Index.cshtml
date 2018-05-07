@@ -28,26 +28,54 @@
         margin-top: 3px !important;
         margin-bottom: 3px !important;
     }
+
+    .OrdenHeader {
+        font-size: large;
+        font-style: normal;
+    }
+
+    .OrdenListNro {
+        font-size: large;
+        font-style: normal;
+    }
+
+    .OrdenListSummary {
+        font-size: medium;
+        font-style: normal;
+    }
+
+    .OrdenListHints {
+        font-size: medium;
+        font-style: normal;
+    }
+
+    .li-ver-orden {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .ListaOrdenes {
+        margin-top: 10px;
+        max-height: 900px;
+        overflow-y: scroll;
+    }
 </style>
 
 <script>
     function OnBeginNovedad() {
         $(".simplemodal-close").trigger("click");
     }
-    
+
     function Done(data) {
         $("#modalSuccess").modal();
+        $(".modal-backdrop").hide();
         $(".page-content").html(data);
-    }
-
-    function OnError() {
-        $("#modalError").modal();
     }
 
     $("#inputSearchCriteria").keypress(function (e) {
 
         if (e.keyCode == 13) {
-                 ajaxGetNoCustomError(
+            ajaxGetNoCustomError(
                 "@Url.Action("Filter","Reparacion")/?searchCriteria=" + $("#inputSearchCriteria").val(),
                 function (data) {
                     $(".page-content").html(data)
@@ -57,5 +85,23 @@
 
     });
 
+    $("#ddlFilterByTecnico").change(function (e) {
+            ajaxGetNoCustomError(
+                "@Url.Action("FilterByTecnico","Reparacion")/?id=" + $("#ddlFilterByTecnico").val(),
+                function (data) {
+                    $(".page-content").html(data)
+                }
+            );
+    });
+
+
+    $("#ddlFilterByComercio").change(function (e) {
+        ajaxGetNoCustomError(
+            "@Url.Action("FilterByComercio","Reparacion")/?id=" + $("#ddlFilterByTecnico").val(),
+            function (data) {
+                $(".page-content").html(data)
+            }
+        );
+    });
 </script>
 

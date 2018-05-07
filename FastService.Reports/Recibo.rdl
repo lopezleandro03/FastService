@@ -18,10 +18,12 @@
       <Query>
         <DataSourceName>ReparacionData</DataSourceName>
         <CommandText>SELECT R.ReparacionId, R.ClienteId, R.EmpleadoAsignadoId, R.TecnicoAsignadoId, R.EstadoReparacionId, R.ComercioId, R.MarcaId, R.TipoDispositivoId, R.ReparacionDetalleId, R.ModificadoPor, R.ModificadoEn, RD.ReparacionDetalleId AS Expr1, RD.EsGarantia, RD.EsDomicilio, 
-             RD.NroReferencia, RD.FechoCompra, RD.NroFactura, RD.Presupuesto, RD.PresupuestoFecha, RD.Precio, RD.Modelo, RD.Serie, RD.Serbus, C.Dni, C.Nombre, C.Apellido, C.Mail, C.Telefono1, C.Telefono2, C.Direccion, C.DireccionId, C.Localidad, C.Latitud, C.Longitud
+             RD.NroReferencia, RD.FechoCompra, RD.NroFactura, RD.Presupuesto, RD.PresupuestoFecha, RD.Precio, RD.Modelo, RD.Serie, RD.Serbus, C.Dni, C.Nombre, C.Apellido, C.Mail, C.Telefono1, C.Telefono2, C.Direccion, C.DireccionId, C.Localidad, C.Latitud, C.Longitud, RD.Accesorios, RD.ReparacionDesc, Co.Descripcion
 FROM   Reparacion AS R INNER JOIN
              ReparacionDetalle AS RD ON R.ReparacionDetalleId = RD.ReparacionDetalleId INNER JOIN
              Cliente AS C ON R.ClienteId = C.ClienteId
+INNER JOIN
+             Comercio AS CO ON R.ComercioId = CO.ComercioId
 WHERE (R.ReparacionId = 107037)</CommandText>
       </Query>
       <Fields>
@@ -63,11 +65,15 @@ WHERE (R.ReparacionId = 107037)</CommandText>
         </Field>
         <Field Name="ModificadoPor">
           <DataField>ModificadoPor</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="ModificadoEn">
           <DataField>ModificadoEn</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Expr1">
+          <DataField>Expr1</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="EsGarantia">
           <DataField>EsGarantia</DataField>
@@ -156,6 +162,18 @@ WHERE (R.ReparacionId = 107037)</CommandText>
         <Field Name="Longitud">
           <DataField>Longitud</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="Accesorios">
+          <DataField>Accesorios</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReparacionDesc">
+          <DataField>ReparacionDesc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Descripcion">
+          <DataField>Descripcion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -794,14 +812,20 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox31">
+                            <Textbox Name="FechoCompra">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Fecha de Compra:</Value>
+                                      <Value>Fecha Compra: </Value>
+                                      <Style>
+                                        <FontFamily>Arial</FontFamily>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!FechoCompra.Value</Value>
                                       <Style>
                                         <FontFamily>Arial</FontFamily>
                                       </Style>
@@ -810,7 +834,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox31</rd:DefaultName>
+                              <rd:DefaultName>FechoCompra</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -867,21 +891,25 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox85">
+                            <Textbox Name="Accesorios">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Accesorios:</Value>
+                                      <Value>Accesorios: </Value>
+                                      <Style />
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!Accesorios.Value</Value>
                                       <Style />
                                     </TextRun>
                                   </TextRuns>
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox85</rd:DefaultName>
+                              <rd:DefaultName>Accesorios</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -996,7 +1024,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                 <DataSetName>Reparacion</DataSetName>
                 <Top>0.11063in</Top>
                 <Left>0.05201in</Left>
-                <Height>1.89649in</Height>
+                <Height>1.8965in</Height>
                 <Width>6.60299in</Width>
                 <Style>
                   <Border>
@@ -1812,7 +1840,6 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                 <PaddingBottom>2pt</PaddingBottom>
                               </Style>
                             </Textbox>
-                            <rd:Selected>true</rd:Selected>
                           </CellContents>
                         </TablixCell>
                         <TablixCell>
@@ -2513,7 +2540,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
           </Border>
         </Style>
       </Body>
-      <Width>35.21729cm</Width>
+      <Width>35.2173cm</Width>
       <Page>
         <PageHeight>21.59cm</PageHeight>
         <PageWidth>35.56cm</PageWidth>

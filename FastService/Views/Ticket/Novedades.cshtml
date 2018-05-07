@@ -1,0 +1,110 @@
+﻿@model FastService.Models.OrdenModel
+
+@if (Model.Novedades.Any())
+{
+    <h4 class="form-section">Novedades</h4>
+    <div class="row ListaNovedades">
+        <div class="col-md-12">
+            @if (Model.Novedades != null)
+            {
+                <table class="table table-bordered table-condensed">
+                    <tr>
+
+                        <th class="col-xs-3">
+                            @Html.DisplayNameFor(model => model.Novedades.First().Fecha)
+                        </th>
+                        <th class="col-xs-2">
+                            @Html.DisplayNameFor(model => model.Novedades.First().Descripcion)
+                        </th>
+                        <th class="col-xs-2">
+                            @Html.DisplayNameFor(model => model.Novedades.First().Monto)
+                        </th>
+                        <th class="col-xs-6">
+                            @Html.DisplayNameFor(model => model.Novedades.First().Observacion)
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model.Novedades.OrderByDescending(x => x.Fecha))
+                    {
+                        if (item == Model.Novedades.OrderByDescending(x => x.Fecha).First())
+                        {
+                            <tr data-id="@Html.DisplayFor(Item => item.Id)">
+
+                                <td class="editNov">
+                                    @Html.DisplayFor(Item => item.Fecha)
+                                </td>
+                                <td class="editNov">
+                                    @Html.DisplayFor(Item => item.Descripcion)
+                                </td>
+                                <td class="editNov">
+                                    @Html.DisplayFor(Item => item.Monto)
+                                </td>
+                                <td class="editNov">
+                                    @Html.DisplayFor(Item => item.Observacion)
+                                </td>
+                                <td>
+                                    <button class="btnNovRem btn-danger" data-id="@Html.DisplayFor(Item => item.Id)" type="button">
+                                        X
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+
+                            <tr data-id="@Html.DisplayFor(Item => item.Id)">
+
+                                <td>
+                                    @Html.DisplayFor(Item => item.Fecha)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(Item => item.Descripcion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(Item => item.Monto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(Item => item.Observacion)
+                                </td>
+                            </tr>
+
+                        }
+                    }
+                </table>
+            }
+            else
+            {
+                <h4> No hay novedades cargadas para esta orden</h4>
+            }
+        </div>
+    </div>
+
+}
+
+<style>
+    .ListaNovedades {
+        max-height: 190px;
+        overflow-y: scroll;
+    }
+</style>
+
+<script>
+    $(".btnNovRem").click(function (e) {
+        ajaxPostNoCustomError(
+        "@Url.Action("Delete","Novedad")/?ticketid=" + $("#ticketid").val() + "&id=" + $(this).data("id"),
+        function (data) {
+            $("#OrdenDetailBody").html(data);
+        });
+    })
+
+    $(".editNov").click(function (e) {
+        ajaxGetNoCustomError(
+            "@Url.Action("Edit", "Novedad")/?ticketid=" + $("#ticketid").val() + "&id=" + $(this).parent().data("id"),
+            function (data) {
+                $("#modalNuevaNovedad").html(data);
+                $("#modalNuevaNovedad").modal();
+            }
+        );
+    })
+
+</script>

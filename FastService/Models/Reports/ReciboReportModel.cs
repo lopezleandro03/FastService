@@ -40,5 +40,8 @@ namespace FastService.Models.Reports
         public string Localidad { get; set; }
         public double? Latitud { get; set; }
         public double? Longitud { get; set; }
+        public string ReparacionDesc { get; internal set; }
+        public string Accesorios { get; internal set; }
+        public string Comercio { get; internal set; }
     }
 }

@@ -75,6 +75,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
@@ -85,6 +89,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -188,6 +198,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\DateHelper.cs" />
     <Compile Include="Common\OrdenHelper.cs" />
     <Compile Include="Common\NovedadTipo.cs" />
@@ -202,10 +213,13 @@
     <Compile Include="Controllers\DomicilioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NovedadController.cs" />
     <Compile Include="Controllers\PagoProveedoresController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\ReparacionController.cs" />
+    <Compile Include="Controllers\SeguimientoController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -240,6 +254,8 @@
     <Compile Include="Models\Orden\OrdenesIndexViewModel.cs" />
     <Compile Include="Models\Orden\OrdenModel.cs" />
     <Compile Include="Models\Reports\ReciboReportModel.cs" />
+    <Compile Include="Models\Seguimiento\ListaOrdenesModel.cs" />
+    <Compile Include="Models\Seguimiento\SeguimientoModel.cs" />
     <Compile Include="Models\VentaModel.cs" />
     <Compile Include="Models\Charts\BalanceSummary.cs" />
     <Compile Include="Models\Charts\VentaSummary.cs" />
@@ -932,7 +948,7 @@
     <Content Include="Views\Reparacion\ListaOrdenes.cshtml" />
     <Content Include="Views\Reparacion\OrdenResumen.cshtml" />
     <Content Include="Views\Reparacion\PanelAccion.cshtml" />
-    <Content Include="Views\Reparacion\NovedadConPresupuesto.cshtml" />
+    <Content Include="Views\Reparacion\NovedadPresupuesto.cshtml" />
     <Content Include="Views\Reparacion\NovedadReingreso.cshtml" />
     <Content Include="Views\Reparacion\NovedadSimple.cshtml" />
     <Content Include="Views\Agenda\AgendarReparacion.cshtml" />
@@ -954,6 +970,20 @@
     <Content Include="Views\Shared\_Spinner.cshtml" />
     <Content Include="Views\Reparacion\NovedadIndex.cshtml" />
     <Content Include="Views\Reparacion\MyIndex.cshtml" />
+    <Content Include="Views\Reparacion\NovedadRetiro.cshtml" />
+    <Content Include="Views\Seguimiento\Index.cshtml" />
+    <Content Include="Views\Seguimiento\KanbanColumn.cshtml" />
+    <Content Include="Views\Reparacion\NovedadInformarPresupuesto.cshtml" />
+    <Content Include="Views\Reparacion\NovedadCoordinarEntrega.cshtml" />
+    <Content Include="Views\Ticket\Details.cshtml" />
+    <Content Include="Views\Ticket\Novedades.cshtml" />
+    <Content Include="Views\Seguimiento\PanelAccion.cshtml" />
+    <Content Include="Views\Novedad\NovedadCoordinarEntrega.cshtml" />
+    <Content Include="Views\Novedad\NovedadInformarPresupuesto.cshtml" />
+    <Content Include="Views\Novedad\NovedadPresupuesto.cshtml" />
+    <Content Include="Views\Novedad\NovedadReingreso.cshtml" />
+    <Content Include="Views\Novedad\NovedadRetiro.cshtml" />
+    <Content Include="Views\Novedad\NovedadSimple.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

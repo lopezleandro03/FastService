@@ -1,0 +1,52 @@
+﻿@model FastService.Models.NovedadModel
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" aria-hidden="true" type="button" data-dismiss="modal"></button>
+        <h4 id="modalNuevaNovedadHeader" class="modal-title">Nueva Novedad</h4>
+    </div>
+
+    @using (Ajax.BeginForm("Novedad", "Reparacion", new AjaxOptions { HttpMethod = "Post", OnBegin = "OnBeginNovedad", OnSuccess = "Done(data)", OnFailure = "OnError", LoadingElementId = "spinner" }, new { @id = "novedadForm" }))
+    {
+        <div id="modalNuevaNovedadBody" class="modal-body">
+
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.TipoNovedadId)
+            @Html.LabelFor(model => model.TecnicoNombre)
+            @Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
+
+            @Html.LabelFor(model => model.ResponsableNombre)
+            @Html.TextBoxFor(model => model.ResponsableNombre, new { @class = "form-control", disabled = "disabled" })
+
+            @Html.LabelFor(model => model.Monto)
+            @Html.TextBoxFor(model => model.Monto, new { @class = "form-control" })
+
+            @Html.LabelFor(model => model.Observacion)
+            @Html.TextAreaFor(model => model.Observacion, new { @class = "form-control" })
+
+            @Html.HiddenFor(model => model.Accion, new { @class = "form-control", @id = "accion" })
+            aa
+        </div>
+
+        <div class="modal-footer">
+            <button data-accion="Rechaza" class="btn red btnAction" type="button">Rechaza</button>
+            <button data-accion="Confirma" class="btn yellow btnAction" type="button">A Confirmar</button>
+            <button data-accion="Acepta" class="btn green btnAction" type="button">Acepta</button>
+            <button id="btnSubmitNovedad" data-accion="Acepta" class="btn green" type="submit" style="display:none">handler</button>
+        </div>
+    }
+
+</div>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    $(".btnAction").click(function (e) {
+        $("#accion").val($(this).data("accion"));
+        $("#btnSubmitNovedad").trigger("click");
+    });
+</script>

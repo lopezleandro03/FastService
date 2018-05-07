@@ -1,0 +1,63 @@
+﻿@model FastService.Models.Orden.IIndexModel
+
+@ViewBag.ColumnId
+
+<h4>
+    @ViewBag.Title
+    @if (@Model.Ordenes.Count == 50)
+    {
+        <span class="badge badge-info">+50</span>
+    }
+    else
+
+    {
+        <span class="badge badge-success">@Model.Ordenes.Count</span>
+    }
+
+</h4>
+<ul class="list-group ListaOrdenes">
+
+    @foreach (var r in Model.Ordenes.OrderByDescending(x => x.FechaUltimaNovedad))
+    {
+
+        <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-ver-orden" data-url='@Url.Action("Details","Ticket")/@r.NroOrden'>
+            <div class="OrdenListNro">
+                <b> @Html.DisplayFor(x => r.NroOrden)</b>
+
+                @if (r.Domicilio)
+                {
+                    <i class="glyphicon glyphicon-home"></i>
+                }
+
+                @if (!r.Garantia)
+                {
+                    <span class="badge badge-info">C</span>
+                }
+                else
+                {
+                    <span class="badge badge-info">E</span>
+                }
+
+                @if (r.EstadoDesc == "PRESUPUESTADO" || r.EstadoDesc == "REPARADO")
+                {
+                    <span class="badge badge-danger">@Html.DisplayFor(x => r.DiasDesdeUltimaNotification) dias</span>
+                }
+
+            </div>
+            <div class="OrdenListSummary">
+                @Html.DisplayFor(x => r.Cliente.PrettyName)
+            </div>
+
+            <div class="OrdenListSummary">
+                @Html.DisplayFor(x => r.ResumenAparato)
+            </div>
+            <div class="OrdenListHints">
+
+                <span class="badge badge-info">@Html.DisplayFor(x => r.TecnicoNombre)</span>
+
+            </div>
+        </li>
+
+    }
+</ul>
+

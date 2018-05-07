@@ -12,14 +12,27 @@
         <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-rem-orden">
             <div class="OrdenListNro">
                 <b> @Html.DisplayFor(x => r.NroOrden)</b>
+
+                @if (!r.Garantia)
+                {
+                    <span class="badge badge-info">C</span>
+                }
+                else
+                {
+                    <span class="badge badge-info">E</span>
+                }
+                <span class="badge badge-info">@Html.DisplayFor(x => r.Cliente.Dir.Ciudad)</span>
+
             </div>
             <div class="OrdenListSummary">
                 @Html.DisplayFor(x => r.Cliente.PrettyName)
             </div>
-            <div class="OrdenListHints">
-                <span class="badge badge-info">@Html.DisplayFor(x => r.Cliente.Dir.Ciudad)</span>
-            </div>
+
+            @Html.DisplayFor(x => r.Cliente.PrettyAddress)
+
+
         </li>
+
     }
 </ul>
 

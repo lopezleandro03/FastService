@@ -106,6 +106,18 @@
     <Compile Include="Model\Novedad.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\oldcliente.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\oldEstadoRep.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\oldresponsable.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\oldtecnico.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Pago.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>

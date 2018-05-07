@@ -1,0 +1,36 @@
+﻿@model FastService.Models.NovedadModel
+
+<div class="modal-header">
+    <button class="close" aria-hidden="true" type="button" data-dismiss="modal"></button>
+    <h4 id="modalNuevaNovedadHeader" class="modal-title">Nueva Novedad</h4>
+</div>
+
+@using (Ajax.BeginForm("Create", "Novedad", new AjaxOptions { HttpMethod = "Post", OnBegin = "OnBeginNovedad", OnSuccess = "DoneNovedad(data)", OnFailure = "OnErrorNovedad", LoadingElementId = "spinner" }))
+{
+    <div id="modalNuevaNovedadBody" class="modal-body">
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.NroOrden)
+        @Html.LabelFor(model => model.TecnicoNombre)
+        @Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
+
+        @Html.LabelFor(model => model.ResponsableNombre)
+        @Html.TextBoxFor(model => model.ResponsableNombre, new { @class = "form-control", disabled = "disabled" })
+
+        @Html.LabelFor(model => model.Observacion)
+        @Html.TextAreaFor(model => model.Observacion, new { @class = "form-control" })
+
+        @Html.HiddenFor(model => model.TipoNovedadId)
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn dark btn-outline simplemodal-close" type="button" data-dismiss="modal">Close</button>
+        <button id="btnSubmitNovedad" class="btn green" type="submit">Aceptar</button>
+    </div>
+}
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
