@@ -93,13 +93,13 @@ namespace FastService.Controllers
             IsMyOrdersMode = false;
             InitializeViewBag();
 
-            if (id != 0)
-                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.Where(x => x.NroOrden == id).FirstOrDefault();
-            else
-            {
-                OrdenesModel.OrdenActiva = new OrdenModel();
-                OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.OrderByDescending(x => x.FechaUltimaNovedad).First();
-            }
+            //if (id != 0)
+            //    OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.Where(x => x.NroOrden == id).FirstOrDefault();
+            //else
+            //{
+            //    OrdenesModel.OrdenActiva = new OrdenModel();
+            //    OrdenesModel.OrdenActiva = OrdenesModel.Ordenes.OrderByDescending(x => x.FechaUltimaNovedad).First();
+            //}
 
             OrdenesModel.IsTecnico = CurrentUserRoles.Exists(x => x.ToUpper() == AplicationRole.TECNICO);
             OrdenesModel.IsMyVIew = false;
@@ -114,10 +114,10 @@ namespace FastService.Controllers
             IsMyOrdersMode = true;
             InitializeViewBag();
 
-            if (id != 0)
-                MyOrdenesModel.OrdenActiva = MyOrdenesModel.Ordenes.Where(x => x.NroOrden == id).FirstOrDefault();
-            else
-                MyOrdenesModel.OrdenActiva = MyOrdenesModel.Ordenes.OrderByDescending(x => x.FechaUltimaNovedad).First();
+            //if (id != 0)
+            //    MyOrdenesModel.OrdenActiva = MyOrdenesModel.Ordenes.Where(x => x.NroOrden == id).FirstOrDefault();
+            //else
+            //    MyOrdenesModel.OrdenActiva = MyOrdenesModel.Ordenes.OrderByDescending(x => x.FechaUltimaNovedad).First();
 
             MyOrdenesModel.IsTecnico = CurrentUserRoles.Exists(x => x.ToUpper() == AplicationRole.TECNICO);
             MyOrdenesModel.IsMyVIew = true;
