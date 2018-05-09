@@ -21,6 +21,16 @@
             </div>
             <br>
 
+            @if (ViewBag.Seguimiento == "false")
+            {
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <input id="nuevaOrdenBtn" class="btn btn-info btn-md" type="button" value="NUEVA" />
+                    </div>
+                </div>
+                <br>
+            }
+
             <div class="row">
                 <div class="col-md-12 text-center">
                     <input data-tipo="31" class="btn btn-info btn-md reparacionActionButton" type="button" value="INFORM. PRESUP." />
@@ -90,7 +100,16 @@
                 </div>
             </div>
             <br>
-
+            @if (ViewBag.Seguimiento == "false")
+            {
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <input id="nuevaOrdenBtn" class="btn btn-info btn-md" type="button" value="NUEVA" />
+                    </div>
+                </div>
+                <br>
+            }
+            
             <div class="row">
                 <div class="col-md-12 text-center">
                     <input data-tipo="2" class="btn btn-info btn-md reparacionActionButton" type="button" value="PRESUPUESTO" />
@@ -144,7 +163,7 @@
         $(this).tab('show')
     })
 
-    $("#nuevaOrden").click(function () {
+    $("#nuevaOrdenBtn").click(function () {
         ajaxGetNoCustomError(
             "@Url.Action("Create","Reparacion")",
             function (data) {

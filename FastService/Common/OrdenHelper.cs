@@ -592,11 +592,19 @@ namespace FastService.Common
             }
         }
 
-        public List<OrdenModel> GetOrdenesByEstado(string id)
+        public List<OrdenModel> GetOrdenesByEstado(string id, DateTime? desde, DateTime? hasta, int? tecnicoid, int? comercioid)
         {
+            desde = desde == null ? DateTime.Now.AddDays(-100) : (DateTime)desde;
+            hasta = hasta == null ? DateTime.Now : (DateTime)hasta;
+            var filterByTecnico = tecnicoid == null ? false : true;
+            var filterByComercio = comercioid == null ? false : true;
+
             var ordenes = (from r in _db.Reparacion
                            where r.EstadoReparacion.nombre.ToUpper() == id
-                           && r.CreadoEn.Year == DateTime.Now.Year
+                           && r.CreadoEn > desde
+                           && r.CreadoEn < hasta
+                           && (filterByTecnico == false || r.TecnicoAsignadoId == tecnicoid)
+                           && (filterByComercio == false || r.ComercioId == comercioid)
                            select new OrdenModel()
                            {
                                NroOrden = r.ReparacionId,

@@ -5,13 +5,11 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <h4>Estado y Asignacion</h4>
-    <hr>
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-3">
                 @Html.LabelFor(model => model.OrdenActiva.NroOrden)
-                @Html.TextBoxFor(model => model.OrdenActiva.NroOrden, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.OrdenActiva.NroOrden, new { @class = "form-control", @id = "ticketid" })
                 @Html.ValidationMessageFor(model => model.OrdenActiva.NroOrden)
             </div>
             <div class="col-md-3">
@@ -62,11 +60,6 @@
         </div>
     </div>
 
-
-    <h4 class="form-section">
-        Cliente
-    </h4>
-    <hr>
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-3">
@@ -130,7 +123,7 @@
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.OrdenActiva.Cliente.Dir.Calle3)
-                @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dir.Calle3, new { @class = "form-control" , @id = "calle3" })
+                @Html.TextBoxFor(model => model.OrdenActiva.Cliente.Dir.Calle3, new { @class = "form-control", @id = "calle3" })
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.OrdenActiva.Cliente.Dir.Ciudad)
@@ -158,8 +151,6 @@
 
     </div>
 
-    <h4 class="form-section">Aparato</h4>
-    <hr>
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-2">
@@ -197,8 +188,6 @@
 
     <div hidden id="datosComercioDiv">
 
-        <h4 class="form-section">Comercio</h4>
-        <hr>
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-3">
@@ -213,7 +202,7 @@
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.OrdenActiva.FechaCompra)
-                    @Html.TextBoxFor(model => model.OrdenActiva.FechaCompra, new { @class = "form-control form-control-inline input-large date-picker"})
+                    @Html.TextBoxFor(model => model.OrdenActiva.FechaCompra, new { @class = "form-control form-control-inline input-large date-picker" })
                     @Html.ValidationMessageFor(model => model.OrdenActiva.FechaCompra)
                 </div>
             </div>
@@ -275,7 +264,7 @@
                     $("#Cliente_Apellido").val(data.Apellido);
                     $("#Cliente_Mail").val(data.Mail);
                     $("#Cliente_Telefono").val(data.Telefono);
-                    $("#Cliente_Celular").val(data.Celular); 
+                    $("#Cliente_Celular").val(data.Celular);
                     $("#Cliente_Direccion").val(data.Direccion);
                     $("#route").val(data.Calle);
                     $("#street_number").val(data.Altura);
@@ -284,7 +273,7 @@
                     //$("#administrative_area_level_1").val(data.CodigoPostal);
                     $("#country").val(data.Pais);
                     $("#calle2").val(data.Calle2);
-                    $("#calle3").val(data.Calle3); 
+                    $("#calle3").val(data.Calle3);
                 }
             })
         },

@@ -19,7 +19,7 @@
     </div>
 
     <div id="PanelAccion" class="col-md-2">
-        @RenderPage("PanelAccion.cshtml", Model)
+        @RenderPage("~/Views/Shared/PanelAccion.cshtml")
     </div>
 </div>
 
@@ -33,6 +33,12 @@
 <script>
     function OnBeginNovedad() {
         $(".simplemodal-close").trigger("click");
+    }
+
+    function DoneNovedad(data) {
+        $("#modalNuevaNovedad").hide();
+        $("#modalSuccess").modal();
+        $("#OrdenResumen").html(data);
     }
 
     function Done(data) {

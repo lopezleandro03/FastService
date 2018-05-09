@@ -19,7 +19,7 @@
     </div>
 
     <div id="PanelAccion" class="col-md-2">
-        @RenderPage("PanelAccion.cshtml", Model)
+        @RenderPage("~/Views/Shared/PanelAccion.cshtml")
     </div>
 </div>
 
@@ -70,6 +70,12 @@
         $("#modalSuccess").modal();
         $(".modal-backdrop").hide();
         $(".page-content").html(data);
+    }
+
+    function DoneNovedad(data) {
+        $("#modalNuevaNovedad").hide();
+        $("#modalSuccess").modal();
+        $("#OrdenResumen").html(data);
     }
 
     $("#inputSearchCriteria").keypress(function (e) {

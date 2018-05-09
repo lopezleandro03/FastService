@@ -5,7 +5,7 @@
     {
         if (Model.OrdenActiva == r)
         {
-            <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item active li-ver-orden" data-url='@Url.Action("Details")/@r.NroOrden'>
+            <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item active li-ver-orden" data-url='@Url.Action("Details","Ticket")/@r.NroOrden'>
 
                 <div class="OrdenListNro">
                     <b> @Html.DisplayFor(x => r.NroOrden)</b>
@@ -53,7 +53,7 @@
         }
         else
         {
-            <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-ver-orden" data-url='@Url.Action("Details")/@r.NroOrden'>
+            <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-ver-orden" data-url='@Url.Action("Details","Ticket")/@r.NroOrden'>
                 <div class="OrdenListNro">
                     <b> @Html.DisplayFor(x => r.NroOrden)</b>
 

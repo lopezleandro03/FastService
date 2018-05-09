@@ -103,6 +103,7 @@ namespace FastService.Controllers
 
             OrdenesModel.IsTecnico = CurrentUserRoles.Exists(x => x.ToUpper() == AplicationRole.TECNICO);
             OrdenesModel.IsMyVIew = false;
+            ViewBag.Seguimiento = "false";
 
             return PartialView(OrdenesModel);
         }
@@ -120,6 +121,7 @@ namespace FastService.Controllers
 
             MyOrdenesModel.IsTecnico = CurrentUserRoles.Exists(x => x.ToUpper() == AplicationRole.TECNICO);
             MyOrdenesModel.IsMyVIew = true;
+            ViewBag.Seguimiento = "false";
 
             return PartialView("MyIndex", MyOrdenesModel);
         }
@@ -128,6 +130,7 @@ namespace FastService.Controllers
         {
             InitializeViewBag();
             OrdenesModel.Ordenes = _OrdenHelper.GetOrdenes(IsMyOrdersMode, searchCriteria, CurrentUserId);
+            ViewBag.Seguimiento = "false";
 
             if (OrdenesModel.Ordenes.Any())
             {
@@ -146,6 +149,7 @@ namespace FastService.Controllers
         {
             InitializeViewBag();
             MyOrdenesModel.Ordenes = _OrdenHelper.GetOrdenes(IsMyOrdersMode, null, id);
+            ViewBag.Seguimiento = "false";
 
             if (MyOrdenesModel.Ordenes.Any())
             {
@@ -300,27 +304,27 @@ namespace FastService.Controllers
                 || tipo == (int)NovedadTipo.PRESUPUESTADO
                 || tipo == (int)NovedadTipo.REPARADO)
             {
-                return PartialView("NovedadPresupuesto", model);
+                return PartialView("~/Views/Novedad/NovedadPresupuesto.cshtml", model);
             }
             else if (tipo == (int)NovedadTipo.PRESUPINFOR
                 || tipo == (int)NovedadTipo.LLAMADO)
             {
-                return PartialView("NovedadInformarPresupuesto", model);
+                return PartialView("~/Views/Novedad/NovedadInformarPresupuesto", model);
             }
             else if (tipo == (int)NovedadTipo.NOTA
                 || tipo == (int)NovedadTipo.VERIFICAR
                 || tipo == (int)NovedadTipo.ACONTROLAR
                 || tipo == (int)NovedadTipo.ESPERAREPUESTO)
             {
-                return PartialView("NovedadSimple", model);
+                return PartialView("~/Views/Novedad/NovedadSimple", model);
             }
             else if (tipo == (int)NovedadTipo.REINGRESO)
             {
-                return PartialView("NovedadReingreso", model);
+                return PartialView("~/Views/Novedad/NovedadReingreso", model);
             }
             else if (tipo == (int)NovedadTipo.ENTREGA)
             {
-                return PartialView("NovedadCoordinarEntrega", model);
+                return PartialView("~/Views/Novedad/NovedadCoordinarEntrega", model);
             }
             else if (tipo == (int)NovedadTipo.RETIRA)
             {
@@ -335,7 +339,7 @@ namespace FastService.Controllers
             }
             else
             {
-                return PartialView("NovedadSimple", model);
+                return PartialView("~/Views/Novedad/NovedadSimple", model);
             }
         }
 
@@ -390,7 +394,7 @@ namespace FastService.Controllers
             || tipo == (int)NovedadTipo.REPDOMICILIO
             || tipo == (int)NovedadTipo.REPARADO)
             {
-                return PartialView("NovedadConPresupuesto", model);
+                return PartialView("~/Views/Novedad/NovedadPresupuesto", model);
             }
             else if (tipo == (int)NovedadTipo.ACEPTA
                 || tipo == (int)NovedadTipo.RECHAZA
@@ -400,15 +404,15 @@ namespace FastService.Controllers
                 || tipo == (int)NovedadTipo.ACONTROLAR
                 || tipo == (int)NovedadTipo.ESPERAREPUESTO)
             {
-                return PartialView("NovedadSimple", model);
+                return PartialView("~/Views/Novedad/NovedadSimple", model);
             }
             else if (tipo == (int)NovedadTipo.REINGRESO)
             {
-                return PartialView("NovedadReingreso", model);
+                return PartialView("~/Views/Novedad/NovedadReingreso", model);
             }
             else
             {
-                return PartialView("NovedadConPresupuesto", model);
+                return PartialView("~/Views/Novedad/NovedadPresupuesto", model);
             }
 
         }

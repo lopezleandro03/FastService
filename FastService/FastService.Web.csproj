@@ -255,7 +255,7 @@
     <Compile Include="Models\Orden\OrdenModel.cs" />
     <Compile Include="Models\Reports\ReciboReportModel.cs" />
     <Compile Include="Models\Seguimiento\ListaOrdenesModel.cs" />
-    <Compile Include="Models\Seguimiento\SeguimientoModel.cs" />
+    <Compile Include="Models\Seguimiento\FilterBarModel.cs" />
     <Compile Include="Models\VentaModel.cs" />
     <Compile Include="Models\Charts\BalanceSummary.cs" />
     <Compile Include="Models\Charts\VentaSummary.cs" />
@@ -943,14 +943,9 @@
     <Content Include="Views\Compra\Index.cshtml" />
     <Content Include="Views\Venta\MetodoPagoTransferencia.cshtml" />
     <Content Include="Views\Venta\MetodoPagoEfectivo.cshtml" />
-    <Content Include="Views\Reparacion\NuevaOrden.cshtml" />
     <Content Include="Views\Reparacion\Index.cshtml" />
     <Content Include="Views\Reparacion\ListaOrdenes.cshtml" />
     <Content Include="Views\Reparacion\OrdenResumen.cshtml" />
-    <Content Include="Views\Reparacion\PanelAccion.cshtml" />
-    <Content Include="Views\Reparacion\NovedadPresupuesto.cshtml" />
-    <Content Include="Views\Reparacion\NovedadReingreso.cshtml" />
-    <Content Include="Views\Reparacion\NovedadSimple.cshtml" />
     <Content Include="Views\Agenda\AgendarReparacion.cshtml" />
     <Content Include="Views\Domicilio\Index.cshtml" />
     <Content Include="Views\Domicilio\ListaOrdenes.cshtml" />
@@ -970,20 +965,18 @@
     <Content Include="Views\Shared\_Spinner.cshtml" />
     <Content Include="Views\Reparacion\NovedadIndex.cshtml" />
     <Content Include="Views\Reparacion\MyIndex.cshtml" />
-    <Content Include="Views\Reparacion\NovedadRetiro.cshtml" />
     <Content Include="Views\Seguimiento\Index.cshtml" />
     <Content Include="Views\Seguimiento\KanbanColumn.cshtml" />
-    <Content Include="Views\Reparacion\NovedadInformarPresupuesto.cshtml" />
-    <Content Include="Views\Reparacion\NovedadCoordinarEntrega.cshtml" />
     <Content Include="Views\Ticket\Details.cshtml" />
     <Content Include="Views\Ticket\Novedades.cshtml" />
-    <Content Include="Views\Seguimiento\PanelAccion.cshtml" />
+    <Content Include="Views\Shared\PanelAccion.cshtml" />
     <Content Include="Views\Novedad\NovedadCoordinarEntrega.cshtml" />
     <Content Include="Views\Novedad\NovedadInformarPresupuesto.cshtml" />
     <Content Include="Views\Novedad\NovedadPresupuesto.cshtml" />
     <Content Include="Views\Novedad\NovedadReingreso.cshtml" />
     <Content Include="Views\Novedad\NovedadRetiro.cshtml" />
     <Content Include="Views\Novedad\NovedadSimple.cshtml" />
+    <Content Include="Views\Seguimiento\FilterBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

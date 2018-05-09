@@ -1,0 +1,55 @@
+﻿@model FastService.Models.Seguimiento.FilterBarModel
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+<div class="col-md-2">
+    @Html.DropDownList("tecnicos", (List<SelectListItem>)ViewBag.ListaTecnicos, "Tecnico", new { @class = "form-control FilterParameter", @id = "tecnicoid" })
+</div>
+
+<div class="col-md-2">
+
+    @Html.DropDownList("comercios", (List<SelectListItem>)ViewBag.ListaComercio, "Comercio", new { @class = "form-control FilterParameter", @id = "comercioid" })
+</div>
+
+<div class="col-md-2">
+    @Html.TextBoxFor(model => model.BeginDate, new { @class = "form-control form-control-inline date-picker FilterParameter", @placeholder = "Desde", @id = "desde" })
+    @Html.ValidationMessageFor(model => model.BeginDate)
+</div>
+
+<div class="col-md-2">
+    @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control form-control-inline date-picker FilterParameter", @placeholder = "Hasta", @id = "hasta" })
+    @Html.ValidationMessageFor(model => model.EndDate)
+</div>
+
+
+<div class="col-md-1">
+    <button id="btnRestartCriteria" class="btn yellow" type="button">Borrar Filtros</button>
+</div>
+
+<div class="col-md-1">
+    <button id="btnFilterKanban" class="btn green" type="button">Actualizar</button>
+</div>
+
+<script src="~/Content/assets/pages/scripts/components-date-time-pickers.min.js"></script>
+<script src="~/Content/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<link href="~/Content/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+
+
+<script>
+    $("#btnFilterKanban").click(function () {
+        LoadKanban();
+    })
+
+    $(".FilterParameter").change(function () {
+        LoadKanban();
+    })
+
+    $("#btnRestartCriteria").click(function () {
+        $("#desde").val("");
+        $("#hasta").val("");
+        $("#tecnicoid").val("");
+        $("#comercioid").val("");
+        LoadKanban();
+    })
+</script>

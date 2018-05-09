@@ -44,6 +44,23 @@ function ajaxGetNoCustomError(url, success) {
     });
 }
 
+function ajaxGetNoCustomErrorSyncNoLoading(url, success) {
+    $.ajax({
+        type: 'GET',
+        url: url,
+        async: false,
+        contentType: "html",
+        cache: true,
+        dataType: "html",
+        success: function (data) {
+            success(data);
+        },
+        error: function () {
+            $("#modalError").modal();
+        }
+    });
+}
+
 function ajaxPost(url, success, error) {
     $.ajax({
         type: 'POST',
