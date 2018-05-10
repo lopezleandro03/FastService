@@ -205,7 +205,6 @@
     <Compile Include="Common\AplicationRole.cs" />
     <Compile Include="Common\ReaparacionEstado.cs" />
     <Compile Include="Common\ReportHelper.cs" />
-    <Compile Include="Controllers\AgendaController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
@@ -945,7 +944,6 @@
     <Content Include="Views\Venta\MetodoPagoEfectivo.cshtml" />
     <Content Include="Views\Reparacion\Index.cshtml" />
     <Content Include="Views\Reparacion\ListaOrdenes.cshtml" />
-    <Content Include="Views\Reparacion\OrdenResumen.cshtml" />
     <Content Include="Views\Agenda\AgendarReparacion.cshtml" />
     <Content Include="Views\Domicilio\Index.cshtml" />
     <Content Include="Views\Domicilio\ListaOrdenes.cshtml" />

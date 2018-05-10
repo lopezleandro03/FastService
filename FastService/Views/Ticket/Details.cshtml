@@ -203,7 +203,7 @@
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.FechaCompra)
-                    @Html.TextBoxFor(model => model.FechaCompra, new { @class = "form-control form-control-inline input-large date-picker" })
+                    @Html.TextBoxFor(model => model.FechaCompra, new { @class = "form-control form-control-inline input-large date-picker fecha" })
                     @Html.ValidationMessageFor(model => model.FechaCompra)
                 </div>
             </div>
@@ -278,7 +278,6 @@
                     $("#street_number").val(data.Altura);
                     $("#locality").val(data.Provincia);
                     $("#postal_code").val(data.CodigoPostal); calle3
-                    //$("#administrative_area_level_1").val(data.CodigoPostal);
                     $("#country").val(data.Pais);
                     $("#calle2").val(data.Calle2);
                     $("#calle3").val(data.Calle3);
@@ -292,8 +291,8 @@
             $("#datosComercioDiv").removeAttr("hidden", true);
         }
 
-        $("#OrdenActiva_Garantia").click(function () {
-            if ($("#OrdenActiva_Garantia").prop("checked")) {
+        $("#Garantia").click(function () {
+            if ($("#Garantia").prop("checked")) {
                 $("#datosComercioDiv").removeAttr("hidden", true);
             } else {
                 $("#datosComercioDiv").attr("hidden", true);
@@ -303,8 +302,13 @@
         $.ajax({
             url: "@Url.Action("AutoCompleteAddress", "GoogleMaps")/Cliente_Direccion",
             success: function (data) {
-                $("#OrdenDetail").append(data); //This is where to append the component required for maps autocomplete
+                $(".page-content").append(data); //This is where to append the component required for maps autocomplete
             }
+        });
+
+        $(".fecha").datepicker({
+            dateFormat: 'yy-mm-dd',
+            selectOtherMonths: true
         });
     })
 </script>

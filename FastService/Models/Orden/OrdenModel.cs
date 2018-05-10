@@ -60,7 +60,7 @@ namespace FastService.Models
 
         [Required]
         public int MarcaId { get; set; }
-        [Display(Name = "Marca")]
+        [Display(Name = "Marca Aparato")]
         public string MarcaDesc { get; set; }
 
         [Required]

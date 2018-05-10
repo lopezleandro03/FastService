@@ -217,13 +217,13 @@
         ajaxGetNoCustomError(
             $(this).data("url"),
             function (data) {
-                $("#OrdenResumen").html(data);
+                $("#OrdenDetailBody").html(data);
             }
         );
     });
 
     $(function () {
-        $(".active").trigger("click");
+        $(".li-ver-orden:first").trigger("click");
     });
 
 </script>

@@ -14,7 +14,7 @@
         @RenderPage("MiListaOrdenes.cshtml", Model)
     </div>
 
-    <div id="OrdenResumen" class="col-md-8">
+    <div id="OrdenDetailBody" class="col-md-8">
     </div>
 
     <div id="PanelAccion" class="col-md-2">
@@ -37,7 +37,7 @@
     function DoneNovedad(data) {
         $("#modalNuevaNovedad").hide();
         $("#modalSuccess").modal();
-        $("#OrdenResumen").html(data);
+        $("#OrdenDetailBody").html(data);
     }
 
     function Done(data) {

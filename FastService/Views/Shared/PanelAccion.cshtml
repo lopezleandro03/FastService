@@ -155,7 +155,7 @@
 <script>
 
     function ImprimirRecibo(){
-          window.open('@Url.Action("ImprimirRecibo")', '_blank');
+        window.open("@Url.Action("ImprimirRecibo","Ticket")/?id=" + $('#ticketid').val(), '_blank');
     }
 
     $('#actionTabs a').click(function (e) {
@@ -167,7 +167,7 @@
         ajaxGetNoCustomError(
             "@Url.Action("Create","Reparacion")",
             function (data) {
-                $("#OrdenResumen").html(data);
+                $("#OrdenDetailBody").html(data);
             }
         );
     })
