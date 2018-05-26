@@ -77,18 +77,6 @@
         $("#OrdenDetailBody").html(data);
     }
 
-    $("#inputSearchCriteria").keypress(function (e) {
-
-        if (e.keyCode == 13) {
-            ajaxGetNoCustomError(
-                "@Url.Action("Filter","Reparacion")/?searchCriteria=" + $("#inputSearchCriteria").val(),
-                function (data) {
-                    $(".page-content").html(data)
-                }
-            );
-        }
-    });
-
     $("#ddlFilterByTecnico").change(function (e) {
             ajaxGetNoCustomError(
                 "@Url.Action("FilterByTecnico","Reparacion")/?id=" + $("#ddlFilterByTecnico").val(),

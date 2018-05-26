@@ -189,12 +189,12 @@ WHERE (R.ReparacionId = 107037)</CommandText>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>1) Los términos y condiciones de la garantía están sujetos al resultado del diagnostico técnico. Durante el ingreso FastService S.R.L. solo valida que el plazo de garantía del equipo no haya caducado. Si por alguna razón su equipo estuviera excluido de la garantía, FastService se lo informará así como el presupuesto de reparación.
+                    <Value>1) Los términos y condiciones de la garantía están sujetos al resultado del diagnostico técnico. Durante el ingreso FS S.R.L. solo valida que el plazo de garantía del equipo no haya caducado. Si por alguna razón su equipo estuviera excluido de la garantía, FastService se lo informará así como el presupuesto de reparación.
 3) No se aceptan reclamos por falta de accesorios o piezas no detalladas en la presente orden al momento de la entrega o retiro, si no han sido declarados en su ingreso. Verifique que figuren los mismos antes de firmar la orden de ingreso al servicio técnico.
-4) El cliente toma conocimiento y acepta conocer que durante el proceso de diagnostico, configuración o reparación, los datos almacenados dentro del equipo pueden modificarse o eliminarse de la memoria interna, tarjeta de memoria o SIM, incluye fotografías, agenda, programas o cualquier otro dato no precargado de fabrica, no siendo nada de ello imputable a FastService. La responsabilidad de efectuar una copia de respaldo es exclusiva del cliente y debe ser previa al ingreso del equipo a service.
+4) El cliente toma conocimiento y acepta conocer que durante el proceso de diagnostico, configuración o reparación, los datos almacenados dentro del equipo pueden modificarse o eliminarse de la memoria interna, tarjeta de memoria o SIM, incluye fotografías, agenda, programas o cualquier otro dato no precargado de fabrica, no siendo nada de ello imputable a FS S.R.L... La responsabilidad de efectuar una copia de respaldo es exclusiva del cliente y debe ser previa al ingreso del equipo a service.
 5) El plazo estimado de reparación de los equipos es de 30 (treinta) días, sujeto a disponibilidad de repuestos en el país. En caso de que no hubiera stock de repuestos, se le notificará el plazo estimado para la reparación de su equipo, siendo su decisión el retiro o permanencia de la unidad en el service.
 6) En caso de no retirar el equipo dentro de un plazo de 90 (noventa) días contados desde la fecha de ingreso al servicio, o 20 (veinte) días contados desde la notificación que el equipo ha sido reparado será¡ considerado producto abandonado, pudiéndosele cobrar los gastos de depósito y guarda del equipo. Si luego de cumplidos los plazos mencionados y de haber sido notificado de la situación anteriormente referida, Ud. no retira su equipo y/o paga el saldo en concepto de diagnostico, reparación y/o deposito del equipo, FastService podrá disponer a su criterio de la unidad sin previo aviso.
-7) El Cliente debe informe al momento de ingresar el equipo fuera de garantía o de aceptar el presupuesto si desea recibir las piezas reemplazadas, de lo contrario FastService realizará su tratamiento acorde a las políticas de medio ambiente vigentes, no siendo posible su entrega al cliente.</Value>
+7) FS S.R.L. dispondra de  las piezas reemplazadas y realizará su tratamiento acorde a las políticas de medio ambiente vigentes, no siendo posible su entrega al cliente en concordandia con las politicas de las marcas representadas.</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Arial</FontFamily>
@@ -574,20 +574,20 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Serbus">
+                            <Textbox Name="Serie">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Serbus: </Value>
+                                      <Value>Numero de serie: </Value>
                                       <Style>
                                         <FontFamily>Arial</FontFamily>
                                       </Style>
                                     </TextRun>
                                     <TextRun>
-                                      <Value>=Fields!Serbus.Value</Value>
+                                      <Value>=Fields!Serie.Value</Value>
                                       <Style>
                                         <FontFamily>Arial</FontFamily>
                                       </Style>
@@ -596,7 +596,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Serbus</rd:DefaultName>
+                              <rd:DefaultName>Serie</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -639,83 +639,6 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Nombre</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Serie">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Numero de serie: </Value>
-                                      <Style>
-                                        <FontFamily>Arial</FontFamily>
-                                      </Style>
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!Serie.Value</Value>
-                                      <Style>
-                                        <FontFamily>Arial</FontFamily>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Serie</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                      </TablixCells>
-                    </TablixRow>
-                    <TablixRow>
-                      <Height>0.28484in</Height>
-                      <TablixCells>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Apellido">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Apellido del cliente: </Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!Apellido.Value</Value>
-                                      <Style>
-                                        <FontFamily>Arial</FontFamily>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Apellido</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -773,6 +696,83 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                       </TablixCells>
                     </TablixRow>
                     <TablixRow>
+                      <Height>0.28484in</Height>
+                      <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Apellido">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Apellido del cliente: </Value>
+                                      <Style />
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!Apellido.Value</Value>
+                                      <Style>
+                                        <FontFamily>Arial</FontFamily>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Apellido</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="FechoCompra2">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Fecha Compra: </Value>
+                                      <Style>
+                                        <FontFamily>Arial</FontFamily>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!FechoCompra.Value</Value>
+                                      <Style>
+                                        <FontFamily>Arial</FontFamily>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>FechoCompra</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
+                    <TablixRow>
                       <Height>0.28164in</Height>
                       <TablixCells>
                         <TablixCell>
@@ -812,29 +812,25 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="FechoCompra">
+                            <Textbox Name="Accesorios2">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Fecha Compra: </Value>
-                                      <Style>
-                                        <FontFamily>Arial</FontFamily>
-                                      </Style>
+                                      <Value>Accesorios: </Value>
+                                      <Style />
                                     </TextRun>
                                     <TextRun>
-                                      <Value>=Fields!FechoCompra.Value</Value>
-                                      <Style>
-                                        <FontFamily>Arial</FontFamily>
-                                      </Style>
+                                      <Value>=Fields!Accesorios.Value</Value>
+                                      <Style />
                                     </TextRun>
                                   </TextRuns>
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>FechoCompra</rd:DefaultName>
+                              <rd:DefaultName>Accesorios</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -891,25 +887,21 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Accesorios">
+                            <Textbox Name="Textbox20">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Accesorios: </Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!Accesorios.Value</Value>
+                                      <Value />
                                       <Style />
                                     </TextRun>
                                   </TextRuns>
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Accesorios</rd:DefaultName>
+                              <rd:DefaultName>Textbox20</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -1196,14 +1188,21 @@ WHERE (R.ReparacionId = 107037)</CommandText>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value> FAST SERVICE   </Value>
+                    <Value> FAST SERVICE </Value>
                     <Style>
                       <FontSize>24pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>                     ticket</Value>
+                    <Value>FS S.R.L.</Value>
+                    <Style>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>         ticket</Value>
                     <Style>
                       <FontSize>24pt</FontSize>
                     </Style>
@@ -1238,13 +1237,13 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                       <TextRun>
                         <Value>Para consultas llame a los telefonos  </Value>
                         <Style>
-                          <FontSize>16pt</FontSize>
+                          <FontSize>14pt</FontSize>
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>2413-0902/1554</Value>
+                        <Value>5263-3209 / 4213-0902 / 4213-1554</Value>
                         <Style>
-                          <FontSize>16pt</FontSize>
+                          <FontSize>12pt</FontSize>
                           <FontWeight>Bold</FontWeight>
                         </Style>
                       </TextRun>
@@ -1256,13 +1255,13 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                       <TextRun>
                         <Value>Correo electronico </Value>
                         <Style>
-                          <FontSize>16pt</FontSize>
+                          <FontSize>14pt</FontSize>
                         </Style>
                       </TextRun>
                       <TextRun>
                         <Value>consultas-fastservice@gmail.com</Value>
                         <Style>
-                          <FontSize>16pt</FontSize>
+                          <FontSize>14pt</FontSize>
                           <FontWeight>Bold</FontWeight>
                         </Style>
                       </TextRun>
@@ -1274,7 +1273,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                       <TextRun>
                         <Value>Horario: Lunes a Viernes de 8 a 21 Hs. Sabado de 8 a 13 Hs.</Value>
                         <Style>
-                          <FontSize>16pt</FontSize>
+                          <FontSize>14pt</FontSize>
                         </Style>
                       </TextRun>
                     </TextRuns>
@@ -1606,20 +1605,20 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Serbus2">
+                            <Textbox Name="Serie2">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Serbus: </Value>
+                                      <Value>Numero de serie: </Value>
                                       <Style>
                                         <FontFamily>Arial</FontFamily>
                                       </Style>
                                     </TextRun>
                                     <TextRun>
-                                      <Value>=Fields!Serbus.Value</Value>
+                                      <Value>=Fields!Serie.Value</Value>
                                       <Style>
                                         <FontFamily>Arial</FontFamily>
                                       </Style>
@@ -1628,7 +1627,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Serbus</rd:DefaultName>
+                              <rd:DefaultName>Serie</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -1671,83 +1670,6 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Nombre</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Serie2">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Numero de serie: </Value>
-                                      <Style>
-                                        <FontFamily>Arial</FontFamily>
-                                      </Style>
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!Serie.Value</Value>
-                                      <Style>
-                                        <FontFamily>Arial</FontFamily>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Serie</rd:DefaultName>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                          </CellContents>
-                        </TablixCell>
-                      </TablixCells>
-                    </TablixRow>
-                    <TablixRow>
-                      <Height>0.28484in</Height>
-                      <TablixCells>
-                        <TablixCell>
-                          <CellContents>
-                            <Textbox Name="Apellido2">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Apellido del cliente: </Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!Apellido.Value</Value>
-                                      <Style>
-                                        <FontFamily>Arial</FontFamily>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Apellido</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -1805,6 +1727,83 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                       </TablixCells>
                     </TablixRow>
                     <TablixRow>
+                      <Height>0.28484in</Height>
+                      <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Apellido2">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Apellido del cliente: </Value>
+                                      <Style />
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!Apellido.Value</Value>
+                                      <Style>
+                                        <FontFamily>Arial</FontFamily>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Apellido</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="FechoCompra">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Fecha Compra: </Value>
+                                      <Style>
+                                        <FontFamily>Arial</FontFamily>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!FechoCompra.Value</Value>
+                                      <Style>
+                                        <FontFamily>Arial</FontFamily>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>FechoCompra</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
+                    <TablixRow>
                       <Height>0.28164in</Height>
                       <TablixCells>
                         <TablixCell>
@@ -1844,23 +1843,25 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox32">
+                            <Textbox Name="Accesorios">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Fecha de Compra:</Value>
-                                      <Style>
-                                        <FontFamily>Arial</FontFamily>
-                                      </Style>
+                                      <Value>Accesorios: </Value>
+                                      <Style />
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!Accesorios.Value</Value>
+                                      <Style />
                                     </TextRun>
                                   </TextRuns>
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox31</rd:DefaultName>
+                              <rd:DefaultName>Accesorios</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -1917,14 +1918,14 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox38">
+                            <Textbox Name="Textbox28">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Accesorios:</Value>
+                                      <Value />
                                       <Style>
                                         <FontFamily>Arial</FontFamily>
                                       </Style>
@@ -1933,7 +1934,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox37</rd:DefaultName>
+                              <rd:DefaultName>Textbox28</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -2220,14 +2221,28 @@ WHERE (R.ReparacionId = 107037)</CommandText>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value> FAST SERVICE   </Value>
+                    <Value> FAST SERVICE </Value>
                     <Style>
                       <FontSize>24pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>                     ticket </Value>
+                    <Value>FS S.R.L.</Value>
+                    <Style>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
+                    <Style>
+                      <FontSize>24pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>         ticket </Value>
                     <Style>
                       <FontSize>24pt</FontSize>
                     </Style>

@@ -10,8 +10,10 @@ select nombre, descripcion,categoria,activo,modificadoEn,modificadoPor from oldE
 
 --insert direccion placeholder
 insert direccion
-select null,null,null,null,null,null,null,null,null,null,null,getdate(),nrocli
+select null,RTRIM(LTRIM(direcc)),RTRIM(Ltrim(ecalle1)),ltrim(rtrim(ecalle2)),ltrim(rtrim(localidad)),null,null,null,null,null,null,getdate(),nrocli
 from oldcliente
+
+select * from direccion
 
 --Migro clientes
 insert cliente
@@ -27,7 +29,7 @@ RTRIM(LTRIM(direcc)) + ' entre ' + RTRIM(Ltrim(ecalle1)) + ' y ' + ltrim(rtrim(e
 from oldcliente
 
 --Migro respobsables y tecnicos a usuarios
-insert Usuario values ('MAXI','maxi.fastservice@gmail.com','MAXI','DANERI','123456','','','',1)
+insert Usuario values ('MAXI','maxi.fastservice@gmail.com','MAXI','DANERI','daneri','','','',1)
 insert Usuario values ('sinasignar@gmail.com','SIN ASIGNAR','SIN ASIGNAR','SIN ASIGNAR','SIN ASIGNAR','84123124','','',1)
 
 select * from Usuario
@@ -104,7 +106,7 @@ update oldtranu set fechacom = null where fechacom < '1800-03-22'
 --Migra detalle de reparaciones
 insert reparaciondetalle
 select 
-CASE o.garantia WHEN 'C' THEN 1 ELSE 0 END,  
+CASE o.garantia WHEN 'C' THEN 0 ELSE 1 END,  
 CASE o.movil WHEN 0 THEN 0 ELSE 1 END,--to be determined
 o.nrotra,
 o.fechacom,
@@ -144,6 +146,14 @@ from oldtranu o
 join reparacionDetalle rd on o.nrotra = rd.nroReferencia
 
 ----Migro novedades
+update oldnovedad 
+set hora = 00
+where (hora is null or hora ='' or hora = '' or hora = 'pp')
+
+update oldnovedad 
+set minutos = 00
+where (hora is null or minutos ='' or minutos = '' or minutos = 'pp')
+
 insert novedad 
 select 
 n.nrotra,
@@ -151,9 +161,10 @@ isnull((select top 1 userid from Usuario where Direccion = nrotec),(select c2.us
 codnov,
 case pesos when '' then 0 else isnull(pesos,0) end,
 observ,
-fecha,
+convert(datetime,fecha + ' ' + hora + ':' + minutos),
 99
-from oldobserv o join oldnovedad n on n.transac = o.transac order by nrotra asc
+from oldnovedad n left join oldobserv o on n.transac = o.transac 
+order by nrotra asc
 
 update Marca
 set activo = 0

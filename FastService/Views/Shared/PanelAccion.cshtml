@@ -10,13 +10,13 @@
         <div role="tabpanel" class="tab-pane active" id="home">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <input id="guardarBtn" class="btn btn-success btn-md" type="button" value="GUARDAR" />
+                    <input class="guardarBtn btn btn-success btn-md" type="button" value="GUARDAR" />
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <input id="imprimirBtn" class="btn btn-info btn-md" type="button" value="IMPRIMIR" />
+                    <input class="btn btn-info btn-md imprimirBtn" type="button" value="IMPRIMIR" />
                 </div>
             </div>
             <br>
@@ -90,13 +90,13 @@
         <div role="tabpanel" class="tab-pane" id="profile">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <input id="guardarBtn" class="btn btn-success btn-md" type="button" value="GUARDAR" />
+                    <input class="btn btn-success btn-md guardarBtn" type="button" value="GUARDAR" />
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <input id="imprimirBtn" class="btn btn-info btn-md" type="button" value="IMPRIMIR" />
+                    <input class="btn btn-info btn-md imprimirBtn" type="button" value="IMPRIMIR" />
                 </div>
             </div>
             <br>
@@ -109,7 +109,7 @@
                 </div>
                 <br>
             }
-            
+
             <div class="row">
                 <div class="col-md-12 text-center">
                     <input data-tipo="2" class="btn btn-info btn-md reparacionActionButton" type="button" value="PRESUPUESTO" />
@@ -152,12 +152,9 @@
     </div>
 </div>
 
+@Html.CheckBox("flagNuevaOrden", new { @id = "FlagNuevaOrden"})
+
 <script>
-
-    function ImprimirRecibo(){
-        window.open("@Url.Action("ImprimirRecibo","Ticket")/?id=" + $('#ticketid').val(), '_blank');
-    }
-
     $('#actionTabs a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
@@ -165,7 +162,7 @@
 
     $("#nuevaOrdenBtn").click(function () {
         ajaxGetNoCustomError(
-            "@Url.Action("Create","Reparacion")",
+            "@Url.Action("Create","Ticket")",
             function (data) {
                 $("#OrdenDetailBody").html(data);
             }
@@ -182,12 +179,12 @@
         );
     })
 
-    $("#imprimirBtn").click(function () {
-        ImprimirRecibo();
+    $(".imprimirBtn").click(function () {
+         window.open("@Url.Action("ImprimirRecibo","Ticket")/?id=" + $('#ticketid').val(), '_blank');
     })
 
-    $("#guardarBtn").click(function () {
+    $(".guardarBtn").click(function () {
+        $("#FlagNuevaOrden").prop("checked", true);
         $("#btnGuardarOrden").trigger("click");
     })
-
 </script>

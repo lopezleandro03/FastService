@@ -355,6 +355,21 @@ namespace FastService.Common
             return Ordenes;
         }
 
+        public List<string> GetOrdersNro(string prefix)
+        {
+            return (from x in _db.Reparacion
+                    where (x.ReparacionId.ToString().Contains(prefix)
+                    || x.Cliente.Nombre.Contains(prefix)
+                    || x.Cliente.Apellido.Contains(prefix))
+                    select x.ReparacionId + "-" + x.Cliente.Nombre + " " + x.Cliente.Apellido).Take(50).ToList();
+        }
+
+        public int GetNextOrderNro()
+        {
+            return _db.Reparacion.Max(x => x.ReparacionId) + 1;
+
+        }
+
         public void Save(NovedadModel model, int CurrentUserId)
         {
             TransactionOptions opt = new TransactionOptions();
@@ -664,7 +679,7 @@ namespace FastService.Common
                                    Telefono = r.Cliente.Telefono1,
                                    Celular = r.Cliente.Telefono2
                                },
-                           }).OrderByDescending(x => x.NroOrden).OrderByDescending(x => x.NroOrden).Take(50).ToList();
+                           }).OrderByDescending(x => x.NroOrden).Take(50).ToList();
 
             ////var cacheNov = (from o in Ordenes join n in _db.Novedad on o.NroOrden equals n.reparacionId select n).ToList();
             //Dictionary<int, string> dicTipoNov = (from x in _db.TipoNovedad select new { x.TipoNovedadId, x.nombre }).ToDictionary(k => k.TipoNovedadId, v => v.nombre);

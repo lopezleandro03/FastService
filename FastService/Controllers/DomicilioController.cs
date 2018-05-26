@@ -1,6 +1,7 @@
 ﻿using FastService.Common;
 using FastService.Helpers;
 using FastService.Models;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,49 +79,27 @@ namespace FastService.Controllers
             return PartialView("Index", Model);
         }
 
-
-        // GET: Domicilio/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult ImprimirRuta()
         {
-            return View();
-        }
+            string reportName = "HojaDeRuta.pdf";
+            string reportFilePath = "~/Reports/HojaDeRuta.rdl";
+            var reportType = ReportType.PDF;
+            var contentType = string.Format("application/{0}", reportType.ToString().ToLower());
 
-        // POST: Domicilio/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+            List<ReportDataSource> dataSources = new List<ReportDataSource>();
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            //dataSources.Add(new ReportDataSource("Reparacion", ticket));
+            var report = new ReportHelper();
+            var reportParameters = new List<ReportParameter>();
+            
+            //var param3 = new ReportParameter("fecha", ticket.First().ModificadoEn.ToShortDateString());
+            //reportParameters.Add(param3);
 
-        // GET: Domicilio/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+            var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, reportParameters, reportType);
+            Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
 
-        // POST: Domicilio/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+            return File(result, contentType);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

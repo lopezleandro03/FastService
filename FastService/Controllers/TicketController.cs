@@ -16,7 +16,20 @@ namespace FastService.Controllers
         {
             InitializeViewBag();
             ViewBag.Seguimiento = "true"; //this is a fucking workaround
-            return PartialView(new OrdenHelper().GetOrden(id));
+            var model = new OrdenHelper().GetOrden(id);
+
+            return PartialView(model);
+        }
+
+        public ActionResult Create()
+        {
+            var model = new OrdenModel();
+            model.EstadoFecha = DateTime.Now;
+            model.NroOrden = new OrdenHelper().GetNextOrderNro();
+            model.EstadoDesc = ReparacionEstado.NUEVA;
+            InitializeViewBag();
+
+            return PartialView("Details", model);
         }
 
         // POST: Ticket/Save
@@ -65,6 +78,18 @@ namespace FastService.Controllers
             {
                 return View("Error");
             }
+        }
+
+        [HttpPost]
+        public JsonResult Get(string Prefix)
+        {
+            var objList = new OrdenHelper().GetOrdersNro(Prefix);
+
+            var matches = (from o in objList
+                           select new { id = o.Substring(0, o.IndexOf('-')), display = o }
+                                 ).ToList();
+
+            return Json(matches, JsonRequestBehavior.AllowGet);
         }
     }
 }

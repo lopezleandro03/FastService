@@ -975,6 +975,8 @@
     <Content Include="Views\Novedad\NovedadRetiro.cshtml" />
     <Content Include="Views\Novedad\NovedadSimple.cshtml" />
     <Content Include="Views\Seguimiento\FilterBar.cshtml" />
+    <Content Include="Views\Domicilio\ActionBar.cshtml" />
+    <Content Include="Views\Shared\_ModalTicket.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

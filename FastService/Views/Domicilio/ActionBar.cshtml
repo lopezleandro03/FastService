@@ -1,0 +1,16 @@
+﻿@model FastService.Models.DomicilioViewModel
+
+<div class="col-md-10">
+</div>
+
+<div class="col-md-2">
+    <button id="btnImprimir" class="btn green" type="button">Imprimir Ruta</button>
+</div>
+
+<br><br>
+
+<script>
+    $("#btnImprimir").click(function () {
+         window.open("@Url.Action("ImprimirRuta","Domicilio")", '_blank');
+    })
+</script>
