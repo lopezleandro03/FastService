@@ -681,25 +681,6 @@ namespace FastService.Common
                                },
                            }).OrderByDescending(x => x.NroOrden).Take(50).ToList();
 
-            ////var cacheNov = (from o in Ordenes join n in _db.Novedad on o.NroOrden equals n.reparacionId select n).ToList();
-            //Dictionary<int, string> dicTipoNov = (from x in _db.TipoNovedad select new { x.TipoNovedadId, x.nombre }).ToDictionary(k => k.TipoNovedadId, v => v.nombre);
-
-            //foreach (var orden in ordenes)
-            //{
-            //    orden.Novedades = (from n in _db.Novedad
-            //                       where n.reparacionId == orden.NroOrden
-            //                       select new NovedadModel()
-            //                       {
-            //                           Id = n.novedadId,
-            //                           Fecha = n.modificadoEn,
-            //                           Observacion = n.observacion,
-            //                           TipoNovedadId = n.tipoNovedadId,
-            //                           Monto = n.monto
-            //                       })?.ToList();
-
-            //    orden.Novedades.Select(x => x.Descripcion = dicTipoNov[x.TipoNovedadId]);
-            //}
-
             return ordenes;
         }
 

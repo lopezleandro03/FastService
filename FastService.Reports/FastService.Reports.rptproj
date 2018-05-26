@@ -35,7 +35,7 @@
     <ErrorLevel>2</ErrorLevel>
     <OverwriteDatasets>False</OverwriteDatasets>
     <OverwriteDataSources>False</OverwriteDataSources>
-    <TargetServerVersion>SSRS2016</TargetServerVersion>
+    <TargetServerVersion>SSRS2008</TargetServerVersion>
     <Platform>Win32</Platform>
     <TargetReportFolder>FastService.Reports</TargetReportFolder>
     <TargetDatasetFolder>Conjuntos de datos</TargetDatasetFolder>
@@ -50,7 +50,6 @@
     <Reports>@(Report)</Reports>
   </PropertyGroup>
   <ItemGroup>
-    <Report Include="HojaDeRuta.rdl" />
     <Report Include="Recibo.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />

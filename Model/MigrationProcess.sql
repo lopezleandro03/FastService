@@ -84,6 +84,38 @@ or (Nombre = 'JAVIER' and ltrim(rtrim(Apellido)) = '')
 or (Nombre = 'LUIS' and ltrim(rtrim(Apellido)) = '')
 or (Nombre = 'MAXI' and ltrim(rtrim(Apellido)) = 'DANERI')
 
+--update maxi a Admin
+update UsuarioRol
+set RolId = 3
+where userid = 1
+
+update Usuario 
+set Contraseña = 'arroyo'
+where (Nombre = 'ROBERTO' and ltrim(rtrim(Apellido)) = 'ARROYO') 
+
+update Usuario 
+set Contraseña = 'praderanandu'
+where (Nombre = 'LUIS' and ltrim(rtrim(Apellido)) = '')
+
+update Usuario 
+set Contraseña = 'daneri'
+where (Nombre = 'MAXI' and ltrim(rtrim(Apellido)) = 'DANERI')
+
+update Usuario 
+set Contraseña = 'klichuk'
+where (Nombre = 'JUAN' and ltrim(rtrim(Apellido)) = 'KLICHUK')
+
+if (db_name() = 'FastService-Test')
+begin	
+	update Usuario 
+	set Contraseña = 'prueba'
+	where (Nombre = 'ROBERTO' and ltrim(rtrim(Apellido)) = 'ARROYO') 
+	or (Nombre = 'JUAN' and ltrim(rtrim(Apellido)) = 'KLICHUK')
+	or (Nombre = 'JAVIER' and ltrim(rtrim(Apellido)) = '')
+	or (Nombre = 'LUIS' and ltrim(rtrim(Apellido)) = '')
+	or (Nombre = 'MAXI' and ltrim(rtrim(Apellido)) = 'DANERI')	
+end
+
 --clean up duplicated records
 if ((select 1 from tempdb.sys.tables where name like '%tokeep%') > 0)
 	drop table #tokeep
@@ -170,6 +202,7 @@ update Marca
 set activo = 0
 where Nombre not in 
 (
+'HITACHI',
 'MUSTANG',
 'PHILIPS',
 'GRUNDIG',
@@ -268,6 +301,7 @@ where Nombre not in
 'DURABRAND',
 'ILO'
 )
+
 
 update Comercio
 set activo = 0
