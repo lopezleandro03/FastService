@@ -607,12 +607,13 @@ namespace FastService.Common
             }
         }
 
-        public List<OrdenModel> GetOrdenesByEstado(string id, DateTime? desde, DateTime? hasta, int? tecnicoid, int? comercioid)
+        public List<OrdenModel> GetOrdenesByEstado(string id, DateTime? desde, DateTime? hasta, int? tecnicoid, int? comercioid, int? responsableid)
         {
             desde = desde == null ? DateTime.Now.AddDays(-100) : (DateTime)desde;
             hasta = hasta == null ? DateTime.Now : (DateTime)hasta;
             var filterByTecnico = tecnicoid == null ? false : true;
             var filterByComercio = comercioid == null ? false : true;
+            var filterByResponsable = responsableid == null ? false : true;
 
             var ordenes = (from r in _db.Reparacion
                            where r.EstadoReparacion.nombre.ToUpper() == id
@@ -620,6 +621,7 @@ namespace FastService.Common
                            && r.CreadoEn < hasta
                            && (filterByTecnico == false || r.TecnicoAsignadoId == tecnicoid)
                            && (filterByComercio == false || r.ComercioId == comercioid)
+                           && (filterByResponsable == false || r.EmpleadoAsignadoId == responsableid)
                            select new OrdenModel()
                            {
                                NroOrden = r.ReparacionId,
@@ -693,7 +695,7 @@ namespace FastService.Common
 
                 if (model.TipoNovedadId == (int)NovedadTipo.LLAMADO || model.TipoNovedadId == (int)NovedadTipo.PRESUPINFOR)
                 {
-                    if (model.Accion.ToUpper() == "CONFIRMA")
+                    if (model.Accion.ToUpper() == "ACEPTA")
                     {
                         orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.AREPARAR).First().EstadoReparacionId;
                     }
@@ -704,6 +706,7 @@ namespace FastService.Common
                     else
                     {
                         orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PRESUPUESTADO).First().EstadoReparacionId;
+                        //deberia ser INFORMADO
                     }
 
                     orden.ReparacionDetalle.PresupuestoFecha = DateTime.Now;

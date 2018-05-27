@@ -50,7 +50,8 @@
                 + "&desde=" + $("#desde").val()
                 + "&hasta=" + $("#hasta").val()
                 + "&tecnicoid=" + $("#tecnicoid").val()
-                + "&comercioid=" + $("#comercioid").val(),
+                + "&comercioid=" + $("#comercioid").val()
+                + "&responsableid=" + $("#responsableid").val(),
                 function (data) {
                     var column = data.substring(0, 8);
                     var html = data.substring(8, data.length);

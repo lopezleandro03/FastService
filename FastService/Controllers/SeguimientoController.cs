@@ -17,7 +17,7 @@ namespace FastService.Controllers
             return PartialView();
         }
 
-        public ActionResult KanbanColumn(int id, DateTime? desde, DateTime? hasta, int? tecnicoid, int? comercioid)
+        public ActionResult KanbanColumn(int id, DateTime? desde, DateTime? hasta, int? tecnicoid, int? comercioid, int? responsableid)
         {
 
             var model = new ListaOrdenesModel();
@@ -25,27 +25,27 @@ namespace FastService.Controllers
             switch (id)
             {
                 case 1:
-                    model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.INGRESADO, desde, hasta, tecnicoid, comercioid);
+                    model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.INGRESADO, desde, hasta, tecnicoid, comercioid, responsableid);
                     ViewBag.Title = ReparacionEstado.INGRESADO.ToString();
                     break;
                 case 2:
-                    model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.PRESUPUESTADO, desde, hasta, tecnicoid, comercioid);
+                    model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.PRESUPUESTADO, desde, hasta, tecnicoid, comercioid, responsableid);
                     ViewBag.Title = ReparacionEstado.PRESUPUESTADO.ToString();
                     break;
                 case 3:
-                    model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.ESPREPUESTO, desde, hasta, tecnicoid, comercioid);
+                    model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.ESPREPUESTO, desde, hasta, tecnicoid, comercioid, responsableid);
                     ViewBag.Title = ReparacionEstado.ESPREPUESTO.ToString();
                     break;
                 case 4:
-                    model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.AREPARAR, desde, hasta, tecnicoid, comercioid);
+                    model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.AREPARAR, desde, hasta, tecnicoid, comercioid, responsableid);
                     ViewBag.Title = ReparacionEstado.AREPARAR.ToString();
                     break;
                 case 5:
-                    model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.REPARADO, desde, hasta, tecnicoid, comercioid);
+                    model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.REPARADO, desde, hasta, tecnicoid, comercioid, responsableid);
                     ViewBag.Title = ReparacionEstado.REPARADO.ToString();
                     break;
                 case 6:
-                    model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.PARAENTREGAR, desde, hasta, tecnicoid, comercioid);
+                    model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.PARAENTREGAR, desde, hasta, tecnicoid, comercioid, responsableid);
                     ViewBag.Title = ReparacionEstado.PARAENTREGAR.ToString();
                     break;
                 default:

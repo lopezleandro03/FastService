@@ -4,6 +4,10 @@
 @Html.ValidationSummary(true)
 
 <div class="col-md-2">
+    @Html.DropDownList("responsables", (List<SelectListItem>)ViewBag.ListaResponsables, "Responsable", new { @class = "form-control FilterParameter", @id = "responsableid" })
+</div>
+
+<div class="col-md-2">
     @Html.DropDownList("tecnicos", (List<SelectListItem>)ViewBag.ListaTecnicos, "Tecnico", new { @class = "form-control FilterParameter", @id = "tecnicoid" })
 </div>
 
@@ -50,6 +54,7 @@
         $("#hasta").val("");
         $("#tecnicoid").val("");
         $("#comercioid").val("");
+        $("#responsableid").val("");
         LoadKanban();
     })
 </script>
