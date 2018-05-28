@@ -405,6 +405,7 @@ namespace FastService.Common
                         orden.TecnicoAsignadoId = model.TecnicoId;
                         orden.EmpleadoAsignadoId = model.ResponsableId;
                         orden.ReparacionDetalle.Presupuesto = model.Monto == 0 ? orden.ReparacionDetalle.Presupuesto : model.Monto;
+
                         ActualizarEstado(model, orden, CurrentUserId);
                     }
                     else
@@ -758,6 +759,12 @@ namespace FastService.Common
                     orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PARAENTREGAR).First().EstadoReparacionId;
                     orden.FechaEntrega = model.FechaEntrega;
                     orden.ReparacionDetalle.Precio = model.Monto;
+                }
+
+                if (model.TipoNovedadId == (int)NovedadTipo.PRESUPUESTADO)
+                {
+                    orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PRESUPUESTADO).First().EstadoReparacionId;
+                    orden.ReparacionDetalle.Presupuesto = model.Monto;
                 }
 
                 orden.ModificadoPor = currentUserId;

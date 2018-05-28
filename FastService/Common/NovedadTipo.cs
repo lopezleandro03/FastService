@@ -8,7 +8,7 @@ namespace FastService.Common
     public enum NovedadTipo
     {
         INGRESO = 1,
-        PRESUPINFOR = 2,
+        PRESUPINFOR = 31,
         ACEPTA = 3,
         RECHAZA = 23,
         NOTA = 17,

@@ -66,24 +66,28 @@
             <div class="col-md-3">
                 <div class="ui-widget ui-front">
                     @Html.LabelFor(model => model.Cliente.Dni)
-                    @Html.TextBoxFor(model => model.Cliente.Dni, new { @class = "form-control ac-cliente", @id = "Cliente_Dni" })
+                    @Html.TextBoxFor(model => model.Cliente.Dni, new { @class = "form-control ac-cliente Cliente_Dni", @id = "Cliente_Dni" })
                 </div>
                 @Html.ValidationMessageFor(model => model.Cliente.Dni)
             </div>
-            <div class="col-md-3 ui-front">
+            <div class="col-md-2 ui-front">
                 @Html.LabelFor(model => model.Cliente.Nombre)
-                @Html.TextBoxFor(model => model.Cliente.Nombre, new { @class = "form-control ac-cliente", @id = "Cliente_Nombre" })
+                @Html.TextBoxFor(model => model.Cliente.Nombre, new { @class = "form-control ac-cliente Cliente_Nombre", @id = "Cliente_Nombre" })
                 @Html.ValidationMessageFor(model => model.Cliente.Nombre)
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Apellido)
-                @Html.TextBoxFor(model => model.Cliente.Apellido, new { @class = "form-control ac-cliente", @id = "Cliente_Apellido" })
+                @Html.TextBoxFor(model => model.Cliente.Apellido, new { @class = "form-control ac-cliente Cliente_Apellido", @id = "Cliente_Apellido" })
                 @Html.ValidationMessageFor(model => model.Cliente.Apellido)
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Cliente.Mail)
-                @Html.TextBoxFor(model => model.Cliente.Mail, new { @class = "form-control ac-cliente", @id = "Cliente_Mail" })
+                @Html.TextBoxFor(model => model.Cliente.Mail, new { @class = "form-control Cliente_Mail", @id = "Cliente_Mail" })
                 @Html.ValidationMessageFor(model => model.Cliente.Mail)
+            </div>
+            <div class="col-md-2">
+                @Html.Label("No tiene e-mail")
+                @Html.CheckBox("No tiene", new { @class = "form-control chkNoTieneMail", @id = "chkNoTieneMail" })
             </div>
         </div>
     </div>
@@ -92,17 +96,17 @@
         <div class="col-md-12">
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Cliente.Telefono)
-                @Html.TextBoxFor(model => model.Cliente.Telefono, new { @class = "form-control", @id = "Cliente_Telefono" })
+                @Html.TextBoxFor(model => model.Cliente.Telefono, new { @class = "form-control Cliente_Telefono", @id = "Cliente_Telefono" })
                 @Html.ValidationMessageFor(model => model.Cliente.Telefono)
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Cliente.Celular)
-                @Html.TextBoxFor(model => model.Cliente.Celular, new { @class = "form-control", @id = "Cliente_Celular" })
+                @Html.TextBoxFor(model => model.Cliente.Celular, new { @class = "form-control Cliente_Celular", @id = "Cliente_Celular" })
                 @Html.ValidationMessageFor(model => model.Cliente.Celular)
             </div>
             <div class="col-md-6 ui-front">
                 @Html.LabelFor(model => model.Cliente.Direccion)
-                @Html.TextBoxFor(model => model.Cliente.Direccion, new { @class = "form-control", @id = "Cliente_Direccion", @style = "max-width:700px !important", @placeholder = "Ingrese una direccion" })
+                @Html.TextBoxFor(model => model.Cliente.Direccion, new { @class = "form-control Cliente_Direccion", @id = "Cliente_Direccion", @style = "max-width:700px !important", @placeholder = "Ingrese una direccion" })
                 @Html.ValidationMessageFor(model => model.Cliente.Direccion)
             </div>
         </div>
@@ -112,36 +116,36 @@
         <div class="col-md-12">
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Dir.Calle)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Calle, new { @class = "form-control", @id = "route" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Calle, new { @class = "form-control route", @id = "route" })
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Dir.Altura)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Altura, new { @class = "form-control", @id = "street_number" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Altura, new { @class = "form-control street_number", @id = "street_number" })
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Dir.Calle2)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Calle2, new { @class = "form-control", @id = "calle2" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Calle2, new { @class = "form-control calle2", @id = "calle2" })
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Dir.Calle3)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Calle3, new { @class = "form-control", @id = "calle3" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Calle3, new { @class = "form-control calle3", @id = "calle3" })
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Dir.Ciudad)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Ciudad, new { @class = "form-control", @id = "locality" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Ciudad, new { @class = "form-control locality", @id = "locality" })
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Dir.CodigoPostal)
-                @Html.TextBoxFor(model => model.Cliente.Dir.CodigoPostal, new { @class = "form-control", @id = "postal_code" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.CodigoPostal, new { @class = "form-control postal_code", @id = "postal_code" })
             </div>
 
             <div hidden>
                 @Html.LabelFor(model => model.Cliente.Dir.Provincia)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Provincia, new { @class = "form-control", @id = "administrative_area_level_1" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Provincia, new { @class = "form-control administrative_area_level_1", @id = "administrative_area_level_1" })
             </div>
             <div hidden>
                 @Html.LabelFor(model => model.Cliente.Dir.Pais)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Pais, new { @class = "form-control", @id = "country" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Pais, new { @class = "form-control country", @id = "country" })
             </div>
 
             <div hidden>
@@ -256,6 +260,14 @@
         }
     }
 
+    $(".chkNoTieneMail").change(function () {
+        if ($(".chkNoTieneMail").prop("checked")==true) {
+            $(".Cliente_Mail").val("noaplica@noaplica.com");
+        } else {
+            $(".Cliente_Mail").val("");
+        }
+    });
+
     $(".ac-cliente").autocomplete({
         source: function (request, response) {
             $.ajax({
@@ -279,20 +291,20 @@
                 dataType: "json",
                 data: { ClienteId: ui.item.value },
                 success: function (data) {
-                    $("#Cliente_Dni").val(data.Dni);
-                    $("#Cliente_Nombre").val(data.Nombre);
-                    $("#Cliente_Apellido").val(data.Apellido);
-                    $("#Cliente_Mail").val(data.Mail);
-                    $("#Cliente_Telefono").val(data.Telefono);
-                    $("#Cliente_Celular").val(data.Celular);
-                    $("#Cliente_Direccion").val(data.Direccion);
-                    $("#route").val(data.Calle);
-                    $("#street_number").val(data.Altura);
-                    $("#locality").val(data.Provincia);
-                    $("#postal_code").val(data.CodigoPostal); calle3
-                    $("#country").val(data.Pais);
-                    $("#calle2").val(data.Calle2);
-                    $("#calle3").val(data.Calle3);
+                    $(".Cliente_Dni").val(data.Dni);
+                    $(".Cliente_Nombre").val(data.Nombre);
+                    $(".Cliente_Apellido").val(data.Apellido);
+                    $(".Cliente_Mail").val(data.Mail);
+                    $(".Cliente_Telefono").val(data.Telefono);
+                    $(".Cliente_Celular").val(data.Celular);
+                    $(".Cliente_Direccion").val(data.Direccion);
+                    $(".route").val(data.Calle);
+                    $(".street_number").val(data.Altura);
+                    $(".locality").val(data.Provincia);
+                    $(".postal_code").val(data.CodigoPostal); calle3
+                    $(".country").val(data.Pais);
+                    $(".calle2").val(data.Calle2);
+                    $(".calle3").val(data.Calle3);
                 }
             })
         },
