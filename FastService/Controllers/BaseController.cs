@@ -127,8 +127,9 @@ namespace FastService.Controllers
 
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
-                var result = new { Success = "false", Message = filterContext.Exception.Message };
-                filterContext.Result = Json(result, JsonRequestBehavior.AllowGet);
+                throw filterContext.Exception; //Throw exception for ajax failure on client side
+                //var result = new { Success = "false", Message = filterContext.Exception.Message };
+                //filterContext.Result = Json(result, JsonRequestBehavior.AllowGet);
             }
             else
             {

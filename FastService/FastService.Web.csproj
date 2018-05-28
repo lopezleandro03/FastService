@@ -816,13 +816,13 @@
     <Content Include="Content\jquery-ui.structure.min.css" />
     <Content Include="Content\jquery-ui.theme.min.css" />
     <Content Include="Content\jqvmap.css" />
-    <Content Include="Content\site.min.css" />
+    <Content Include="Content\site.rename.min.css" />
     <Content Include="Content\spinner.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\site.css" />
     <Content Include="Scripts\AjaxHelper.js" />
     <Content Include="Scripts\bootstrap-fileinput.js" />
     <Content Include="Scripts\bootstrap.js" />

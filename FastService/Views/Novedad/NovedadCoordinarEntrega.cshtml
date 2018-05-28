@@ -25,7 +25,7 @@
         @Html.TextBoxFor(model => model.Monto, new { @class = "form-control" })
 
         @Html.LabelFor(model => model.FechaEntrega)
-        @Html.TextBoxFor(model => model.FechaEntrega, new { @class = "form-control form-control-inline input-large date-picker" })
+        @Html.TextBoxFor(model => model.FechaEntrega, new { @class = "fechaentrega form-control form-control-inline input-large date-picker" })
 
         @Html.LabelFor(model => model.Observacion)
         @Html.TextAreaFor(model => model.Observacion, new { @class = "form-control" })
@@ -43,3 +43,10 @@
 <link href="~/Content/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    $(".fechaentrega").datepicker({
+        dateFormat: 'yy-mm-dd',
+        selectOtherMonths: true
+    });
+</script>

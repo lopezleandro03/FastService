@@ -243,16 +243,16 @@
         ajaxGetNoCustomError(
             "@Url.Action("Index", "Reparacion")",
             function (data) {
-                $(".page-content").html(data);
                 $("#modalSuccess").modal();
-                $(".modal-backdrop").hide();
+                $(".page-content").html(data);
+                //$(".modal-backdrop").hide();
                 $("#FlagNuevaOrden").prop("checked", false);
             }
         );
         } else {
             $("#modalSuccess").modal();
-            $(".modal-backdrop").hide();
             $(".OrdenDetailBody").html(data);
+            //$(".modal-backdrop").hide();
         }
     }
 
