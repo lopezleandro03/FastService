@@ -53,7 +53,7 @@
                         ajaxGetNoCustomError(
                             $(this).data("url"),
                             function (data) {
-                                $("#ModalOrdenDetailBody").html(data);
+                                $(".OrdenDetailBody").html(data);
                                 $("#ModalOrdenDetail").modal();
                             }
                         );
@@ -66,20 +66,6 @@
             }
         });
 
-    }
-
-    function OnBeginNovedad() {
-        $(".simplemodal-close").trigger("click");
-    }
-
-    function DoneNovedad(data) {
-        $("#modalNuevaNovedad").hide();
-        $("#modalSuccess").modal();
-        $("#ModalOrdenDetailBody").html(data);
-    }
-
-    function OnErrorNovedad() {
-        $("#modalError").modal();
     }
 
     LoadKanban();

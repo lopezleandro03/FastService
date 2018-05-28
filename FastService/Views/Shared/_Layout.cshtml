@@ -429,7 +429,7 @@
             ajaxGetNoCustomError(
                 "@Url.Action("Details","Ticket")/?id=" + $("#inputSearchCriteria").val(),
                 function (data) {
-                    $("#ModalOrdenDetailBody").html(data)
+                    $(".OrdenDetailBody").html(data)
                     $("#ModalOrdenDetail").modal();
                 }
             );

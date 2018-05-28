@@ -366,7 +366,7 @@ namespace FastService.Common
                         NroOrden = x.ReparacionId,
                         Nombre = x.Cliente.Nombre,
                         Apellido = x.Cliente.Apellido
-                    }).OrderByDescending(x=>x.NroOrden).Take(30).ToList();
+                    }).OrderByDescending(x => x.NroOrden).Take(30).ToList();
 
         }
 
@@ -407,7 +407,7 @@ namespace FastService.Common
                         orden.ReparacionDetalle.Presupuesto = model.Monto == 0 ? orden.ReparacionDetalle.Presupuesto : model.Monto;
                         ActualizarEstado(model, orden, CurrentUserId);
                     }
-                    else 
+                    else
                     {
                         //edit novedad
                         var novedad = _db.Novedad.Find(model.Id);
@@ -811,8 +811,11 @@ namespace FastService.Common
             var Ordenes = new List<OrdenModel>();
 
             Ordenes = (from r in _db.Reparacion
-                       where r.ReparacionDetalle.EsDomicilio == true
-                          && r.EstadoReparacion.nombre == ReparacionEstado.INGRESADO.ToString()
+                       where (r.ReparacionDetalle.EsDomicilio == true || r.FechaEntrega != null)
+                          && (r.EstadoReparacion.nombre == ReparacionEstado.INGRESADO
+                          || r.EstadoReparacion.nombre == ReparacionEstado.REINGRESADO
+                          || r.EstadoReparacion.nombre == ReparacionEstado.PARAENTREGAR
+                          || r.EstadoReparacion.nombre == ReparacionEstado.REPARADO)
                        select new OrdenModel()
                        {
                            NroOrden = r.ReparacionId,
@@ -873,7 +876,7 @@ namespace FastService.Common
                                Celular = r.Cliente.Telefono2
                            }
 
-                       }).ToList();
+                       }).OrderByDescending(y => y.EstadoFecha).Take(100).ToList();
 
             return Ordenes;
         }

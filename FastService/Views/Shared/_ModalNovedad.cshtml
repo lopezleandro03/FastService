@@ -12,3 +12,22 @@
         margin-top: 50px;
     }
 </style>
+
+<script>
+    function OnBeginNovedad() {
+        $(".simplemodal-close").trigger("click");
+    }
+
+    function DoneNovedad(data) {
+        $("#modalSuccess").modal();
+        $("#modalNuevaNovedad").hide();
+        $("#modalNuevaNovedad").html("");
+        $(".OrdenDetailBody").html(data);
+    }
+
+    function OnErrorNovedad() {
+        $("#modalError").modal();
+    }
+</script>
+
+         @*   $("#OrdenDetailBody").html(data);*@

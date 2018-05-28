@@ -17,8 +17,8 @@
         @Html.LabelFor(model => model.TecnicoNombre)
         @Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
 
-        @Html.LabelFor(model => model.ResponsableNombre)
-        @Html.TextBoxFor(model => model.ResponsableNombre, new { @class = "form-control", disabled = "disabled" })
+        @Html.LabelFor(model => model.ResponsableId)
+        @Html.DropDownListFor(model => model.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, new { @class = "form-control" })
 
         @Html.LabelFor(model => model.Observacion)
         @Html.TextAreaFor(model => model.Observacion, new { @class = "form-control" })

@@ -96,7 +96,7 @@
         ajaxPostNoCustomError(
         "@Url.Action("Delete","Novedad")/?ticketid=" + $("#ticketid").val() + "&id=" + $(this).data("id"),
         function (data) {
-            $("#OrdenDetailBody").html(data);
+            $(".OrdenDetailBody").html(data);
         });
     })
 

@@ -6,7 +6,7 @@
         @RenderPage("ListaOrdenes.cshtml", Model)
     </div>
 
-    <div id="OrdenDetailBody" class="col-md-8">
+    <div class="col-md-8 OrdenDetailBody">
     </div>
 
     <div id="PanelAccion" class="col-md-2">
@@ -53,22 +53,6 @@
 </style>
 
 <script>
-    function OnBeginNovedad() {
-        $(".simplemodal-close").trigger("click");
-    }
-
-    function Done(data) {
-        $("#modalSuccess").modal();
-        $(".modal-backdrop").hide();
-        $(".page-content").html(data);
-    }
-
-    function DoneNovedad(data) {
-        $("#modalNuevaNovedad").hide();
-        $("#modalSuccess").modal();
-        $("#OrdenDetailBody").html(data);
-    }
-
     $("#ddlFilterByTecnico").change(function (e) {
             ajaxGetNoCustomError(
                 "@Url.Action("FilterByTecnico","Reparacion")/?id=" + $("#ddlFilterByTecnico").val(),

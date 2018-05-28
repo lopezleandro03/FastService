@@ -22,11 +22,19 @@
                 {
                     <span class="badge badge-info">E</span>
                 }
-                <span class="badge badge-info">@Html.DisplayFor(x => r.Cliente.Dir.Ciudad)</span>
 
             </div>
             <div class="OrdenListSummary">
                 @Html.DisplayFor(x => r.Cliente.PrettyName)
+
+                @if (r.EstadoDesc == "INGRESADO" || r.EstadoDesc == "REINGRESADO")
+                {
+                    <span class="badge badge-info">INGRESO</span>
+                }
+                else
+                {
+                    <span class="badge badge-success">ENTREGA</span>
+                }
             </div>
 
             @Html.DisplayFor(x=>r.Cliente.PrettyAddress)

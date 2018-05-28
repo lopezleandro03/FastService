@@ -1,13 +1,13 @@
 ﻿<div>
     <!-- Nav tabs -->
-    <ul id="actionTabs" class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Admin</a></li>
-        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Tecnico</a></li>
+    <ul class="nav nav-tabs actionTabs" role="tablist">
+        <li role="presentation" class="active"><a href="#admin" aria-controls="home" role="tab" data-toggle="tab">Admin</a></li>
+        <li role="presentation"><a href="#tecnico" aria-controls="profile" role="tab" data-toggle="tab">Tecnico</a></li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="home">
+        <div role="tabpanel" class="tab-pane active" id="admin">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <input class="guardarBtn btn btn-success btn-md" type="button" value="GUARDAR" />
@@ -87,7 +87,7 @@
             <br>
         </div>
 
-        <div role="tabpanel" class="tab-pane" id="profile">
+        <div role="tabpanel" class="tab-pane" id="tecnico">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <input class="btn btn-success btn-md guardarBtn" type="button" value="GUARDAR" />
@@ -155,7 +155,7 @@
 @Html.CheckBox("flagNuevaOrden", new { @id = "FlagNuevaOrden", @style = "display:none" })
 
 <script>
-    $('#actionTabs a').click(function (e) {
+    $('.actionTabs a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
     })
@@ -164,7 +164,7 @@
         ajaxGetNoCustomError(
             "@Url.Action("Create","Ticket")",
             function (data) {
-                $("#OrdenDetailBody").html(data);
+                $(".OrdenDetailBody").html(data);
             }
         );
     })
