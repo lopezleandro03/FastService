@@ -355,13 +355,19 @@ namespace FastService.Common
             return Ordenes;
         }
 
-        public List<string> GetOrdersNro(string prefix)
+        public List<OrdenSearchModel> GetOrdersNro(string prefix)
         {
             return (from x in _db.Reparacion
                     where (x.ReparacionId.ToString().Contains(prefix)
                     || x.Cliente.Nombre.Contains(prefix)
                     || x.Cliente.Apellido.Contains(prefix))
-                    select x.ReparacionId + "-" + x.Cliente.Nombre + " " + x.Cliente.Apellido).Take(50).ToList();
+                    select new OrdenSearchModel()
+                    {
+                        NroOrden = x.ReparacionId,
+                        Nombre = x.Cliente.Nombre,
+                        Apellido = x.Cliente.Apellido
+                    }).OrderByDescending(x=>x.NroOrden).Take(30).ToList();
+
         }
 
         public int GetNextOrderNro()
@@ -382,6 +388,7 @@ namespace FastService.Common
                 {
                     if (model.Id == 0)
                     {
+                        //add novedad
                         _db.Novedad.Add(new Novedad()
                         {
                             reparacionId = model.NroOrden,
@@ -393,18 +400,27 @@ namespace FastService.Common
                             modificadoEn = DateTime.Now
                         });
 
+                        //edit orden
                         var orden = _db.Reparacion.Find(model.NroOrden);
                         orden.TecnicoAsignadoId = model.TecnicoId;
+                        orden.EmpleadoAsignadoId = model.ResponsableId;
                         orden.ReparacionDetalle.Presupuesto = model.Monto == 0 ? orden.ReparacionDetalle.Presupuesto : model.Monto;
                         ActualizarEstado(model, orden, CurrentUserId);
                     }
-                    else //edit novedad
+                    else 
                     {
+                        //edit novedad
                         var novedad = _db.Novedad.Find(model.Id);
-
                         novedad.monto = model.Monto;
                         novedad.observacion = model.Observacion;
 
+                        //edit orden
+                        var orden = _db.Reparacion.Find(model.NroOrden);
+                        orden.TecnicoAsignadoId = model.TecnicoId;
+                        orden.EmpleadoAsignadoId = model.ResponsableId;
+                        orden.ReparacionDetalle.Presupuesto = model.Monto == 0 ? orden.ReparacionDetalle.Presupuesto : model.Monto;
+
+                        //audit
                         novedad.modificadoPor = CurrentUserId;
                         novedad.modificadoEn = DateTime.Now;
                     }
@@ -753,17 +769,36 @@ namespace FastService.Common
         {
             if (model.Monto > 0)
             {
+                int? fac = null;
+
+                if (model.Facturado)
+                {
+                    var factura = new Factura()
+                    {
+                        NroFactura = model.Factura,
+                        TipoFacturaId = model.TipoFactura,
+                        ModificadoEn = DateTime.Now,
+                        ModificadoPor = currentUserId
+                    };
+
+                    _db.Factura.Add(factura);
+                    _db.SaveChanges();
+
+                    fac = factura.FacturaId;
+                }
+
                 var venta = new Venta()
                 {
-                    ClienteId = orden.ClienteId,
                     Descripcion = $"Pago por servicio de FastService orden {orden.ReparacionId}",
-                    Fecha = DateTime.Now,
+                    ClienteId = orden.ClienteId,
                     Monto = (decimal)orden.ReparacionDetalle.Precio,
-                    RefNumber = model.NroReferencia,
+                    RefNumber = orden.ReparacionId.ToString(), //guardo como referencia la orden de trabajo
                     PuntoDeVentaId = 1,
-                    FacturaId = null,
+                    FacturaId = fac,
                     MetodoPagoId = model.MetodoDePagoId,
                     TipoTransaccionId = model.Facturado ? 1 : 2,
+
+                    Fecha = DateTime.Now,
                     Vendedor = orden.EmpleadoAsignadoId
                 };
 

@@ -1,81 +1,87 @@
 ﻿@model IEnumerable<FastService.Models.VentaModel>
 
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-bordered table-condensed table-responsive">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.VentaId)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.OrigenNombre)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Cliente.Dni)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Cliente.Nombre)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Cliente.Apellido)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Monto)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Descripcion)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Fecha)
-                        </th>
-                        <th>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-condensed table-responsive">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VentaId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrigenNombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cliente.Dni)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cliente.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cliente.Apellido)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Monto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MetodoDePago)
+                    </th>
+                    @*<th>
                             @Html.DisplayNameFor(model => model.Facturado)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FacturaId)
-                        </th>
-                    </tr>
-                </thead>
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.NroFactura)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fecha)
+                    </th>
+                </tr>
+            </thead>
 
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.VentaId)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.OrigenNombre)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Cliente.Dni)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Cliente.Nombre)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Cliente.Apellido)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Monto)
-                            </td>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VentaId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrigenNombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cliente.Dni)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cliente.Apellido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Monto)
+                        </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Descripcion)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Fecha)
-                            </td>
-                            <td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.MetodoDePago)
+                        </td>
+                        @*<td>
                                 @Html.DisplayFor(modelItem => item.Facturado)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FacturaId)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NroFactura)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
+</div>

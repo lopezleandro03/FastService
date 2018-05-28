@@ -22,31 +22,31 @@ namespace FastService.Controllers
         // GET: Venta
         public ActionResult Index()
         {
-            return PartialView(from x in _dbContext.Venta
-                               select new VentaModel()
-                               {
-                                   Cliente = new ClienteModel()
-                                   {
-                                       Apellido = x.Cliente.Apellido,
-                                       Nombre = x.Cliente.Nombre,
-                                       Celular = x.Cliente.Telefono1,
-                                       Mail = x.Cliente.Mail,
-                                       Direccion = x.Cliente.Direccion,
-                                       Dni = x.Cliente.ClienteId,
-                                       Telefono = x.Cliente.Telefono2
-                                   },
-                                   VentaId = x.VentaId,
-                                   Monto = x.Monto,
-                                   Origen = x.PuntoDeVenta.PuntoDeVentaId,
-                                   OrigenNombre = x.PuntoDeVenta.Nombre,
-                                   Vendedor = x.Vendedor
-                               });
-        }
-
-        // GET: Venta/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
+            return PartialView((from x in _dbContext.Venta
+                                select new VentaModel()
+                                {
+                                    Cliente = new ClienteModel()
+                                    {
+                                        Apellido = x.Cliente.Apellido,
+                                        Nombre = x.Cliente.Nombre,
+                                        Celular = x.Cliente.Telefono1,
+                                        Mail = x.Cliente.Mail,
+                                        Direccion = x.Cliente.Direccion,
+                                        Dni = x.Cliente.ClienteId,
+                                        Telefono = x.Cliente.Telefono2
+                                    },
+                                    VentaId = x.VentaId,
+                                    Monto = x.Monto,
+                                    Origen = x.PuntoDeVenta.PuntoDeVentaId,
+                                    OrigenNombre = x.PuntoDeVenta.Nombre,
+                                    Vendedor = x.Vendedor,
+                                    Facturado = x.Facturado,
+                                    Descripcion = x.Descripcion,
+                                    MetodoDePago = (from y in _dbContext.MetodoPago where y.MetodoPagoId == x.MetodoPagoId select y.Nombre).FirstOrDefault(),
+                                    NroFactura = x.Factura.NroFactura,
+                                    TipoDeFactura = x.Factura.TipoFactura.Nombre,
+                                    Fecha = x.Fecha
+                                }).OrderByDescending(x => x.Fecha));
         }
 
         // GET: Venta/Create
@@ -64,6 +64,13 @@ namespace FastService.Controllers
                                         {
                                             Text = y.Nombre,
                                             Value = y.MetodoPagoId.ToString()
+                                        }).ToList();
+
+            ViewBag.ListaTipoFactura = (from y in new FastServiceEntities().TipoFactura
+                                        select new SelectListItem()
+                                        {
+                                            Text = y.Nombre,
+                                            Value = y.TipoFacturaId.ToString()
                                         }).ToList();
 
             ViewBag.NroCuotasList = (new List<SelectListItem>() {
@@ -148,80 +155,46 @@ namespace FastService.Controllers
                 _dbContext.SaveChanges();
             }
 
+            int? fac = null;
+
+            if (venta.Facturado)
+            {
+                var factura = new Factura()
+                {
+                    NroFactura = venta.NroFactura,
+                    TipoFacturaId = venta.TipoDeFacturaId,
+                    ModificadoEn = DateTime.Now,
+                    ModificadoPor = CurrentUserId
+                };
+
+                _dbContext.Factura.Add(factura);
+                _dbContext.SaveChanges();
+
+                fac = factura.FacturaId;
+            }
+
             Venta model = new Venta()
             {
-                FacturaId = null,
-                RefNumber = venta.FacturaId,
+                FacturaId = fac,
+                RefNumber = venta.NroFactura, //cual seria la referencia?
                 Descripcion = venta.Descripcion,
                 PuntoDeVentaId = venta.Origen,
                 Fecha = venta.Fecha,
                 Vendedor = CurrentUserId,
                 Facturado = venta.Facturado,
                 TipoTransaccionId = venta.Facturado ? 1 : 2,
-                MetodoPagoId = 1,
+                MetodoPagoId = venta.MetodoDePagoId,
                 Monto = venta.Monto,
                 ClienteId = cliente.ClienteId
             };
 
-            //var c = System.Threading.Thread.CurrentThread.CurrentCulture;
-            //var s = c.NumberFormat.CurrencyDecimalSeparator;
-
-            //var montoStr = collection.Get("Monto");
-            //montoStr = montoStr.Replace(",", s);
-            //montoStr = montoStr.Replace(".", s);
-            //var monto = Convert.ToDecimal(montoStr);
-
-            //model.Monto = monto;
-
             _dbContext.Venta.Add(model);
             _dbContext.SaveChanges();
 
-            var result = new { Success = "true", Message = "Completado!" };
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+            //var result = new { Success = "true", Message = "Completado!" };
+            //return Json(result, JsonRequestBehavior.AllowGet);
 
-        // GET: Venta/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Venta/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Venta/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Venta/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Create");
         }
     }
 }

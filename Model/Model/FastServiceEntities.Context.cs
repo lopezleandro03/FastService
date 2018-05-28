@@ -32,7 +32,7 @@ namespace Model.Model
         public virtual DbSet<EstadoReparacion> EstadoReparacion { get; set; }
         public virtual DbSet<Factura> Factura { get; set; }
         public virtual DbSet<ItemMenu> ItemMenu { get; set; }
-        public virtual DbSet<Logs> Logs { get; set; }
+        public virtual DbSet<Log> Log { get; set; }
         public virtual DbSet<Marca> Marca { get; set; }
         public virtual DbSet<MetodoPago> MetodoPago { get; set; }
         public virtual DbSet<Modelo> Modelo { get; set; }
@@ -44,14 +44,11 @@ namespace Model.Model
         public virtual DbSet<ReparacionDetalle> ReparacionDetalle { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<TipoDispositivo> TipoDispositivo { get; set; }
+        public virtual DbSet<TipoFactura> TipoFactura { get; set; }
         public virtual DbSet<TipoNovedad> TipoNovedad { get; set; }
         public virtual DbSet<TipoTransaccion> TipoTransaccion { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Venta> Venta { get; set; }
-        public virtual DbSet<oldcliente> oldcliente { get; set; }
-        public virtual DbSet<oldEstadoRep> oldEstadoRep { get; set; }
-        public virtual DbSet<oldresponsable> oldresponsable { get; set; }
-        public virtual DbSet<oldtecnico> oldtecnico { get; set; }
         public virtual DbSet<RoleMenu> RoleMenu { get; set; }
         public virtual DbSet<UsuarioRol> UsuarioRol { get; set; }
         public virtual DbSet<ComprasAPagar> ComprasAPagar { get; set; }

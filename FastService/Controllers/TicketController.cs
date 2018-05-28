@@ -86,8 +86,8 @@ namespace FastService.Controllers
             var objList = new OrdenHelper().GetOrdersNro(Prefix);
 
             var matches = (from o in objList
-                           select new { id = o.Substring(0, o.IndexOf('-')), display = o }
-                                 ).ToList();
+                           select new { id = o.NroOrden, display = o.NroOrden + "-" + o.Nombre + " " + o.Apellido }
+                                 ).OrderByDescending(x => x.id).ToList();
 
             return Json(matches, JsonRequestBehavior.AllowGet);
         }

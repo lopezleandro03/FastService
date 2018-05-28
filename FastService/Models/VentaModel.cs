@@ -22,16 +22,20 @@ namespace FastService.Models
         public List<PagoModel> Pago { get; set; }
         public DateTime Fecha { get; set; }
         public int Vendedor { get; set; }
-        [Display(Name = "Factura Nro.")]
-        public string FacturaId { get; set; }
+        [Display(Name = "Nro. Factura")]
+        public string NroFactura { get; set; }
         [Display(Name = "Venta Facturada?")]
         public bool Facturado { get; set; }
 
+        [Display(Name = "Tipo de Factura")]
+        public string TipoDeFactura { get; set; }
+        [Display(Name = "Tipo de Factura")]
+        public int TipoDeFacturaId { get; set; }
         [Display(Name = "Metodo de pago")]
         public string MetodoDePago { get; set; }
         [Display(Name = "Cantidad de cuotas")]
         public int NroCuotas { get; set; }
         public int Cuotas { get; set; }
-
+        public int? MetodoDePagoId { get; set; }
     }
 }

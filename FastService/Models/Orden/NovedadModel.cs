@@ -16,16 +16,17 @@ namespace FastService.Models
 
         public decimal? Monto { get; set; }
         public double Material { get; set; }
+
         public bool Facturado
         {
             get
             {
-                return !String.IsNullOrEmpty(NroReferencia) && !string.IsNullOrWhiteSpace(NroReferencia);
+                return !String.IsNullOrEmpty(Factura) && !string.IsNullOrWhiteSpace(Factura);
             }
         }
 
         [Display(Name = "Numero de Factura")]
-        public string NroReferencia { get; set; }
+        public string Factura { get; set; }
 
 
         [Display(Name = "Tecnico")]
@@ -50,7 +51,8 @@ namespace FastService.Models
         [Display(Name = "Fecha Entrega")]
         public DateTime FechaEntrega { get; set; }
 
-
+        [Display(Name = "Tipo Factura")]
+        public int TipoFactura { get;  set; }
     }
 
 }

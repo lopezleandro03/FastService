@@ -69,6 +69,13 @@ namespace FastService.Controllers
                                                  Value = y.MetodoPagoId.ToString()
                                              }).ToList();
 
+                ViewBag.ListaTipoFactura = (from y in new FastServiceEntities().TipoFactura
+                                            select new SelectListItem()
+                                            {
+                                                Text = y.Nombre,
+                                                Value = y.TipoFacturaId.ToString()
+                                            }).ToList();
+
                 return PartialView("NovedadRetiro", model);
             }
             else
@@ -97,17 +104,18 @@ namespace FastService.Controllers
 
             InitializeViewBag();
 
-            if (tipo == (int)NovedadTipo.PRESUPINFOR
-            || tipo == (int)NovedadTipo.ENTREGA
-            || tipo == (int)NovedadTipo.REPDOMICILIO
-            || tipo == (int)NovedadTipo.REPARADO)
+            if (tipo == (int)NovedadTipo.REPDOMICILIO
+                || tipo == (int)NovedadTipo.PRESUPUESTADO
+                || tipo == (int)NovedadTipo.REPARADO)
             {
                 return PartialView("NovedadPresupuesto", model);
             }
-            else if (tipo == (int)NovedadTipo.ACEPTA
-                || tipo == (int)NovedadTipo.RECHAZA
-                || tipo == (int)NovedadTipo.NOTA
-                || tipo == (int)NovedadTipo.LLAMADO
+            else if (tipo == (int)NovedadTipo.PRESUPINFOR
+                || tipo == (int)NovedadTipo.LLAMADO)
+            {
+                return PartialView("NovedadInformarPresupuesto", model);
+            }
+            else if (tipo == (int)NovedadTipo.NOTA
                 || tipo == (int)NovedadTipo.VERIFICAR
                 || tipo == (int)NovedadTipo.ACONTROLAR
                 || tipo == (int)NovedadTipo.ESPERAREPUESTO)
@@ -118,11 +126,32 @@ namespace FastService.Controllers
             {
                 return PartialView("NovedadReingreso", model);
             }
+            else if (tipo == (int)NovedadTipo.ENTREGA)
+            {
+                return PartialView("NovedadCoordinarEntrega", model);
+            }
+            else if (tipo == (int)NovedadTipo.RETIRA)
+            {
+                ViewBag.ListaMetodoDePago = (from y in new FastServiceEntities().MetodoPago
+                                             select new SelectListItem()
+                                             {
+                                                 Text = y.Nombre,
+                                                 Value = y.MetodoPagoId.ToString()
+                                             }).ToList();
+
+                ViewBag.ListaTipoFactura = (from y in new FastServiceEntities().TipoFactura
+                                            select new SelectListItem()
+                                            {
+                                                Text = y.Nombre,
+                                                Value = y.TipoFacturaId.ToString()
+                                            }).ToList();
+
+                return PartialView("NovedadRetiro", model);
+            }
             else
             {
-                return PartialView("NovedadPresupuesto", model);
+                return PartialView("NovedadSimple", model);
             }
-
         }
 
         [HttpPost]

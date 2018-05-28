@@ -4,7 +4,7 @@
 <script src="~/Content/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <link href="~/Content/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 
-@using (Ajax.BeginForm("Create", "Venta", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess", OnFailure = "OnError" }))
+@using (Ajax.BeginForm("Create", "Venta", new AjaxOptions { HttpMethod = "Post", OnSuccess = "OnSuccess(data)", OnFailure = "OnError" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -54,23 +54,42 @@
                             <div class="col-md-9">
                                 @Html.TextBoxFor(model => model.Fecha, new { @class = "form-control form-control-inline input-large date-picker", @text = DateTime.Now, @placeholder = "Seleccione una fecha" })
 
-                             </div>
+                            </div>
                             @*<input type="text" class="form-control" placeholder="@DateTime.Now">*@
                         </div>
                     </div>
                     <!--/span-->
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="form-group ">
-                            @Html.LabelFor(model => model.FacturaId, new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.TextBoxFor(Model => Model.FacturaId, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.FacturaId)
+                                @Html.LabelFor(model => model.MetodoDePago, new { @class = "control-label col-md-6" })
+                           
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(Model => Model.MetodoDePagoId, (List<SelectListItem>)ViewBag.MetodoDePagoList, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.MetodoDePagoId)
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.NroFactura, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(Model => Model.NroFactura, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.NroFactura)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.TipoDeFactura, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(Model => Model.TipoDeFacturaId, (List<SelectListItem>)ViewBag.ListaTipoFactura, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.TipoDeFacturaId)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group ">
                             @Html.LabelFor(model => model.Facturado, new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
@@ -158,17 +177,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--/span-->
-                    @*<div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelFor(Model => Model.Vendedor, new { @class = "control-label col-md-3" })
-                                <div class="col-md-9">
-                                    @Html.TextBoxFor(model => model.Vendedor, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Vendedor)
-                                </div>
-                            </div>
-                        </div>*@
-                    <!--/span-->
                 </div>
 
                 <br />
@@ -226,21 +234,15 @@
         },
     });
 
-    //$("#btnNuevaVenta").click(function () {
-    //    if ($("#FacturaId").val() == "") {
-    //        alert("Estas creando una venta sin factura, quieres avanzar?");
-    //    }
-    //});
+    function OnSuccess(data) {
+        $("#modalSuccess").modal();
+        $(".modal-backdrop").hide();
+        $(".page-content").html(data);
+    }
 
-    //$("#FacturaId").on('input', function () {
-    //    if ($("#FacturaId").val() == "") {
-    //        $("#btnNuevaVenta").val("Venta SIN Factura");
-    //        $("#btnNuevaVenta").removeClass("btn-success");
-    //        $("#btnNuevaVenta").addClass("btn-info");
-    //    } else {
-    //        $("#btnNuevaVenta").val("Venta CON Factura");
-    //        $("#btnNuevaVenta").removeClass("btn-info");
-    //        $("#btnNuevaVenta").addClass("btn-success");
-    //    }
-    //});
+    function OnError() {
+        $("#modalError").modal();
+        $(".modal-backdrop").hide();
+    }
+
 </script>

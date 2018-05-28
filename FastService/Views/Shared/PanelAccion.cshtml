@@ -49,7 +49,7 @@
 
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <input data-tipo="5" class="btn btn-info btn-md reparacionActionButton" type="button" value="COORDINAR ENTREGA" />
+                    <input data-tipo="12" class="btn btn-info btn-md reparacionActionButton" type="button" value="COORDINAR ENTREGA" />
                 </div>
             </div>
 
@@ -73,7 +73,7 @@
 
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <input data-tipo="7" class="btn btn-info btn-md reparacionActionButton" type="button" value="RETIRA" />
+                    <input data-tipo="5" class="btn btn-info btn-md reparacionActionButton" type="button" value="RETIRA" />
                 </div>
             </div>
 
@@ -152,7 +152,7 @@
     </div>
 </div>
 
-@Html.CheckBox("flagNuevaOrden", new { @id = "FlagNuevaOrden"})
+@Html.CheckBox("flagNuevaOrden", new { @id = "FlagNuevaOrden", @style = "display:none" })
 
 <script>
     $('#actionTabs a').click(function (e) {

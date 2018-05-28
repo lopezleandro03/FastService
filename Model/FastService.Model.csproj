@@ -91,7 +91,7 @@
     <Compile Include="Model\ItemMenu.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\Logs.cs">
+    <Compile Include="Model\Log.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Marca.cs">
@@ -104,18 +104,6 @@
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Novedad.cs">
-      <DependentUpon>FastServiceEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\oldcliente.cs">
-      <DependentUpon>FastServiceEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\oldEstadoRep.cs">
-      <DependentUpon>FastServiceEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\oldresponsable.cs">
-      <DependentUpon>FastServiceEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\oldtecnico.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Pago.cs">
@@ -143,6 +131,9 @@
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TipoDispositivo.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TipoFactura.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TipoNovedad.cs">

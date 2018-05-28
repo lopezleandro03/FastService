@@ -24,9 +24,13 @@ namespace Model.Model
         }
     
         public int FacturaId { get; set; }
-        public int TipoFactura { get; set; }
+        public int TipoFacturaId { get; set; }
+        public string NroFactura { get; set; }
         public byte[] Media { get; set; }
+        public System.DateTime ModificadoEn { get; set; }
+        public int ModificadoPor { get; set; }
     
+        public virtual TipoFactura TipoFactura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pago> Pago { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -35,5 +39,6 @@ namespace Model.Model
         public virtual ICollection<Venta> Venta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Venta> Venta1 { get; set; }
+
     }
 }
