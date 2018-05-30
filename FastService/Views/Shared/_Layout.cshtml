@@ -4,7 +4,7 @@
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html lang="es-ar">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
@@ -16,6 +16,7 @@
     <meta content="" name="author" />
     <meta charset="utf-8">
     <link href="//fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
 </head>
 <!-- END HEAD -->
@@ -360,6 +361,10 @@
     @Scripts.Render("~/bundles/js")
 
     <script src="~/Scripts/jquery-ui.min.js" type="text/javascript"></script>
+
+    @*Comment this datepicker related js files because are breaking jquery data pickers.
+    @*<script src="~/Content/assets/pages/scripts/components-date-time-pickers.min.js"></script>*@
+    @*<script src="~/Content/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>*@
 </body>
 </html>
 
@@ -372,6 +377,7 @@
         ajaxGet(
             "/@Model.DefaultController/@Model.DefaultAction",
             function (data) {
+                $(".page-content").html("");
                 $(".page-content").html(data);
             },
             function (data) {
@@ -391,6 +397,7 @@
             "/" + $(this).data("controller") + "/" + $(this).data("action"),
             function (data) {
                 $(".dropdown-fw").removeClass("open");
+                $(".page-content").html("");
                 $(".page-content").html(data)
             },
             function () {
@@ -429,7 +436,8 @@
             ajaxGetNoCustomError(
                 "@Url.Action("Details","Ticket")/?id=" + $("#inputSearchCriteria").val(),
                 function (data) {
-                    $(".OrdenDetailBody").html(data)
+                    $(".OrdenDetailBody").html("");
+                    $(".OrdenDetailBody").html(data);
                     $("#ModalOrdenDetail").modal();
                 }
             );

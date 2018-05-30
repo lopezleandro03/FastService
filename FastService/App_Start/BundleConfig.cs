@@ -10,7 +10,7 @@ namespace FastService
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Content/assets/global/plugins/jquery.min.js",
-                        "~/Scripts/jquery-ui.min.js",
+                        //"~/Scripts/jquery-ui.min.js",
                         "~/Scripts/jquery.unobtrusive-ajax.min.js",
                         "~/Content/assets/pages/scripts/form-wizard.js"
                         ));
@@ -65,7 +65,7 @@ namespace FastService
                        "~/Content/assets/global/plugins/jquery.blockui.min.js",
                        "~/Content/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js",
                        "~/Content/assets/global/plugins/moment.min.js",
-                       "~/Content/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js",
+                       //"~/Content/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js",
                        "~/Content/assets/global/plugins/morris/morris.min.js",
                        "~/Content/assets/global/plugins/morris/raphael-min.js",
                        "~/Content/assets/global/plugins/counterup/jquery.waypoints.min.js",

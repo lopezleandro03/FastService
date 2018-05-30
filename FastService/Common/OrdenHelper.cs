@@ -529,17 +529,7 @@ namespace FastService.Common
                             ModificadoEn = DateTime.Now,
                             ModificadoPor = CurrentUserId
                         };
-
-                        if (repDet.EsGarantia)
-                        {
-                            var com = _db.Comercio.Find(model.Comercio.ComercioId);
-
-                            if (com != null)
-                            {
-                                com.Telefono = model.Comercio.Telefono;
-                            }
-                        }
-
+                                              
                         _db.ReparacionDetalle.Add(repDet);
 
                         _db.SaveChanges();
@@ -554,7 +544,7 @@ namespace FastService.Common
                             EmpleadoAsignadoId = model.ResponsableId,
                             TecnicoAsignadoId = model.TecnicoId,
                             EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.INGRESADO).First().EstadoReparacionId,
-                            ComercioId = model.Garantia ? (int?)model.Comercio.ComercioId : 1,
+                            ComercioId = model.Garantia ? (int?)model.Comercio.ComercioId : null,
                             MarcaId = model.MarcaId,
                             TipoDispositivoId = model.TipoId,
                             ModificadoEn = DateTime.Now,
@@ -610,6 +600,16 @@ namespace FastService.Common
 
                             repDet.ModificadoEn = DateTime.Now;
                             repDet.ModificadoPor = CurrentUserId;
+                        }
+                    }
+
+                    if (model.Garantia)
+                    {
+                        var com = _db.Comercio.Find(model.Comercio.ComercioId);
+
+                        if (com != null)
+                        {
+                            com.Telefono = model.Comercio.Telefono;
                         }
                     }
 
@@ -823,6 +823,7 @@ namespace FastService.Common
                           || r.EstadoReparacion.nombre == ReparacionEstado.REINGRESADO
                           || r.EstadoReparacion.nombre == ReparacionEstado.PARAENTREGAR
                           || r.EstadoReparacion.nombre == ReparacionEstado.REPARADO)
+                          && r.ReparacionId > 109800
                        select new OrdenModel()
                        {
                            NroOrden = r.ReparacionId,

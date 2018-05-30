@@ -39,12 +39,12 @@
         <div class="col-md-12">
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Presupuesto)
-                @Html.TextBoxFor(model => model.Presupuesto, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.Presupuesto, new { @class = "form-control", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Presupuesto)
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Monto)
-                @Html.TextBoxFor(model => model.Monto, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.Monto, new { @class = "form-control", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Monto)
             </div>
             <div class="col-md-3">
@@ -66,23 +66,23 @@
             <div class="col-md-3">
                 <div class="ui-widget ui-front">
                     @Html.LabelFor(model => model.Cliente.Dni)
-                    @Html.TextBoxFor(model => model.Cliente.Dni, new { @class = "form-control ac-cliente Cliente_Dni", @id = "Cliente_Dni" })
+                    @Html.TextBoxFor(model => model.Cliente.Dni, new { @class = "form-control ac-cliente Cliente_Dni", @id = "Cliente_Dni", @autocomplete = "off" })
                 </div>
                 @Html.ValidationMessageFor(model => model.Cliente.Dni)
             </div>
             <div class="col-md-2 ui-front">
                 @Html.LabelFor(model => model.Cliente.Nombre)
-                @Html.TextBoxFor(model => model.Cliente.Nombre, new { @class = "form-control ac-cliente Cliente_Nombre", @id = "Cliente_Nombre" })
+                @Html.TextBoxFor(model => model.Cliente.Nombre, new { @class = "form-control ac-cliente Cliente_Nombre", @id = "Cliente_Nombre", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Cliente.Nombre)
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Apellido)
-                @Html.TextBoxFor(model => model.Cliente.Apellido, new { @class = "form-control ac-cliente Cliente_Apellido", @id = "Cliente_Apellido" })
+                @Html.TextBoxFor(model => model.Cliente.Apellido, new { @class = "form-control ac-cliente Cliente_Apellido", @id = "Cliente_Apellido", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Cliente.Apellido)
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Cliente.Mail)
-                @Html.TextBoxFor(model => model.Cliente.Mail, new { @class = "form-control Cliente_Mail", @id = "Cliente_Mail" })
+                @Html.TextBoxFor(model => model.Cliente.Mail, new { @class = "form-control Cliente_Mail", @id = "Cliente_Mail", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Cliente.Mail)
             </div>
             <div class="col-md-2">
@@ -96,17 +96,16 @@
         <div class="col-md-12">
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Cliente.Telefono)
-                @Html.TextBoxFor(model => model.Cliente.Telefono, new { @class = "form-control Cliente_Telefono", @id = "Cliente_Telefono" })
-                @Html.ValidationMessageFor(model => model.Cliente.Telefono)
+                @Html.TextBoxFor(model => model.Cliente.Telefono, new { @class = "form-control Cliente_Telefono", @id = "Cliente_Telefono", @autocomplete = "off" })
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Cliente.Celular)
-                @Html.TextBoxFor(model => model.Cliente.Celular, new { @class = "form-control Cliente_Celular", @id = "Cliente_Celular" })
+                @Html.TextBoxFor(model => model.Cliente.Celular, new { @class = "form-control Cliente_Celular", @id = "Cliente_Celular", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Cliente.Celular)
             </div>
             <div class="col-md-6 ui-front">
                 @Html.LabelFor(model => model.Cliente.Direccion)
-                @Html.TextBoxFor(model => model.Cliente.Direccion, new { @class = "form-control Cliente_Direccion", @id = "Cliente_Direccion", @style = "max-width:700px !important", @placeholder = "Ingrese una direccion" })
+                @Html.TextBoxFor(model => model.Cliente.Direccion, new { @class = "form-control Cliente_Direccion", @id = "Cliente_Direccion", @style = "max-width:700px !important", @placeholder = "Ingrese una direccion", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Cliente.Direccion)
             </div>
         </div>
@@ -116,36 +115,36 @@
         <div class="col-md-12">
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Dir.Calle)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Calle, new { @class = "form-control route", @id = "route" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Calle, new { @class = "form-control route", @id = "route", @autocomplete = "off" })
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Dir.Altura)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Altura, new { @class = "form-control street_number", @id = "street_number" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Altura, new { @class = "form-control street_number", @id = "street_number", @autocomplete = "off" })
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Dir.Calle2)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Calle2, new { @class = "form-control calle2", @id = "calle2" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Calle2, new { @class = "form-control calle2", @id = "calle2", @autocomplete = "off" })
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Dir.Calle3)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Calle3, new { @class = "form-control calle3", @id = "calle3" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Calle3, new { @class = "form-control calle3", @id = "calle3", @autocomplete = "off" })
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Dir.Ciudad)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Ciudad, new { @class = "form-control locality", @id = "locality" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Ciudad, new { @class = "form-control locality", @id = "locality", @autocomplete = "off" })
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Cliente.Dir.CodigoPostal)
-                @Html.TextBoxFor(model => model.Cliente.Dir.CodigoPostal, new { @class = "form-control postal_code", @id = "postal_code" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.CodigoPostal, new { @class = "form-control postal_code", @id = "postal_code", @autocomplete = "off" })
             </div>
 
             <div hidden>
                 @Html.LabelFor(model => model.Cliente.Dir.Provincia)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Provincia, new { @class = "form-control administrative_area_level_1", @id = "administrative_area_level_1" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Provincia, new { @class = "form-control administrative_area_level_1", @id = "administrative_area_level_1", @autocomplete = "off" })
             </div>
             <div hidden>
                 @Html.LabelFor(model => model.Cliente.Dir.Pais)
-                @Html.TextBoxFor(model => model.Cliente.Dir.Pais, new { @class = "form-control country", @id = "country" })
+                @Html.TextBoxFor(model => model.Cliente.Dir.Pais, new { @class = "form-control country", @id = "country", @autocomplete = "off" })
             </div>
 
             <div hidden>
@@ -170,22 +169,22 @@
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.NroSerie)
-                @Html.TextBoxFor(model => model.NroSerie, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.NroSerie, new { @class = "form-control", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.NroSerie)
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.Modelo)
-                @Html.TextBoxFor(model => model.Modelo, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.Modelo, new { @class = "form-control", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Modelo)
             </div>
             <div class="col-md-1">
                 @Html.LabelFor(model => model.Ubicacion)
-                @Html.TextBoxFor(model => model.Ubicacion, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.Ubicacion, new { @class = "form-control", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Ubicacion)
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Accesorios)
-                @Html.TextAreaFor(model => model.Accesorios, new { @class = "form-control" })
+                @Html.TextAreaFor(model => model.Accesorios, new { @class = "form-control", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Accesorios)
             </div>
         </div>
@@ -202,12 +201,12 @@
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.Comercio.Telefono)
-                    @Html.TextBoxFor(model => model.Comercio.Telefono, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.Comercio.Telefono, new { @class = "form-control", @autocomplete = "off" })
                     @Html.ValidationMessageFor(model => model.Comercio.Telefono)
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.FechaCompra)
-                    @Html.TextBoxFor(model => model.FechaCompra, new { @class = "form-control form-control-inline input-large date-picker fecha" })
+                    @Html.TextBoxFor(model => model.FechaCompra, "{0:dd/MM/yyyy}", new { @class = "fechacompra form-control form-control-inline input-large", @text = DateTime.Now, @placeholder = "Seleccione una fecha", @autocomplete = "off" })
                     @Html.ValidationMessageFor(model => model.FechaCompra)
                 </div>
             </div>
@@ -235,39 +234,28 @@
     }
 </style>
 
-<script src="~/Content/assets/pages/scripts/components-date-time-pickers.min.js"></script>
-<script src="~/Content/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<link href="~/Content/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script>
     function Done(data) {
         if ($("#FlagNuevaOrden").prop("checked") == true) {
-        ajaxGetNoCustomError(
-            "@Url.Action("Index", "Reparacion")",
-            function (data) {
-                $("#modalSuccess").modal();
-                $(".page-content").html(data);
-                //$(".modal-backdrop").hide();
-                $("#FlagNuevaOrden").prop("checked", false);
-            }
-        );
+            ajaxGetNoCustomError(
+                "@Url.Action("Index", "Reparacion")",
+                function (data) {
+                    $("#modalSuccess").modal();
+                    $(".page-content").html(data);
+                    //$(".modal-backdrop").hide();
+                    $("#FlagNuevaOrden").prop("checked", false);
+                }
+            );
         } else {
             $("#modalSuccess").modal();
             $(".OrdenDetailBody").html(data);
             //$(".modal-backdrop").hide();
         }
     }
-
-    $(".chkNoTieneMail").change(function () {
-        if ($(".chkNoTieneMail").prop("checked")==true) {
-            $(".Cliente_Mail").val("noaplica@noaplica.com");
-        } else {
-            $(".Cliente_Mail").val("");
-        }
-    });
-
+       
     $(".ac-cliente").autocomplete({
         source: function (request, response) {
             $.ajax({
@@ -309,8 +297,42 @@
             })
         },
     });
-
+    
     $(function () {
+        $.validator.methods.date = function (value, element) {
+            return this.optional(element) || Globalize.parseDate(value, "dd MMM, yyyy") !== null;
+        }
+
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '< Ant',
+            nextText: 'Sig >',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+        
+        $(".fechacompra").datepicker();
+
+        $(".chkNoTieneMail").change(function () {
+            if ($(".chkNoTieneMail").prop("checked") == true) {
+                $(".Cliente_Mail").val("noaplica@noaplica.com");
+            } else {
+                $(".Cliente_Mail").val("");
+            }
+        });
+
         if ("@Model.Garantia" == "True") {
             $("#datosComercioDiv").removeAttr("hidden", true);
         }
@@ -328,11 +350,6 @@
             success: function (data) {
                 $(".page-content").append(data); //This is where to append the component required for maps autocomplete
             }
-        });
-
-        $(".fecha").datepicker({
-            dateFormat: 'yy-mm-dd',
-            selectOtherMonths: true
         });
     })
 </script>
