@@ -1,6 +1,6 @@
 ﻿@model FastService.Models.OrdenModel
 
-@using (Ajax.BeginForm("Save", "Ticket", new AjaxOptions { HttpMethod = "Post", OnSuccess = "Done(data)", OnFailure = "OnError", LoadingElementId = "spinner" }))
+@using (Ajax.BeginForm("Save", "Ticket", new AjaxOptions { HttpMethod = "Post", OnSuccess = "ReloadTicketDetails(data)", OnFailure = "OnError", LoadingElementId = "spinner" }, new { @id = "ticket-form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -218,7 +218,7 @@
     <div class="form-actions">
         <div class="row">
             <div class="col-md-12 text-center">
-                <input id="btnGuardarOrden" class="btn btn-success" type="submit" value="GUARDAR" style="display:none" />
+                <input id="btnGuardarOrden" class="btn btn-success" type="submit" value="GUARDAR" @*style="display:none"*@ />
             </div>
         </div>
     </div>
@@ -238,24 +238,7 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script>
-    function Done(data) {
-        if ($("#FlagNuevaOrden").prop("checked") == true) {
-            ajaxGetNoCustomError(
-                "@Url.Action("Index", "Reparacion")",
-                function (data) {
-                    $("#modalSuccess").modal();
-                    $(".page-content").html(data);
-                    //$(".modal-backdrop").hide();
-                    $("#FlagNuevaOrden").prop("checked", false);
-                }
-            );
-        } else {
-            $("#modalSuccess").modal();
-            $(".OrdenDetailBody").html(data);
-            //$(".modal-backdrop").hide();
-        }
-    }
-       
+
     $(".ac-cliente").autocomplete({
         source: function (request, response) {
             $.ajax({
@@ -297,7 +280,7 @@
             })
         },
     });
-    
+
     $(function () {
         $.validator.methods.date = function (value, element) {
             return this.optional(element) || Globalize.parseDate(value, "dd MMM, yyyy") !== null;
@@ -322,7 +305,7 @@
         };
 
         $.datepicker.setDefaults($.datepicker.regional['es']);
-        
+
         $(".fechacompra").datepicker();
 
         $(".chkNoTieneMail").change(function () {

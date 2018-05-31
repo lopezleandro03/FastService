@@ -8,11 +8,11 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="admin">
-            <div class="row">
+            @*<div class="row">
                 <div class="col-md-12 text-center">
                     <input class="guardarBtn btn btn-success btn-md" type="button" value="GUARDAR" />
                 </div>
-            </div>
+            </div>*@
             <br>
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -88,11 +88,11 @@
         </div>
 
         <div role="tabpanel" class="tab-pane" id="tecnico">
-            <div class="row">
+            @*<div class="row">
                 <div class="col-md-12 text-center">
                     <input class="btn btn-success btn-md guardarBtn" type="button" value="GUARDAR" />
                 </div>
-            </div>
+            </div>*@
             <br>
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -152,8 +152,6 @@
     </div>
 </div>
 
-@Html.CheckBox("flagNuevaOrden", new { @id = "FlagNuevaOrden", @style = "display:none" })
-
 <script>
     $('.actionTabs a').click(function (e) {
         e.preventDefault()
@@ -161,6 +159,7 @@
     })
 
     $("#nuevaOrdenBtn").click(function () {
+        $("#FlagNuevaOrden").val(true);
         ajaxGetNoCustomError(
             "@Url.Action("Create","Ticket")",
             function (data) {
@@ -179,12 +178,12 @@
         );
     })
 
+    //$(".guardarBtn").click(function () {
+    //    $("#btnGuardarOrden").trigger("click");
+    //})
+
     $(".imprimirBtn").click(function () {
          window.open("@Url.Action("ImprimirRecibo","Ticket")/?id=" + $('#ticketid').val(), '_blank');
     })
 
-    $(".guardarBtn").click(function () {
-        $("#FlagNuevaOrden").prop("checked", true);
-        $("#btnGuardarOrden").trigger("click");
-    })
 </script>
