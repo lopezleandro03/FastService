@@ -282,10 +282,14 @@
     });
 
     $(function () {
-        $.validator.methods.date = function (value, element) {
-            return this.optional(element) || Globalize.parseDate(value, "dd MMM, yyyy") !== null;
+        try {
+            $.validator.methods.date = function (value, element) {
+                return this.optional(element) || Globalize.parseDate(value, "dd MMM, yyyy") !== null;
+            }
+        } catch (e) {
+            console.info(e)
         }
-
+      
         $.datepicker.regional['es'] = {
             closeText: 'Cerrar',
             prevText: '< Ant',

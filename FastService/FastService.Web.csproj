@@ -529,6 +529,8 @@
     <Content Include="Content\assets\global\plugins\select2\js\select2.full.min.js" />
     <Content Include="Content\assets\global\plugins\select2\js\select2.js" />
     <Content Include="Content\assets\global\plugins\select2\js\select2.min.js" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.dev.svg" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.svg" />
     <Content Include="Content\assets\layouts\layout5\img\fs_blanco.png" />
     <Content Include="Content\fonts\Simple-Line-Icons.dev.svg" />
     <Content Include="Content\fonts\Simple-Line-Icons.svg" />
@@ -823,6 +825,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\site.css" />
+    <Content Include="Scripts\GoogleMaps.js" />
     <Content Include="Scripts\AjaxHelper.js" />
     <Content Include="Scripts\bootstrap-fileinput.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -865,6 +868,9 @@
     <Content Include="Reports\Recibo.rdl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.eot" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Content\assets\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.woff" />
     <None Include="Properties\PublishProfiles\FastService Shared Folder deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FastService WebDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\FastService-Test Web Deploy.pubxml" />
