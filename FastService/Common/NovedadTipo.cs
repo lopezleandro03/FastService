@@ -14,7 +14,7 @@ namespace FastService.Common
         NOTA = 17,
         ENTREGA = 12,
         REINGRESO = 24,
-        LLAMADO = 31,
+        LLAMADO = 17,
         RETIRA = 5,
         SENA = 26,
         ESPERAREPUESTO = 16,

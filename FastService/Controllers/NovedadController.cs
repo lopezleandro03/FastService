@@ -40,8 +40,7 @@ namespace FastService.Controllers
             {
                 return PartialView("NovedadPresupuesto", model);
             }
-            else if (tipo == (int)NovedadTipo.PRESUPINFOR
-                || tipo == (int)NovedadTipo.LLAMADO)
+            else if (tipo == (int)NovedadTipo.PRESUPINFOR)
             {
                 return PartialView("NovedadInformarPresupuesto", model);
             }

@@ -196,5 +196,45 @@ namespace FastService.Controllers
 
             return RedirectToAction("Create");
         }
+
+        // GET: Venta
+        public JsonResult Get()
+        {
+            return Json((from x in _dbContext.Venta
+                         select new VentaModel()
+                         {
+                             Cliente = new ClienteModel()
+                             {
+                                 Apellido = x.Cliente.Apellido,
+                                 Nombre = x.Cliente.Nombre,
+                                 Celular = x.Cliente.Telefono1,
+                                 Mail = x.Cliente.Mail,
+                                 Direccion = x.Cliente.Direccion,
+                                 Dni = x.Cliente.ClienteId,
+                                 Telefono = x.Cliente.Telefono2
+                             },
+                             VentaId = x.VentaId,
+                             Monto = x.Monto,
+                             Origen = x.PuntoDeVenta.PuntoDeVentaId,
+                             OrigenNombre = x.PuntoDeVenta.Nombre,
+                             Vendedor = x.Vendedor,
+                             Facturado = x.Facturado,
+                             Descripcion = x.Descripcion,
+                             MetodoDePago = (from y in _dbContext.MetodoPago where y.MetodoPagoId == x.MetodoPagoId select y.Nombre).FirstOrDefault(),
+                             NroFactura = x.Factura.NroFactura,
+                             TipoDeFactura = x.Factura.TipoFactura.Nombre,
+                             Fecha = x.Fecha
+                         }).OrderByDescending(x => x.Fecha), JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: Venta
+        [HttpPost]
+        public void Delete(int VentaId)
+        {
+            var _db = new FastServiceEntities();
+            var item = _db.Venta.Where( x=> x.VentaId == VentaId).FirstOrDefault();
+            _db.Venta.Remove(item);
+            _db.SaveChanges();
+        }
     }
 }

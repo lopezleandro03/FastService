@@ -17,6 +17,11 @@
     <meta charset="utf-8">
     <link href="//fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css">
     <link href="~/Content/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+
+    @* Testing jquertGrid *@
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+
     @Styles.Render("~/Content/css")
 </head>
 <!-- END HEAD -->
@@ -49,18 +54,10 @@
                         <div class="row">
                             <div id="divSearch" class="col-md-2" style="margin-left:30px;margin-top:15px">
                                 <input id="inputSearchCriteria" class="form-control ac-ordenSearch" placeholder="Buscar..." autocomplete="off">
-                                @*   @Html.CheckBox("buscar solo por numero de ticket",new { @checked=true, @id="chkSoloOrden"})*@
-                                @*   @Html.Label("buscar solo por numero de ticket",new { @style="color:white"})*@
-                                @*<a id="btnSearch" class="btn md-skip">
-                                        <i class="fa fa-search fa-x"></i>
-                                    </a>*@
                             </div>
                             <div id="divFilterByTecnico" class="col-md-2" style="margin-left:30px;margin-top:15px" hidden>
                                 @Html.DropDownListFor(x => x.UserId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control", @id = "ddlFilterByTecnico" })
                             </div>
-                            @*<div id="divFilterByComercio" class="col-md-2" style="margin-left:30px;margin-top:15px"  hidden>
-                                    @Html.DropDownList("ComercioFilter", (List<SelectListItem>)ViewBag.ListaComercio, new { @class = "form-control", @id = "ddlFilterByComercio" })
-                                </div>*@
                         </div>
 
                         <style>
@@ -366,9 +363,8 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF44JdvJ96J5WyhIwxFRc646TTjhQ2dIY&libraries=places&"
                 async defer></script>
 
-    @*Comment this datepicker related js files because are breaking jquery data pickers.
-        @*<script src="~/Content/assets/pages/scripts/components-date-time-pickers.min.js"></script>*@
-    @*<script src="~/Content/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>*@
+    @* Testing jquertGrid *@
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
 </body>
 </html>
 

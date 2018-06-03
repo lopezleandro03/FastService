@@ -8,7 +8,7 @@
 <hr>
 
 <ul class="list-group ListaOrdenes">
-    @foreach (var r in Model.OrdenesPendientes)
+    @foreach (var r in Model.OrdenesPendientes.OrderByDescending(x=>x.EstadoDesc))
     {
         <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-add-orden">
             <div class="OrdenListNro">
@@ -29,7 +29,7 @@
 
                 @if (r.EstadoDesc == "INGRESADO" || r.EstadoDesc == "REINGRESADO")
                 {
-                    <span class="badge badge-info">INGRESO</span>
+                    <span class="badge badge-info">r.EstadoDesc</span>
                 }
                 else
                 {

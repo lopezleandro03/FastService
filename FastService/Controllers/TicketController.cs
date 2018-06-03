@@ -69,6 +69,9 @@ namespace FastService.Controllers
                 var param3 = new ReportParameter("fecha", ticket.First().ModificadoEn.ToShortDateString());
                 reportParameters.Add(param3);
 
+                var param4 = new ReportParameter("garantia", ticket.First().EsGarantia ? "E" : "C");
+                reportParameters.Add(param4);
+
                 var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, reportParameters, reportType);
                 Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
 

@@ -9,7 +9,8 @@
         <div class="col-md-12">
             <div class="col-md-3">
                 @Html.LabelFor(model => model.NroOrden)
-                @Html.TextBoxFor(model => model.NroOrden, new { @class = "form-control", @id = "ticketid" })
+                @Html.TextBoxFor(model => model.NroOrden, new { @class = "form-control", @id = "ticketid", @disabled = true })
+                @Html.HiddenFor(model => model.NroOrden)
                 @Html.ValidationMessageFor(model => model.NroOrden)
             </div>
             <div class="col-md-3">
@@ -49,12 +50,12 @@
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.ResponsableNombre)
-                @Html.DropDownListFor(model => model.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, "Seleccione responsable", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ResponsableId)
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.TecnicoNombre)
-                @Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, "Seleccione tecnico", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TecnicoId)
             </div>
         </div>
@@ -159,12 +160,12 @@
         <div class="col-md-12">
             <div class="col-md-2">
                 @Html.LabelFor(model => model.TipoDesc)
-                @Html.DropDownListFor(model => model.TipoId, (List<SelectListItem>)ViewBag.ListaTipoDispositivo, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.TipoId, (List<SelectListItem>)ViewBag.ListaTipoDispositivo, "Seleccione dispositivo", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TipoId)
             </div>
             <div class="col-md-2">
                 @Html.LabelFor(model => model.MarcaDesc)
-                @Html.DropDownListFor(model => model.MarcaId, (List<SelectListItem>)ViewBag.ListaMarcas, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.MarcaId, (List<SelectListItem>)ViewBag.ListaMarcas, "Seleccione marca", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MarcaId)
             </div>
             <div class="col-md-2">
@@ -218,7 +219,7 @@
     <div class="form-actions">
         <div class="row">
             <div class="col-md-12 text-center">
-                <input id="btnGuardarOrden" class="btn btn-success" type="submit" value="GUARDAR" @*style="display:none"*@ />
+                <input id="btnGuardarOrden" class="btn btn-success" type="submit" value="GUARDAR" />
             </div>
         </div>
     </div>
@@ -289,7 +290,7 @@
         } catch (e) {
             console.info(e)
         }
-      
+
         $.datepicker.regional['es'] = {
             closeText: 'Cerrar',
             prevText: '< Ant',

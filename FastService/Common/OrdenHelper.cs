@@ -388,13 +388,31 @@ namespace FastService.Common
                 {
                     if (model.Id == 0)
                     {
+                        var tipoNovedad = model.TipoNovedadId;
+
+                        if (tipoNovedad == (int)NovedadTipo.PRESUPINFOR)
+                        {
+                            if (model.Accion.ToUpper() == "CONFIRMA")
+                            {
+                                tipoNovedad = (int)NovedadTipo.ACEPTA;
+                            }
+                            else if (model.Accion.ToUpper() == "RECHAZA")
+                            {
+                                tipoNovedad = (int)NovedadTipo.RECHAZA;
+                            }
+                            else
+                            {
+                                tipoNovedad = (int)NovedadTipo.PRESUPINFOR;
+                            }
+                        }
+
                         //add novedad
                         _db.Novedad.Add(new Novedad()
                         {
                             reparacionId = model.NroOrden,
                             observacion = model.Observacion,
                             monto = model.Monto,
-                            tipoNovedadId = model.TipoNovedadId,
+                            tipoNovedadId = tipoNovedad,
                             UserId = CurrentUserId,
                             modificadoPor = CurrentUserId,
                             modificadoEn = DateTime.Now
@@ -529,7 +547,7 @@ namespace FastService.Common
                             ModificadoEn = DateTime.Now,
                             ModificadoPor = CurrentUserId
                         };
-                                              
+
                         _db.ReparacionDetalle.Add(repDet);
 
                         _db.SaveChanges();
@@ -710,11 +728,12 @@ namespace FastService.Common
                 var estados = _db.EstadoReparacion.Select(x => x).ToList();
                 var estadoAnterior = orden.EstadoReparacion.nombre;
 
-                if (model.TipoNovedadId == (int)NovedadTipo.LLAMADO || model.TipoNovedadId == (int)NovedadTipo.PRESUPINFOR)
+                if (model.TipoNovedadId == (int)NovedadTipo.PRESUPINFOR)
                 {
                     if (model.Accion.ToUpper() == "ACEPTA")
                     {
                         orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.AREPARAR).First().EstadoReparacionId;
+                        orden.EmpleadoAsignadoId = orden.TecnicoAsignadoId;
                     }
                     else if (model.Accion.ToUpper() == "RECHAZA")
                     {
@@ -723,7 +742,6 @@ namespace FastService.Common
                     else
                     {
                         orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PRESUPUESTADO).First().EstadoReparacionId;
-                        //deberia ser INFORMADO
                     }
 
                     orden.ReparacionDetalle.PresupuestoFecha = DateTime.Now;
@@ -821,8 +839,7 @@ namespace FastService.Common
                        where (r.ReparacionDetalle.EsDomicilio == true || r.FechaEntrega != null)
                           && (r.EstadoReparacion.nombre == ReparacionEstado.INGRESADO
                           || r.EstadoReparacion.nombre == ReparacionEstado.REINGRESADO
-                          || r.EstadoReparacion.nombre == ReparacionEstado.PARAENTREGAR
-                          || r.EstadoReparacion.nombre == ReparacionEstado.REPARADO)
+                          || r.EstadoReparacion.nombre == ReparacionEstado.PARAENTREGAR)
                           && r.ReparacionId > 109800
                        select new OrdenModel()
                        {
@@ -920,12 +937,16 @@ namespace FastService.Common
                                                  Serie = rd.Serie,
                                                  Serbus = rd.Serbus,
                                                  Dni = c.Dni,
-                                                 Nombre = c.Nombre,
+                                                 Nombre = c.Nombre.Trim().ToUpper() + " " + c.Apellido.Trim().ToUpper(),
                                                  Apellido = c.Apellido,
                                                  Mail = c.Mail,
                                                  Telefono1 = c.Telefono1,
                                                  Telefono2 = c.Telefono2,
-                                                 Direccion = c.Direccion,
+                                                 Direccion = c.Direccion1.Calle
+                                                     + " " + c.Direccion1.Altura
+                                                     + " " + c.Direccion1.Calle2
+                                                     + " " + c.Direccion1.Calle3
+                                                     + ", " + c.Direccion1.Ciudad,
                                                  DireccionId = c.DireccionId,
                                                  Localidad = c.Localidad,
                                                  Latitud = c.Latitud,
