@@ -50,6 +50,10 @@
     <Reports>@(Report)</Reports>
   </PropertyGroup>
   <ItemGroup>
+    <DataSource Include="FastServiceDatabase.rds" />
+  </ItemGroup>
+  <ItemGroup>
+    <Report Include="HojaDeRuta.rdl" />
     <Report Include="Recibo.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />

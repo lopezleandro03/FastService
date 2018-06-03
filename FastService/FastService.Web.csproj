@@ -253,6 +253,7 @@
     <Compile Include="Models\ProveedorModel.cs" />
     <Compile Include="Models\Orden\OrdenesIndexViewModel.cs" />
     <Compile Include="Models\Orden\OrdenModel.cs" />
+    <Compile Include="Models\Reports\HojadeRutaReportModel.cs" />
     <Compile Include="Models\Reports\ReciboReportModel.cs" />
     <Compile Include="Models\Seguimiento\ListaOrdenesModel.cs" />
     <Compile Include="Models\Seguimiento\FilterBarModel.cs" />
@@ -874,6 +875,7 @@
     <None Include="Properties\PublishProfiles\FastService Shared Folder deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FastService WebDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\FastService-Test Web Deploy.pubxml" />
+    <Content Include="Reports\HojaDeRuta.rdl" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\daterangepicker.min.js" />
     <Content Include="Scripts\fullcalendar.min.js" />

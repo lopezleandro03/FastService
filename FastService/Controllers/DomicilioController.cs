@@ -1,6 +1,7 @@
 ﻿using FastService.Common;
 using FastService.Helpers;
 using FastService.Models;
+using FastService.Models.Reports;
 using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
@@ -81,25 +82,54 @@ namespace FastService.Controllers
 
         public ActionResult ImprimirRuta()
         {
-            string reportName = "HojaDeRuta.pdf";
-            string reportFilePath = "~/Reports/HojaDeRuta.rdl";
-            var reportType = ReportType.PDF;
-            var contentType = string.Format("application/{0}", reportType.ToString().ToLower());
+            var tickets = GetHojaDeRuta();
 
-            List<ReportDataSource> dataSources = new List<ReportDataSource>();
+            if (tickets.Any())
+            {
+                string reportName = "HojaDeRuta.pdf";
+                string reportFilePath = "~/Reports/HojaDeRuta.rdl";
+                var reportType = ReportType.PDF;
+                var contentType = string.Format("application/{0}", reportType.ToString().ToLower());
 
-            //dataSources.Add(new ReportDataSource("Reparacion", ticket));
-            var report = new ReportHelper();
-            var reportParameters = new List<ReportParameter>();
-            
-            //var param3 = new ReportParameter("fecha", ticket.First().ModificadoEn.ToShortDateString());
-            //reportParameters.Add(param3);
+                List<ReportDataSource> dataSources = new List<ReportDataSource>();
 
-            var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, reportParameters, reportType);
-            Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
+                dataSources.Add(new ReportDataSource("tickets", tickets));
+                var report = new ReportHelper();
+                var reportParameters = new List<ReportParameter>();
 
-            return File(result, contentType);
+                //var param3 = new ReportParameter("fecha", ticket.First().ModificadoEn.ToShortDateString());
+                //reportParameters.Add(param3);
 
+                var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, reportParameters, reportType);
+                Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
+
+                return File(result, contentType);
+
+            }
+            else
+                return null;
+        }
+
+        private IList<HojadeRutaReportModel> GetHojaDeRuta()
+        {
+            return (from x in Model.OrdenesDelDia
+                    select new HojadeRutaReportModel()
+                    {
+                        Ticket = x.NroOrden,
+                        Nombre = x.Cliente.Apellido?.ToUpper() + x.Cliente.Nombre.ToUpper(),
+                        Telefonos = x.Cliente?.Telefono + " " + x.Cliente.Celular,
+                        Modelo = x.Modelo?.ToUpper(),
+                        Serie = x.NroSerie?.ToUpper(),
+                        Marca = x.MarcaDesc?.ToUpper(),
+                        Direccion = x.Cliente.Direccion?.ToUpper(),
+                        Calle = x.Cliente.Dir.Calle?.ToUpper(),
+                        Altura = x.Cliente.Dir.Altura?.ToUpper(),
+                        Calle2 = x.Cliente.Dir.Calle2?.ToUpper(),
+                        Calle3 = x.Cliente.Dir.Calle3?.ToUpper(),
+                        Ciudad = x.Cliente.Dir.Ciudad?.ToUpper(),
+                        CodigoPostal = x.Cliente.Dir.CodigoPostal?.ToUpper(),
+                        Garantia = x.Garantia ? "E" : "C"
+                    }).ToList();
         }
     }
 }

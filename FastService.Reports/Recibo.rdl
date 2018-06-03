@@ -4,11 +4,7 @@
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="ReparacionData">
-      <ConnectionProperties>
-        <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=DESKTOP-7DCQ0KV;Initial Catalog=FastService</ConnectString>
-        <IntegratedSecurity>true</IntegratedSecurity>
-      </ConnectionProperties>
+      <DataSourceReference>FastServiceDatabase</DataSourceReference>
       <rd:SecurityType>Integrated</rd:SecurityType>
       <rd:DataSourceID>5e74118a-957c-4a23-8fd3-97b18faeecc7</rd:DataSourceID>
     </DataSource>
@@ -958,23 +954,25 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox41">
+                            <Textbox Name="Telefono21">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value />
-                                      <Style>
-                                        <FontFamily>Arial</FontFamily>
-                                      </Style>
+                                      <Value>Celular: </Value>
+                                      <Style />
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!Telefono2.Value</Value>
+                                      <Style />
                                     </TextRun>
                                   </TextRuns>
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox41</rd:DefaultName>
+                              <rd:DefaultName>Telefono21</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -1998,10 +1996,12 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value />
-                                      <Style>
-                                        <FontFamily>Arial</FontFamily>
-                                      </Style>
+                                      <Value>Celular: </Value>
+                                      <Style />
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!Telefono2.Value</Value>
+                                      <Style />
                                     </TextRun>
                                   </TextRuns>
                                   <Style />
@@ -2331,7 +2331,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
             <Top>11.54058cm</Top>
             <Left>18.13712cm</Left>
             <Height>0cm</Height>
-            <Width>16.77159cm</Width>
+            <Width>11.6034cm</Width>
             <ZIndex>30</ZIndex>
             <Style>
               <Border>
@@ -2343,7 +2343,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
             <Top>10.75259cm</Top>
             <Left>22.13344cm</Left>
             <Height>0cm</Height>
-            <Width>12.77526cm</Width>
+            <Width>7.60708cm</Width>
             <ZIndex>31</ZIndex>
             <Style>
               <Border>
