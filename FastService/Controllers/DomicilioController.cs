@@ -97,8 +97,8 @@ namespace FastService.Controllers
                 var report = new ReportHelper();
                 var reportParameters = new List<ReportParameter>();
 
-                //var param3 = new ReportParameter("fecha", ticket.First().ModificadoEn.ToShortDateString());
-                //reportParameters.Add(param3);
+                var fecha = new ReportParameter("fecha", DateTime.Now.ToShortDateString());
+                reportParameters.Add(fecha);
 
                 var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, reportParameters, reportType);
                 Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
@@ -116,7 +116,7 @@ namespace FastService.Controllers
                     select new HojadeRutaReportModel()
                     {
                         Ticket = x.NroOrden,
-                        Nombre = x.Cliente.Apellido?.ToUpper() + x.Cliente.Nombre.ToUpper(),
+                        Nombre = x.Cliente.Apellido?.ToUpper() + " " + x.Cliente.Nombre.ToUpper(),
                         Telefonos = x.Cliente?.Telefono + " " + x.Cliente.Celular,
                         Modelo = x.Modelo?.ToUpper(),
                         Serie = x.NroSerie?.ToUpper(),

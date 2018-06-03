@@ -109,7 +109,15 @@ order by 1 desc</CommandText>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Hoja de Ruta</Value>
+                    <Value>Hoja de Ruta </Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                      <FontSize>20pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!fecha.Value</Value>
                     <Style>
                       <FontFamily>Segoe UI Light</FontFamily>
                       <FontSize>20pt</FontSize>
@@ -122,7 +130,7 @@ order by 1 desc</CommandText>
             </Paragraphs>
             <rd:DefaultName>textbox1</rd:DefaultName>
             <Height>0.43in</Height>
-            <Width>7.54861in</Width>
+            <Width>8.19444in</Width>
             <Style>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -496,7 +504,6 @@ order by 1 desc</CommandText>
                             </Border>
                             <LeftBorder>
                               <Style>Solid</Style>
-                              <Width>2pt</Width>
                             </LeftBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -739,7 +746,6 @@ order by 1 desc</CommandText>
                             </TopBorder>
                             <LeftBorder>
                               <Style>Solid</Style>
-                              <Width>2pt</Width>
                             </LeftBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -823,7 +829,6 @@ order by 1 desc</CommandText>
                             </Border>
                             <LeftBorder>
                               <Style>Solid</Style>
-                              <Width>2pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Style>Solid</Style>
@@ -873,9 +878,6 @@ order by 1 desc</CommandText>
                             <TopBorder>
                               <Style>Solid</Style>
                             </TopBorder>
-                            <BottomBorder>
-                              <Style>Solid</Style>
-                            </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -935,7 +937,7 @@ order by 1 desc</CommandText>
         <Height>6.83806in</Height>
         <Style />
       </Body>
-      <Width>8in</Width>
+      <Width>8.19444in</Width>
       <Page>
         <PageHeight>11.69in</PageHeight>
         <PageWidth>8.27in</PageWidth>
@@ -947,10 +949,23 @@ order by 1 desc</CommandText>
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="fecha">
+      <DataType>String</DataType>
+      <Prompt>fecha</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
       <NumberOfRows>2</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>fecha</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <Language>es-ES</Language>
