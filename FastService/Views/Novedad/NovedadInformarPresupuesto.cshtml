@@ -1,7 +1,7 @@
 ﻿@model FastService.Models.NovedadModel
 
 <div class="modal-header">
-    <button class="close" aria-hidden="true" type="button" data-dismiss="modal"></button>
+    <button class="simplemodal-close" aria-hidden="true" type="button" data-dismiss="modal"></button>
     <h4 id="modalNuevaNovedadHeader" class="modal-title">Nueva Novedad</h4>
 </div>
 
@@ -35,7 +35,7 @@
         <button data-accion="Rechaza" class="btn red btnAction" type="button">Rechaza</button>
         <button data-accion="Confirma" class="btn yellow btnAction" type="button">A Confirmar</button>
         <button data-accion="Acepta" class="btn green btnAction" type="button">Acepta</button>
-        <button id="btnSubmitNovedad" data-accion="Acepta" class="btn green" type="submit" style="display:none">handler</button>
+        <button id="btnSubmitNovedad" class="btn green" type="submit" style="display:none">handler</button>
     </div>
 }
 
@@ -46,5 +46,6 @@
     $(".btnAction").click(function (e) {
         $("#accion").val($(this).data("accion"));
         $("#btnSubmitNovedad").trigger("click");
+        $(".simplemodal-close").trigger("click");
     });
 </script>
