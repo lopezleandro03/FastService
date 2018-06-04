@@ -14,14 +14,16 @@
 
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.NroOrden)
-        @Html.LabelFor(model => model.TecnicoNombre)
-        @Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
 
+        @Html.HiddenFor(model => model.TecnicoId)
+        @Html.HiddenFor(model => model.ResponsableId)
+
+        @*@Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
         @Html.LabelFor(model => model.ResponsableId)
-        @Html.DropDownListFor(model => model.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, new { @class = "form-control" })
+        @Html.DropDownListFor(model => model.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, new { @class = "form-control" })*@
 
         @Html.LabelFor(model => model.Observacion)
-        @Html.TextAreaFor(model => model.Observacion, new { @class = "form-control" })
+        @Html.TextAreaFor(model => model.Observacion, 10, 10, new { @class = "form-control" })
 
         @Html.HiddenFor(model => model.TipoNovedadId)
     </div>

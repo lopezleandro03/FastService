@@ -392,7 +392,7 @@ namespace FastService.Common
 
                         if (tipoNovedad == (int)NovedadTipo.PRESUPINFOR)
                         {
-                            if (model.Accion.ToUpper() == "CONFIRMA")
+                            if (model.Accion.ToUpper() == "ACEPTA")
                             {
                                 tipoNovedad = (int)NovedadTipo.ACEPTA;
                             }

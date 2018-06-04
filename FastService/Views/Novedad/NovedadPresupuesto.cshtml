@@ -17,8 +17,11 @@
         @Html.LabelFor(model => model.TecnicoNombre)
         @Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
 
-        @Html.LabelFor(model => model.ResponsableId)
-        @Html.DropDownListFor(model => model.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, new { @class = "form-control" })
+        <div>
+            @Html.LabelFor(model => model.ResponsableId)
+            @Html.DropDownListFor(model => model.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables,"seleccione responsable", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ResponsableId)
+        </div>
 
         @Html.LabelFor(model => model.Monto)
         @Html.TextBoxFor(model => model.Monto, new { @class = "form-control" })

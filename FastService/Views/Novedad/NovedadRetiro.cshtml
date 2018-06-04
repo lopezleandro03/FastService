@@ -14,33 +14,27 @@
 
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.NroOrden)
-
-        @Html.LabelFor(model => model.MetodoDePagoId)
-        @Html.DropDownListFor(model => model.MetodoDePagoId, (List<SelectListItem>)ViewBag.ListaMetodoDePago, new { @class = "form-control" })
-
+        <div>
+            @Html.LabelFor(model => model.MetodoDePagoId)
+            @Html.DropDownListFor(model => model.MetodoDePagoId, (List<SelectListItem>)ViewBag.ListaMetodoDePago, "seleccione metodo de pago", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MetodoDePagoId)
+        </div>
         @Html.LabelFor(model => model.Monto)
         @Html.TextBoxFor(model => model.Monto, new { @class = "form-control" })
-
         @Html.LabelFor(model => model.Factura)
         @Html.TextBoxFor(model => model.Factura, new { @class = "form-control" })
-
         @Html.LabelFor(model => model.TipoFactura)
         @Html.DropDownListFor(model => model.TipoFactura, (List<SelectListItem>)ViewBag.ListaTipoFactura, new { @class = "form-control" })
-
         @Html.LabelFor(model => model.TecnicoId)
         @Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
-
         @Html.LabelFor(model => model.ResponsableId)
         @Html.DropDownListFor(model => model.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, new { @class = "form-control" })
-
         @Html.LabelFor(model => model.Observacion)
         @Html.TextAreaFor(model => model.Observacion, new { @class = "form-control" })
-
         @Html.HiddenFor(model => model.TipoNovedadId)
     </div>
 
     <div class="modal-footer">
-        <button class="btn dark btn-outline simplemodal-close" type="button" data-dismiss="modal">Close</button>
         <button id="btnSubmitNovedad" class="btn green" type="submit">Aceptar</button>
     </div>
 }

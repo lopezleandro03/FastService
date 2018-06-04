@@ -376,14 +376,12 @@
                 function (data) {
                     $("#modalSuccess").modal();
                     $(".page-content").html(data);
-                    //$(".modal-backdrop").hide();
                     $("#FlagNuevaOrden").val(false);
                 }
             );
         } else {
             $("#modalSuccess").modal();
             $(".OrdenDetailBody").html(data);
-            //$(".modal-backdrop").hide();
         }
     }
 
