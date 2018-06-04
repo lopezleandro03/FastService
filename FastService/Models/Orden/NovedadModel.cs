@@ -54,6 +54,9 @@ namespace FastService.Models
 
         [Display(Name = "Tipo Factura")]
         public int TipoFactura { get;  set; }
+
+        [Display(Name = "Presupuesto en Domicilio?")]
+        public bool Domicilio { get; set; }
     }
 
 }

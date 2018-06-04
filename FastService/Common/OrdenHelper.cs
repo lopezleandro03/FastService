@@ -781,8 +781,13 @@ namespace FastService.Common
 
                 if (model.TipoNovedadId == (int)NovedadTipo.PRESUPUESTADO)
                 {
-                    orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PRESUPUESTADO).First().EstadoReparacionId;
+                    if (model.Domicilio)
+                        orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PRESUPENDOMICILIO).First().EstadoReparacionId;
+                    else
+                        orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PRESUPUESTADO).First().EstadoReparacionId;
+                    
                     orden.ReparacionDetalle.Presupuesto = model.Monto;
+                   
                 }
 
                 orden.ModificadoPor = currentUserId;

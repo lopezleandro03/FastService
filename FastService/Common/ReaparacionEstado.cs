@@ -23,5 +23,6 @@ namespace FastService.Common
         public static string CONTROLAR => "CONTROLAR";
         public static string CANCELADO => "CANCELADO";
         public static string NUEVA => "NUEVA";
+        public static string PRESUPENDOMICILIO => "PRESUP. EN DOMICILIO";
     };
 }
