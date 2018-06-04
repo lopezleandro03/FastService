@@ -61,6 +61,8 @@ namespace FastService.Controllers
             }
             else if (tipo == (int)NovedadTipo.RETIRA)
             {
+                model.Monto = 0;
+
                 ViewBag.ListaMetodoDePago = (from y in new FastServiceEntities().MetodoPago
                                              select new SelectListItem()
                                              {

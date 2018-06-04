@@ -55,6 +55,7 @@
   <ItemGroup>
     <Report Include="HojaDeRuta.rdl" />
     <Report Include="Recibo.rdl" />
+    <Report Include="ReciboDorso.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />
 </Project>

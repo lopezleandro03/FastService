@@ -83,6 +83,27 @@ namespace FastService.Controllers
             }
         }
 
+        public ActionResult ImprimirReciboDorso()
+        {
+
+            string reportName = "ReciboDorso.pdf";
+            string reportFilePath = "~/Reports/ReciboDorso.rdl";
+            var reportType = ReportType.PDF;
+            var contentType = string.Format("application/{0}", reportType.ToString().ToLower());
+
+            List<ReportDataSource> dataSources = new List<ReportDataSource>();
+
+            var report = new ReportHelper();
+            var reportParameters = new List<ReportParameter>();
+
+            var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, reportParameters, reportType);
+            Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
+
+            return File(result, contentType);
+
+        }
+
+
         [HttpPost]
         public JsonResult Get(string Prefix)
         {

@@ -27,15 +27,15 @@ namespace FastService.Models
 
         [Display(Name = "Numero de Factura")]
         public string Factura { get; set; }
-
-
+        
+        [Required]
         [Display(Name = "Tecnico")]
         public int TecnicoId { get; set; }
         [Display(Name = "Tecnico")]
         public string TecnicoNombre { get; set; }
-
-
+        
         [Display(Name = "Responsable")]
+        [Required]
         public int ResponsableId { get; set; }
         [Display(Name = "Responsable")]
         public string ResponsableNombre { get; set; }
@@ -43,6 +43,7 @@ namespace FastService.Models
         public string TipoReingreso { get; set; }
         public int TipoNovedadId { get; set; }
 
+        [Required]
         [Display(Name = "Metodo de Pago")]
         public int MetodoDePagoId { get; set; }
 
