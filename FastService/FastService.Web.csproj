@@ -311,7 +311,7 @@
     <Content Include="Content\assets\global\img\portlet-reload-icon.png" />
     <Content Include="Content\assets\global\img\portlet-remove-icon-white.png" />
     <Content Include="Content\assets\global\img\portlet-remove-icon.png" />
-    <Content Include="Content\assets\global\img\BKremove-icon-small.png" />
+    <Content Include="Content\assets\global\img\remove-icon-small.png" />
     <Content Include="Content\assets\global\img\social\aboutme.png" />
     <Content Include="Content\assets\global\img\social\amazon.png" />
     <Content Include="Content\assets\global\img\social\behance.png" />
