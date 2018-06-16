@@ -772,6 +772,13 @@ namespace FastService.Common
                     GenerarContabilidad(model, orden, currentUserId);
                 }
 
+                if (model.TipoNovedadId == (int)NovedadTipo.REPDOMICILIO)
+                {
+                    orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.RETIRADO).First().EstadoReparacionId;
+                    orden.ReparacionDetalle.Precio = model.Monto;
+                    GenerarContabilidad(model, orden, currentUserId);
+                }
+
                 if (model.TipoNovedadId == (int)NovedadTipo.ENTREGA)
                 {
                     orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PARAENTREGAR).First().EstadoReparacionId;

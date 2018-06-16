@@ -2,103 +2,68 @@
 
 <div class="row">
     <div class="col-md-12">
-        @*<table class="table table-bordered table-responsive table-hover">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.VentaId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.OrigenNombre)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cliente.Dni)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cliente.Nombre)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cliente.Apellido)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Monto)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Descripcion)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MetodoDePago)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.NroFactura)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Fecha)
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.VentaId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.OrigenNombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Cliente.Dni)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Cliente.Nombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Cliente.Apellido)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Monto)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.MetodoDePago)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NroFactura)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Fecha)
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>*@
-
-
         <div id="jsGrid"></div>
-
     </div>
 </div>
 
 <script>
-    //var clients = [
-    //    { "Name": "Otto Clay", "Age": 25, "Country": 1, "Address": "Ap #897-1459 Quam Avenue", "Married": false },
-    //    { "Name": "Connor Johnston", "Age": 45, "Country": 2, "Address": "Ap #370-4647 Dis Av.", "Married": true },
-    //    { "Name": "Lacey Hess", "Age": 29, "Country": 3, "Address": "Ap #365-8835 Integer St.", "Married": false },
-    //    { "Name": "Timothy Henson", "Age": 56, "Country": 1, "Address": "911-5143 Luctus Ave", "Married": true },
-    //    { "Name": "Ramona Benton", "Age": 32, "Country": 3, "Address": "Ap #614-689 Vehicula Street", "Married": false }
-    //];
+    $.datepicker.regional['es'] = {
+        closeText: 'Cerrar',
+        prevText: '< Ant',
+        nextText: 'Sig >',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
 
-    //var countries = [
-    //    { Name: "", Id: 0 },
-    //    { Name: "United States", Id: 1 },
-    //    { Name: "Canada", Id: 2 },
-    //    { Name: "United Kingdom", Id: 3 }
-    //];
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+
+    var MyDateField = function (config) {
+        jsGrid.Field.call(this, config);
+    };
+
+    MyDateField.prototype = new jsGrid.Field({
+
+        css: "date-field",            // redefine general property 'css'
+        align: "center",              // redefine general property 'align'
+
+        myCustomProperty: "foo",      // custom property
+
+        sorter: function (date1, date2) {
+            return new Date(date1) - new Date(date2);
+        },
+
+        itemTemplate: function (value) {
+            return new Date(parseInt(value.substr(6))).toLocaleDateString();
+        },
+
+        insertTemplate: function (value) {
+            return this._insertPicker = $("<input>").datepicker({ defaultDate: new Date() });
+        },
+
+        editTemplate: function (value) {
+            return this._editPicker = $("<input>").datepicker().datepicker("setDate", new Date(value));
+        },
+
+        insertValue: function () {
+            return this._insertPicker.datepicker("getDate").toISOString();
+        },
+
+        editValue: function () {
+            return this._editPicker.datepicker("getDate").toISOString();
+        }
+    });
+
+    jsGrid.fields.date = MyDateField;
 
     $("#jsGrid").jsGrid({
         width: "100%",
@@ -115,6 +80,7 @@
         pageSize: 15,
         pageIndex: 1,
         pageButtonCount: 15,
+        deleteConfirm: "Estas seguro que quieres borrar la venta?",
 
         pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
         pagePrevText: "Anterior",
@@ -132,8 +98,24 @@
                     data: filter
                 });
             },
-            insertItem: $.noop,
-            updateItem: $.noop,
+            insertItem: function (item) {
+                return $.post({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: "@Url.Action("Create", "Venta")",
+                    data: JSON.stringify(item),
+                    dataType: 'json'
+                });
+            },
+            updateItem: function (item) {
+                 return $.post({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: "@Url.Action("Edit", "Venta")",
+                    data: JSON.stringify(item),
+                    dataType: 'json'
+                });
+            },
             deleteItem: function (item) {
                 var VentaId = item.VentaId;
                 return $.post({
@@ -144,15 +126,8 @@
             }
         },
 
-        inserting: true,
-        editing: true,
-        sorting: true,
-        paging: true,
-
-        //data: clients,
-
         fields: [
-            { name: "VentaId", type: "text",title:"ID", width: 25, validate: "required" },
+            { name: "VentaId", type: "text",title:"ID", width: 25 },
             { name: "OrigenNombre", type: "text",title:"Origen", width: 60 },
             { name: "Cliente.Dni", type: "text", title: "DNI", width: 50 },
             { name: "Cliente.Nombre", type: "text", title: "Nombre",/* items: countries,*/ valueField: "Id", textField: "Name" },
@@ -161,7 +136,7 @@
             { name: "Descripcion", type: "text", title: "Motivo", sorting: false },
             { name: "MetodoDePago", type: "text", title: "Forma de Pago", width: 80, sorting: false },
             { name: "NroFactura", type: "text", title: "Factura", width: 50, sorting: false },
-            { name: "Fecha", type: "date", title: "Fecha", sorting: false },
+            { name: "Fecha", type: "date", title: "Fecha", width: 80, sorting: false },
             { type: "control" }
         ]
     });
@@ -170,63 +145,63 @@
 
 
 @*{
-    fields: [],
-    data: [],
+        fields: [],
+        data: [],
 
-    autoload: false,
-    controller: {
-        loadData: $.noop,
-        insertItem: $.noop,
-        updateItem: $.noop,
-        deleteItem: $.noop
-    },
+        autoload: false,
+        controller: {
+            loadData: $.noop,
+            insertItem: $.noop,
+            updateItem: $.noop,
+            deleteItem: $.noop
+        },
 
-    width: "auto",
-    height: "auto",
+        width: "auto",
+        height: "auto",
 
-    heading: true,
-    filtering: false,
-    inserting: false,
-    editing: false,
-    selecting: true,
-    sorting: false,
-    paging: false,
-    pageLoading: false,
+        heading: true,
+        filtering: false,
+        inserting: false,
+        editing: false,
+        selecting: true,
+        sorting: false,
+        paging: false,
+        pageLoading: false,
 
-    rowClass: function(item, itemIndex) { ... },
-    rowClick: function(args) { ... },
-    rowDoubleClick: function(args) { ... },
+        rowClass: function(item, itemIndex) { ... },
+        rowClick: function(args) { ... },
+        rowDoubleClick: function(args) { ... },
 
-    noDataContent: "Not found",
+        noDataContent: "Not found",
 
-    confirmDeleting: true,
-    deleteConfirm: "Are you sure?",
+        confirmDeleting: true,
+        deleteConfirm: "Are you sure?",
 
-    pagerContainer: null,
-    pageIndex: 1,
-    pageSize: 20,
-    pageButtonCount: 15,
-    pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
-    pagePrevText: "Prev",
-    pageNextText: "Next",
-    pageFirstText: "First",
-    pageLastText: "Last",
-    pageNavigatorNextText: "...",
-    pageNavigatorPrevText: "...",
+        pagerContainer: null,
+        pageIndex: 1,
+        pageSize: 20,
+        pageButtonCount: 15,
+        pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
+        pagePrevText: "Prev",
+        pageNextText: "Next",
+        pageFirstText: "First",
+        pageLastText: "Last",
+        pageNavigatorNextText: "...",
+        pageNavigatorPrevText: "...",
 
-    invalidNotify: function(args) { ... }
-    invalidMessage: "Invalid data entered!",
+        invalidNotify: function(args) { ... }
+        invalidMessage: "Invalid data entered!",
 
-    loadIndication: true,
-    loadIndicationDelay: 500,
-    loadMessage: "Please, wait...",
-    loadShading: true,
+        loadIndication: true,
+        loadIndicationDelay: 500,
+        loadMessage: "Please, wait...",
+        loadShading: true,
 
-    updateOnResize: true,
+        updateOnResize: true,
 
-    rowRenderer: null,
-    headerRowRenderer: null,
-    filterRowRenderer: null,
-    insertRowRenderer: null,
-    editRowRenderer: null
-}*@
+        rowRenderer: null,
+        headerRowRenderer: null,
+        filterRowRenderer: null,
+        insertRowRenderer: null,
+        editRowRenderer: null
+    }*@

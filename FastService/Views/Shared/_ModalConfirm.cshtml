@@ -1,0 +1,37 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+
+        <div class="modal fade" id="modalConfirm" role="basic" aria-hidden="true" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" aria-hidden="true" type="button" data-dismiss="modal"></button>
+                    <h3 class="modal-title">Esta seguro?</h3>
+                </div>
+                <i class="glyphicon glyphicon-warning-sign confirmIcon"></i>
+                <div class="modal-body confirmMessage text-center"> Modificaste campos sensibles, estas seguro que quieres guardar?</div>
+                <div class="modal-footer">
+                    <button class="btn dark btn-outline btn-info" type="button" data-dismiss="modal">Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .confirmIcon {
+        font-size: 200px !important;
+        color: indianred;
+        margin-top: 20%;
+        margin-left: 30%;
+    }
+
+    .confirmMessage {
+        font-size: 25px !important;
+    }
+
+    #modalConfirm {
+        margin-top: 50px;
+        z-index: 210000;
+    }
+</style>
+

@@ -197,6 +197,79 @@ namespace FastService.Controllers
             return RedirectToAction("Create");
         }
 
+        public ActionResult Edit(VentaModel venta)
+        {
+            var cliente = _dbContext.Cliente.FirstOrDefault(x => x.Dni == venta.Cliente.Dni);
+
+            if (cliente != null)
+            {
+                cliente.Dni = venta.Cliente.Dni;
+                cliente.Nombre = venta.Cliente.Nombre;
+                cliente.Apellido = venta.Cliente.Apellido;
+                cliente.Mail = venta.Cliente.Mail;
+                cliente.Direccion = venta.Cliente.Direccion;
+                cliente.Telefono1 = venta.Cliente.Telefono;
+                cliente.Telefono2 = venta.Cliente.Celular;
+            }
+            else
+            {
+                cliente = new Cliente()
+                {
+                    Dni = venta.Cliente.Dni,
+                    Nombre = venta.Cliente.Nombre,
+                    Apellido = venta.Cliente.Apellido,
+                    Mail = venta.Cliente.Mail,
+                    Direccion = venta.Cliente.Direccion,
+                    Telefono1 = venta.Cliente.Telefono,
+                    Telefono2 = venta.Cliente.Celular
+                };
+
+                _dbContext.Cliente.Add(cliente);
+                _dbContext.SaveChanges();
+            }
+
+            int? fac = null;
+
+            if (venta.Facturado)
+            {
+                var factura = new Factura()
+                {
+                    NroFactura = venta.NroFactura,
+                    TipoFacturaId = venta.TipoDeFacturaId,
+                    ModificadoEn = DateTime.Now,
+                    ModificadoPor = CurrentUserId
+                };
+
+                _dbContext.Factura.Add(factura);
+                _dbContext.SaveChanges();
+
+                fac = factura.FacturaId;
+            }
+
+            Venta model = new Venta()
+            {
+                FacturaId = fac,
+                RefNumber = venta.NroFactura, //cual seria la referencia?
+                Descripcion = venta.Descripcion,
+                PuntoDeVentaId = venta.Origen,
+                Fecha = venta.Fecha,
+                Vendedor = CurrentUserId,
+                Facturado = venta.Facturado,
+                TipoTransaccionId = venta.Facturado ? 1 : 2,
+                MetodoPagoId = venta.MetodoDePagoId,
+                Monto = venta.Monto,
+                ClienteId = cliente.ClienteId
+            };
+
+            _dbContext.Venta.Add(model);
+            _dbContext.SaveChanges();
+
+            //var result = new { Success = "true", Message = "Completado!" };
+            //return Json(result, JsonRequestBehavior.AllowGet);
+
+            return RedirectToAction("Create");
+        }
+
         // GET: Venta
         public JsonResult Get()
         {
@@ -224,7 +297,7 @@ namespace FastService.Controllers
                              NroFactura = x.Factura.NroFactura,
                              TipoDeFactura = x.Factura.TipoFactura.Nombre,
                              Fecha = x.Fecha
-                         }).OrderByDescending(x => x.Fecha), JsonRequestBehavior.AllowGet);
+                         }).OrderByDescending(x => x.VentaId), JsonRequestBehavior.AllowGet);
         }
 
         // GET: Venta

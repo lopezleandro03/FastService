@@ -1,11 +1,11 @@
 ﻿@model FastService.Models.NovedadModel
 
 <div class="modal-header">
-    <button class="simplemodal-close close" aria-hidden="true" type="button" data-dismiss="modal"></button>
+    <button class="close simplemodal-close" aria-hidden="true" type="button" data-dismiss="modal"></button>
     <h4 id="modalNuevaNovedadHeader" class="modal-title">Nueva Novedad</h4>
 </div>
 
-@using (Ajax.BeginForm("Create", "Novedad", new AjaxOptions { HttpMethod = "Post", OnBegin = "OnBeginNovedad", OnSuccess = "DoneNovedad(data)", OnFailure = "OnErrorNovedad", LoadingElementId = "spinner" }, new { @id = "novedadForm" }))
+@using (Ajax.BeginForm("Create", "Novedad", new AjaxOptions { HttpMethod = "Post", OnBegin = "OnBeginNovedad", OnSuccess = "DoneNovedad(data)", OnFailure = "OnErrorNovedad", LoadingElementId = "spinner" }))
 {
     <div id="modalNuevaNovedadBody" class="modal-body">
 
@@ -14,23 +14,23 @@
 
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.NroOrden)
-        @Html.HiddenFor(model => model.TipoNovedadId)
         @Html.LabelFor(model => model.TecnicoNombre)
         @Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, new { @class = "form-control" })
 
-        @Html.LabelFor(model => model.ResponsableId)
-        @Html.DropDownListFor(model => model.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, new { @class = "form-control" })
+        <div>
+            @Html.LabelFor(model => model.ResponsableId)
+            @Html.DropDownListFor(model => model.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, "seleccione responsable", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ResponsableId)
+        </div>
 
         @Html.LabelFor(model => model.Monto)
         @Html.TextBoxFor(model => model.Monto, new { @class = "form-control" })
-
-        @Html.LabelFor(model => model.FechaEntrega)
-        @Html.TextBoxFor(model => model.FechaEntrega, new { @class = "fechaentrega form-control form-control-inline input-large" })
+        
 
         @Html.LabelFor(model => model.Observacion)
         @Html.TextAreaFor(model => model.Observacion, new { @class = "form-control" })
 
-        @Html.HiddenFor(model => model.Accion, new { @class = "form-control", @id = "accion" })
+        @Html.HiddenFor(model => model.TipoNovedadId)
     </div>
 
     <div class="modal-footer">
@@ -40,9 +40,3 @@
 
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-<script>
-    $(function () {
-        $(".fechaentrega").datepicker();
-    })
-</script>

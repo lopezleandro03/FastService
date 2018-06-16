@@ -311,7 +311,7 @@
     <Content Include="Content\assets\global\img\portlet-reload-icon.png" />
     <Content Include="Content\assets\global\img\portlet-remove-icon-white.png" />
     <Content Include="Content\assets\global\img\portlet-remove-icon.png" />
-    <Content Include="Content\assets\global\img\remove-icon-small.png" />
+    <Content Include="Content\assets\global\img\BKremove-icon-small.png" />
     <Content Include="Content\assets\global\img\social\aboutme.png" />
     <Content Include="Content\assets\global\img\social\amazon.png" />
     <Content Include="Content\assets\global\img\social\behance.png" />
@@ -888,6 +888,7 @@
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.countdown.min.js" />
     <Content Include="Scripts\jquery.counterup.min.js" />
+    <Content Include="Scripts\jquery.formatDateTime.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -980,7 +981,7 @@
     <Content Include="Views\Shared\PanelAccion.cshtml" />
     <Content Include="Views\Novedad\NovedadCoordinarEntrega.cshtml" />
     <Content Include="Views\Novedad\NovedadInformarPresupuesto.cshtml" />
-    <Content Include="Views\Novedad\NovedadPresupuesto.cshtml" />
+    <Content Include="Views\Novedad\NovedadReparadoDomicilio.cshtml" />
     <Content Include="Views\Novedad\NovedadReingreso.cshtml" />
     <Content Include="Views\Novedad\NovedadRetiro.cshtml" />
     <Content Include="Views\Novedad\NovedadSimple.cshtml" />
@@ -988,6 +989,8 @@
     <Content Include="Views\Domicilio\ActionBar.cshtml" />
     <Content Include="Views\Shared\_ModalTicket.cshtml" />
     <Content Include="Views\Shared\_ModalNovedad.cshtml" />
+    <Content Include="Views\Novedad\NovedadPresupuesto - Copia.cshtml" />
+    <Content Include="Views\Shared\_ModalConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

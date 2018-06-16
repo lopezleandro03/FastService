@@ -34,11 +34,14 @@ namespace FastService.Controllers
 
             InitializeViewBag();
 
-            if (tipo == (int)NovedadTipo.REPDOMICILIO
-                || tipo == (int)NovedadTipo.PRESUPUESTADO
+            if ( tipo == (int)NovedadTipo.PRESUPUESTADO
                 || tipo == (int)NovedadTipo.REPARADO)
             {
                 return PartialView("NovedadPresupuesto", model);
+            }
+            else if (tipo == (int)NovedadTipo.REPDOMICILIO)
+            {
+                return PartialView("NovedadReparadoDomicilio", model);
             }
             else if (tipo == (int)NovedadTipo.PRESUPINFOR)
             {

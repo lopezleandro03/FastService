@@ -214,6 +214,7 @@
 
             @RenderPage("_ModalSuccess.cshtml")
             @RenderPage("_ModalError.cshtml")
+            @RenderPage("_ModalConfirm.cshtml")
             @RenderPage("_ModalNovedad.cshtml")
             @RenderPage("_ModalTicket.cshtml")
 
@@ -369,6 +370,12 @@
 </html>
 
 <script>
+    //function Confirm()
+    //{
+    //    $("#modalConfirm").modal();
+    //}
+
+
     function ReloadTicketDetails(data) {
         if ($("#FlagNuevaOrden").val() == "true") {
              ajaxGetNoCustomError(

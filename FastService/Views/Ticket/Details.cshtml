@@ -1,6 +1,6 @@
 ﻿@model FastService.Models.OrdenModel
 
-@using (Ajax.BeginForm("Save", "Ticket", new AjaxOptions { HttpMethod = "Post", OnSuccess = "ReloadTicketDetails(data)", OnFailure = "OnError", LoadingElementId = "spinner" }, new { @id = "ticket-form" }))
+@using (Ajax.BeginForm("Save", "Ticket", new AjaxOptions { HttpMethod = "Post", Confirm = "Confirm", OnSuccess = "ReloadTicketDetails(data)", OnFailure = "OnError", LoadingElementId = "spinner" }, new { @id = "ticket-form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
