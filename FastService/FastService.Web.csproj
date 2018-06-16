@@ -989,7 +989,7 @@
     <Content Include="Views\Domicilio\ActionBar.cshtml" />
     <Content Include="Views\Shared\_ModalTicket.cshtml" />
     <Content Include="Views\Shared\_ModalNovedad.cshtml" />
-    <Content Include="Views\Novedad\NovedadPresupuesto - Copia.cshtml" />
+    <Content Include="Views\Novedad\NovedadPresupuesto.cshtml" />
     <Content Include="Views\Shared\_ModalConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>

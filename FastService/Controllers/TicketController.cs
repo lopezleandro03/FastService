@@ -25,10 +25,10 @@ namespace FastService.Controllers
         {
             var model = new OrdenModel();
             model.EstadoFecha = DateTime.Now;
-            model.NroOrden = new OrdenHelper().GetNextOrderNro();
+            //model.NroOrden = new OrdenHelper().GetNextOrderNro();
             model.EstadoDesc = ReparacionEstado.NUEVA;
             InitializeViewBag();
-
+            
             return PartialView("Details", model);
         }
 
@@ -40,7 +40,9 @@ namespace FastService.Controllers
             helper.Save(model, CurrentUserId);
             InitializeViewBag();
             ViewBag.Seguimiento = "true"; //this is a fucking workaround
-            return PartialView("Details", helper.GetOrden(model.NroOrden));
+
+            return RedirectToAction("Details", "Ticket", new { id = model.NroOrden });
+            //return PartialView("Details", helper.GetOrden(model.NroOrden));
         }
 
         public ActionResult ImprimirRecibo(int id)

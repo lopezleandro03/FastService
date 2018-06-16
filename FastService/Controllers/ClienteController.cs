@@ -59,20 +59,35 @@ namespace FastService.Controllers
         [HttpPost]
         public JsonResult Index(string Prefix)
         {
-            //Note : you can bind same list from database  
-            var ObjList = (from x in _db.Cliente
-                           where x.Dni.ToString().Contains(Prefix)
-                              || x.Nombre.Contains(Prefix)
-                              || x.Apellido.Contains(Prefix)
-                              || x.Mail.Contains(Prefix)
-                           select new ClienteModel() { Dni = x.Dni, Nombre = x.Nombre, Apellido = x.Apellido }).Take(20).ToList();
+            var result = new List<ClienteModel>();
 
-            //Searching records from list using LINQ query  
-            var NombreCliente = (from N in ObjList
-                                 select new { N.DisplayName, N.Dni }
+            Prefix = Prefix.Contains("  ") ? Prefix.Replace("  ", " ") : Prefix;
+
+            if (Prefix.Trim().Contains(" "))
+            {
+
+                var apellido = Prefix.Split(' ')[0];
+                var nombre = Prefix.Split(' ')[1];
+
+                result = (from x in _db.Cliente
+                          where x.Nombre.Contains(nombre)
+                             && x.Apellido.Contains(apellido)
+                          select new ClienteModel() { Dni = x.Dni, Nombre = x.Nombre, Apellido = x.Apellido }).OrderBy(x => x.Nombre).Take(25).ToList();
+            }
+            else
+            {
+                result = (from x in _db.Cliente
+                          where x.Dni.ToString().Contains(Prefix)
+                             || x.Nombre.Contains(Prefix)
+                             || x.Apellido.Contains(Prefix)
+                          select new ClienteModel() { Dni = x.Dni, Nombre = x.Nombre, Apellido = x.Apellido }).OrderBy(x => x.Nombre).Take(25).ToList();
+            }
+
+            var clienteList = (from N in result
+                               select new { N.DisplayName, N.Dni }
                                  ).ToList();
 
-            return Json(NombreCliente, JsonRequestBehavior.AllowGet);
+            return Json(clienteList, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Cliente/Create

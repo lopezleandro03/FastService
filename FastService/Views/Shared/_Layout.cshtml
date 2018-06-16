@@ -370,12 +370,6 @@
 </html>
 
 <script>
-    //function Confirm()
-    //{
-    //    $("#modalConfirm").modal();
-    //}
-
-
     function ReloadTicketDetails(data) {
         if ($("#FlagNuevaOrden").val() == "true") {
              ajaxGetNoCustomError(
@@ -446,6 +440,7 @@
                     $(".OrdenDetailBody").html("");
                     $(".OrdenDetailBody").html(data);
                     $("#ModalOrdenDetail").modal();
+                    $(".ac-ordenSearch").val("");
                 }
             );
         }

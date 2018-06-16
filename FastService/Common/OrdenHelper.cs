@@ -556,7 +556,7 @@ namespace FastService.Common
 
                         var nuevaRep = new Reparacion()
                         {
-                            ReparacionId = model.NroOrden,
+                            ReparacionId = GetNextOrderNro(),
                             ReparacionDetalleId = repDet.ReparacionDetalleId,
                             ClienteId = cli.ClienteId,
                             EmpleadoAsignadoId = model.ResponsableId,
@@ -573,6 +573,9 @@ namespace FastService.Common
 
                         _db.Reparacion.Add(nuevaRep);
                         _db.SaveChanges();
+
+                        //syc model id
+                        model.NroOrden = nuevaRep.ReparacionId;
 
                         _db.Novedad.Add(new Novedad()
                         {
@@ -737,7 +740,7 @@ namespace FastService.Common
                     }
                     else if (model.Accion.ToUpper() == "RECHAZA")
                     {
-                        orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.RECHAZADO).First().EstadoReparacionId;
+                        orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.RECHAZOPRESUP).First().EstadoReparacionId;
                     }
                     else
                     {
@@ -752,6 +755,11 @@ namespace FastService.Common
                 if (model.TipoNovedadId == (int)NovedadTipo.REINGRESO)
                 {
                     orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.REINGRESADO).First().EstadoReparacionId;
+                }
+
+                if (model.TipoNovedadId == (int)NovedadTipo.RECHAZA)
+                {
+                    orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.RECHAZADO).First().EstadoReparacionId;
                 }
 
                 if (model.TipoNovedadId == (int)NovedadTipo.ESPERAREPUESTO)

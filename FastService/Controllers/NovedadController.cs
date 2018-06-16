@@ -34,58 +34,8 @@ namespace FastService.Controllers
 
             InitializeViewBag();
 
-            if ( tipo == (int)NovedadTipo.PRESUPUESTADO
-                || tipo == (int)NovedadTipo.REPARADO)
-            {
-                return PartialView("NovedadPresupuesto", model);
-            }
-            else if (tipo == (int)NovedadTipo.REPDOMICILIO)
-            {
-                return PartialView("NovedadReparadoDomicilio", model);
-            }
-            else if (tipo == (int)NovedadTipo.PRESUPINFOR)
-            {
-                return PartialView("NovedadInformarPresupuesto", model);
-            }
-            else if (tipo == (int)NovedadTipo.NOTA
-                || tipo == (int)NovedadTipo.VERIFICAR
-                || tipo == (int)NovedadTipo.ACONTROLAR
-                || tipo == (int)NovedadTipo.ESPERAREPUESTO)
-            {
-                return PartialView("NovedadSimple", model);
-            }
-            else if (tipo == (int)NovedadTipo.REINGRESO)
-            {
-                return PartialView("NovedadReingreso", model);
-            }
-            else if (tipo == (int)NovedadTipo.ENTREGA)
-            {
-                return PartialView("NovedadCoordinarEntrega", model);
-            }
-            else if (tipo == (int)NovedadTipo.RETIRA)
-            {
-                model.Monto = 0;
-
-                ViewBag.ListaMetodoDePago = (from y in new FastServiceEntities().MetodoPago
-                                             select new SelectListItem()
-                                             {
-                                                 Text = y.Nombre,
-                                                 Value = y.MetodoPagoId.ToString()
-                                             }).ToList();
-
-                ViewBag.ListaTipoFactura = (from y in new FastServiceEntities().TipoFactura
-                                            select new SelectListItem()
-                                            {
-                                                Text = y.Nombre,
-                                                Value = y.TipoFacturaId.ToString()
-                                            }).ToList();
-
-                return PartialView("NovedadRetiro", model);
-            }
-            else
-            {
-                return PartialView("NovedadSimple", model);
-            }
+            var view = SetNovedadModal(tipo);
+            return PartialView(view, model);
         }
 
         // POST: Novedad/Create
@@ -95,7 +45,8 @@ namespace FastService.Controllers
             var helper = new OrdenHelper();
             helper.Save(model, CurrentUserId);
             InitializeViewBag();
-            return PartialView("~/Views/Ticket/Details.cshtml", helper.GetOrden(model.NroOrden));
+
+            return RedirectToAction("Details", "Ticket", new { id = model.NroOrden });
         }
 
         // GET: Novedad/Edit/5
@@ -108,31 +59,53 @@ namespace FastService.Controllers
 
             InitializeViewBag();
 
-            if (tipo == (int)NovedadTipo.REPDOMICILIO
-                || tipo == (int)NovedadTipo.PRESUPUESTADO
+            var view = SetNovedadModal(tipo);
+            return PartialView(view, model);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int ticketid, int id)
+        {
+            var _db = new FastServiceEntities();
+            var novedad = _db.Novedad.Find(id);
+            _db.Novedad.Remove(novedad);
+            _db.SaveChanges();
+            InitializeViewBag();
+
+            return RedirectToAction("Details", "Ticket", new { id = ticketid });
+        }
+
+
+        private string SetNovedadModal(int tipo)
+        {
+            if (tipo == (int)NovedadTipo.PRESUPUESTADO
                 || tipo == (int)NovedadTipo.REPARADO)
             {
-                return PartialView("NovedadPresupuesto", model);
+                return "NovedadPresupuesto";
             }
-            else if (tipo == (int)NovedadTipo.PRESUPINFOR
-                || tipo == (int)NovedadTipo.LLAMADO)
+            else if (tipo == (int)NovedadTipo.REPDOMICILIO)
             {
-                return PartialView("NovedadInformarPresupuesto", model);
+                return "NovedadReparadoDomicilio";
+            }
+            else if (tipo == (int)NovedadTipo.PRESUPINFOR)
+            {
+                return "NovedadInformarPresupuesto";
             }
             else if (tipo == (int)NovedadTipo.NOTA
                 || tipo == (int)NovedadTipo.VERIFICAR
                 || tipo == (int)NovedadTipo.ACONTROLAR
-                || tipo == (int)NovedadTipo.ESPERAREPUESTO)
+                || tipo == (int)NovedadTipo.ESPERAREPUESTO
+                || tipo == (int)NovedadTipo.RECHAZA)
             {
-                return PartialView("NovedadSimple", model);
+                return "NovedadSimple";
             }
             else if (tipo == (int)NovedadTipo.REINGRESO)
             {
-                return PartialView("NovedadReingreso", model);
+                return "NovedadReingreso";
             }
             else if (tipo == (int)NovedadTipo.ENTREGA)
             {
-                return PartialView("NovedadCoordinarEntrega", model);
+                return "NovedadCoordinarEntrega";
             }
             else if (tipo == (int)NovedadTipo.RETIRA)
             {
@@ -150,24 +123,13 @@ namespace FastService.Controllers
                                                 Value = y.TipoFacturaId.ToString()
                                             }).ToList();
 
-                return PartialView("NovedadRetiro", model);
+                return "NovedadRetiro";
             }
             else
             {
-                return PartialView("NovedadSimple", model);
+                return "NovedadSimple";
             }
         }
 
-        [HttpPost]
-        public ActionResult Delete(int ticketid, int id)
-        {
-            var _db = new FastServiceEntities();
-            var novedad = _db.Novedad.Find(id);
-            _db.Novedad.Remove(novedad);
-            _db.SaveChanges();
-            InitializeViewBag();
-
-            return PartialView("~/Views/Ticket/Details.cshtml", new OrdenHelper().GetOrden(ticketid));
-        }
     }
 }
