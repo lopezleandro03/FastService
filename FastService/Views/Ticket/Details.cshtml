@@ -1,6 +1,6 @@
 ﻿@model FastService.Models.OrdenModel
 
-@using (Ajax.BeginForm("Save", "Ticket", new AjaxOptions { HttpMethod = "Post", Confirm = "Confirm", OnSuccess = "ReloadTicketDetails(data)", OnFailure = "OnError", LoadingElementId = "spinner" }, new { @id = "ticket-form" }))
+@using (Ajax.BeginForm("Save", "Ticket", new AjaxOptions { HttpMethod = "Post", OnSuccess = "ReloadTicketDetails(data)", OnFailure = "OnError", LoadingElementId = "spinner" }, new { @id = "ticket-form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -191,7 +191,7 @@
         </div>
     </div>
 
-    <div hidden id="datosComercioDiv">
+    <div hidden class="datosComercioDiv">
 
         <div class="row">
             <div class="col-md-12">
@@ -285,7 +285,9 @@
     $(function () {
         try {
             $.validator.methods.date = function (value, element) {
-                return this.optional(element) || Globalize.parseDate(value, "dd MMM, yyyy") !== null;
+                //var valid = this.optional(element) || Globalize.parseDate(value, "dd MMM, yyyy") !== null;
+                //console.info(valid);
+                return true;
             }
         } catch (e) {
             console.info(e)
@@ -322,14 +324,14 @@
         });
 
         if ("@Model.Garantia" == "True") {
-            $("#datosComercioDiv").removeAttr("hidden", true);
+            $(".datosComercioDiv").removeAttr("hidden", true);
         }
 
         $("#Garantia").click(function () {
             if ($("#Garantia").prop("checked")) {
-                $("#datosComercioDiv").removeAttr("hidden", true);
+                $(".datosComercioDiv").removeAttr("hidden", true);
             } else {
-                $("#datosComercioDiv").attr("hidden", true);
+                $(".datosComercioDiv").attr("hidden", true);
             }
         })
 
