@@ -370,6 +370,16 @@
                 );
         })
 
+        $(".historialClienteBtn").click(function () {
+             ajaxGetNoCustomError(
+                    "@Url.Action("Historia","Cliente")",
+                    function (data) {
+                        $("#HistoriaClienteContent").html(data);
+                        $("#modalHistoriaCliente").modal();
+                    }
+                );
+        })
+
         $.ajax({
             url: "@Url.Action("AutoCompleteAddress", "GoogleMaps")/Cliente_Direccion",
             success: function (data) {

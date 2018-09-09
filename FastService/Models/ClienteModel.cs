@@ -11,7 +11,7 @@ namespace FastService.Models
     {
         public int? ClienteId { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Documento")]
         public int? Dni { get; set; }
 

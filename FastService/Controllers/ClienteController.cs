@@ -25,6 +25,12 @@ namespace FastService.Controllers
         }
 
         [HttpGet]
+        public ActionResult Historia()
+        {
+            return PartialView();
+        }
+
+        [HttpGet]
         public JsonResult GetForSearch(string criteria)
         {
             var result = new List<ClienteModel>();
@@ -133,6 +139,30 @@ namespace FastService.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult GetHistory(int id)
+        {
+            var result = new List<ClienteHistoriaModel>();
+
+            result = (from x in _db.Reparacion
+                      where x.ClienteId == id
+                      select new ClienteHistoriaModel
+                      {
+                          NroOrden = x.ReparacionId,
+                          EstadoDesc = x.EstadoReparacion.nombre,
+                          EstadoFecha = x.ModificadoEn,
+                          MarcaDesc = x.Marca.nombre,
+                          Modelo = x.ReparacionDetalle.Modelo,
+                          Monto = x.ReparacionDetalle.Precio,
+                          NroSerie = x.ReparacionDetalle.Serie,
+                          TecnicoNombre = x.Usuario1.Nombre,
+                          TipoDesc = x.TipoDispositivo.nombre
+                      }).OrderByDescending(x=>x.NroOrden).ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpPost]
         public JsonResult Get(string ClienteId)

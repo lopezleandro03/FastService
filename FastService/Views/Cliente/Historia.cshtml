@@ -1,0 +1,111 @@
+﻿
+<div class="row">
+    <div class="col-md-12">
+        <div id="historiaClienteJsGrid"></div>
+    </div>
+</div>
+
+
+<script>
+
+    var MyDateField = function (config) {
+        jsGrid.Field.call(this, config);
+    };
+
+    MyDateField.prototype = new jsGrid.Field({
+
+        css: "date-field",            // redefine general property 'css'
+        align: "center",              // redefine general property 'align'
+
+        myCustomProperty: "foo",      // custom property
+
+        sorter: function (date1, date2) {
+            return new Date(date1) - new Date(date2);
+        },
+
+        itemTemplate: function (value) {
+            return new Date(parseInt(value.substr(6))).toLocaleDateString();
+        },
+
+        insertTemplate: function (value) {
+            return this._insertPicker = $("<input>").datepicker({ defaultDate: new Date() });
+        },
+
+        editTemplate: function (value) {
+            return this._editPicker = $("<input>").datepicker().datepicker("setDate", new Date(value));
+        },
+
+        insertValue: function () {
+            return this._insertPicker.datepicker("getDate").toISOString();
+        },
+
+        editValue: function () {
+            return this._editPicker.datepicker("getDate").toISOString();
+        }
+    });
+
+    jsGrid.fields.date = MyDateField;
+
+    $("#historiaClienteJsGrid").jsGrid({
+        width: "100%",
+        height: "600px",
+        autoload: true,
+        heading: true,
+        //filtering: true,
+        //inserting: true,
+        //editing: true,
+        selecting: true,
+        sorting: true,
+        paging: true,
+        pageLoading: false,
+        pageSize: 15,
+        pageIndex: 1,
+        pageButtonCount: 15,
+
+        pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
+        pagePrevText: "Anterior",
+        pageNextText: "Siguiente",
+        pageFirstText: "Primera",
+        pageLastText: "Ultima",
+        pageNavigatorNextText: "...",
+        pageNavigatorPrevText: "...",
+
+        //rowDoubleClick: function (data) {
+        //},
+
+        controller: {
+            loadData: function (filter) {
+                return $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("GetHistory","Cliente")" + "?id=" + $(".Cliente_Id").val(),
+                    data: filter
+                });
+            }
+        },
+
+        fields: [
+            { name: "NroOrden", type: "text", title: "Nro. Ticket" },
+            { name: "EstadoDesc", type: "text", title: "Estado", width: 100 },
+            { name: "EstadoFecha", type: "date", title: "Fecha Estado",/* items: countries,*/ valueField: "Id", textField: "Name", width: 100  },
+            { name: "Monto", type: "text", title: "Monto", width: 50  },
+            { name: "TecnicoNombre", type: "text", title: "Tecnico", width: 100 },
+            { name: "TipoDesc", type: "text", title: "Tipo", width: 100 },
+            { name: "MarcaDesc", type: "text", title: "Marca", width: 100 },
+            { name: "Modelo", type: "text", title: "Modelo", width: 100 },
+            { name: "NroSerie", type: "text", title: "Serie", width: 100 }
+        ]
+    });
+
+</script>
+
+<style>
+    .buscarClienteInput {
+        width: 100%;
+        height: 45px;
+        font-size: large;
+    }
+
+    .buscarClienteInputRow {
+        margin-bottom: 15px;
+    }
+</style>

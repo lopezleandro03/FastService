@@ -228,6 +228,7 @@
     <Compile Include="Models\Charts\AccountingSummary.cs" />
     <Compile Include="Models\Charts\Chart.cs" />
     <Compile Include="Models\Charts\IDrawable.cs" />
+    <Compile Include="Models\ClienteHistoriaModel.cs" />
     <Compile Include="Models\DireccionModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\CompraAPagarModel.cs" />
@@ -993,6 +994,8 @@
     <Content Include="Views\Shared\_ModalConfirm.cshtml" />
     <Content Include="Views\Shared\_ModalBuscarCliente.cshtml" />
     <Content Include="Views\Cliente\Buscar.cshtml" />
+    <Content Include="Views\Shared\_ModalHistoriaCliente.cshtml" />
+    <Content Include="Views\Cliente\Historia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
