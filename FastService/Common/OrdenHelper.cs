@@ -80,6 +80,7 @@ namespace FastService.Common
 
                                    Cliente = new ClienteModel()
                                    {
+                                       ClienteId = r.Cliente.ClienteId,
                                        Dni = r.Cliente.Dni,
                                        Nombre = r.Cliente.Nombre,
                                        Apellido = r.Cliente.Apellido,
@@ -164,6 +165,7 @@ namespace FastService.Common
 
                                    Cliente = new ClienteModel()
                                    {
+                                       ClienteId = r.Cliente.ClienteId,
                                        Dni = r.Cliente.Dni,
                                        Nombre = r.Cliente.Nombre,
                                        Apellido = r.Cliente.Apellido,
@@ -238,6 +240,7 @@ namespace FastService.Common
 
                                    Cliente = new ClienteModel()
                                    {
+                                       ClienteId = r.Cliente.ClienteId,
                                        Dni = r.Cliente.Dni,
                                        Nombre = r.Cliente.Nombre,
                                        Apellido = r.Cliente.Apellido,
@@ -303,6 +306,7 @@ namespace FastService.Common
 
                                    Cliente = new ClienteModel()
                                    {
+                                       ClienteId = r.Cliente.ClienteId,
                                        Dni = r.Cliente.Dni,
                                        Nombre = r.Cliente.Nombre,
                                        Apellido = r.Cliente.Apellido,
@@ -466,7 +470,7 @@ namespace FastService.Common
             {
                 try
                 {
-                    var cli = _db.Cliente.Where(x => x.Dni == model.Cliente.Dni).FirstOrDefault();
+                    var cli = _db.Cliente.Where(x => x.ClienteId == model.Cliente.ClienteId).FirstOrDefault();
                     if (cli == null)
                     {
                         cli = new Cliente()
@@ -694,6 +698,7 @@ namespace FastService.Common
 
                                Cliente = new ClienteModel()
                                {
+                                   ClienteId = r.Cliente.ClienteId,
                                    Dni = r.Cliente.Dni,
                                    Nombre = r.Cliente.Nombre,
                                    Apellido = r.Cliente.Apellido,
@@ -895,6 +900,7 @@ namespace FastService.Common
 
                            Cliente = new ClienteModel()
                            {
+                               ClienteId = r.Cliente.ClienteId,
                                Dni = r.Cliente.Dni,
                                Nombre = r.Cliente.Nombre,
                                Apellido = r.Cliente.Apellido,
@@ -1018,6 +1024,7 @@ namespace FastService.Common
 
                         Cliente = new ClienteModel()
                         {
+                            ClienteId = r.Cliente.ClienteId,
                             Dni = r.Cliente.Dni,
                             Nombre = r.Cliente.Nombre,
                             Apellido = r.Cliente.Apellido,

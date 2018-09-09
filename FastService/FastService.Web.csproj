@@ -991,12 +991,13 @@
     <Content Include="Views\Shared\_ModalNovedad.cshtml" />
     <Content Include="Views\Novedad\NovedadPresupuesto.cshtml" />
     <Content Include="Views\Shared\_ModalConfirm.cshtml" />
+    <Content Include="Views\Shared\_ModalBuscarCliente.cshtml" />
+    <Content Include="Views\Cliente\Buscar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\assets\pages\media\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Cliente\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

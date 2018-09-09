@@ -61,15 +61,23 @@
         </div>
     </div>
 
-
     <div class="row">
+
         <div class="col-md-12">
-            <div class="col-md-3">
+            <div class="col-md-1">
+                <button class="btn btn-lg btn-success btn-md center-block align buscarClienteBtn" type="button" title="Buscar cliente..."><i class="fa fa-search"></i></button>
+            </div>
+            <div class="col-md-2">
                 <div class="ui-widget ui-front">
+                    @Html.HiddenFor(model => model.Cliente.ClienteId, new { @class= "Cliente_Id", @id = "Cliente_Id" })
                     @Html.LabelFor(model => model.Cliente.Dni)
                     @Html.TextBoxFor(model => model.Cliente.Dni, new { @class = "form-control ac-cliente Cliente_Dni", @id = "Cliente_Dni", @autocomplete = "off" })
                 </div>
                 @Html.ValidationMessageFor(model => model.Cliente.Dni)
+            </div>
+            <div class="col-md-1">
+                @Html.Label("Sin DNI?")
+                @Html.CheckBox("No tiene", new { @class = "form-control chkNoTieneDni", @id = "chkNoTieneDni" })
             </div>
             <div class="col-md-2 ui-front">
                 @Html.LabelFor(model => model.Cliente.Nombre)
@@ -86,8 +94,8 @@
                 @Html.TextBoxFor(model => model.Cliente.Mail, new { @class = "form-control Cliente_Mail", @id = "Cliente_Mail", @autocomplete = "off" })
                 @Html.ValidationMessageFor(model => model.Cliente.Mail)
             </div>
-            <div class="col-md-2">
-                @Html.Label("No tiene e-mail")
+            <div class="col-md-1">
+                @Html.Label("Sin mail?")
                 @Html.CheckBox("No tiene", new { @class = "form-control chkNoTieneMail", @id = "chkNoTieneMail" })
             </div>
         </div>
@@ -156,73 +164,73 @@
 
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-2">
-                @Html.LabelFor(model => model.TipoDesc)
-                @Html.DropDownListFor(model => model.TipoId, (List<SelectListItem>)ViewBag.ListaTipoDispositivo, "Seleccione dispositivo", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TipoId)
-            </div>
-            <div class="col-md-2">
-                @Html.LabelFor(model => model.MarcaDesc)
-                @Html.DropDownListFor(model => model.MarcaId, (List<SelectListItem>)ViewBag.ListaMarcas, "Seleccione marca", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MarcaId)
-            </div>
-            <div class="col-md-2">
-                @Html.LabelFor(model => model.NroSerie)
-                @Html.TextBoxFor(model => model.NroSerie, new { @class = "form-control", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.NroSerie)
-            </div>
-            <div class="col-md-2">
-                @Html.LabelFor(model => model.Modelo)
-                @Html.TextBoxFor(model => model.Modelo, new { @class = "form-control", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.Modelo)
-            </div>
-            <div class="col-md-1">
-                @Html.LabelFor(model => model.Ubicacion)
-                @Html.TextBoxFor(model => model.Ubicacion, new { @class = "form-control", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.Ubicacion)
-            </div>
-            <div class="col-md-3">
-                @Html.LabelFor(model => model.Accesorios)
-                @Html.TextAreaFor(model => model.Accesorios, new { @class = "form-control", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.Accesorios)
-            </div>
-        </div>
-    </div>
-
-    <div hidden class="datosComercioDiv">
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.Comercio.Descripcion)
-                    @Html.DropDownListFor(model => model.Comercio.ComercioId, (List<SelectListItem>)ViewBag.ListaComercio, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Comercio.ComercioId)
-                </div>
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.Comercio.Telefono)
-                    @Html.TextBoxFor(model => model.Comercio.Telefono, new { @class = "form-control", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Comercio.Telefono)
-                </div>
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.FechaCompra)
-                    @Html.TextBoxFor(model => model.FechaCompra, "{0:dd/MM/yyyy}", new { @class = "fechacompra form-control form-control-inline input-large", @text = DateTime.Now, @placeholder = "Seleccione una fecha", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.FechaCompra)
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.TipoDesc)
+                        @Html.DropDownListFor(model => model.TipoId, (List<SelectListItem>)ViewBag.ListaTipoDispositivo, "Seleccione dispositivo", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TipoId)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.MarcaDesc)
+                        @Html.DropDownListFor(model => model.MarcaId, (List<SelectListItem>)ViewBag.ListaMarcas, "Seleccione marca", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MarcaId)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.NroSerie)
+                        @Html.TextBoxFor(model => model.NroSerie, new { @class = "form-control", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.NroSerie)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.Modelo)
+                        @Html.TextBoxFor(model => model.Modelo, new { @class = "form-control", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.Modelo)
+                    </div>
+                    <div class="col-md-1">
+                        @Html.LabelFor(model => model.Ubicacion)
+                        @Html.TextBoxFor(model => model.Ubicacion, new { @class = "form-control", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.Ubicacion)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Accesorios)
+                        @Html.TextAreaFor(model => model.Accesorios, new { @class = "form-control", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.Accesorios)
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <br>
+            <div hidden class="datosComercioDiv">
 
-    <div class="form-actions">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <input id="btnGuardarOrden" class="btn btn-success" type="submit" value="GUARDAR" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Comercio.Descripcion)
+                            @Html.DropDownListFor(model => model.Comercio.ComercioId, (List<SelectListItem>)ViewBag.ListaComercio, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Comercio.ComercioId)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Comercio.Telefono)
+                            @Html.TextBoxFor(model => model.Comercio.Telefono, new { @class = "form-control", @autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.Comercio.Telefono)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.FechaCompra)
+                            @Html.TextBoxFor(model => model.FechaCompra, "{0:dd/MM/yyyy}", new { @class = "fechacompra form-control form-control-inline input-large", @text = DateTime.Now, @placeholder = "Seleccione una fecha", @autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.FechaCompra)
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+
+            <br>
+
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <input id="btnGuardarOrden" class="btn btn-success" type="submit" value="GUARDAR" />
+                    </div>
+                </div>
+            </div>
 }
 
 <div id="divNovedades">
@@ -233,6 +241,12 @@
     form .row {
         padding-top: 10px;
     }
+
+    .buscarClienteBtn {
+        margin-top: 10px;
+        margin-left: 12px;
+    }
+
 </style>
 
 <script src="~/Scripts/jquery.validate.min.js"></script>
@@ -240,47 +254,47 @@
 
 <script>
 
-    $(".ac-cliente").autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                url: "/Cliente/Index",
-                type: "POST",
-                dataType: "json",
-                data: { Prefix: request.term },
-                success: function (data) {
-                    response($.map(data, function (item) {
-                        return { label: item.DisplayName, value: item.Dni };
-                    }))
+    //$(".ac-cliente").autocomplete({
+    //    source: function (request, response) {
+    //        $.ajax({
+    //            url: "/Cliente/Index",
+    //            type: "POST",
+    //            dataType: "json",
+    //            data: { Prefix: request.term },
+    //            success: function (data) {
+    //                response($.map(data, function (item) {
+    //                    return { label: item.DisplayNameAndAddress, value: item.Dni };
+    //                }))
 
-                }
-            })
-        },
-        select: function (event, ui) {
-            ui.item.value;
-            $.ajax({
-                url: "/Cliente/Get",
-                type: "POST",
-                dataType: "json",
-                data: { ClienteId: ui.item.value },
-                success: function (data) {
-                    $(".Cliente_Dni").val(data.Dni);
-                    $(".Cliente_Nombre").val(data.Nombre);
-                    $(".Cliente_Apellido").val(data.Apellido);
-                    $(".Cliente_Mail").val(data.Mail);
-                    $(".Cliente_Telefono").val(data.Telefono);
-                    $(".Cliente_Celular").val(data.Celular);
-                    $(".Cliente_Direccion").val(data.Direccion);
-                    $(".route").val(data.Calle);
-                    $(".street_number").val(data.Altura);
-                    $(".locality").val(data.Provincia);
-                    $(".postal_code").val(data.CodigoPostal); calle3
-                    $(".country").val(data.Pais);
-                    $(".calle2").val(data.Calle2);
-                    $(".calle3").val(data.Calle3);
-                }
-            })
-        },
-    });
+    //            }
+    //        })
+    //    },
+    //    select: function (event, ui) {
+    //        ui.item.value;
+    //        $.ajax({
+    //            url: "/Cliente/Get",
+    //            type: "POST",
+    //            dataType: "json",
+    //            data: { ClienteId: ui.item.value },
+    //            success: function (data) {
+    //                $(".Cliente_Dni").val(data.Dni);
+    //                $(".Cliente_Nombre").val(data.Nombre);
+    //                $(".Cliente_Apellido").val(data.Apellido);
+    //                $(".Cliente_Mail").val(data.Mail);
+    //                $(".Cliente_Telefono").val(data.Telefono);
+    //                $(".Cliente_Celular").val(data.Celular);
+    //                $(".Cliente_Direccion").val(data.Direccion);
+    //                $(".route").val(data.Calle);
+    //                $(".street_number").val(data.Altura);
+    //                $(".locality").val(data.Provincia);
+    //                $(".postal_code").val(data.CodigoPostal); calle3
+    //                $(".country").val(data.Pais);
+    //                $(".calle2").val(data.Calle2);
+    //                $(".calle3").val(data.Calle3);
+    //            }
+    //        })
+    //    },
+    //});
 
     $(function () {
         try {
@@ -323,6 +337,14 @@
             }
         });
 
+        $(".chkNoTieneDni").change(function () {
+            if ($(".chkNoTieneDni").prop("checked") == true) {
+                $(".Cliente_Dni").val("999999999");
+            } else {
+                $(".Cliente_Mail").val("");
+            }
+        });
+
         if ("@Model.Garantia" == "True") {
             $(".datosComercioDiv").removeAttr("hidden", true);
         }
@@ -333,6 +355,16 @@
             } else {
                 $(".datosComercioDiv").attr("hidden", true);
             }
+        })
+
+        $(".buscarClienteBtn").click(function () {
+             ajaxGetNoCustomError(
+                    "@Url.Action("Buscar","Cliente")",
+                    function (data) {
+                        $("#BuscarClienteContent").html(data);
+                        $("#modalBuscarCliente").modal();
+                    }
+                );
         })
 
         $.ajax({

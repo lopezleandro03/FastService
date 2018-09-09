@@ -9,6 +9,8 @@ namespace FastService.Models
 {
     public class ClienteModel
     {
+        public int? ClienteId { get; set; }
+
         [Required]
         [Display(Name = "Documento")]
         public int? Dni { get; set; }
@@ -34,6 +36,17 @@ namespace FastService.Models
             get
             {
                 return string.Format("{0}-{1} {2}", Dni, Apellido, Nombre).Trim();
+            }
+            set
+            {
+            }
+        }
+
+        public string DisplayNameAndAddress
+        {
+            get
+            {
+                return string.Format("{0}-{1} {2} ({3})", Dni, Apellido, Nombre, Direccion).Trim();
             }
             set
             {

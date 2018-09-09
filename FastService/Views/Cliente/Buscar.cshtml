@@ -1,0 +1,120 @@
+﻿
+<div class="row buscarClienteInputRow">
+    <div class="col-md-11">
+        <input class="form-control buscarClienteInput" id="buscarClienteInput" placeholder="Ingrese documento, nombre, appellido o direccion" type="text" autocomplete="off">
+    </div>
+    <div class="col-md-1">
+        <button class="btn btn-lg btn-success btn-md center-block align LoadClientesBtn" type="button" title="Buscar cliente..."><i class="fa fa-search"></i></button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="clientesJsGrid"></div>
+    </div>
+</div>
+
+
+<script>
+    $(".LoadClientesBtn").click(function () {
+
+        var criteria = $("#buscarClienteInput").val();
+
+         $("#clientesJsGrid").jsGrid({
+                width: "100%",
+                height: "600px",
+                autoload: true,
+                heading: true,
+                //filtering: true,
+                //inserting: true,
+                //editing: true,
+                selecting: true,
+                sorting: true,
+                paging: true,
+                pageLoading: false,
+                pageSize: 15,
+                pageIndex: 1,
+                pageButtonCount: 15,
+
+                pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
+                pagePrevText: "Anterior",
+                pageNextText: "Siguiente",
+                pageFirstText: "Primera",
+                pageLastText: "Ultima",
+                pageNavigatorNextText: "...",
+                pageNavigatorPrevText: "...",
+
+                rowDoubleClick: function (data) {
+                    $(".Cliente_Id").val(data.item.ClienteId);
+                    $(".Cliente_Dni").val(data.item.Dni);
+                    $(".Cliente_Nombre").val(data.item.Nombre);
+                    $(".Cliente_Apellido").val(data.item.Apellido);
+                    $(".Cliente_Mail").val(data.item.Mail);
+                    $(".Cliente_Telefono").val(data.item.Telefono);
+                    $(".Cliente_Celular").val(data.item.Celular);
+                    $(".Cliente_Direccion").val(data.item.Direccion);
+                    $(".route").val(data.item.Dir.Calle);
+                    $(".street_number").val(data.item.Dir.Altura);
+                    $(".locality").val(data.item.Dir.Provincia);
+                    $(".postal_code").val(data.item.Dir.CodigoPostal);
+                    $(".country").val(data.item.Dir.Pais);
+                    $(".calle2").val(data.item.Dir.Calle2);
+                    $(".calle3").val(data.item.Dir.Calle3);
+
+                    $("#btnCloseModalBuscarCliente").trigger("click");
+                },
+
+                controller: {
+                    loadData: function (filter) {
+                        return $.ajax({
+                            type: "GET",
+                            url: "@Url.Action("GetForSearch","Cliente")" + "?criteria=" + $("#buscarClienteInput").val(),
+                            data: filter
+                        });
+                    }
+                },
+
+                fields: [
+                    { name: "ClienteId", type: "text", visible: false },
+                    { name: "Dni", type: "text", title: "DNI", width: 50 },
+                    { name: "Nombre", type: "text", title: "Nombre",/* items: countries,*/ valueField: "Id", textField: "Name", width: 50  },
+                    { name: "Apellido", type: "text", title: "Apellido", width: 50  },
+                    { name: "Direccion", type: "text", title: "Direccion", width: 100 },
+                    { name: "Mail", type: "text", visible: false },
+                    { name: "Telefono", type: "text", visible: false },
+                    { name: "Celular", type: "text", visible: false },
+                    { name: "Dir.Calle", type: "text", visible: false },
+                    { name: "Dir.Altura", type: "text", visible: false },
+                    { name: "Dir.Calle2", type: "text", visible: false },
+                    { name: "Dir.Calle3", type: "text", visible: false },
+                    { name: "Dir.Ciudad", type: "text", visible: false },
+                    { name: "Dir.CodigoPostal", type: "text", visible: false },
+                    { name: "Dir.Provincia", type: "text", visible: false },
+                    { name: "Dir.Pais", type: "text", visible: false },
+                    { name: "Dir.Latitud", type: "text", visible: false },
+                    { name: "Dir.Longitud", type: "text", visible: false }
+                ]
+            });
+    });
+
+    $("#buscarClienteInput").keypress(function (e) {
+        if (e.keyCode == 13) {
+            $(".LoadClientesBtn").trigger('click');
+        }
+    });
+
+    $(".LoadClientesBtn").trigger('click');
+
+</script>
+
+<style>
+    .buscarClienteInput {
+        width: 100%;
+        height: 45px;
+        font-size: x-large;
+    }
+
+    .buscarClienteInputRow {
+        margin-bottom: 15px;
+    }
+</style>

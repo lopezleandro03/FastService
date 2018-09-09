@@ -11,8 +11,8 @@ namespace FastService.Controllers
     public class ClienteController : BaseController
     {
         public FastServiceEntities _db { get; set; }
-        // GET: Cliente
 
+        // GET: Cliente
         public ClienteController()
         {
             this._db = new FastServiceEntities();
@@ -22,6 +22,116 @@ namespace FastService.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public JsonResult GetForSearch(string criteria)
+        {
+            var result = new List<ClienteModel>();
+
+            if (String.IsNullOrEmpty(criteria))
+            {
+                result = (from x in _db.Cliente
+                          select new ClienteModel()
+                          {
+                              ClienteId = x.ClienteId,
+                              Dni = x.Dni,
+                              Nombre = x.Nombre,
+                              Apellido = x.Apellido,
+                              Mail = x.Mail,
+                              Direccion = x.Direccion,
+                              Telefono = x.Telefono1,
+                              Celular = x.Telefono2,
+                              Dir = new DireccionModel()
+                              {
+                                  Calle = x.Direccion1.Calle,
+                                  Altura = x.Direccion1.Altura,
+                                  Calle2 = x.Direccion1.Calle2,
+                                  Calle3 = x.Direccion1.Calle3,
+                                  Ciudad = x.Direccion1.Ciudad,
+                                  CodigoPostal = x.Direccion1.CodigoPostal,
+                                  Provincia = x.Direccion1.Provincia,
+                                  Pais = x.Direccion1.Pais,
+                                  Longitud = x.Direccion1.Longitud,
+                                  Latitud = x.Direccion1.Latitud
+                              }
+                          }).OrderByDescending(x => x.ClienteId).Take(200).ToList();
+            }
+            else
+            {
+                criteria = criteria.Contains("  ") ? criteria.Replace("  ", " ").ToLower() : criteria.ToLower();
+
+                //if contains spaces, then search by name AND surname
+                if (criteria.Trim().Contains(" "))
+                {
+                    var apellido = criteria.Split(' ')[0];
+                    var nombre = criteria.Split(' ')[1];
+
+                    result = (from x in _db.Cliente
+                              where (x.Nombre.ToLower().Contains(nombre)
+                                 && x.Apellido.ToLower().Contains(apellido))
+                                 || x.Direccion.ToLower().Contains(criteria.Trim())
+                              select new ClienteModel()
+                              {
+                                  ClienteId = x.ClienteId,
+                                  Dni = x.Dni,
+                                  Nombre = x.Nombre,
+                                  Apellido = x.Apellido,
+                                  Mail = x.Mail,
+                                  Direccion = x.Direccion,
+                                  Telefono = x.Telefono1,
+                                  Celular = x.Telefono2,
+                                  Dir = new DireccionModel()
+                                  {
+                                      Calle = x.Direccion1.Calle,
+                                      Altura = x.Direccion1.Altura,
+                                      Calle2 = x.Direccion1.Calle2,
+                                      Calle3 = x.Direccion1.Calle3,
+                                      Ciudad = x.Direccion1.Ciudad,
+                                      CodigoPostal = x.Direccion1.CodigoPostal,
+                                      Provincia = x.Direccion1.Provincia,
+                                      Pais = x.Direccion1.Pais,
+                                      Longitud = x.Direccion1.Longitud,
+                                      Latitud = x.Direccion1.Latitud
+                                  }
+                              }).OrderBy(x => x.Nombre).Take(150).ToList();
+                }
+                //else try match name OR surname
+                else
+                {
+                    result = (from x in _db.Cliente
+                              where x.Dni.ToString().Contains(criteria)
+                                 || x.Nombre.ToLower().Contains(criteria)
+                                 || x.Apellido.ToLower().Contains(criteria)
+                                 || x.Direccion.ToLower().Contains(criteria.Trim())
+                              select new ClienteModel()
+                              {
+                                  ClienteId = x.ClienteId,
+                                  Dni = x.Dni,
+                                  Nombre = x.Nombre,
+                                  Apellido = x.Apellido,
+                                  Mail = x.Mail,
+                                  Direccion = x.Direccion,
+                                  Telefono = x.Telefono1,
+                                  Celular = x.Telefono2,
+                                  Dir = new DireccionModel()
+                                  {
+                                      Calle = x.Direccion1.Calle,
+                                      Altura = x.Direccion1.Altura,
+                                      Calle2 = x.Direccion1.Calle2,
+                                      Calle3 = x.Direccion1.Calle3,
+                                      Ciudad = x.Direccion1.Ciudad,
+                                      CodigoPostal = x.Direccion1.CodigoPostal,
+                                      Provincia = x.Direccion1.Provincia,
+                                      Pais = x.Direccion1.Pais,
+                                      Longitud = x.Direccion1.Longitud,
+                                      Latitud = x.Direccion1.Latitud
+                                  }
+                              }).OrderBy(x => x.Nombre).Take(150).ToList();
+                }
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -61,8 +171,9 @@ namespace FastService.Controllers
         {
             var result = new List<ClienteModel>();
 
-            Prefix = Prefix.Contains("  ") ? Prefix.Replace("  ", " ") : Prefix;
+            Prefix = Prefix.Contains("  ") ? Prefix.Replace("  ", " ").ToLower() : Prefix.ToLower();
 
+            //if contains spaces, then search by name AND surname
             if (Prefix.Trim().Contains(" "))
             {
 
@@ -70,84 +181,33 @@ namespace FastService.Controllers
                 var nombre = Prefix.Split(' ')[1];
 
                 result = (from x in _db.Cliente
-                          where x.Nombre.Contains(nombre)
-                             && x.Apellido.Contains(apellido)
-                          select new ClienteModel() { Dni = x.Dni, Nombre = x.Nombre, Apellido = x.Apellido }).OrderBy(x => x.Nombre).Take(25).ToList();
+                          where (x.Nombre.ToLower().Contains(nombre)
+                             && x.Apellido.ToLower().Contains(apellido))
+                             || x.Direccion.ToLower().Contains(Prefix.Trim())
+                          select new ClienteModel() { Dni = x.Dni, Nombre = x.Nombre, Apellido = x.Apellido, Direccion = x.Direccion }).OrderBy(x => x.Nombre).Take(18).ToList();
             }
+            //else try match name OR surname
             else
             {
                 result = (from x in _db.Cliente
                           where x.Dni.ToString().Contains(Prefix)
-                             || x.Nombre.Contains(Prefix)
-                             || x.Apellido.Contains(Prefix)
-                          select new ClienteModel() { Dni = x.Dni, Nombre = x.Nombre, Apellido = x.Apellido }).OrderBy(x => x.Nombre).Take(25).ToList();
+                             || x.Nombre.ToLower().Contains(Prefix)
+                             || x.Apellido.ToLower().Contains(Prefix)
+                             || x.Direccion.ToLower().Contains(Prefix.Trim())
+                          select new ClienteModel() { Dni = x.Dni, Nombre = x.Nombre, Apellido = x.Apellido, Direccion = x.Direccion }).OrderBy(x => x.Nombre).Take(18).ToList();
             }
 
             var clienteList = (from N in result
-                               select new { N.DisplayName, N.Dni }
+                               select new { N.DisplayNameAndAddress, N.Dni }
                                  ).ToList();
 
             return Json(clienteList, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: Cliente/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [HttpGet]
+        public ActionResult Buscar()
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Cliente/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Cliente/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Cliente/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Cliente/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return PartialView();
         }
     }
 }
