@@ -64,64 +64,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-2">
-                    @Html.LabelFor(model => model.TipoDesc)
-                    @Html.DropDownListFor(model => model.TipoId, (List<SelectListItem>)ViewBag.ListaTipoDispositivo, "Seleccione dispositivo", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.TipoId)
-                </div>
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.MarcaDesc)
-                    @Html.DropDownListFor(model => model.MarcaId, (List<SelectListItem>)ViewBag.ListaMarcas, "Seleccione marca", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.MarcaId)
-                </div>
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.NroSerie)
-                    @Html.TextBoxFor(model => model.NroSerie, new { @class = "form-control", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.NroSerie)
-                </div>
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.Modelo)
-                    @Html.TextBoxFor(model => model.Modelo, new { @class = "form-control", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Modelo)
-                </div>
-                <div class="col-md-1">
-                    @Html.LabelFor(model => model.Ubicacion)
-                    @Html.TextBoxFor(model => model.Ubicacion, new { @class = "form-control", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Ubicacion)
-                </div>
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.Accesorios)
-                    @Html.TextAreaFor(model => model.Accesorios, new { @class = "form-control", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Accesorios)
-                </div>
-            </div>
-        </div>
-
-        <div hidden class="datosComercioDiv">
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.Comercio.Descripcion)
-                        @Html.DropDownListFor(model => model.Comercio.ComercioId, (List<SelectListItem>)ViewBag.ListaComercio, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Comercio.ComercioId)
-                    </div>
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.Comercio.Telefono)
-                        @Html.TextBoxFor(model => model.Comercio.Telefono, new { @class = "form-control", @autocomplete = "off" })
-                        @Html.ValidationMessageFor(model => model.Comercio.Telefono)
-                    </div>
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.FechaCompra)
-                        @Html.TextBoxFor(model => model.FechaCompra, "{0:dd/MM/yyyy}", new { @class = "fechacompra form-control form-control-inline input-large", @text = DateTime.Now, @placeholder = "Seleccione una fecha", @autocomplete = "off" })
-                        @Html.ValidationMessageFor(model => model.FechaCompra)
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-2">
                     @Html.HiddenFor(model => model.Cliente.ClienteId, new { @class = "Cliente_Id", @id = "Cliente_Id" })
                     @Html.LabelFor(model => model.Cliente.Dni)
                     <div class="input-group">
@@ -219,6 +161,65 @@
                 </div>
             </div>
 
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.TipoDesc)
+                    @Html.DropDownListFor(model => model.TipoId, (List<SelectListItem>)ViewBag.ListaTipoDispositivo, "Seleccione dispositivo", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TipoId)
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.MarcaDesc)
+                    @Html.DropDownListFor(model => model.MarcaId, (List<SelectListItem>)ViewBag.ListaMarcas, "Seleccione marca", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MarcaId)
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.NroSerie)
+                    @Html.TextBoxFor(model => model.NroSerie, new { @class = "form-control", @autocomplete = "off" })
+                    @Html.ValidationMessageFor(model => model.NroSerie)
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Modelo)
+                    @Html.TextBoxFor(model => model.Modelo, new { @class = "form-control", @autocomplete = "off" })
+                    @Html.ValidationMessageFor(model => model.Modelo)
+                </div>
+                <div class="col-md-1">
+                    @Html.LabelFor(model => model.Ubicacion)
+                    @Html.TextBoxFor(model => model.Ubicacion, new { @class = "form-control", @autocomplete = "off" })
+                    @Html.ValidationMessageFor(model => model.Ubicacion)
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Accesorios)
+                    @Html.TextAreaFor(model => model.Accesorios, new { @class = "form-control", @autocomplete = "off" })
+                    @Html.ValidationMessageFor(model => model.Accesorios)
+                </div>
+            </div>
+        </div>
+
+        <div hidden class="datosComercioDiv">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Comercio.Descripcion)
+                        @Html.DropDownListFor(model => model.Comercio.ComercioId, (List<SelectListItem>)ViewBag.ListaComercio, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Comercio.ComercioId)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Comercio.Telefono)
+                        @Html.TextBoxFor(model => model.Comercio.Telefono, new { @class = "form-control", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.Comercio.Telefono)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.FechaCompra)
+                        @Html.TextBoxFor(model => model.FechaCompra, "{0:dd/MM/yyyy}", new { @class = "fechacompra form-control form-control-inline input-large", @text = DateTime.Now, @placeholder = "Seleccione una fecha", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.FechaCompra)
+                    </div>
+                </div>
+            </div>
         </div>
 
 
