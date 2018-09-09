@@ -17,47 +17,87 @@
 </h4>
 <ul class="list-group ListaOrdenes">
 
-    @foreach (var r in Model.Ordenes.OrderByDescending(x => x.FechaUltimaNovedad))
+    @foreach (var r in Model.Ordenes.OrderByDescending(x => x.EstadoDesc).ThenByDescending(x => x.FechaUltimaNovedad))
     {
+        if (r.EstadoDesc != "REINGRESADO")
+        {
+            <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-ver-orden" style="background-color:#F2F3F4" data-url='@Url.Action("Details","Ticket")/@r.NroOrden'>
+                <div class="OrdenListNro">
+                    <b> @Html.DisplayFor(x => r.NroOrden)</b>
 
-        <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-ver-orden" data-url='@Url.Action("Details","Ticket")/@r.NroOrden'>
-            <div class="OrdenListNro">
-                <b> @Html.DisplayFor(x => r.NroOrden)</b>
+                    @if (r.Domicilio)
+                    {
+                        <i class="glyphicon glyphicon-home"></i>
+                    }
 
-                @if (r.Domicilio)
-                {
-                    <i class="glyphicon glyphicon-home"></i>
-                }
+                    @if (!r.Garantia)
+                    {
+                        <span class="badge badge-info">C</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-info">E</span>
+                    }
 
-                @if (!r.Garantia)
-                {
-                    <span class="badge badge-info">C</span>
-                }
-                else
-                {
-                    <span class="badge badge-info">E</span>
-                }
+                    @if (r.EstadoDesc == "PRESUPUESTADO" || r.EstadoDesc == "REPARADO")
+                    {
+                        <span class="badge badge-danger">@Html.DisplayFor(x => r.DiasDesdeUltimaNotification) dias</span>
+                    }
 
-                @if (r.EstadoDesc == "PRESUPUESTADO" || r.EstadoDesc == "REPARADO")
-                {
-                    <span class="badge badge-danger">@Html.DisplayFor(x => r.DiasDesdeUltimaNotification) dias</span>
-                }
+                </div>
+                <div class="OrdenListSummary">
+                    @Html.DisplayFor(x => r.Cliente.PrettyName)
+                </div>
 
-            </div>
-            <div class="OrdenListSummary">
-                @Html.DisplayFor(x => r.Cliente.PrettyName)
-            </div>
+                <div class="OrdenListSummary">
+                    @Html.DisplayFor(x => r.ResumenAparato)
+                </div>
+                <div class="OrdenListHints">
 
-            <div class="OrdenListSummary">
-                @Html.DisplayFor(x => r.ResumenAparato)
-            </div>
-            <div class="OrdenListHints">
+                    <span class="badge badge-info">@Html.DisplayFor(x => r.ResponsableNombre)</span>
 
-                <span class="badge badge-info">@Html.DisplayFor(x => r.ResponsableNombre)</span>
+                </div>
+            </li>
+        }
+        else
+        {
+            <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-ver-orden" style="background-color:#ffbebb" data-url='@Url.Action("Details","Ticket")/@r.NroOrden'>
+                <div class="OrdenListNro">
+                    <b> @Html.DisplayFor(x => r.NroOrden)</b>
 
-            </div>
-        </li>
+                    @if (r.Domicilio)
+                    {
+                        <i class="glyphicon glyphicon-home"></i>
+                    }
 
+                    @if (!r.Garantia)
+                    {
+                        <span class="badge badge-info">C</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-info">E</span>
+                    }
+
+                    @if (r.EstadoDesc == "PRESUPUESTADO" || r.EstadoDesc == "REPARADO")
+                    {
+                        <span class="badge badge-danger">@Html.DisplayFor(x => r.DiasDesdeUltimaNotification) dias</span>
+                    }
+
+                </div>
+                <div class="OrdenListSummary">
+                    @Html.DisplayFor(x => r.Cliente.PrettyName)
+                </div>
+
+                <div class="OrdenListSummary">
+                    @Html.DisplayFor(x => r.ResumenAparato)
+                </div>
+                <div class="OrdenListHints">
+
+                    <span class="badge badge-info">@Html.DisplayFor(x => r.ResponsableNombre)</span>
+
+                </div>
+            </li>
+        }
     }
 </ul>
-
