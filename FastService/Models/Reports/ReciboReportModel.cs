@@ -43,5 +43,6 @@ namespace FastService.Models.Reports
         public string ReparacionDesc { get; internal set; }
         public string Accesorios { get; internal set; }
         public string Comercio { get;  set; }
+        public DateTime CreadoEn { get; set; }
     }
 }

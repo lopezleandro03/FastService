@@ -951,6 +951,7 @@ namespace FastService.Common
                                                  ReparacionDetalleId = r.ReparacionDetalleId,
                                                  ModificadoPor = r.ModificadoPor,
                                                  ModificadoEn = r.ModificadoEn,
+                                                 CreadoEn = r.CreadoEn,
                                                  EsGarantia = rd.EsGarantia,
                                                  EsDomicilio = rd.EsDomicilio,
                                                  NroReferencia = rd.NroReferencia,

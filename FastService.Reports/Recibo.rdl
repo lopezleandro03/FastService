@@ -13,7 +13,7 @@
     <DataSet Name="Reparacion">
       <Query>
         <DataSourceName>ReparacionData</DataSourceName>
-        <CommandText>SELECT R.ReparacionId, R.ClienteId, R.EmpleadoAsignadoId, R.TecnicoAsignadoId, R.EstadoReparacionId, R.ComercioId, R.MarcaId, R.TipoDispositivoId, R.ReparacionDetalleId, R.ModificadoPor, R.ModificadoEn, RD.ReparacionDetalleId AS Expr1, RD.EsGarantia, RD.EsDomicilio, CO.Descripcion AS Comercio,
+        <CommandText>SELECT R.ReparacionId, R.ClienteId, R.EmpleadoAsignadoId, R.TecnicoAsignadoId, R.EstadoReparacionId, R.ComercioId, R.MarcaId, R.TipoDispositivoId, R.ReparacionDetalleId, R.ModificadoPor, R.ModificadoEn,R.CreadoEn, RD.ReparacionDetalleId AS Expr1, RD.EsGarantia, RD.EsDomicilio, CO.Descripcion AS Comercio,
              RD.NroReferencia, RD.FechoCompra, RD.NroFactura, RD.Presupuesto, RD.PresupuestoFecha, RD.Precio, RD.Modelo, RD.Serie, RD.Serbus, C.Dni, C.Nombre, C.Apellido, C.Mail, C.Telefono1, C.Telefono2, C.Direccion, C.DireccionId, C.Localidad, C.Latitud, C.Longitud, RD.Accesorios, RD.ReparacionDesc
 			 
 FROM   Reparacion AS R INNER JOIN
@@ -66,6 +66,10 @@ WHERE (R.ReparacionId = 107037)</CommandText>
         </Field>
         <Field Name="ModificadoEn">
           <DataField>ModificadoEn</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CreadoEn">
+          <DataField>CreadoEn</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
         <Field Name="Expr1">
@@ -419,7 +423,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Modeo: </Value>
+                                      <Value>Modelo: </Value>
                                       <Style>
                                         <FontFamily>Arial</FontFamily>
                                         <FontSize>12pt</FontSize>
@@ -629,7 +633,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Direccion: </Value>
+                                      <Value>Dirección: </Value>
                                       <Style>
                                         <FontFamily>Arial</FontFamily>
                                         <FontSize>12pt</FontSize>
@@ -706,14 +710,21 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                       <TablixCells>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox16">
+                            <Textbox Name="CreadoEn">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value />
+                                      <Value>Fecha de Ingreso: </Value>
+                                      <Style>
+                                        <FontFamily>Arial</FontFamily>
+                                        <FontSize>12pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!CreadoEn.Value</Value>
                                       <Style>
                                         <FontFamily>Arial</FontFamily>
                                         <FontSize>12pt</FontSize>
@@ -723,7 +734,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox16</rd:DefaultName>
+                              <rd:DefaultName>CreadoEn</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -1952,7 +1963,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Modeo: </Value>
+                                      <Value>Modelo: </Value>
                                       <Style>
                                         <FontFamily>Arial</FontFamily>
                                         <FontSize>12pt</FontSize>
@@ -2162,7 +2173,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Direccion: </Value>
+                                      <Value>Dirección: </Value>
                                       <Style>
                                         <FontFamily>Arial</FontFamily>
                                         <FontSize>12pt</FontSize>

@@ -36,34 +36,34 @@
         </div>
     </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.Presupuesto)
-                    @Html.TextBoxFor(model => model.Presupuesto, new { @class = "form-control", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Presupuesto)
-                </div>
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.Monto)
-                    @Html.TextBoxFor(model => model.Monto, new { @class = "form-control", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Monto)
-                </div>
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.ResponsableNombre)
-                    @Html.DropDownListFor(model => model.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, "Seleccione responsable", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.ResponsableId)
-                </div>
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.TecnicoNombre)
-                    @Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, "Seleccione tecnico", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.TecnicoId)
-                </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Presupuesto)
+                @Html.TextBoxFor(model => model.Presupuesto, new { @class = "form-control", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Presupuesto)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Monto)
+                @Html.TextBoxFor(model => model.Monto, new { @class = "form-control", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Monto)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.ResponsableNombre)
+                @Html.DropDownListFor(model => model.ResponsableId, (List<SelectListItem>)ViewBag.ListaResponsables, "Seleccione responsable", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ResponsableId)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.TecnicoNombre)
+                @Html.DropDownListFor(model => model.TecnicoId, (List<SelectListItem>)ViewBag.ListaTecnicos, "Seleccione tecnico", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TecnicoId)
             </div>
         </div>
+    </div>
 
         <div class="row">
             <div class="col-md-12">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     @Html.HiddenFor(model => model.Cliente.ClienteId, new { @class = "Cliente_Id", @id = "Cliente_Id" })
                     @Html.LabelFor(model => model.Cliente.Dni)
                     <div class="input-group">
@@ -71,31 +71,34 @@
                         <span class="input-group-btn">
                             <button class="btn btn-success buscarClienteBtn" type="button" title="Buscar cliente..."><i class="fa fa-search"></i></button>
                         </span>
+                        <span class="input-group-btn">
+                            <button class="btn btn-info historialClienteBtn" type="button" title="Ver historial del cliente..."><i class="fa fa-list"></i></button>
+                        </span>
                     </div>
                     @Html.ValidationMessageFor(model => model.Cliente.Dni)
                 </div>
-                <div class="col-md-1">
-                    @Html.Label("Sin DNI?")
-                    @Html.CheckBox("No tiene", new { @class = "form-control ticketCheckBox chkNoTieneDni", @id = "chkNoTieneDni" })
-                </div>
+                @*<div class="col-md-1">
+                        @Html.Label("Sin DNI?")
+                        @Html.CheckBox("No tiene", new { @class = "form-control ticketCheckBox chkNoTieneDni", @id = "chkNoTieneDni" })
+                    </div>*@
                 <div class="col-md-3 ui-front">
                     @Html.LabelFor(model => model.Cliente.Nombre)
                     @Html.TextBoxFor(model => model.Cliente.Nombre, new { @class = "form-control ac-cliente Cliente_Nombre", @id = "Cliente_Nombre", @autocomplete = "off" })
                     @Html.ValidationMessageFor(model => model.Cliente.Nombre)
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     @Html.LabelFor(model => model.Cliente.Apellido)
                     @Html.TextBoxFor(model => model.Cliente.Apellido, new { @class = "form-control ac-cliente Cliente_Apellido", @id = "Cliente_Apellido", @autocomplete = "off" })
                     @Html.ValidationMessageFor(model => model.Cliente.Apellido)
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.Cliente.Mail)
-                    @Html.TextBoxFor(model => model.Cliente.Mail, new { @class = "form-control Cliente_Mail", @id = "Cliente_Mail", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Cliente.Mail)
-                </div>
-                <div class="col-md-1">
-                    @Html.Label("Sin mail?")
-                    @Html.CheckBox("No tiene", new { @class = "form-control chkNoTieneMail ticketCheckBox", @id = "chkNoTieneMail" })
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.Cliente.Mail, new { @class = "form-control Cliente_Mail", @id = "Cliente_Mail", @autocomplete = "off" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-danger chkNoTieneMail" type="button" title="Omitir email"><i class="fa fa-ban"></i></button>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -193,7 +196,7 @@
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.Accesorios)
-                    @Html.TextAreaFor(model => model.Accesorios, new { @class = "form-control", @autocomplete = "off" })
+                    @Html.TextBoxFor(model => model.Accesorios, new { @class = "form-control", @autocomplete = "off" })
                     @Html.ValidationMessageFor(model => model.Accesorios)
                 </div>
             </div>
@@ -215,7 +218,7 @@
                     </div>
                     <div class="col-md-3">
                         @Html.LabelFor(model => model.FechaCompra)
-                        @Html.TextBoxFor(model => model.FechaCompra, "{0:dd/MM/yyyy}", new { @class = "fechacompra form-control form-control-inline input-large", @text = DateTime.Now, @placeholder = "Seleccione una fecha", @autocomplete = "off" })
+                        @Html.TextBoxFor(model => model.FechaCompra, "{0:dd/MM/yyyy}", new { @class = "fechacompra form-control form-control-inline", @text = DateTime.Now, @placeholder = "Seleccione una fecha", @autocomplete = "off" })
                         @Html.ValidationMessageFor(model => model.FechaCompra)
                     </div>
                 </div>
@@ -333,21 +336,17 @@
 
         $(".fechacompra").datepicker();
 
-        $(".chkNoTieneMail").change(function () {
-            if ($(".chkNoTieneMail").prop("checked") == true) {
-                $(".Cliente_Mail").val("noaplica@noaplica.com");
-            } else {
-                $(".Cliente_Mail").val("");
-            }
+        $(".chkNoTieneMail").click(function () {
+            $(".Cliente_Mail").val("noaplica@noaplica.com");
         });
 
-        $(".chkNoTieneDni").change(function () {
-            if ($(".chkNoTieneDni").prop("checked") == true) {
-                $(".Cliente_Dni").val("999999999");
-            } else {
-                $(".Cliente_Mail").val("");
-            }
-        });
+        //$(".chkNoTieneDni").change(function () {
+        //    if ($(".chkNoTieneDni").prop("checked") == true) {
+        //        $(".Cliente_Dni").val("999999999");
+        //    } else {
+        //        $(".Cliente_Mail").val("");
+        //    }
+        //});
 
         if ("@Model.Garantia" == "True") {
             $(".datosComercioDiv").removeAttr("hidden", true);
