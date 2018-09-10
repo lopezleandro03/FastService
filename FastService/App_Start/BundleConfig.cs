@@ -9,8 +9,6 @@ namespace FastService
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Content/assets/global/plugins/jquery.min.js",
-                        //"~/Scripts/jquery-ui.min.js",
                         "~/Scripts/jquery.unobtrusive-ajax.min.js",
                         "~/Content/assets/pages/scripts/form-wizard.js"
                         ));
@@ -60,6 +58,7 @@ namespace FastService
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                       "~/Scripts/AjaxHelper.js",
                        "~/Content/assets/global/plugins/js.cookie.min.js",
                        "~/Content/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js",
                        "~/Content/assets/global/plugins/jquery.blockui.min.js",

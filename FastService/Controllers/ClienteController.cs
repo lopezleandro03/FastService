@@ -110,6 +110,7 @@ namespace FastService.Controllers
                                  || x.Nombre.ToLower().Contains(criteria)
                                  || x.Apellido.ToLower().Contains(criteria)
                                  || x.Direccion.ToLower().Contains(criteria.Trim())
+                                 || x.Telefono1.ToLower().Contains(criteria.Trim())
                               select new ClienteModel()
                               {
                                   ClienteId = x.ClienteId,

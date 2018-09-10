@@ -25,8 +25,7 @@
         @Html.TextBoxFor(model => model.Monto, new { @class = "form-control" })
 
         @Html.LabelFor(model => model.FechaEntrega)
-        @Html.TextBoxFor(model => model.FechaEntrega, new { @class = "fechaentrega form-control form-control-inline input-large" })
-
+        @Html.TextBoxFor(model => model.FechaEntrega, "{0:dd/MM/yyyy}", new { @class = "form-control form-control-inline fechacoordinarentrega", @autocomplete = "off" })
         @Html.LabelFor(model => model.Observacion)
         @Html.TextAreaFor(model => model.Observacion, new { @class = "form-control" })
 
@@ -38,11 +37,46 @@
     </div>
 }
 
+<style>
+    .fechacoordinarentrega {
+        z-index: 3000000 !important; /* has to be larger than 1050 */
+    }
+</style>
+
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script>
     $(function () {
-        $(".fechaentrega").datepicker();
+        try {
+            $.validator.methods.date = function (value, element) {
+                //var valid = this.optional(element) || Globalize.parseDate(value, "dd MMM, yyyy") !== null;
+                //console.info(valid);
+                return true;
+            }
+        } catch (e) {
+            console.info(e)
+        }
+
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '< Ant',
+            nextText: 'Sig >',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+        $(".fechacoordinarentrega").datepicker();
     })
 </script>

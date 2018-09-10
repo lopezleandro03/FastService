@@ -12,8 +12,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="favicon.ico">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
+    <meta content="FastService App" name="description" />
+    <meta content="Lopez Leandro A" name="author" />
     <meta charset="utf-8">
     <link href="//fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css">
     <link href="~/Content/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
@@ -21,6 +21,7 @@
     @* Testing jquertGrid *@
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+    <link href="~/Content/spinner.css" rel="stylesheet" />
 
     @Styles.Render("~/Content/css")
 </head>
@@ -208,8 +209,11 @@
             </nav>
         </header>
 
-        <!-- END HEADER -->
         <div class="container-fluid">
+            <!--jquery.min.css tiene que cargar antes que todos los modals, sino no andan los POSTs asyncronicos,
+                se pierde el layout. Ademas, tiene que estar explicito ya que estando en el BundleConfig.cs no
+                funciono-->
+
             <script src="~/Content/assets/global/plugins/jquery.min.js" type="text/javascript"> </script>
 
             @RenderPage("_ModalSuccess.cshtml")
@@ -225,18 +229,16 @@
             <div class="page-content" style="padding-top: 5px !important">
                 @RenderBody()
             </div>
-            <!-- BEGIN FOOTER -->
+    
             <p class="copyright">
                 2018 &copy; FS SRL
             </p>
             <a href="#index" class="go2top">
                 <i class="icon-arrow-up"></i>
             </a>
-            <!-- END FOOTER -->
         </div>
     </div>
-    <!-- END CONTAINER -->
-    <!-- BEGIN QUICK SIDEBAR -->
+    
     <a href="javascript:;" class="page-quick-sidebar-toggler">
         <i class="icon-login"></i>
     </a>
@@ -350,23 +352,17 @@
     </div>
 
     @RenderPage("_Spinner.cshtml")
-
-    <link href="~/Content/spinner.css" rel="stylesheet" />
-    <script src="~/Scripts/AjaxHelper.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery.ui")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/js")
 
-    <script src="~/Scripts/jquery-ui.min.js" type="text/javascript"></script>
+    <!--Todo esto tiene que ser descargado y agregado al bundle-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF44JdvJ96J5WyhIwxFRc646TTjhQ2dIY&libraries=places&"
                 async defer></script>
-
-    @* Testing jquertGrid *@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
 </body>
 </html>

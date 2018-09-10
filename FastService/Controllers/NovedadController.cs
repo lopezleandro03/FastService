@@ -31,6 +31,7 @@ namespace FastService.Controllers
             model.TecnicoNombre = orden.TecnicoNombre;
             model.Monto = orden.Presupuesto;
             model.TipoNovedadId = tipo;
+            model.FechaEntrega = DateTime.Now;
 
             InitializeViewBag();
 
