@@ -47,6 +47,10 @@ namespace FastService.Controllers
                     ViewBag.Title = ReparacionEstado.REPARADO.ToString();
                     break;
                 case 6:
+                    model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.RECHAZADO, desde, hasta, tecnicoid, comercioid, responsableid);
+                    ViewBag.Title = ReparacionEstado.RECHAZADO.ToString();
+                    break;
+                case 7:
                     model.Ordenes = new OrdenHelper().GetOrdenesByEstado(ReparacionEstado.PARAENTREGAR, desde, hasta, tecnicoid, comercioid, responsableid);
                     ViewBag.Title = ReparacionEstado.PARAENTREGAR.ToString();
                     break;

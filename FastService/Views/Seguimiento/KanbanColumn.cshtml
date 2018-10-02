@@ -19,6 +19,7 @@
 
     @foreach (var r in Model.Ordenes.OrderByDescending(x => x.EstadoDesc).ThenByDescending(x => x.FechaUltimaNovedad))
     {
+        //if ((r.EstadoDesc != "REINGRESADO") && (r.EstadoDesc != "RECHAZADO"))
         if (r.EstadoDesc != "REINGRESADO")
         {
             <li id="@r.NroOrden" data-id="@r.NroOrden" class="list-group-item li-ver-orden" style="background-color:#F2F3F4" data-url='@Url.Action("Details","Ticket")/@r.NroOrden'>
