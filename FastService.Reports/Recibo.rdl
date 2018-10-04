@@ -622,7 +622,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                       </TablixCells>
                     </TablixRow>
                     <TablixRow>
-                      <Height>0.27521in</Height>
+                      <Height>0.51143in</Height>
                       <TablixCells>
                         <TablixCell>
                           <CellContents>
@@ -717,7 +717,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Fecha de Ingreso: </Value>
+                                      <Value>Fecha de Ingreso a sistema: </Value>
                                       <Style>
                                         <FontFamily>Arial</FontFamily>
                                         <FontSize>12pt</FontSize>
@@ -807,7 +807,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                 <DataSetName>Reparacion</DataSetName>
                 <Top>0.06545in</Top>
                 <Left>0.05201in</Left>
-                <Height>1.35534in</Height>
+                <Height>1.59156in</Height>
                 <Width>6.60299in</Width>
                 <Style>
                   <Border>
@@ -1050,7 +1050,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>consultas-fastservice@gmail.com</Value>
+                        <Value>consultas.fastservice@gmail.com</Value>
                         <Style>
                           <FontSize>16pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -2162,7 +2162,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                       </TablixCells>
                     </TablixRow>
                     <TablixRow>
-                      <Height>0.82382in</Height>
+                      <Height>0.51143in</Height>
                       <TablixCells>
                         <TablixCell>
                           <CellContents>
@@ -2245,6 +2245,81 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                         </TablixCell>
                       </TablixCells>
                     </TablixRow>
+                    <TablixRow>
+                      <Height>0.23622in</Height>
+                      <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox11">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Fecha de Ingreso a sistema: </Value>
+                                      <Style>
+                                        <FontSize>12pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!CreadoEn.Value</Value>
+                                      <Style>
+                                        <FontSize>12pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox11</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <VerticalAlign>Top</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox12">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value />
+                                      <Style>
+                                        <FontFamily>Arial</FontFamily>
+                                        <FontSize>12pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox12</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
                   </TablixRows>
                 </TablixBody>
                 <TablixColumnHierarchy>
@@ -2262,6 +2337,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                         <TablixMember />
                         <TablixMember />
                         <TablixMember />
+                        <TablixMember />
                       </TablixMembers>
                     </TablixMember>
                   </TablixMembers>
@@ -2269,7 +2345,7 @@ WHERE (R.ReparacionId = 107037)</CommandText>
                 <DataSetName>Reparacion</DataSetName>
                 <Top>0.06545in</Top>
                 <Left>0.0919in</Left>
-                <Height>1.66773in</Height>
+                <Height>1.59156in</Height>
                 <Width>6.60299in</Width>
                 <Style>
                   <Border>
