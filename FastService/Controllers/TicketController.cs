@@ -65,7 +65,7 @@ namespace FastService.Controllers
                 var param = new ReportParameter("ticket", id.ToString());
                 reportParameters.Add(param);
 
-                var param2 = new ReportParameter("cliente", ticket.First().Nombre + ticket.First().Apellido);
+                var param2 = new ReportParameter("cliente", ticket.First().Nombre);
                 reportParameters.Add(param2);
 
                 var param3 = new ReportParameter("fecha", ticket.First().ModificadoEn.ToShortDateString());
