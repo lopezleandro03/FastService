@@ -108,7 +108,7 @@ namespace FastService.Controllers
             {
                 return "NovedadCoordinarEntrega";
             }
-            else if (tipo == (int)NovedadTipo.RETIRA)
+            else if (tipo == (int)NovedadTipo.RETIRA || tipo == (int)NovedadTipo.SENA)
             {
                 ViewBag.ListaMetodoDePago = (from y in new FastServiceEntities().MetodoPago
                                              select new SelectListItem()

@@ -785,6 +785,11 @@ namespace FastService.Common
                     GenerarContabilidad(model, orden, currentUserId);
                 }
 
+                if (model.TipoNovedadId == (int)NovedadTipo.SENA)
+                {
+                    GenerarContabilidad(model, orden, currentUserId);
+                }
+
                 if (model.TipoNovedadId == (int)NovedadTipo.REPDOMICILIO)
                 {
                     orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.RETIRADO).First().EstadoReparacionId;
@@ -837,9 +842,11 @@ namespace FastService.Common
                     fac = factura.FacturaId;
                 }
 
+                var desc = model.TipoNovedadId == (int)NovedadTipo.SENA ? $"Seña por servicio de FastService orden {orden.ReparacionId}" : $"Pago por servicio de FastService orden {orden.ReparacionId}";
+
                 var venta = new Venta()
                 {
-                    Descripcion = $"Pago por servicio de FastService orden {orden.ReparacionId}",
+                    Descripcion = desc,
                     ClienteId = orden.ClienteId,
                     Monto = (decimal)orden.ReparacionDetalle.Precio,
                     RefNumber = orden.ReparacionId.ToString(), //guardo como referencia la orden de trabajo
