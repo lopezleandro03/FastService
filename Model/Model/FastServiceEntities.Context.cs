@@ -31,8 +31,10 @@ namespace Model.Model
         public virtual DbSet<Direccion> Direccion { get; set; }
         public virtual DbSet<EstadoReparacion> EstadoReparacion { get; set; }
         public virtual DbSet<Factura> Factura { get; set; }
+        public virtual DbSet<GlobalConfig> GlobalConfig { get; set; }
         public virtual DbSet<ItemMenu> ItemMenu { get; set; }
         public virtual DbSet<Log> Log { get; set; }
+        public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Marca> Marca { get; set; }
         public virtual DbSet<MetodoPago> MetodoPago { get; set; }
         public virtual DbSet<Modelo> Modelo { get; set; }
@@ -51,10 +53,9 @@ namespace Model.Model
         public virtual DbSet<Venta> Venta { get; set; }
         public virtual DbSet<RoleMenu> RoleMenu { get; set; }
         public virtual DbSet<UsuarioRol> UsuarioRol { get; set; }
-        public virtual DbSet<ComprasAPagar> ComprasAPagar { get; set; }
-        public virtual DbSet<ProveedoresAcreedores> ProveedoresAcreedores { get; set; }
         public virtual DbSet<vw_ComprasAPagar> vw_ComprasAPagar { get; set; }
         public virtual DbSet<vw_ProveedoresAcreedores> vw_ProveedoresAcreedores { get; set; }
+        public virtual DbSet<vw_ReparacionTiempos> vw_ReparacionTiempos { get; set; }
         public virtual DbSet<vw_VentasAnuales> vw_VentasAnuales { get; set; }
         public virtual DbSet<vw_VentasDiarias> vw_VentasDiarias { get; set; }
         public virtual DbSet<vw_VentasMensuales> vw_VentasMensuales { get; set; }

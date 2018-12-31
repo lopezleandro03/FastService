@@ -20,7 +20,7 @@ namespace Model.Model
         {
             this.Reparacion = new HashSet<Reparacion>();
         }
-
+    
         public int ComercioId { get; set; }
         public string Code { get; set; }
 

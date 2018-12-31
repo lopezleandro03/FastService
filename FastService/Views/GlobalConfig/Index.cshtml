@@ -1,0 +1,107 @@
+﻿@model FastService.Models.GlobalConfig.GlobalConfigModel
+
+<div class="page-quick-sidebar">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="javascript:;" data-target="#quick_sidebar_tab_1" data-toggle="tab">
+                CONFIG
+                <span class="badge badge-danger"></span>
+            </a>
+        </li>
+        @*<li>
+            <a href="javascript:;" data-target="#quick_sidebar_tab_2" data-toggle="tab">
+                REPORTES
+                <span class="badge badge-success"></span>
+            </a>
+        </li>*@
+        @*<li class="dropdown">
+        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+            CONFIG
+            <i class="fa fa-angle-down"></i>
+        </a>
+        <ul class="dropdown-menu pull-right">
+            <li>
+                <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
+                    <i class="icon-bell"></i> Alerts
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
+                    <i class="icon-info"></i> Notifications
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
+                    <i class="icon-speech"></i> Activities
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
+                    <i class="icon-settings"></i> Settings
+                </a>
+            </li>
+        </ul>
+    </li>*@
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane page-quick-sidebar-settings active" id="quick_sidebar_tab_1">
+            <div class="page-quick-sidebar-settings-list">
+                <h3 class="list-heading">Configuracion de Notificaciones</h3>
+
+                @using (Ajax.BeginForm("Save", "GlobalConfig", new AjaxOptions { HttpMethod = "Post", LoadingElementId= "spinner", OnSuccess= "ReloadPage", OnFailure="OnError" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <ul class="list-items borderless">
+                        <li>
+                            @Html.LabelFor(model => model.NotificacionesMinimoDiasInactividad)
+                            @Html.TextBoxFor(model => model.NotificacionesMinimoDiasInactividad, new { @class = "form-control input-inline input-sm input-small" })
+                        </li>
+                        <li>
+                            @Html.LabelFor(model => model.NotificacionesFechaInicioAno)
+                            @Html.TextBoxFor(model => model.NotificacionesFechaInicioAno, new { @class = "form-control input-inline input-sm input-small" })
+                        </li>
+                        <li>
+                            @Html.LabelFor(model => model.NotificacionesFechaInicioMes)
+                            @Html.TextBoxFor(model => model.NotificacionesFechaInicioMes, new { @class = "form-control input-inline input-sm input-small" })
+                        </li>
+                    </ul>
+                    @*<h3 class="list-heading">System Settings</h3>
+                    <ul class="list-items borderless">
+                        <li>
+                            Security Level
+                            <select class="form-control input-inline input-sm input-small">
+                                <option value="1">Normal</option>
+                                <option value="2" selected>Medium</option>
+                                <option value="e">High</option>
+                            </select>
+                        </li>
+                        <li>
+                            Failed Email Attempts
+                            <input class="form-control input-inline input-sm input-small" value="5" />
+                        </li>
+                        <li>
+                            Secondary SMTP Port
+                            <input class="form-control input-inline input-sm input-small" value="3560" />
+                        </li>
+                        <li>
+                            Notify On System Error
+                            <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="danger" data-on-text="ON" data-off-color="default" data-off-text="OFF">
+                        </li>
+                        <li>
+                            Notify On SMTP Error
+                            <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="warning" data-on-text="ON" data-off-color="default" data-off-text="OFF">
+                        </li>
+                    </ul>*@
+                    <div class="inner-content">
+                        <button type="submit" class="btn btn-success">
+                            <i class="icon-settings"></i> Guardar Cambios
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,17 +12,10 @@ namespace Model.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class ComprasAPagar
+    public partial class GlobalConfig
     {
-        public int CompraId { get; set; }
-        public string ProveedorId { get; set; }
-        public decimal Monto { get; set; }
-        public bool Facturado { get; set; }
-        public string Descripcion { get; set; }
-        public int PuntoDeVentaId { get; set; }
-        public int Estado { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
-        public int CreadoPor { get; set; }
-        public decimal saldo { get; set; }
+        public int GlobalConfigId { get; set; }
+        public string Key { get; set; }
+        public string Value { get; set; }
     }
 }

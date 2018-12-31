@@ -61,9 +61,6 @@
     <Compile Include="Model\Compra.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\ComprasAPagar.cs">
-      <DependentUpon>FastServiceEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\Direccion.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
@@ -88,10 +85,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FastServiceEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\GlobalConfig.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\ItemMenu.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Log.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Logs.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Marca.cs">
@@ -110,9 +113,6 @@
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Proveedor.cs">
-      <DependentUpon>FastServiceEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ProveedoresAcreedores.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\PuntoDeVenta.cs">
@@ -155,6 +155,9 @@
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\vw_ProveedoresAcreedores.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\vw_ReparacionTiempos.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\vw_VentasAnuales.cs">

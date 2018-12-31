@@ -200,6 +200,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\DateHelper.cs" />
+    <Compile Include="Common\GlobalConfigHelper.cs" />
+    <Compile Include="Common\NotificacionHelper.cs" />
     <Compile Include="Common\OrdenHelper.cs" />
     <Compile Include="Common\NovedadTipo.cs" />
     <Compile Include="Common\AplicationRole.cs" />
@@ -210,8 +212,10 @@
     <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\ContabilidadController.cs" />
     <Compile Include="Controllers\DomicilioController.cs" />
+    <Compile Include="Controllers\GlobalConfigController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NotificacionController.cs" />
     <Compile Include="Controllers\NovedadController.cs" />
     <Compile Include="Controllers\PagoProveedoresController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
@@ -236,6 +240,7 @@
     <Compile Include="Models\CorredorModel.cs" />
     <Compile Include="Models\CuotaModel.cs" />
     <Compile Include="Controllers\GoogleMapsController.cs" />
+    <Compile Include="Models\GlobalConfig\GlobalConfigModel.cs" />
     <Compile Include="Models\Login\LoginModel.cs" />
     <Compile Include="Models\Login\MenuItemModel.cs" />
     <Compile Include="Models\Login\MenuModel.cs" />
@@ -244,6 +249,7 @@
     <Compile Include="Models\ChequeModel.cs" />
     <Compile Include="Models\MetodosDePago\PagoConEfectivoViewModel.cs" />
     <Compile Include="Models\MetodosDePago\PagoConTransferenciaViewModel.cs" />
+    <Compile Include="Models\Notificacion\NotificacionModel.cs" />
     <Compile Include="Models\Orden\IIndexModel.cs" />
     <Compile Include="Models\Orden\NovedadModel.cs" />
     <Compile Include="Models\DomicilioViewModel.cs" />
@@ -996,6 +1002,8 @@
     <Content Include="Views\Cliente\Buscar.cshtml" />
     <Content Include="Views\Shared\_ModalHistoriaCliente.cshtml" />
     <Content Include="Views\Cliente\Historia.cshtml" />
+    <Content Include="Views\Notificacion\Index.cshtml" />
+    <Content Include="Views\GlobalConfig\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

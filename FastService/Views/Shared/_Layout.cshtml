@@ -69,54 +69,19 @@
                             }
                         </style>
 
-                        <!-- END SEARCH -->
                         <!-- BEGIN TOPBAR ACTIONS -->
                         <div class="topbar-actions">
                             <!-- BEGIN GROUP NOTIFICATION -->
                             <div class="btn-group-notification btn-group" id="header_notification_bar">
-                                <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <i class="icon-bell"></i>
-                                </button>
-                                <ul class="dropdown-menu-v2">
-                                    <li class="external">
-                                        <h3>
-                                            <span class="bold">No tienes notificaciones</span>
-                                        </h3>
-                                        <a href="#">ver todas</a>
-                                    </li>
-                                    <li>
-                                        <ul class="dropdown-menu-list scroller" style="height: 250px; padding: 0;" data-handle-color="#637283">
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="details">
-                                                        <span class="label label-sm label-icon label-info md-skip">
-                                                            <i class="fa fa-bullhorn"></i>
-                                                        </span>
-                                                    </span>
-                                                    <span class="time">5 days</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="details">
-                                                        <span class="label label-sm label-icon label-danger md-skip">
-                                                            <i class="fa fa-bolt"></i>
-                                                        </span>
-                                                    </span>
-                                                    <span class="time">9 days</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                                
                             </div>
                             <!-- END GROUP NOTIFICATION -->
                             <!-- BEGIN GROUP INFORMATION -->
-                            <div class="btn-group-red btn-group">
+                            @*<div class="btn-group-red btn-group">
                                 <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <i class="fa fa-plus"></i>
                                 </button>
-                            </div>
+                            </div>*@
                             <!-- END GROUP INFORMATION -->
                             <!-- BEGIN USER PROFILE -->
                             <div class="btn-group-img btn-group">
@@ -168,7 +133,6 @@
 
                     <!-- BEGIN HEADER MENU -->
                     <div id="divMenu" class="nav-collapse collapse navbar-collapse navbar-responsive-collapse">
-
                         <ul class="nav navbar-nav">
                             @foreach (var menu in Model.MenuItems.Where(x => x.ParentId == null))
                             {
@@ -191,7 +155,7 @@
                                     {
                                         <ul class="dropdown-menu dropdown-menu-fw fade-in-up grey-cararra">
                                             @foreach (var menuItem in Model.MenuItems.Where(x => x.ParentId == menu.MenuId))
-                    {
+                                            {
                                                 <li class="asyncAction text-uppercase" data-controller="@menuItem.Controller" data-action="@menuItem.Action">
                                                     <a href="javascript:;">
                                                         <i class="@menuItem.Icon"></i> @menuItem.DisplayName.Trim()
@@ -203,7 +167,6 @@
                                 </li>
                             }
                         </ul>
-
                     </div>
                 </div>
             </nav>
@@ -242,113 +205,8 @@
     <a href="javascript:;" class="page-quick-sidebar-toggler">
         <i class="icon-login"></i>
     </a>
+
     <div class="page-quick-sidebar-wrapper" data-close-on-body-click="false">
-        <div class="page-quick-sidebar">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="javascript:;" data-target="#quick_sidebar_tab_1" data-toggle="tab">
-                        Users
-                        <span class="badge badge-danger"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:;" data-target="#quick_sidebar_tab_2" data-toggle="tab">
-                        Alerts
-                        <span class="badge badge-success"></span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                        More
-                        <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu pull-right">
-                        <li>
-                            <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
-                                <i class="icon-bell"></i> Alerts
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
-                                <i class="icon-info"></i> Notifications
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
-                                <i class="icon-speech"></i> Activities
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
-                                <i class="icon-settings"></i> Settings
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane page-quick-sidebar-settings" id="quick_sidebar_tab_3">
-                    <div class="page-quick-sidebar-settings-list">
-                        <h3 class="list-heading">General Settings</h3>
-                        <ul class="list-items borderless">
-                            <li>
-                                Enable Notifications
-                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="success" data-on-text="ON" data-off-color="default" data-off-text="OFF">
-                            </li>
-                            <li>
-                                Allow Tracking
-                                <input type="checkbox" class="make-switch" data-size="small" data-on-color="info" data-on-text="ON" data-off-color="default" data-off-text="OFF">
-                            </li>
-                            <li>
-                                Log Errors
-                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="danger" data-on-text="ON" data-off-color="default" data-off-text="OFF">
-                            </li>
-                            <li>
-                                Auto Sumbit Issues
-                                <input type="checkbox" class="make-switch" data-size="small" data-on-color="warning" data-on-text="ON" data-off-color="default" data-off-text="OFF">
-                            </li>
-                            <li>
-                                Enable SMS Alerts
-                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="success" data-on-text="ON" data-off-color="default" data-off-text="OFF">
-                            </li>
-                        </ul>
-                        <h3 class="list-heading">System Settings</h3>
-                        <ul class="list-items borderless">
-                            <li>
-                                Security Level
-                                <select class="form-control input-inline input-sm input-small">
-                                    <option value="1">Normal</option>
-                                    <option value="2" selected>Medium</option>
-                                    <option value="e">High</option>
-                                </select>
-                            </li>
-                            <li>
-                                Failed Email Attempts
-                                <input class="form-control input-inline input-sm input-small" value="5" />
-                            </li>
-                            <li>
-                                Secondary SMTP Port
-                                <input class="form-control input-inline input-sm input-small" value="3560" />
-                            </li>
-                            <li>
-                                Notify On System Error
-                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="danger" data-on-text="ON" data-off-color="default" data-off-text="OFF">
-                            </li>
-                            <li>
-                                Notify On SMTP Error
-                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="warning" data-on-text="ON" data-off-color="default" data-off-text="OFF">
-                            </li>
-                        </ul>
-                        <div class="inner-content">
-                            <button class="btn btn-success">
-                                <i class="icon-settings"></i> Save Changes
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     @RenderPage("_Spinner.cshtml")
@@ -368,6 +226,10 @@
 </html>
 
 <script>
+    function ReloadPage() {
+        location.reload();
+    }
+
     function ReloadTicketDetails(data) {
         if ($("#FlagNuevaOrden").val() == "true") {
              ajaxGetNoCustomError(
@@ -459,6 +321,29 @@
                 alert("Oops, este modulo no ha sido implementado aun...");
             }
         );
+
+        ajaxGet(
+            "/Notificacion/Index",
+            function (data) {
+                $("#header_notification_bar").html("");
+                $("#header_notification_bar").html(data);
+            },
+            function (data) {
+                alert("Oops, este modulo no ha sido implementado aun...");
+            }
+        );
+
+        ajaxGet(
+            "/GlobalConfig/Index",
+            function (data) {
+                $(".page-quick-sidebar-wrapper").html("");
+                $(".page-quick-sidebar-wrapper").html(data);
+            },
+            function (data) {
+                alert("Oops, este modulo no ha sido implementado aun...");
+            }
+        );
+
     });
 
 </script>

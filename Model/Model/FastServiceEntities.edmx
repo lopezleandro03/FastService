@@ -96,6 +96,14 @@
           <Property Name="ModificadoEn" Type="datetime" Nullable="false" />
           <Property Name="ModificadoPor" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="GlobalConfig">
+          <Key>
+            <PropertyRef Name="GlobalConfigId" />
+          </Key>
+          <Property Name="GlobalConfigId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Key" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
         <EntityType Name="ItemMenu">
           <Key>
             <PropertyRef Name="ItemMenuId" />
@@ -129,6 +137,22 @@
           <Property Name="Logger" Type="nvarchar" MaxLength="250" />
           <Property Name="Callsite" Type="nvarchar(max)" />
           <Property Name="Exception" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventDateTime" Type="datetime" Nullable="false" />
+          <Property Name="EventLevel" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MachineName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EventMessage" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ErrorSource" Type="nvarchar" MaxLength="100" />
+          <Property Name="ErrorClass" Type="nvarchar" MaxLength="500" />
+          <Property Name="ErrorMethod" Type="nvarchar(max)" />
+          <Property Name="ErrorMessage" Type="nvarchar(max)" />
+          <Property Name="InnerErrorMessage" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Marca">
           <Key>
@@ -320,55 +344,6 @@ advertencia 6002: La tabla o vista 'FastService.dbo.RoleMenu' no tiene definida 
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'FastService.dbo.tranu' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="tranu">
-          <Property Name="nrotra" Type="int" />
-          <Property Name="creado" Type="bit" />
-          <Property Name="local" Type="int" />
-          <Property Name="empresa" Type="int" />
-          <Property Name="nroemp" Type="int" />
-          <Property Name="nrocli" Type="int" />
-          <Property Name="nrocom" Type="int" />
-          <Property Name="lugar" Type="varchar" MaxLength="200" />
-          <Property Name="fechacom" Type="varchar" MaxLength="200" />
-          <Property Name="faccom" Type="int" />
-          <Property Name="nrotec" Type="int" />
-          <Property Name="nromar" Type="int" />
-          <Property Name="nrotip" Type="int" />
-          <Property Name="modelo" Type="varchar" MaxLength="200" />
-          <Property Name="serie" Type="varchar" MaxLength="200" />
-          <Property Name="serbus" Type="varchar" MaxLength="200" />
-          <Property Name="garantia" Type="varchar" MaxLength="200" />
-          <Property Name="nroest" Type="varchar" MaxLength="200" />
-          <Property Name="impreso" Type="varchar" MaxLength="200" />
-          <Property Name="limite" Type="varchar" MaxLength="200" />
-          <Property Name="decomercio" Type="varchar" MaxLength="200" />
-          <Property Name="presupparaf" Type="varchar" MaxLength="200" />
-          <Property Name="presuparah" Type="varchar" MaxLength="200" />
-          <Property Name="nrofac" Type="varchar" MaxLength="200" />
-          <Property Name="prioridad" Type="varchar" MaxLength="200" />
-          <Property Name="sector" Type="varchar" MaxLength="200" />
-          <Property Name="timestamp" Type="varchar" MaxLength="200" />
-          <Property Name="ubicacion" Type="varchar" MaxLength="200" />
-          <Property Name="llamar" Type="varchar" MaxLength="200" />
-          <Property Name="plantec" Type="varchar" MaxLength="200" />
-          <Property Name="planrec" Type="varchar" MaxLength="200" />
-          <Property Name="planemp" Type="varchar" MaxLength="200" />
-          <Property Name="precio" Type="varchar" MaxLength="200" />
-          <Property Name="rep" Type="varchar" MaxLength="200" />
-          <Property Name="movil" Type="varchar" MaxLength="200" />
-          <Property Name="orden" Type="varchar" MaxLength="200" />
-          <Property Name="turno" Type="varchar" MaxLength="200" />
-          <Property Name="trajo" Type="varchar" MaxLength="200" />
-          <Property Name="lleva" Type="varchar" MaxLength="200" />
-          <Property Name="entregar" Type="varchar" MaxLength="200" />
-          <Property Name="desde" Type="varchar" MaxLength="200" />
-          <Property Name="viejo" Type="varchar" MaxLength="200" />
-          <Property Name="estant" Type="varchar" MaxLength="200" />
-          <Property Name="desdeant" Type="varchar" MaxLength="200" />
-          <Property Name="nroes" Type="varchar" MaxLength="200" />
-        </EntityType>-->
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="UserId" />
@@ -412,47 +387,6 @@ advertencia 6002: La tabla o vista 'FastService.dbo.UsuarioRol' no tiene definid
           <Property Name="TipoTransaccionId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'FastService.dbo.ComprasAPagar' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="ComprasAPagar">
-          <Key>
-            <PropertyRef Name="CompraId" />
-            <PropertyRef Name="ProveedorId" />
-            <PropertyRef Name="Monto" />
-            <PropertyRef Name="Facturado" />
-            <PropertyRef Name="PuntoDeVentaId" />
-            <PropertyRef Name="Estado" />
-            <PropertyRef Name="FechaCreacion" />
-            <PropertyRef Name="CreadoPor" />
-            <PropertyRef Name="saldo" />
-          </Key>
-          <Property Name="CompraId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProveedorId" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Monto" Type="money" Nullable="false" />
-          <Property Name="Facturado" Type="bit" Nullable="false" />
-          <Property Name="Descripcion" Type="varchar" MaxLength="500" />
-          <Property Name="PuntoDeVentaId" Type="int" Nullable="false" />
-          <Property Name="Estado" Type="int" Nullable="false" />
-          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
-          <Property Name="CreadoPor" Type="int" Nullable="false" />
-          <Property Name="saldo" Type="money" Nullable="false" />
-        </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'FastService.dbo.ProveedoresAcreedores' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="ProveedoresAcreedores">
-          <Key>
-            <PropertyRef Name="ProveedorId" />
-            <PropertyRef Name="Nombre" />
-          </Key>
-          <Property Name="ProveedorId" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="Mail" Type="varchar" MaxLength="200" />
-          <Property Name="Contacto" Type="varchar" MaxLength="200" />
-          <Property Name="Telefono1" Type="varchar" MaxLength="50" />
-          <Property Name="Telefono2" Type="varchar" MaxLength="50" />
-          <Property Name="Direccion" Type="varchar" MaxLength="300" />
-          <Property Name="Localidad" Type="varchar" MaxLength="100" />
-        </EntityType>
-        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'FastService.dbo.vw_ComprasAPagar' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vw_ComprasAPagar">
           <Key>
@@ -494,6 +428,15 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_ProveedoresAcreedores' no
           <Property Name="Localidad" Type="varchar" MaxLength="100" />
         </EntityType>
         <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'FastService.dbo.vw_ReparacionTiempos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="vw_ReparacionTiempos">
+          <Key>
+            <PropertyRef Name="reparacionId" />
+          </Key>
+          <Property Name="reparacionId" Type="int" Nullable="false" />
+          <Property Name="DiasDesdeUltimaActividad" Type="int" />
+        </EntityType>
+        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasAnuales' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vw_VentasAnuales">
           <Key>
@@ -520,7 +463,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="Total" Type="money" />
           <Property Name="facturado" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Cliente__Direcci__0E7C4113">
+        <Association Name="FK__Cliente__Direcci__5F29F348">
           <End Role="Direccion" Type="Self.Direccion" Multiplicity="0..1" />
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
           <ReferentialConstraint>
@@ -532,7 +475,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__Proveedo__48A8E2A8">
+        <Association Name="FK__Compra__Proveedo__2E51B1C3">
           <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -544,7 +487,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__PuntoDeV__499D06E1">
+        <Association Name="FK__Compra__PuntoDeV__2F45D5FC">
           <End Role="PuntoDeVenta" Type="Self.PuntoDeVenta" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -556,7 +499,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Factura__TipoFac__098281CC">
+        <Association Name="FK__Factura__TipoFac__50A6C9C7">
           <End Role="TipoFactura" Type="Self.TipoFactura" Multiplicity="1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -568,7 +511,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pago__CompraId__4A912B1A">
+        <Association Name="FK__Pago__CompraId__3039FA35">
           <End Role="Compra" Type="Self.Compra" Multiplicity="1" />
           <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
           <ReferentialConstraint>
@@ -580,7 +523,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pago__FacturaId__02D5843D">
+        <Association Name="FK__Pago__FacturaId__4FB2A58E">
           <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
           <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
           <ReferentialConstraint>
@@ -592,19 +535,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pago__FacturaId__088E5D93">
-          <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
-          <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Factura">
-              <PropertyRef Name="FacturaId" />
-            </Principal>
-            <Dependent Role="Pago">
-              <PropertyRef Name="FacturaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Pago__MetodoDePa__4E61BBFE">
+        <Association Name="FK__Pago__MetodoDePa__340A8B19">
           <End Role="MetodoPago" Type="Self.MetodoPago" Multiplicity="1" />
           <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
           <ReferentialConstraint>
@@ -616,7 +547,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pago__TipoTransa__4B854F53">
+        <Association Name="FK__Pago__TipoTransa__312E1E6E">
           <End Role="TipoTransaccion" Type="Self.TipoTransaccion" Multiplicity="1" />
           <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
           <ReferentialConstraint>
@@ -628,7 +559,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Clien__40139CA7">
+        <Association Name="FK__Reparacio__Clien__25BC6BC2">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -640,7 +571,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Comer__46C09A36">
+        <Association Name="FK__Reparacio__Comer__2C696951">
           <End Role="Comercio" Type="Self.Comercio" Multiplicity="0..1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -652,7 +583,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Emple__4107C0E0">
+        <Association Name="FK__Reparacio__Emple__26B08FFB">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -664,7 +595,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Estad__42F00952">
+        <Association Name="FK__Reparacio__Estad__2898D86D">
           <End Role="EstadoReparacion" Type="Self.EstadoReparacion" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -676,7 +607,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Marca__43E42D8B">
+        <Association Name="FK__Reparacio__Marca__298CFCA6">
           <End Role="Marca" Type="Self.Marca" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -688,7 +619,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Repar__45CC75FD">
+        <Association Name="FK__Reparacio__Repar__2B754518">
           <End Role="ReparacionDetalle" Type="Self.ReparacionDetalle" Multiplicity="0..1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -700,7 +631,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Tecni__41FBE519">
+        <Association Name="FK__Reparacio__Tecni__27A4B434">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -712,7 +643,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__TipoD__44D851C4">
+        <Association Name="FK__Reparacio__TipoD__2A8120DF">
           <End Role="TipoDispositivo" Type="Self.TipoDispositivo" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -724,7 +655,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__TipoD__47B4BE6F">
+        <Association Name="FK__Reparacio__TipoD__2D5D8D8A">
           <End Role="TipoDispositivo" Type="Self.TipoDispositivo" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -736,7 +667,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venta__ClienteId__541A9554">
+        <Association Name="FK__Venta__ClienteId__39C3646F">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -748,7 +679,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venta__FacturaId__01E16004">
+        <Association Name="FK__Venta__FacturaId__4EBE8155">
           <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -760,19 +691,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venta__FacturaId__079A395A">
-          <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
-          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Factura">
-              <PropertyRef Name="FacturaId" />
-            </Principal>
-            <Dependent Role="Venta">
-              <PropertyRef Name="FacturaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Venta__PuntoDeVe__550EB98D">
+        <Association Name="FK__Venta__PuntoDeVe__3AB788A8">
           <End Role="PuntoDeVenta" Type="Self.PuntoDeVenta" Multiplicity="1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -784,7 +703,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venta__PuntoDeVe__5602DDC6">
+        <Association Name="FK__Venta__PuntoDeVe__3BABACE1">
           <End Role="PuntoDeVenta" Type="Self.PuntoDeVenta" Multiplicity="1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -796,7 +715,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venta__TipoTrans__56F701FF">
+        <Association Name="FK__Venta__TipoTrans__3C9FD11A">
           <End Role="TipoTransaccion" Type="Self.TipoTransaccion" Multiplicity="1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -851,8 +770,10 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <EntitySet Name="Direccion" EntityType="Self.Direccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EstadoReparacion" EntityType="Self.EstadoReparacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GlobalConfig" EntityType="Self.GlobalConfig" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemMenu" EntityType="Self.ItemMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MetodoPago" EntityType="Self.MetodoPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Modelo" EntityType="Self.Modelo" Schema="dbo" store:Type="Tables" />
@@ -882,32 +803,6 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
     [UsuarioRol].[UserId] AS [UserId]
     FROM [dbo].[UsuarioRol] AS [UsuarioRol]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="ComprasAPagar" EntityType="Self.ComprasAPagar" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ComprasAPagar].[CompraId] AS [CompraId], 
-    [ComprasAPagar].[ProveedorId] AS [ProveedorId], 
-    [ComprasAPagar].[Monto] AS [Monto], 
-    [ComprasAPagar].[Facturado] AS [Facturado], 
-    [ComprasAPagar].[Descripcion] AS [Descripcion], 
-    [ComprasAPagar].[PuntoDeVentaId] AS [PuntoDeVentaId], 
-    [ComprasAPagar].[Estado] AS [Estado], 
-    [ComprasAPagar].[FechaCreacion] AS [FechaCreacion], 
-    [ComprasAPagar].[CreadoPor] AS [CreadoPor], 
-    [ComprasAPagar].[saldo] AS [saldo]
-    FROM [dbo].[ComprasAPagar] AS [ComprasAPagar]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ProveedoresAcreedores" EntityType="Self.ProveedoresAcreedores" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ProveedoresAcreedores].[ProveedorId] AS [ProveedorId], 
-    [ProveedoresAcreedores].[Nombre] AS [Nombre], 
-    [ProveedoresAcreedores].[Mail] AS [Mail], 
-    [ProveedoresAcreedores].[Contacto] AS [Contacto], 
-    [ProveedoresAcreedores].[Telefono1] AS [Telefono1], 
-    [ProveedoresAcreedores].[Telefono2] AS [Telefono2], 
-    [ProveedoresAcreedores].[Direccion] AS [Direccion], 
-    [ProveedoresAcreedores].[Localidad] AS [Localidad]
-    FROM [dbo].[ProveedoresAcreedores] AS [ProveedoresAcreedores]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="vw_ComprasAPagar" EntityType="Self.vw_ComprasAPagar" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vw_ComprasAPagar].[CompraId] AS [CompraId], 
@@ -934,6 +829,12 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
     [vw_ProveedoresAcreedores].[Localidad] AS [Localidad]
     FROM [dbo].[vw_ProveedoresAcreedores] AS [vw_ProveedoresAcreedores]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="vw_ReparacionTiempos" EntityType="Self.vw_ReparacionTiempos" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_ReparacionTiempos].[reparacionId] AS [reparacionId], 
+    [vw_ReparacionTiempos].[DiasDesdeUltimaActividad] AS [DiasDesdeUltimaActividad]
+    FROM [dbo].[vw_ReparacionTiempos] AS [vw_ReparacionTiempos]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vw_VentasAnuales" EntityType="Self.vw_VentasAnuales" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vw_VentasAnuales].[Total] AS [Total], 
@@ -952,99 +853,91 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
     [vw_VentasMensuales].[facturado] AS [facturado]
     FROM [dbo].[vw_VentasMensuales] AS [vw_VentasMensuales]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__Cliente__Direcci__0E7C4113" Association="Self.FK__Cliente__Direcci__0E7C4113">
+          <AssociationSet Name="FK__Cliente__Direcci__5F29F348" Association="Self.FK__Cliente__Direcci__5F29F348">
             <End Role="Direccion" EntitySet="Direccion" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__Proveedo__48A8E2A8" Association="Self.FK__Compra__Proveedo__48A8E2A8">
+          <AssociationSet Name="FK__Compra__Proveedo__2E51B1C3" Association="Self.FK__Compra__Proveedo__2E51B1C3">
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__PuntoDeV__499D06E1" Association="Self.FK__Compra__PuntoDeV__499D06E1">
+          <AssociationSet Name="FK__Compra__PuntoDeV__2F45D5FC" Association="Self.FK__Compra__PuntoDeV__2F45D5FC">
             <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Factura__TipoFac__098281CC" Association="Self.FK__Factura__TipoFac__098281CC">
+          <AssociationSet Name="FK__Factura__TipoFac__50A6C9C7" Association="Self.FK__Factura__TipoFac__50A6C9C7">
             <End Role="TipoFactura" EntitySet="TipoFactura" />
             <End Role="Factura" EntitySet="Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pago__CompraId__4A912B1A" Association="Self.FK__Pago__CompraId__4A912B1A">
+          <AssociationSet Name="FK__Pago__CompraId__3039FA35" Association="Self.FK__Pago__CompraId__3039FA35">
             <End Role="Compra" EntitySet="Compra" />
             <End Role="Pago" EntitySet="Pago" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pago__FacturaId__02D5843D" Association="Self.FK__Pago__FacturaId__02D5843D">
+          <AssociationSet Name="FK__Pago__FacturaId__4FB2A58E" Association="Self.FK__Pago__FacturaId__4FB2A58E">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Pago" EntitySet="Pago" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pago__FacturaId__088E5D93" Association="Self.FK__Pago__FacturaId__088E5D93">
-            <End Role="Factura" EntitySet="Factura" />
-            <End Role="Pago" EntitySet="Pago" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Pago__MetodoDePa__4E61BBFE" Association="Self.FK__Pago__MetodoDePa__4E61BBFE">
+          <AssociationSet Name="FK__Pago__MetodoDePa__340A8B19" Association="Self.FK__Pago__MetodoDePa__340A8B19">
             <End Role="MetodoPago" EntitySet="MetodoPago" />
             <End Role="Pago" EntitySet="Pago" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pago__TipoTransa__4B854F53" Association="Self.FK__Pago__TipoTransa__4B854F53">
+          <AssociationSet Name="FK__Pago__TipoTransa__312E1E6E" Association="Self.FK__Pago__TipoTransa__312E1E6E">
             <End Role="TipoTransaccion" EntitySet="TipoTransaccion" />
             <End Role="Pago" EntitySet="Pago" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Clien__40139CA7" Association="Self.FK__Reparacio__Clien__40139CA7">
+          <AssociationSet Name="FK__Reparacio__Clien__25BC6BC2" Association="Self.FK__Reparacio__Clien__25BC6BC2">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Comer__46C09A36" Association="Self.FK__Reparacio__Comer__46C09A36">
+          <AssociationSet Name="FK__Reparacio__Comer__2C696951" Association="Self.FK__Reparacio__Comer__2C696951">
             <End Role="Comercio" EntitySet="Comercio" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Emple__4107C0E0" Association="Self.FK__Reparacio__Emple__4107C0E0">
+          <AssociationSet Name="FK__Reparacio__Emple__26B08FFB" Association="Self.FK__Reparacio__Emple__26B08FFB">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Estad__42F00952" Association="Self.FK__Reparacio__Estad__42F00952">
+          <AssociationSet Name="FK__Reparacio__Estad__2898D86D" Association="Self.FK__Reparacio__Estad__2898D86D">
             <End Role="EstadoReparacion" EntitySet="EstadoReparacion" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Marca__43E42D8B" Association="Self.FK__Reparacio__Marca__43E42D8B">
+          <AssociationSet Name="FK__Reparacio__Marca__298CFCA6" Association="Self.FK__Reparacio__Marca__298CFCA6">
             <End Role="Marca" EntitySet="Marca" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Repar__45CC75FD" Association="Self.FK__Reparacio__Repar__45CC75FD">
+          <AssociationSet Name="FK__Reparacio__Repar__2B754518" Association="Self.FK__Reparacio__Repar__2B754518">
             <End Role="ReparacionDetalle" EntitySet="ReparacionDetalle" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Tecni__41FBE519" Association="Self.FK__Reparacio__Tecni__41FBE519">
+          <AssociationSet Name="FK__Reparacio__Tecni__27A4B434" Association="Self.FK__Reparacio__Tecni__27A4B434">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__TipoD__44D851C4" Association="Self.FK__Reparacio__TipoD__44D851C4">
+          <AssociationSet Name="FK__Reparacio__TipoD__2A8120DF" Association="Self.FK__Reparacio__TipoD__2A8120DF">
             <End Role="TipoDispositivo" EntitySet="TipoDispositivo" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__TipoD__47B4BE6F" Association="Self.FK__Reparacio__TipoD__47B4BE6F">
+          <AssociationSet Name="FK__Reparacio__TipoD__2D5D8D8A" Association="Self.FK__Reparacio__TipoD__2D5D8D8A">
             <End Role="TipoDispositivo" EntitySet="TipoDispositivo" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venta__ClienteId__541A9554" Association="Self.FK__Venta__ClienteId__541A9554">
+          <AssociationSet Name="FK__Venta__ClienteId__39C3646F" Association="Self.FK__Venta__ClienteId__39C3646F">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venta__FacturaId__01E16004" Association="Self.FK__Venta__FacturaId__01E16004">
+          <AssociationSet Name="FK__Venta__FacturaId__4EBE8155" Association="Self.FK__Venta__FacturaId__4EBE8155">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venta__FacturaId__079A395A" Association="Self.FK__Venta__FacturaId__079A395A">
-            <End Role="Factura" EntitySet="Factura" />
-            <End Role="Venta" EntitySet="Venta" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Venta__PuntoDeVe__550EB98D" Association="Self.FK__Venta__PuntoDeVe__550EB98D">
+          <AssociationSet Name="FK__Venta__PuntoDeVe__3AB788A8" Association="Self.FK__Venta__PuntoDeVe__3AB788A8">
             <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venta__PuntoDeVe__5602DDC6" Association="Self.FK__Venta__PuntoDeVe__5602DDC6">
+          <AssociationSet Name="FK__Venta__PuntoDeVe__3BABACE1" Association="Self.FK__Venta__PuntoDeVe__3BABACE1">
             <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venta__TipoTrans__56F701FF" Association="Self.FK__Venta__TipoTrans__56F701FF">
+          <AssociationSet Name="FK__Venta__TipoTrans__3C9FD11A" Association="Self.FK__Venta__TipoTrans__3C9FD11A">
             <End Role="TipoTransaccion" EntitySet="TipoTransaccion" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
@@ -1082,9 +975,9 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="Localidad" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Latitud" Type="Double" />
           <Property Name="Longitud" Type="Double" />
-          <NavigationProperty Name="Direccion1" Relationship="Self.FK__Cliente__Direcci__0E7C4113" FromRole="Cliente" ToRole="Direccion" />
-          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__Clien__40139CA7" FromRole="Cliente" ToRole="Reparacion" />
-          <NavigationProperty Name="Venta" Relationship="Self.FK__Venta__ClienteId__541A9554" FromRole="Cliente" ToRole="Venta" />
+          <NavigationProperty Name="Direccion1" Relationship="Self.FK__Cliente__Direcci__5F29F348" FromRole="Cliente" ToRole="Direccion" />
+          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__Clien__25BC6BC2" FromRole="Cliente" ToRole="Reparacion" />
+          <NavigationProperty Name="Venta" Relationship="Self.FK__Venta__ClienteId__39C3646F" FromRole="Cliente" ToRole="Venta" />
         </EntityType>
         <EntityType Name="Comercio">
           <Key>
@@ -1103,7 +996,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="activo" Type="Boolean" Nullable="false" />
           <Property Name="modificadoEn" Type="DateTime" Precision="3" />
           <Property Name="modificadoPor" Type="Int32" />
-          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__Comer__46C09A36" FromRole="Comercio" ToRole="Reparacion" />
+          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__Comer__2C696951" FromRole="Comercio" ToRole="Reparacion" />
         </EntityType>
         <EntityType Name="Compra">
           <Key>
@@ -1118,9 +1011,9 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="Estado" Type="Int32" Nullable="false" />
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreadoPor" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Proveedor" Relationship="Self.FK__Compra__Proveedo__48A8E2A8" FromRole="Compra" ToRole="Proveedor" />
-          <NavigationProperty Name="PuntoDeVenta" Relationship="Self.FK__Compra__PuntoDeV__499D06E1" FromRole="Compra" ToRole="PuntoDeVenta" />
-          <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__CompraId__4A912B1A" FromRole="Compra" ToRole="Pago" />
+          <NavigationProperty Name="Proveedor" Relationship="Self.FK__Compra__Proveedo__2E51B1C3" FromRole="Compra" ToRole="Proveedor" />
+          <NavigationProperty Name="PuntoDeVenta" Relationship="Self.FK__Compra__PuntoDeV__2F45D5FC" FromRole="Compra" ToRole="PuntoDeVenta" />
+          <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__CompraId__3039FA35" FromRole="Compra" ToRole="Pago" />
         </EntityType>
         <EntityType Name="Direccion">
           <Key>
@@ -1140,7 +1033,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="Longitud" Type="Decimal" Precision="9" Scale="6" />
           <Property Name="ChangedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ChangedBy" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK__Cliente__Direcci__0E7C4113" FromRole="Direccion" ToRole="Cliente" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Cliente__Direcci__5F29F348" FromRole="Direccion" ToRole="Cliente" />
         </EntityType>
         <EntityType Name="EstadoReparacion">
           <Key>
@@ -1153,7 +1046,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="activo" Type="Boolean" />
           <Property Name="modificadoEn" Type="DateTime" Precision="3" />
           <Property Name="modificadoPor" Type="Int32" />
-          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__Estad__42F00952" FromRole="EstadoReparacion" ToRole="Reparacion" />
+          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__Estad__2898D86D" FromRole="EstadoReparacion" ToRole="Reparacion" />
         </EntityType>
         <EntityType Name="Factura">
           <Key>
@@ -1165,11 +1058,17 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="Media" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ModificadoEn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModificadoPor" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TipoFactura" Relationship="Self.FK__Factura__TipoFac__098281CC" FromRole="Factura" ToRole="TipoFactura" />
-          <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__FacturaId__02D5843D" FromRole="Factura" ToRole="Pago" />
-          <NavigationProperty Name="Pago1" Relationship="Self.FK__Pago__FacturaId__088E5D93" FromRole="Factura" ToRole="Pago" />
-          <NavigationProperty Name="Venta" Relationship="Self.FK__Venta__FacturaId__01E16004" FromRole="Factura" ToRole="Venta" />
-          <NavigationProperty Name="Venta1" Relationship="Self.FK__Venta__FacturaId__079A395A" FromRole="Factura" ToRole="Venta" />
+          <NavigationProperty Name="TipoFactura" Relationship="Self.FK__Factura__TipoFac__50A6C9C7" FromRole="Factura" ToRole="TipoFactura" />
+          <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__FacturaId__4FB2A58E" FromRole="Factura" ToRole="Pago" />
+          <NavigationProperty Name="Venta" Relationship="Self.FK__Venta__FacturaId__4EBE8155" FromRole="Factura" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="GlobalConfig">
+          <Key>
+            <PropertyRef Name="GlobalConfigId" />
+          </Key>
+          <Property Name="GlobalConfigId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Key" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="ItemMenu">
           <Key>
@@ -1206,6 +1105,22 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="Callsite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Exception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventLevel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MachineName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ErrorSource" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorClass" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorMethod" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InnerErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Marca">
           <Key>
             <PropertyRef Name="MarcaId" />
@@ -1216,7 +1131,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="activo" Type="Boolean" Nullable="false" />
           <Property Name="modificadoEn" Type="DateTime" Precision="3" />
           <Property Name="modificadoPor" Type="Int32" />
-          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__Marca__43E42D8B" FromRole="Marca" ToRole="Reparacion" />
+          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__Marca__298CFCA6" FromRole="Marca" ToRole="Reparacion" />
         </EntityType>
         <EntityType Name="MetodoPago">
           <Key>
@@ -1225,7 +1140,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="MetodoPagoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__MetodoDePa__4E61BBFE" FromRole="MetodoPago" ToRole="Pago" />
+          <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__MetodoDePa__340A8B19" FromRole="MetodoPago" ToRole="Pago" />
         </EntityType>
         <EntityType Name="Modelo">
           <Key>
@@ -1270,11 +1185,10 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="CreadoPor" Type="Int32" />
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="MetodoDePagoId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Compra" Relationship="Self.FK__Pago__CompraId__4A912B1A" FromRole="Pago" ToRole="Compra" />
-          <NavigationProperty Name="Factura" Relationship="Self.FK__Pago__FacturaId__02D5843D" FromRole="Pago" ToRole="Factura" />
-          <NavigationProperty Name="Factura1" Relationship="Self.FK__Pago__FacturaId__088E5D93" FromRole="Pago" ToRole="Factura" />
-          <NavigationProperty Name="MetodoPago" Relationship="Self.FK__Pago__MetodoDePa__4E61BBFE" FromRole="Pago" ToRole="MetodoPago" />
-          <NavigationProperty Name="TipoTransaccion" Relationship="Self.FK__Pago__TipoTransa__4B854F53" FromRole="Pago" ToRole="TipoTransaccion" />
+          <NavigationProperty Name="Compra" Relationship="Self.FK__Pago__CompraId__3039FA35" FromRole="Pago" ToRole="Compra" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Pago__FacturaId__4FB2A58E" FromRole="Pago" ToRole="Factura" />
+          <NavigationProperty Name="MetodoPago" Relationship="Self.FK__Pago__MetodoDePa__340A8B19" FromRole="Pago" ToRole="MetodoPago" />
+          <NavigationProperty Name="TipoTransaccion" Relationship="Self.FK__Pago__TipoTransa__312E1E6E" FromRole="Pago" ToRole="TipoTransaccion" />
         </EntityType>
         <EntityType Name="Proveedor">
           <Key>
@@ -1288,7 +1202,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="Telefono2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Direccion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Localidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Compra" Relationship="Self.FK__Compra__Proveedo__48A8E2A8" FromRole="Proveedor" ToRole="Compra" />
+          <NavigationProperty Name="Compra" Relationship="Self.FK__Compra__Proveedo__2E51B1C3" FromRole="Proveedor" ToRole="Compra" />
         </EntityType>
         <EntityType Name="PuntoDeVenta">
           <Key>
@@ -1297,9 +1211,9 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="PuntoDeVentaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Compra" Relationship="Self.FK__Compra__PuntoDeV__499D06E1" FromRole="PuntoDeVenta" ToRole="Compra" />
-          <NavigationProperty Name="Venta" Relationship="Self.FK__Venta__PuntoDeVe__550EB98D" FromRole="PuntoDeVenta" ToRole="Venta" />
-          <NavigationProperty Name="Venta1" Relationship="Self.FK__Venta__PuntoDeVe__5602DDC6" FromRole="PuntoDeVenta" ToRole="Venta" />
+          <NavigationProperty Name="Compra" Relationship="Self.FK__Compra__PuntoDeV__2F45D5FC" FromRole="PuntoDeVenta" ToRole="Compra" />
+          <NavigationProperty Name="Venta" Relationship="Self.FK__Venta__PuntoDeVe__3AB788A8" FromRole="PuntoDeVenta" ToRole="Venta" />
+          <NavigationProperty Name="Venta1" Relationship="Self.FK__Venta__PuntoDeVe__3BABACE1" FromRole="PuntoDeVenta" ToRole="Venta" />
         </EntityType>
         <EntityType Name="Reparacion">
           <Key>
@@ -1321,15 +1235,15 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="ModificadoPor" Type="Int32" />
           <Property Name="CreadoEn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreadoPor" Type="Int32" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK__Reparacio__Clien__40139CA7" FromRole="Reparacion" ToRole="Cliente" />
-          <NavigationProperty Name="Comercio" Relationship="Self.FK__Reparacio__Comer__46C09A36" FromRole="Reparacion" ToRole="Comercio" />
-          <NavigationProperty Name="EstadoReparacion" Relationship="Self.FK__Reparacio__Estad__42F00952" FromRole="Reparacion" ToRole="EstadoReparacion" />
-          <NavigationProperty Name="Marca" Relationship="Self.FK__Reparacio__Marca__43E42D8B" FromRole="Reparacion" ToRole="Marca" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK__Reparacio__Emple__4107C0E0" FromRole="Reparacion" ToRole="Usuario" />
-          <NavigationProperty Name="ReparacionDetalle" Relationship="Self.FK__Reparacio__Repar__45CC75FD" FromRole="Reparacion" ToRole="ReparacionDetalle" />
-          <NavigationProperty Name="Usuario1" Relationship="Self.FK__Reparacio__Tecni__41FBE519" FromRole="Reparacion" ToRole="Usuario" />
-          <NavigationProperty Name="TipoDispositivo" Relationship="Self.FK__Reparacio__TipoD__44D851C4" FromRole="Reparacion" ToRole="TipoDispositivo" />
-          <NavigationProperty Name="TipoDispositivo1" Relationship="Self.FK__Reparacio__TipoD__47B4BE6F" FromRole="Reparacion" ToRole="TipoDispositivo" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Reparacio__Clien__25BC6BC2" FromRole="Reparacion" ToRole="Cliente" />
+          <NavigationProperty Name="Comercio" Relationship="Self.FK__Reparacio__Comer__2C696951" FromRole="Reparacion" ToRole="Comercio" />
+          <NavigationProperty Name="EstadoReparacion" Relationship="Self.FK__Reparacio__Estad__2898D86D" FromRole="Reparacion" ToRole="EstadoReparacion" />
+          <NavigationProperty Name="Marca" Relationship="Self.FK__Reparacio__Marca__298CFCA6" FromRole="Reparacion" ToRole="Marca" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Reparacio__Emple__26B08FFB" FromRole="Reparacion" ToRole="Usuario" />
+          <NavigationProperty Name="ReparacionDetalle" Relationship="Self.FK__Reparacio__Repar__2B754518" FromRole="Reparacion" ToRole="ReparacionDetalle" />
+          <NavigationProperty Name="Usuario1" Relationship="Self.FK__Reparacio__Tecni__27A4B434" FromRole="Reparacion" ToRole="Usuario" />
+          <NavigationProperty Name="TipoDispositivo" Relationship="Self.FK__Reparacio__TipoD__2A8120DF" FromRole="Reparacion" ToRole="TipoDispositivo" />
+          <NavigationProperty Name="TipoDispositivo1" Relationship="Self.FK__Reparacio__TipoD__2D5D8D8A" FromRole="Reparacion" ToRole="TipoDispositivo" />
         </EntityType>
         <EntityType Name="ReparacionDetalle">
           <Key>
@@ -1352,7 +1266,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="ReparacionDesc" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="ModificadoEn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModificadoPor" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__Repar__45CC75FD" FromRole="ReparacionDetalle" ToRole="Reparacion" />
+          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__Repar__2B754518" FromRole="ReparacionDetalle" ToRole="Reparacion" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -1377,8 +1291,8 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="activo" Type="Boolean" Nullable="false" />
           <Property Name="modificadoEn" Type="DateTime" Precision="3" />
           <Property Name="modificadoPor" Type="Int32" />
-          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__TipoD__44D851C4" FromRole="TipoDispositivo" ToRole="Reparacion" />
-          <NavigationProperty Name="Reparacion1" Relationship="Self.FK__Reparacio__TipoD__47B4BE6F" FromRole="TipoDispositivo" ToRole="Reparacion" />
+          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__TipoD__2A8120DF" FromRole="TipoDispositivo" ToRole="Reparacion" />
+          <NavigationProperty Name="Reparacion1" Relationship="Self.FK__Reparacio__TipoD__2D5D8D8A" FromRole="TipoDispositivo" ToRole="Reparacion" />
         </EntityType>
         <EntityType Name="TipoFactura">
           <Key>
@@ -1389,7 +1303,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ModificadoEn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModificadoPor" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__TipoFac__098281CC" FromRole="TipoFactura" ToRole="Factura" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__TipoFac__50A6C9C7" FromRole="TipoFactura" ToRole="Factura" />
         </EntityType>
         <EntityType Name="TipoNovedad">
           <Key>
@@ -1409,8 +1323,8 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="TipoTransaccionId" Type="Int32" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__TipoTransa__4B854F53" FromRole="TipoTransaccion" ToRole="Pago" />
-          <NavigationProperty Name="Venta" Relationship="Self.FK__Venta__TipoTrans__56F701FF" FromRole="TipoTransaccion" ToRole="Venta" />
+          <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__TipoTransa__312E1E6E" FromRole="TipoTransaccion" ToRole="Pago" />
+          <NavigationProperty Name="Venta" Relationship="Self.FK__Venta__TipoTrans__3C9FD11A" FromRole="TipoTransaccion" ToRole="Venta" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -1426,8 +1340,8 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="Telefono1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Telefono2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__Emple__4107C0E0" FromRole="Usuario" ToRole="Reparacion" />
-          <NavigationProperty Name="Reparacion1" Relationship="Self.FK__Reparacio__Tecni__41FBE519" FromRole="Usuario" ToRole="Reparacion" />
+          <NavigationProperty Name="Reparacion" Relationship="Self.FK__Reparacio__Emple__26B08FFB" FromRole="Usuario" ToRole="Reparacion" />
+          <NavigationProperty Name="Reparacion1" Relationship="Self.FK__Reparacio__Tecni__27A4B434" FromRole="Usuario" ToRole="Reparacion" />
         </EntityType>
         <EntityType Name="Venta">
           <Key>
@@ -1445,12 +1359,11 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="Vendedor" Type="Int32" Nullable="false" />
           <Property Name="MetodoPagoId" Type="Int32" />
           <Property Name="TipoTransaccionId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK__Venta__ClienteId__541A9554" FromRole="Venta" ToRole="Cliente" />
-          <NavigationProperty Name="Factura" Relationship="Self.FK__Venta__FacturaId__01E16004" FromRole="Venta" ToRole="Factura" />
-          <NavigationProperty Name="Factura1" Relationship="Self.FK__Venta__FacturaId__079A395A" FromRole="Venta" ToRole="Factura" />
-          <NavigationProperty Name="PuntoDeVenta" Relationship="Self.FK__Venta__PuntoDeVe__550EB98D" FromRole="Venta" ToRole="PuntoDeVenta" />
-          <NavigationProperty Name="PuntoDeVenta1" Relationship="Self.FK__Venta__PuntoDeVe__5602DDC6" FromRole="Venta" ToRole="PuntoDeVenta" />
-          <NavigationProperty Name="TipoTransaccion" Relationship="Self.FK__Venta__TipoTrans__56F701FF" FromRole="Venta" ToRole="TipoTransaccion" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Venta__ClienteId__39C3646F" FromRole="Venta" ToRole="Cliente" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Venta__FacturaId__4EBE8155" FromRole="Venta" ToRole="Factura" />
+          <NavigationProperty Name="PuntoDeVenta" Relationship="Self.FK__Venta__PuntoDeVe__3AB788A8" FromRole="Venta" ToRole="PuntoDeVenta" />
+          <NavigationProperty Name="PuntoDeVenta1" Relationship="Self.FK__Venta__PuntoDeVe__3BABACE1" FromRole="Venta" ToRole="PuntoDeVenta" />
+          <NavigationProperty Name="TipoTransaccion" Relationship="Self.FK__Venta__TipoTrans__3C9FD11A" FromRole="Venta" ToRole="TipoTransaccion" />
         </EntityType>
         <EntityType Name="RoleMenu">
           <Key>
@@ -1472,43 +1385,6 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="RolId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="Self.FK_UsuarioRol_Rol" FromRole="UsuarioRol" ToRole="Role" />
-        </EntityType>
-        <EntityType Name="ComprasAPagar">
-          <Key>
-            <PropertyRef Name="CompraId" />
-            <PropertyRef Name="ProveedorId" />
-            <PropertyRef Name="Monto" />
-            <PropertyRef Name="Facturado" />
-            <PropertyRef Name="PuntoDeVentaId" />
-            <PropertyRef Name="Estado" />
-            <PropertyRef Name="FechaCreacion" />
-            <PropertyRef Name="CreadoPor" />
-            <PropertyRef Name="saldo" />
-          </Key>
-          <Property Name="CompraId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProveedorId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Monto" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="Facturado" Type="Boolean" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="PuntoDeVentaId" Type="Int32" Nullable="false" />
-          <Property Name="Estado" Type="Int32" Nullable="false" />
-          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreadoPor" Type="Int32" Nullable="false" />
-          <Property Name="saldo" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ProveedoresAcreedores">
-          <Key>
-            <PropertyRef Name="ProveedorId" />
-            <PropertyRef Name="Nombre" />
-          </Key>
-          <Property Name="ProveedorId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Mail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Contacto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Telefono1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Telefono2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Direccion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="Localidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="vw_ComprasAPagar">
           <Key>
@@ -1547,6 +1423,13 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="Direccion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Localidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="vw_ReparacionTiempos">
+          <Key>
+            <PropertyRef Name="reparacionId" />
+          </Key>
+          <Property Name="reparacionId" Type="Int32" Nullable="false" />
+          <Property Name="DiasDesdeUltimaActividad" Type="Int32" />
+        </EntityType>
         <EntityType Name="vw_VentasAnuales">
           <Key>
             <PropertyRef Name="facturado" />
@@ -1568,7 +1451,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="facturado" Type="Boolean" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Cliente__Direcci__0E7C4113">
+        <Association Name="FK__Cliente__Direcci__5F29F348">
           <End Role="Direccion" Type="Self.Direccion" Multiplicity="0..1" />
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1580,7 +1463,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Clien__40139CA7">
+        <Association Name="FK__Reparacio__Clien__25BC6BC2">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1592,7 +1475,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venta__ClienteId__541A9554">
+        <Association Name="FK__Venta__ClienteId__39C3646F">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1604,7 +1487,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Comer__46C09A36">
+        <Association Name="FK__Reparacio__Comer__2C696951">
           <End Role="Comercio" Type="Self.Comercio" Multiplicity="0..1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1616,7 +1499,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__Proveedo__48A8E2A8">
+        <Association Name="FK__Compra__Proveedo__2E51B1C3">
           <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1628,7 +1511,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__PuntoDeV__499D06E1">
+        <Association Name="FK__Compra__PuntoDeV__2F45D5FC">
           <End Role="PuntoDeVenta" Type="Self.PuntoDeVenta" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1640,7 +1523,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pago__CompraId__4A912B1A">
+        <Association Name="FK__Pago__CompraId__3039FA35">
           <End Role="Compra" Type="Self.Compra" Multiplicity="1" />
           <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1652,7 +1535,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Estad__42F00952">
+        <Association Name="FK__Reparacio__Estad__2898D86D">
           <End Role="EstadoReparacion" Type="Self.EstadoReparacion" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1664,7 +1547,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Factura__TipoFac__098281CC">
+        <Association Name="FK__Factura__TipoFac__50A6C9C7">
           <End Role="TipoFactura" Type="Self.TipoFactura" Multiplicity="1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1676,7 +1559,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pago__FacturaId__02D5843D">
+        <Association Name="FK__Pago__FacturaId__4FB2A58E">
           <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
           <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1688,31 +1571,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pago__FacturaId__088E5D93">
-          <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
-          <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Factura">
-              <PropertyRef Name="FacturaId" />
-            </Principal>
-            <Dependent Role="Pago">
-              <PropertyRef Name="FacturaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Venta__FacturaId__01E16004">
-          <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
-          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Factura">
-              <PropertyRef Name="FacturaId" />
-            </Principal>
-            <Dependent Role="Venta">
-              <PropertyRef Name="FacturaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Venta__FacturaId__079A395A">
+        <Association Name="FK__Venta__FacturaId__4EBE8155">
           <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1736,7 +1595,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Marca__43E42D8B">
+        <Association Name="FK__Reparacio__Marca__298CFCA6">
           <End Role="Marca" Type="Self.Marca" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1748,7 +1607,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pago__MetodoDePa__4E61BBFE">
+        <Association Name="FK__Pago__MetodoDePa__340A8B19">
           <End Role="MetodoPago" Type="Self.MetodoPago" Multiplicity="1" />
           <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1760,7 +1619,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pago__TipoTransa__4B854F53">
+        <Association Name="FK__Pago__TipoTransa__312E1E6E">
           <End Role="TipoTransaccion" Type="Self.TipoTransaccion" Multiplicity="1" />
           <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1772,7 +1631,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venta__PuntoDeVe__550EB98D">
+        <Association Name="FK__Venta__PuntoDeVe__3AB788A8">
           <End Role="PuntoDeVenta" Type="Self.PuntoDeVenta" Multiplicity="1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1784,7 +1643,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venta__PuntoDeVe__5602DDC6">
+        <Association Name="FK__Venta__PuntoDeVe__3BABACE1">
           <End Role="PuntoDeVenta" Type="Self.PuntoDeVenta" Multiplicity="1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1796,7 +1655,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Emple__4107C0E0">
+        <Association Name="FK__Reparacio__Emple__26B08FFB">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1808,7 +1667,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Repar__45CC75FD">
+        <Association Name="FK__Reparacio__Repar__2B754518">
           <End Role="ReparacionDetalle" Type="Self.ReparacionDetalle" Multiplicity="0..1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1820,7 +1679,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Tecni__41FBE519">
+        <Association Name="FK__Reparacio__Tecni__27A4B434">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1832,7 +1691,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__TipoD__44D851C4">
+        <Association Name="FK__Reparacio__TipoD__2A8120DF">
           <End Role="TipoDispositivo" Type="Self.TipoDispositivo" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1844,7 +1703,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__TipoD__47B4BE6F">
+        <Association Name="FK__Reparacio__TipoD__2D5D8D8A">
           <End Role="TipoDispositivo" Type="Self.TipoDispositivo" Multiplicity="1" />
           <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1880,7 +1739,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venta__TipoTrans__56F701FF">
+        <Association Name="FK__Venta__TipoTrans__3C9FD11A">
           <End Role="TipoTransaccion" Type="Self.TipoTransaccion" Multiplicity="1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1892,15 +1751,17 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FastServiceEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
           <EntitySet Name="Comercio" EntityType="Self.Comercio" />
           <EntitySet Name="Compra" EntityType="Self.Compra" />
           <EntitySet Name="Direccion" EntityType="Self.Direccion" />
           <EntitySet Name="EstadoReparacion" EntityType="Self.EstadoReparacion" />
           <EntitySet Name="Factura" EntityType="Self.Factura" />
+          <EntitySet Name="GlobalConfig" EntityType="Self.GlobalConfig" />
           <EntitySet Name="ItemMenu" EntityType="Self.ItemMenu" />
           <EntitySet Name="Log" EntityType="Self.Log" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" />
           <EntitySet Name="Marca" EntityType="Self.Marca" />
           <EntitySet Name="MetodoPago" EntityType="Self.MetodoPago" />
           <EntitySet Name="Modelo" EntityType="Self.Modelo" />
@@ -1919,62 +1780,53 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <EntitySet Name="Venta" EntityType="Self.Venta" />
           <EntitySet Name="RoleMenu" EntityType="Self.RoleMenu" />
           <EntitySet Name="UsuarioRol" EntityType="Self.UsuarioRol" />
-          <EntitySet Name="ComprasAPagar" EntityType="Self.ComprasAPagar" />
-          <EntitySet Name="ProveedoresAcreedores" EntityType="Self.ProveedoresAcreedores" />
           <EntitySet Name="vw_ComprasAPagar" EntityType="Self.vw_ComprasAPagar" />
           <EntitySet Name="vw_ProveedoresAcreedores" EntityType="Self.vw_ProveedoresAcreedores" />
+          <EntitySet Name="vw_ReparacionTiempos" EntityType="Self.vw_ReparacionTiempos" />
           <EntitySet Name="vw_VentasAnuales" EntityType="Self.vw_VentasAnuales" />
           <EntitySet Name="vw_VentasDiarias" EntityType="Self.vw_VentasDiarias" />
           <EntitySet Name="vw_VentasMensuales" EntityType="Self.vw_VentasMensuales" />
-          <AssociationSet Name="FK__Cliente__Direcci__0E7C4113" Association="Self.FK__Cliente__Direcci__0E7C4113">
+          <AssociationSet Name="FK__Cliente__Direcci__5F29F348" Association="Self.FK__Cliente__Direcci__5F29F348">
             <End Role="Direccion" EntitySet="Direccion" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Clien__40139CA7" Association="Self.FK__Reparacio__Clien__40139CA7">
+          <AssociationSet Name="FK__Reparacio__Clien__25BC6BC2" Association="Self.FK__Reparacio__Clien__25BC6BC2">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venta__ClienteId__541A9554" Association="Self.FK__Venta__ClienteId__541A9554">
+          <AssociationSet Name="FK__Venta__ClienteId__39C3646F" Association="Self.FK__Venta__ClienteId__39C3646F">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Comer__46C09A36" Association="Self.FK__Reparacio__Comer__46C09A36">
+          <AssociationSet Name="FK__Reparacio__Comer__2C696951" Association="Self.FK__Reparacio__Comer__2C696951">
             <End Role="Comercio" EntitySet="Comercio" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__Proveedo__48A8E2A8" Association="Self.FK__Compra__Proveedo__48A8E2A8">
+          <AssociationSet Name="FK__Compra__Proveedo__2E51B1C3" Association="Self.FK__Compra__Proveedo__2E51B1C3">
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__PuntoDeV__499D06E1" Association="Self.FK__Compra__PuntoDeV__499D06E1">
+          <AssociationSet Name="FK__Compra__PuntoDeV__2F45D5FC" Association="Self.FK__Compra__PuntoDeV__2F45D5FC">
             <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pago__CompraId__4A912B1A" Association="Self.FK__Pago__CompraId__4A912B1A">
+          <AssociationSet Name="FK__Pago__CompraId__3039FA35" Association="Self.FK__Pago__CompraId__3039FA35">
             <End Role="Compra" EntitySet="Compra" />
             <End Role="Pago" EntitySet="Pago" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Estad__42F00952" Association="Self.FK__Reparacio__Estad__42F00952">
+          <AssociationSet Name="FK__Reparacio__Estad__2898D86D" Association="Self.FK__Reparacio__Estad__2898D86D">
             <End Role="EstadoReparacion" EntitySet="EstadoReparacion" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Factura__TipoFac__098281CC" Association="Self.FK__Factura__TipoFac__098281CC">
+          <AssociationSet Name="FK__Factura__TipoFac__50A6C9C7" Association="Self.FK__Factura__TipoFac__50A6C9C7">
             <End Role="TipoFactura" EntitySet="TipoFactura" />
             <End Role="Factura" EntitySet="Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pago__FacturaId__02D5843D" Association="Self.FK__Pago__FacturaId__02D5843D">
+          <AssociationSet Name="FK__Pago__FacturaId__4FB2A58E" Association="Self.FK__Pago__FacturaId__4FB2A58E">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Pago" EntitySet="Pago" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pago__FacturaId__088E5D93" Association="Self.FK__Pago__FacturaId__088E5D93">
-            <End Role="Factura" EntitySet="Factura" />
-            <End Role="Pago" EntitySet="Pago" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Venta__FacturaId__01E16004" Association="Self.FK__Venta__FacturaId__01E16004">
-            <End Role="Factura" EntitySet="Factura" />
-            <End Role="Venta" EntitySet="Venta" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Venta__FacturaId__079A395A" Association="Self.FK__Venta__FacturaId__079A395A">
+          <AssociationSet Name="FK__Venta__FacturaId__4EBE8155" Association="Self.FK__Venta__FacturaId__4EBE8155">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
@@ -1982,43 +1834,43 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             <End Role="ItemMenu" EntitySet="ItemMenu" />
             <End Role="RoleMenu" EntitySet="RoleMenu" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Marca__43E42D8B" Association="Self.FK__Reparacio__Marca__43E42D8B">
+          <AssociationSet Name="FK__Reparacio__Marca__298CFCA6" Association="Self.FK__Reparacio__Marca__298CFCA6">
             <End Role="Marca" EntitySet="Marca" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pago__MetodoDePa__4E61BBFE" Association="Self.FK__Pago__MetodoDePa__4E61BBFE">
+          <AssociationSet Name="FK__Pago__MetodoDePa__340A8B19" Association="Self.FK__Pago__MetodoDePa__340A8B19">
             <End Role="MetodoPago" EntitySet="MetodoPago" />
             <End Role="Pago" EntitySet="Pago" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pago__TipoTransa__4B854F53" Association="Self.FK__Pago__TipoTransa__4B854F53">
+          <AssociationSet Name="FK__Pago__TipoTransa__312E1E6E" Association="Self.FK__Pago__TipoTransa__312E1E6E">
             <End Role="TipoTransaccion" EntitySet="TipoTransaccion" />
             <End Role="Pago" EntitySet="Pago" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venta__PuntoDeVe__550EB98D" Association="Self.FK__Venta__PuntoDeVe__550EB98D">
+          <AssociationSet Name="FK__Venta__PuntoDeVe__3AB788A8" Association="Self.FK__Venta__PuntoDeVe__3AB788A8">
             <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venta__PuntoDeVe__5602DDC6" Association="Self.FK__Venta__PuntoDeVe__5602DDC6">
+          <AssociationSet Name="FK__Venta__PuntoDeVe__3BABACE1" Association="Self.FK__Venta__PuntoDeVe__3BABACE1">
             <End Role="PuntoDeVenta" EntitySet="PuntoDeVenta" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Emple__4107C0E0" Association="Self.FK__Reparacio__Emple__4107C0E0">
+          <AssociationSet Name="FK__Reparacio__Emple__26B08FFB" Association="Self.FK__Reparacio__Emple__26B08FFB">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Repar__45CC75FD" Association="Self.FK__Reparacio__Repar__45CC75FD">
+          <AssociationSet Name="FK__Reparacio__Repar__2B754518" Association="Self.FK__Reparacio__Repar__2B754518">
             <End Role="ReparacionDetalle" EntitySet="ReparacionDetalle" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Tecni__41FBE519" Association="Self.FK__Reparacio__Tecni__41FBE519">
+          <AssociationSet Name="FK__Reparacio__Tecni__27A4B434" Association="Self.FK__Reparacio__Tecni__27A4B434">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__TipoD__44D851C4" Association="Self.FK__Reparacio__TipoD__44D851C4">
+          <AssociationSet Name="FK__Reparacio__TipoD__2A8120DF" Association="Self.FK__Reparacio__TipoD__2A8120DF">
             <End Role="TipoDispositivo" EntitySet="TipoDispositivo" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__TipoD__47B4BE6F" Association="Self.FK__Reparacio__TipoD__47B4BE6F">
+          <AssociationSet Name="FK__Reparacio__TipoD__2D5D8D8A" Association="Self.FK__Reparacio__TipoD__2D5D8D8A">
             <End Role="TipoDispositivo" EntitySet="TipoDispositivo" />
             <End Role="Reparacion" EntitySet="Reparacion" />
           </AssociationSet>
@@ -2030,7 +1882,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             <End Role="Role" EntitySet="Role" />
             <End Role="UsuarioRol" EntitySet="UsuarioRol" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venta__TipoTrans__56F701FF" Association="Self.FK__Venta__TipoTrans__56F701FF">
+          <AssociationSet Name="FK__Venta__TipoTrans__3C9FD11A" Association="Self.FK__Venta__TipoTrans__3C9FD11A">
             <End Role="TipoTransaccion" EntitySet="TipoTransaccion" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
@@ -2040,7 +1892,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FastServiceModelStoreContainer" CdmEntityContainer="FastServiceEntities">
+        <EntityContainerMapping StorageEntityContainer="FastServiceModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Cliente">
             <EntityTypeMapping TypeName="FastServiceModel.Cliente">
               <MappingFragment StoreEntitySet="Cliente">
@@ -2138,6 +1990,15 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="GlobalConfig">
+            <EntityTypeMapping TypeName="FastServiceModel.GlobalConfig">
+              <MappingFragment StoreEntitySet="GlobalConfig">
+                <ScalarProperty Name="GlobalConfigId" ColumnName="GlobalConfigId" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ItemMenu">
             <EntityTypeMapping TypeName="FastServiceModel.ItemMenu">
               <MappingFragment StoreEntitySet="ItemMenu">
@@ -2171,6 +2032,23 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
                 <ScalarProperty Name="Logger" ColumnName="Logger" />
                 <ScalarProperty Name="Callsite" ColumnName="Callsite" />
                 <ScalarProperty Name="Exception" ColumnName="Exception" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="FastServiceModel.Logs">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EventDateTime" ColumnName="EventDateTime" />
+                <ScalarProperty Name="EventLevel" ColumnName="EventLevel" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="EventMessage" ColumnName="EventMessage" />
+                <ScalarProperty Name="ErrorSource" ColumnName="ErrorSource" />
+                <ScalarProperty Name="ErrorClass" ColumnName="ErrorClass" />
+                <ScalarProperty Name="ErrorMethod" ColumnName="ErrorMethod" />
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+                <ScalarProperty Name="InnerErrorMessage" ColumnName="InnerErrorMessage" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2417,36 +2295,6 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ComprasAPagar">
-            <EntityTypeMapping TypeName="FastServiceModel.ComprasAPagar">
-              <MappingFragment StoreEntitySet="ComprasAPagar">
-                <ScalarProperty Name="CompraId" ColumnName="CompraId" />
-                <ScalarProperty Name="ProveedorId" ColumnName="ProveedorId" />
-                <ScalarProperty Name="Monto" ColumnName="Monto" />
-                <ScalarProperty Name="Facturado" ColumnName="Facturado" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="PuntoDeVentaId" ColumnName="PuntoDeVentaId" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
-                <ScalarProperty Name="saldo" ColumnName="saldo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProveedoresAcreedores">
-            <EntityTypeMapping TypeName="FastServiceModel.ProveedoresAcreedores">
-              <MappingFragment StoreEntitySet="ProveedoresAcreedores">
-                <ScalarProperty Name="ProveedorId" ColumnName="ProveedorId" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Mail" ColumnName="Mail" />
-                <ScalarProperty Name="Contacto" ColumnName="Contacto" />
-                <ScalarProperty Name="Telefono1" ColumnName="Telefono1" />
-                <ScalarProperty Name="Telefono2" ColumnName="Telefono2" />
-                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
-                <ScalarProperty Name="Localidad" ColumnName="Localidad" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vw_ComprasAPagar">
             <EntityTypeMapping TypeName="FastServiceModel.vw_ComprasAPagar">
               <MappingFragment StoreEntitySet="vw_ComprasAPagar">
@@ -2474,6 +2322,14 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
                 <ScalarProperty Name="Telefono2" ColumnName="Telefono2" />
                 <ScalarProperty Name="Direccion" ColumnName="Direccion" />
                 <ScalarProperty Name="Localidad" ColumnName="Localidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_ReparacionTiempos">
+            <EntityTypeMapping TypeName="FastServiceModel.vw_ReparacionTiempos">
+              <MappingFragment StoreEntitySet="vw_ReparacionTiempos">
+                <ScalarProperty Name="reparacionId" ColumnName="reparacionId" />
+                <ScalarProperty Name="DiasDesdeUltimaActividad" ColumnName="DiasDesdeUltimaActividad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

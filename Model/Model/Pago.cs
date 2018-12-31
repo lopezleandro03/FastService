@@ -29,7 +29,6 @@ namespace Model.Model
     
         public virtual Compra Compra { get; set; }
         public virtual Factura Factura { get; set; }
-        public virtual Factura Factura1 { get; set; }
         public virtual MetodoPago MetodoPago { get; set; }
         public virtual TipoTransaccion TipoTransaccion { get; set; }
     }

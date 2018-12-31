@@ -18,9 +18,7 @@ namespace Model.Model
         public Factura()
         {
             this.Pago = new HashSet<Pago>();
-            this.Pago1 = new HashSet<Pago>();
             this.Venta = new HashSet<Venta>();
-            this.Venta1 = new HashSet<Venta>();
         }
     
         public int FacturaId { get; set; }
@@ -34,11 +32,6 @@ namespace Model.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pago> Pago { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pago> Pago1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Venta> Venta { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Venta> Venta1 { get; set; }
-
     }
 }

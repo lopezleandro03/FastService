@@ -29,7 +29,6 @@ namespace Model.Model
     
         public virtual Cliente Cliente { get; set; }
         public virtual Factura Factura { get; set; }
-        public virtual Factura Factura1 { get; set; }
         public virtual PuntoDeVenta PuntoDeVenta { get; set; }
         public virtual PuntoDeVenta PuntoDeVenta1 { get; set; }
         public virtual TipoTransaccion TipoTransaccion { get; set; }

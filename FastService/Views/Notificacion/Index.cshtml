@@ -1,0 +1,62 @@
+﻿@model List<FastService.Models.Notificacion.NotificacionModel>
+
+<style>
+    span.num {
+        position: absolute;
+        font-size: 1em;
+        /*color: #e31d2d;*/
+        color: #e73d4a;
+        font-weight: 800;
+        right: 1px;
+        bottom: 0px;
+    }
+</style>
+
+<button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+    <i class="icon-bell"></i><span class="num">@Model.Count()</span>
+</button>
+
+<ul id="ulNotificaciones" class="dropdown-menu-v2">
+    @if (!Model.Any())
+    {
+        <li class="external">
+            <h3>
+                <span class="bold">No tienes notificaciones</span>
+            </h3>
+            @*<a href="#">ver todas</a>*@
+        </li>
+    }
+    else
+    {
+        <li>
+            <ul class="dropdown-menu-list scroller" padding: 0;" data-handle-color="#637283">
+
+                @foreach (var item in Model)
+                {
+                    <li data-ticket="@item.TicketId" class="notificacion" >
+                        <a >
+                            <span class="details">
+                                <span class="label label-sm label-icon label-@item.Tipo md-skip">
+                                    <i class="@item.Icon"></i>
+                                </span>
+                                @item.Desc
+                            </span>
+                            <span class="time">@item.Dias days</span>
+                        </a>
+                    </li>
+                }
+               
+            </ul>
+        </li>
+    }
+</ul>
+
+<script>
+    $(".notificacion").click(function () {
+        $("#inputSearchCriteria").val($(this).data("ticket"));
+
+        var e = $.Event("keypress");
+        e.keyCode = 13;
+        $("#inputSearchCriteria").trigger(e);
+    })
+</script>
