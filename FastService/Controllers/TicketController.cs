@@ -28,7 +28,7 @@ namespace FastService.Controllers
             //model.NroOrden = new OrdenHelper().GetNextOrderNro();
             model.EstadoDesc = ReparacionEstado.NUEVA;
             InitializeViewBag();
-            
+
             return PartialView("Details", model);
         }
 
@@ -51,7 +51,7 @@ namespace FastService.Controllers
 
             if (ticket.Any())
             {
-                string reportName = "Recibo.pdf";
+                string reportName = $"Recibo-{id}.pdf";
                 string reportFilePath = "~/Reports/Recibo.rdl";
                 var reportType = ReportType.PDF;
                 var contentType = string.Format("application/{0}", reportType.ToString().ToLower());
