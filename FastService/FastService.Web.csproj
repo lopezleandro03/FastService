@@ -253,6 +253,7 @@
     <Compile Include="Models\Orden\IIndexModel.cs" />
     <Compile Include="Models\Orden\NovedadModel.cs" />
     <Compile Include="Models\DomicilioViewModel.cs" />
+    <Compile Include="Models\Orden\OrdenListFilterBar.cs" />
     <Compile Include="Models\Orden\OrdenSearchModel.cs" />
     <Compile Include="Models\PagoModel.cs" />
     <Compile Include="Models\PagoWizardModel.cs" />
@@ -1004,6 +1005,7 @@
     <Content Include="Views\Cliente\Historia.cshtml" />
     <Content Include="Views\Notificacion\Index.cshtml" />
     <Content Include="Views\GlobalConfig\Index.cshtml" />
+    <Content Include="Views\Reparacion\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,5 @@
 ﻿using FastService.Models;
+using FastService.Models.Orden;
 using FastService.Models.Reports;
 using Model.Model;
 using System;
@@ -810,9 +811,9 @@ namespace FastService.Common
                         orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PRESUPENDOMICILIO).First().EstadoReparacionId;
                     else
                         orden.EstadoReparacionId = estados.Where(x => x.nombre.ToUpper() == ReparacionEstado.PRESUPUESTADO).First().EstadoReparacionId;
-                    
+
                     orden.ReparacionDetalle.Presupuesto = model.Monto;
-                   
+
                 }
 
                 orden.ModificadoPor = currentUserId;
@@ -1072,5 +1073,49 @@ namespace FastService.Common
                     }).FirstOrDefault();
 
         }
+
+        public List<ReparacionReportListModel> GetOrders(OrdenListFilterBar filter)
+        {
+            var fy = filter.FromYear == 0 ? DateTime.Now.AddMonths(-12).Year : filter.FromYear;
+            var fm = filter.FromMonth == 0 ? DateTime.Now.AddMonths(-12).Month : filter.FromMonth;
+            var ty = filter.ToYear == 0 ? DateTime.Now.Year : filter.ToYear;
+            var tm = filter.ToMonth == 0 ? DateTime.Now.Month : filter.ToMonth;
+            var id = filter.MinInactiveDays ?? Convert.ToInt32(new GlobalConfigHelper().GetVal("NotificacionesMinimoDiasInactividad"));
+            var eList = filter.SelectedEstados ?? (from x in _db.EstadoReparacion where x.activo == true select x.EstadoReparacionId).ToList();
+
+            var list = (from x in _db.Reparacion
+                        where x.CreadoEn.Year >= fy
+                           && x.CreadoEn.Month >= fm
+                           && x.CreadoEn.Year <= ty
+                           && x.CreadoEn.Month <= tm
+                           && (eList.Contains(x.EstadoReparacionId))
+                        select new ReparacionReportListModel
+                        {
+                            Ticketid = x.ReparacionId,
+                            Estado = x.EstadoReparacion.nombre.ToUpper(),
+                            FechaEstado = x.ModificadoEn,
+                            //FechaEstadoString = x.ModificadoEn.ToShortDateString(),
+                            Cliente = x.Cliente.Nombre + " " + x.Cliente.Apellido,
+                            //UltimaNovedad = "Esta seria la ultima novedad",
+                            UltimaNovedad = (from y in _db.Novedad where y.reparacionId == x.ReparacionId select y)
+                                            .OrderByDescending(z=>z.modificadoEn).FirstOrDefault().observacion,
+                            Monto = x.ReparacionDetalle.Precio
+                        }).ToList();
+
+            list.Select(x => x.FechaEstadoString = x.FechaEstado.ToShortDateString()).ToList();
+
+            return list.Where(x => x.FechaEstado < DateTime.Now.AddDays(-id)).Select(y => y).ToList();
+        }
+    }
+
+    public class ReparacionReportListModel
+    {
+        public int Ticketid { get; set; }
+        public string Estado { get; set; }
+        public DateTime FechaEstado { get; set; }
+        public string FechaEstadoString { get; set; }
+        public string Cliente { get; set; }
+        public string UltimaNovedad { get; set; }
+        public decimal? Monto { get; set; }
     }
 }

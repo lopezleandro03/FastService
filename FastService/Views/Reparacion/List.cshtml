@@ -1,0 +1,87 @@
+﻿@model FastService.Models.Orden.OrdenListFilterBar
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+<div class="row" style="margin-top:20px">
+    @using (Ajax.BeginForm("FilterList", "Reparacion", new AjaxOptions { HttpMethod = "Post", LoadingElementId = "spinner", OnSuccess = "filter(data)", OnFailure = "OnError" }))
+    {
+        <div class="col-md-2">
+            <div class="inner-content">
+                @Html.DropDownListFor(m => m.FromYear, Model.YearList, "Año desde", new { @class = "form-control" })
+                <br>
+                @Html.DropDownListFor(m => m.FromMonth, Model.MonthList, "Mes desde", new { @class = "form-control" })
+                <br>
+                @Html.DropDownListFor(m => m.ToYear, Model.YearList, "Año hasta", new { @class = "form-control" })
+                <br>
+                @Html.DropDownListFor(m => m.ToMonth, Model.MonthList, "Mes hasta", new { @class = "form-control" })
+                <br>
+                @Html.TextBoxFor(m => m.MinInactiveDays, new { @class = "form-control", @placeholder= "Mínimo días inactividad" })
+                <br>
+                @Html.DropDownListFor(m => m.SelectedEstados, Model.EstadosList, "Estados", new { multiple = "multiple", @class = "form-control", size = 20 })
+                <br>
+                <button id="filterBtn" type="submit" class="btn btn-success">
+                    <i class="icon-settings"></i> Filtrar
+                </button>
+
+                <button  type="button" class="btn btn-info" disabled>
+                    <i class="icon-drawer"></i> Imprimir
+                </button>
+            </div>
+        </div>
+    }
+
+    <div class="col-md-10">
+        <div id="jsGrid"></div>
+    </div>
+</div>
+
+<script>
+    function filter(data) {
+            $("#jsGrid").jsGrid({
+            width: "100%",
+            height: "900px",
+            autoload: true,
+            heading: true,
+            selecting: true,
+            sorting: true,
+            paging: true,
+            pageLoading: false,
+            pageSize: 25,
+            pageIndex: 1,
+            pageButtonCount: 15,
+
+            pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
+            pagePrevText: "Anterior",
+            pageNextText: "Siguiente",
+            pageFirstText: "Primera",
+            pageLastText: "Ultima",
+            pageNavigatorNextText: "...",
+            pageNavigatorPrevText: "...",
+            rowDoubleClick: function (row) {
+                    $("#inputSearchCriteria").val(row.item.Ticketid);
+                    var e = $.Event("keypress");
+                    e.keyCode = 13;
+                    $("#inputSearchCriteria").trigger(e);
+            },
+
+            controller: {
+                loadData: function () {
+                    return data
+                }
+            },
+
+            fields: [
+                { name: "Ticketid", type: "text",title:"Ticket ID", width: 50 },
+                { name: "Estado", type: "text", title: "Estado", width: 80 },
+                { name: "FechaEstadoString", type: "string", title: "Fecha Estado", width: 60 },
+                { name: "Cliente", type: "text", title: "Cliente", width: 100 },
+                { name: "Monto", type: "text", title: "Monto", width: 30 },
+                { name: "UltimaNovedad", type: "text", title: "Ultima Novedad", width: 180 }
+            ]
+        });
+    }
+
+    $("#filterBtn").trigger("click");
+
+</script>

@@ -104,5 +104,46 @@ namespace FastService.Controllers
                 return PartialView("Index", model);
             }
         }
+
+        [HttpGet]
+        public ActionResult List()
+        {
+            var mdict = new Dictionary<int, string>();
+            var ydict = new Dictionary<int, int>();
+            var helper = new DateHelper();
+
+            for (int i = 1; i < 12 + 1; i++)
+            {
+                mdict.Add(i, helper.GetMonthName(i));
+            }
+
+            var mList = (from x in mdict select new { id = x.Key, value = x.Value }).ToList();
+
+            for (int i = DateTime.Now.Year; i > DateTime.Now.Year - 20; i--)
+            {
+                ydict.Add(i, i);
+            }
+
+            var yList = (from x in ydict select new { id = x.Key, value = x.Value }).ToList();
+
+            var eList = (from x in _db.EstadoReparacion where x.activo == true select new { id = x.EstadoReparacionId, value = x.nombre.ToUpper() }).ToList();
+
+            var filterModel = new OrdenListFilterBar()
+            {
+                MonthList = new SelectList(mList, "id", "value"),
+                YearList = new SelectList(yList, "id", "value"),
+                EstadosList = new SelectList(eList, "id", "value"),
+                MinInactiveDays = null
+            };
+
+            return PartialView(filterModel);
+        }
+
+        [HttpPost]
+        public ActionResult FilterList(OrdenListFilterBar filter)
+        {
+            return Json(new OrdenHelper().GetOrders(filter));
+        }
+
     }
 }
