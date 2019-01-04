@@ -126,7 +126,7 @@ namespace FastService.Controllers
 
             var yList = (from x in ydict select new { id = x.Key, value = x.Value }).ToList();
 
-            var eList = (from x in _db.EstadoReparacion where x.activo == true select new { id = x.EstadoReparacionId, value = x.nombre.ToUpper() }).ToList();
+            var eList = (from x in _db.EstadoReparacion where x.activo == true select new { id = x.EstadoReparacionId, value = x.nombre.ToUpper() }).ToList().OrderBy(y=>y.value);
 
             var filterModel = new OrdenListFilterBar()
             {

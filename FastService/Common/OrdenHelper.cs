@@ -1080,14 +1080,14 @@ namespace FastService.Common
             var fm = filter.FromMonth == 0 ? DateTime.Now.AddMonths(-12).Month : filter.FromMonth;
             var ty = filter.ToYear == 0 ? DateTime.Now.Year : filter.ToYear;
             var tm = filter.ToMonth == 0 ? DateTime.Now.Month : filter.ToMonth;
+            var df = new DateTime(fy, fm, 1);
+            var dt = new DateTime(ty, tm, 1);
             var id = filter.MinInactiveDays ?? Convert.ToInt32(new GlobalConfigHelper().GetVal("NotificacionesMinimoDiasInactividad"));
             var eList = filter.SelectedEstados ?? (from x in _db.EstadoReparacion where x.activo == true select x.EstadoReparacionId).ToList();
 
             var list = (from x in _db.Reparacion
-                        where x.CreadoEn.Year >= fy
-                           && x.CreadoEn.Month >= fm
-                           && x.CreadoEn.Year <= ty
-                           && x.CreadoEn.Month <= tm
+                        where x.CreadoEn >= df
+                           && x.CreadoEn <= dt
                            && (eList.Contains(x.EstadoReparacionId))
                         select new ReparacionReportListModel
                         {

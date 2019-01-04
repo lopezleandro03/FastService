@@ -32,12 +32,13 @@ namespace FastService.Common
         {
             var Notificaciones = (from x in _db.Reparacion
                                   where x.CreadoEn.Year >= year
-                                     && x.CreadoEn.Month > month
+                                     && x.CreadoEn.Month >= month
                                      && x.EstadoReparacion.nombre.ToUpper() != ReparacionEstado.CANCELADO
                                      && x.EstadoReparacion.nombre.ToUpper() != ReparacionEstado.RECHAZADO
                                      && x.EstadoReparacion.nombre.ToUpper() != ReparacionEstado.RECHAZOPRESUP
                                      && x.EstadoReparacion.nombre.ToUpper() != ReparacionEstado.RETIRADO
                                      && x.EstadoReparacion.nombre.ToUpper() != ReparacionEstado.REPDOMICILIO
+                                     && x.EstadoReparacion.nombre.ToUpper() != ReparacionEstado.ESPREPUESTO
                                   select x).ToList();
 
             var noti = Notificaciones.Where(x => x.ModificadoEn < DateTime.Now.AddDays(-days))
