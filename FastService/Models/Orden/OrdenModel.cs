@@ -77,6 +77,7 @@ namespace FastService.Models
         [Display(Name = "Ubicacion")]
         public string Ubicacion { get; set; }
 
+
         public ClienteModel Cliente { get; set; }
         public Comercio Comercio { get; set; }
         public List<NovedadModel> Novedades { get; set; }

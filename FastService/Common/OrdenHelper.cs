@@ -1093,16 +1093,18 @@ namespace FastService.Common
                         {
                             Ticketid = x.ReparacionId,
                             Estado = x.EstadoReparacion.nombre.ToUpper(),
+                            FechaIngreso = x.CreadoEn,
                             FechaEstado = x.ModificadoEn,
-                            //FechaEstadoString = x.ModificadoEn.ToShortDateString(),
-                            Cliente = x.Cliente.Nombre + " " + x.Cliente.Apellido,
-                            //UltimaNovedad = "Esta seria la ultima novedad",
+                            Cliente = x.Cliente.Nombre.ToUpper() + " " + x.Cliente.Apellido.ToUpper(),
                             UltimaNovedad = (from y in _db.Novedad where y.reparacionId == x.ReparacionId select y)
-                                            .OrderByDescending(z=>z.modificadoEn).FirstOrDefault().observacion,
-                            Monto = x.ReparacionDetalle.Precio
+                                            .OrderByDescending(z=>z.modificadoEn).FirstOrDefault().observacion.ToUpper(),
+                            Monto = "$" + x.ReparacionDetalle.Precio,
+                            Marca = x.Marca.nombre.ToUpper()
+
                         }).ToList();
 
             list.Select(x => x.FechaEstadoString = x.FechaEstado.ToShortDateString()).ToList();
+            list.Select(x => x.FechaIngresoString = x.FechaIngreso.ToShortDateString()).ToList();
 
             return list.Where(x => x.FechaEstado < DateTime.Now.AddDays(-id)).Select(y => y).ToList();
         }
@@ -1114,8 +1116,11 @@ namespace FastService.Common
         public string Estado { get; set; }
         public DateTime FechaEstado { get; set; }
         public string FechaEstadoString { get; set; }
+        public DateTime FechaIngreso { get; set; }
+        public string FechaIngresoString { get; set; }
         public string Cliente { get; set; }
         public string UltimaNovedad { get; set; }
-        public decimal? Monto { get; set; }
+        public string Monto { get; set; }
+        public string Marca { get; set; }
     }
 }
