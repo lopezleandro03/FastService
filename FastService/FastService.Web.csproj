@@ -885,6 +885,7 @@
     <None Include="Properties\PublishProfiles\FastService-Test Web Deploy.pubxml" />
     <Content Include="Reports\HojaDeRuta.rdl" />
     <Content Include="Reports\ReciboDorso.rdl" />
+    <Content Include="Reports\ListaOrdenesReport.rdl" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\daterangepicker.min.js" />
     <Content Include="Scripts\fullcalendar.min.js" />

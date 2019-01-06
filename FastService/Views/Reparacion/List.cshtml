@@ -24,7 +24,7 @@
                     <i class="icon-settings"></i> Filtrar
                 </button>
 
-                <button  type="button" class="btn btn-info" disabled>
+                <button id="imprimirBtn" type="button" class="btn btn-info">
                     <i class="icon-drawer"></i> Imprimir
                 </button>
             </div>
@@ -83,6 +83,10 @@
             ]
         });
     }
+
+    $("#imprimirBtn").click(function () {
+        window.open("@Url.Action("ImprimirReporte","Reparacion")");
+    });
 
     $("#filterBtn").trigger("click");
 

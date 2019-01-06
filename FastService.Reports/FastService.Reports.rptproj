@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Report Include="HojaDeRuta.rdl" />
+    <Report Include="ListaOrdenesReport.rdl" />
     <Report Include="Recibo.rdl" />
     <Report Include="ReciboDorso.rdl" />
   </ItemGroup>

@@ -26,6 +26,18 @@ namespace FastService.Controllers
             }
         }
 
+        private OrdenListFilterBar ReportFilter
+        {
+            get
+            {
+                return (OrdenListFilterBar)System.Web.HttpContext.Current.Session["ReportFilter"];
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["ReportFilter"] = value;
+            }
+        }
+
         private FastServiceEntities _db { get; set; }
         private OrdenHelper _OrdenHelper { get; set; }
 
@@ -126,7 +138,7 @@ namespace FastService.Controllers
 
             var yList = (from x in ydict select new { id = x.Key, value = x.Value }).ToList();
 
-            var eList = (from x in _db.EstadoReparacion where x.activo == true select new { id = x.EstadoReparacionId, value = x.nombre.ToUpper() }).ToList().OrderBy(y=>y.value);
+            var eList = (from x in _db.EstadoReparacion where x.activo == true select new { id = x.EstadoReparacionId, value = x.nombre.ToUpper() }).ToList().OrderBy(y => y.value);
 
             var filterModel = new OrdenListFilterBar()
             {
@@ -142,8 +154,46 @@ namespace FastService.Controllers
         [HttpPost]
         public ActionResult FilterList(OrdenListFilterBar filter)
         {
+            this.ReportFilter = filter;
             return Json(new OrdenHelper().GetOrders(filter));
         }
 
+        public ActionResult ImprimirReporte()
+        {
+            if (ReportFilter != null)
+            {
+                string reportName = $"ReporteOrdenes-{DateTime.Now.ToShortDateString()}.pdf";
+                string reportFilePath = "~/Reports/ListaOrdenesReport.rdl";
+                var reportType = ReportType.PDF;
+                var contentType = string.Format("application/{0}", reportType.ToString().ToLower());
+
+                List<ReportDataSource> dataSources = new List<ReportDataSource>();
+
+                dataSources.Add(new ReportDataSource("tickets", new OrdenHelper().GetOrders(this.ReportFilter)));
+                var report = new ReportHelper();
+                var reportParameters = new List<ReportParameter>();
+
+                //var param = new ReportParameter("ticket", id.ToString());
+                //reportParameters.Add(param);
+
+                //var param2 = new ReportParameter("cliente", ticket.First().Nombre);
+                //reportParameters.Add(param2);
+
+                //var param3 = new ReportParameter("fecha", ticket.First().ModificadoEn.ToShortDateString());
+                //reportParameters.Add(param3);
+
+                //var param4 = new ReportParameter("garantia", ticket.First().EsGarantia ? "E" : "C");
+                //reportParameters.Add(param4);
+
+                var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, reportParameters, reportType);
+                Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
+
+                return File(result, contentType);
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
     }
 }
