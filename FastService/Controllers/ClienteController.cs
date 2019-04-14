@@ -21,7 +21,7 @@ namespace FastService.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            return PartialView();
         }
 
         [HttpGet]
@@ -163,7 +163,6 @@ namespace FastService.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpPost]
         public JsonResult Get(string ClienteId)

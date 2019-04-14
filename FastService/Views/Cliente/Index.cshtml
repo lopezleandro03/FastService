@@ -1,0 +1,23 @@
+﻿<div class="row">
+    <div class="col-md-7 divBuscar">
+        @RenderPage("Buscar.cshtml")
+    </div>
+
+
+    <div class="col-md-5">
+        <h3 class="title-historia">Historial trabajos</h3>
+        <div id="HistoriaClienteDiv" >
+            @RenderPage("Historia.cshtml")
+        </div>
+    </div>
+</div>
+
+<style>
+    .title-historia {
+        /*margin-left:1rem;*/
+    }
+
+    .divBuscar {
+        padding-top:2rem;
+    }
+</style>

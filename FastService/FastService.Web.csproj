@@ -1007,6 +1007,7 @@
     <Content Include="Views\Notificacion\Index.cshtml" />
     <Content Include="Views\GlobalConfig\Index.cshtml" />
     <Content Include="Views\Reparacion\List.cshtml" />
+    <Content Include="Views\Cliente\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

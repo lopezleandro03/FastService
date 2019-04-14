@@ -69,12 +69,25 @@
         pageLastText: "Ultima",
         pageNavigatorNextText: "...",
         pageNavigatorPrevText: "...",
+        noDataContent: "No hay resultados",
 
-        //rowDoubleClick: function (data) {
-        //},
+        rowClick: function (data) {
+            if ($("#HistoriaClienteDiv").length) {
+                $("#inputSearchCriteria").val(data.item.NroOrden);
+
+                var e = $.Event("keypress");
+                e.keyCode = 13;
+                $("#inputSearchCriteria").trigger(e);
+            }
+        },
 
         controller: {
             loadData: function (filter) {
+                console.info($(".Cliente_Id").val());
+                if (!$(".Cliente_Id").val().length) {
+                    return null;
+                }
+
                 return $.ajax({
                     type: "GET",
                     url: "@Url.Action("GetHistory","Cliente")" + "?id=" + $(".Cliente_Id").val(),
@@ -86,8 +99,8 @@
         fields: [
             { name: "NroOrden", type: "text", title: "Nro. Ticket" },
             { name: "EstadoDesc", type: "text", title: "Estado", width: 100 },
-            { name: "EstadoFecha", type: "date", title: "Fecha Estado",/* items: countries,*/ valueField: "Id", textField: "Name", width: 100  },
-            { name: "Monto", type: "text", title: "Monto", width: 50  },
+            { name: "EstadoFecha", type: "date", title: "Fecha Estado",/* items: countries,*/ valueField: "Id", textField: "Name", width: 100 },
+            { name: "Monto", type: "text", title: "Monto", width: 50 },
             { name: "TecnicoNombre", type: "text", title: "Tecnico", width: 100 },
             { name: "TipoDesc", type: "text", title: "Tipo", width: 100 },
             { name: "MarcaDesc", type: "text", title: "Marca", width: 100 },

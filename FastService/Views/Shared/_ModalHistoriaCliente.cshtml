@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="modal fade" id="modalHistoriaCliente" role="basic" aria-hidden="true" style="display: none;">
             <div class="modal-header">
-                <button id="btnCloseModalHistoriaCliente" class="close" aria-hidden="true" type="button" data-dismiss="modal"></button>
+                <button id="btnCloseModalHistoriaCliente" class="close garbage" aria-hidden="true" type="button" data-dismiss="modal"></button>
                 <h3 id="HistoriaClienteHeader" class="modal-title">Historia Cliente</h3>
             </div>
 
@@ -22,3 +22,9 @@
         z-index: 100000;
     }
 </style>
+
+<script>
+    $(".garbage").click(function () {
+        $("#HistoriaClienteContent").html("");
+    });
+</script>

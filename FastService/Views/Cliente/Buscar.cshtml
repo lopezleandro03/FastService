@@ -14,6 +14,8 @@
     </div>
 </div>
 
+<input hidden class="Cliente_Id">
+
 
 <script>
     $(".LoadClientesBtn").click(function () {
@@ -43,25 +45,49 @@
                 pageLastText: "Ultima",
                 pageNavigatorNextText: "...",
                 pageNavigatorPrevText: "...",
+                noDataContent: "No hay resultados",
 
                 rowDoubleClick: function (data) {
                     $(".Cliente_Id").val(data.item.ClienteId);
-                    $(".Cliente_Dni").val(data.item.Dni);
-                    $(".Cliente_Nombre").val(data.item.Nombre);
-                    $(".Cliente_Apellido").val(data.item.Apellido);
-                    $(".Cliente_Mail").val(data.item.Mail);
-                    $(".Cliente_Telefono").val(data.item.Telefono);
-                    $(".Cliente_Celular").val(data.item.Celular);
-                    $(".Cliente_Direccion").val(data.item.Direccion);
-                    $(".route").val(data.item.Dir.Calle);
-                    $(".street_number").val(data.item.Dir.Altura);
-                    $(".locality").val(data.item.Dir.Provincia);
-                    $(".postal_code").val(data.item.Dir.CodigoPostal);
-                    $(".country").val(data.item.Dir.Pais);
-                    $(".calle2").val(data.item.Dir.Calle2);
-                    $(".calle3").val(data.item.Dir.Calle3);
 
-                    $("#btnCloseModalBuscarCliente").trigger("click");
+                    if ($("#HistoriaClienteDiv").length) {
+                        ajaxGetNoCustomError(
+                        "@Url.Action("Historia","Cliente")",
+                            function (data) {
+                                $("#HistoriaClienteDiv").html(data);
+                            }
+                        );
+                    } else {
+                        $(".Cliente_Dni").val(data.item.Dni);
+                        $(".Cliente_Nombre").val(data.item.Nombre);
+                        $(".Cliente_Apellido").val(data.item.Apellido);
+                        $(".Cliente_Mail").val(data.item.Mail);
+                        $(".Cliente_Telefono").val(data.item.Telefono);
+                        $(".Cliente_Celular").val(data.item.Celular);
+                        $(".Cliente_Direccion").val(data.item.Direccion);
+                        $(".route").val(data.item.Dir.Calle);
+                        $(".street_number").val(data.item.Dir.Altura);
+                        $(".locality").val(data.item.Dir.Provincia);
+                        $(".postal_code").val(data.item.Dir.CodigoPostal);
+                        $(".country").val(data.item.Dir.Pais);
+                        $(".calle2").val(data.item.Dir.Calle2);
+                        $(".calle3").val(data.item.Dir.Calle3);
+
+                        $("#btnCloseModalBuscarCliente").trigger("click");
+                    }
+                },
+
+                rowClick: function (data) {
+                    $(".Cliente_Id").val(data.item.ClienteId);
+
+                    if ($("#HistoriaClienteDiv").length) {
+                        ajaxGetNoCustomError(
+                        "@Url.Action("Historia","Cliente")",
+                            function (data) {
+                                $("#HistoriaClienteDiv").html(data);
+                            }
+                        );
+                    } 
                 },
 
                 controller: {
@@ -76,10 +102,10 @@
 
                 fields: [
                     { name: "ClienteId", type: "text", visible: false },
-                    { name: "Dni", type: "text", title: "DNI", width: 50 },
-                    { name: "Nombre", type: "text", title: "Nombre",/* items: countries,*/ valueField: "Id", textField: "Name", width: 50  },
-                    { name: "Apellido", type: "text", title: "Apellido", width: 50  },
-                    { name: "Direccion", type: "text", title: "Direccion", width: 100 },
+                    { name: "Dni", type: "text", title: "DNI", width: 25 },
+                    { name: "Nombre", type: "text", title: "Nombre",/* items: countries,*/ valueField: "Id", textField: "Name", width: 50 },
+                    { name: "Apellido", type: "text", title: "Apellido", width: 50 },
+                    { name: "Direccion", type: "text", title: "Direccion", width: 150 },
                     { name: "Mail", type: "text", visible: false },
                     { name: "Telefono", type: "text", visible: false },
                     { name: "Celular", type: "text", visible: false },
@@ -94,7 +120,7 @@
                     { name: "Dir.Latitud", type: "text", visible: false },
                     { name: "Dir.Longitud", type: "text", visible: false }
                 ]
-            });
+        });
     });
 
     $("#buscarClienteInput").keypress(function (e) {
