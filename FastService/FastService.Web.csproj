@@ -202,6 +202,7 @@
     <Compile Include="Common\DateHelper.cs" />
     <Compile Include="Common\GlobalConfigHelper.cs" />
     <Compile Include="Common\NotificacionHelper.cs" />
+    <Compile Include="Common\ClienteHelper.cs" />
     <Compile Include="Common\OrdenHelper.cs" />
     <Compile Include="Common\NovedadTipo.cs" />
     <Compile Include="Common\AplicationRole.cs" />

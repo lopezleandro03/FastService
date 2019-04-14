@@ -25,8 +25,18 @@ namespace FastService.Controllers
         {
             var model = new OrdenModel();
             model.EstadoFecha = DateTime.Now;
-            //model.NroOrden = new OrdenHelper().GetNextOrderNro();
             model.EstadoDesc = ReparacionEstado.NUEVA;
+            InitializeViewBag();
+
+            return PartialView("Details", model);
+        }
+
+        public ActionResult CreateForClient(int id)
+        {
+            var model = new OrdenModel();
+            model.EstadoFecha = DateTime.Now;
+            model.EstadoDesc = ReparacionEstado.NUEVA;
+            model.Cliente = new ClienteHelper().GetClient(id);
             InitializeViewBag();
 
             return PartialView("Details", model);
