@@ -968,6 +968,7 @@ namespace FastService.Common
                                                  Presupuesto = rd.Presupuesto,
                                                  PresupuestoFecha = rd.PresupuestoFecha,
                                                  Precio = rd.Precio,
+                                                 Marca = r.Marca.nombre,
                                                  Modelo = rd.Modelo,
                                                  Serie = rd.Serie,
                                                  Serbus = rd.Serbus,

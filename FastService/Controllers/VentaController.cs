@@ -50,7 +50,7 @@ namespace FastService.Controllers
         }
 
         // GET: Venta/Create
-        public ActionResult Create()
+        public ActionResult Create(string id)
         {
             ViewBag.PuntoDeVentaList = (from y in _dbContext.PuntoDeVenta
                                         select new SelectListItem()
@@ -82,7 +82,20 @@ namespace FastService.Controllers
                 new SelectListItem() { Selected = false, Text = "6", Value = "6"}
                                     }).ToList();
 
-            return PartialView();
+            var model = new VentaModel();
+            model.Producto = (from x in _dbContext.Producto
+                              where x.id.ToString() == id
+                              select new ProductoModel() {
+                                  Nombre = x.nombre,
+                                  Descripcion = x.descripcion,
+                                  Costo = x.costo,
+                                  Categoria = x.categoria,
+                                  Categoria2 = x.categoria2,
+                                  Categoria3 = x.categoria3,
+                                  Utilidad = x.utilidad
+                              }).FirstOrDefault();
+            
+            return PartialView(model);
         }
 
         [HttpGet]

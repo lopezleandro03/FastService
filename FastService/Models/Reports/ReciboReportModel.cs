@@ -26,6 +26,7 @@ namespace FastService.Models.Reports
         public decimal? Presupuesto { get; set; }
         public DateTime? PresupuestoFecha { get; set; }
         public decimal? Precio { get; set; }
+        public string Marca { get; set; }
         public string Modelo { get; set; }
         public string Serie { get; set; }
         public string Serbus { get; set; }

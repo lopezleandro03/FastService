@@ -64,6 +64,7 @@
         <AssociationConnector Association="FastServiceModel.FK_RoleMenu_Rol" ManuallyRouted="false" />
         <AssociationConnector Association="FastServiceModel.FK_UsuarioRol_Rol" ManuallyRouted="false" />
         <AssociationConnector Association="FastServiceModel.FK__Venta__TipoTrans__3C9FD11A" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FastServiceModel.Producto" Width="1.5" PointX="4.375" PointY="17.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

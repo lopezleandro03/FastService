@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FastServiceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FastServiceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="ClienteId" />
@@ -216,6 +216,24 @@
           <Property Name="CreadoPor" Type="int" />
           <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
           <Property Name="MetodoDePagoId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'FastService.dbo.Producto' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="origenid" Type="int" />
+          <Property Name="nombre" Type="varchar" MaxLength="200" />
+          <Property Name="descripcion" Type="varchar" MaxLength="300" />
+          <Property Name="categoria" Type="varchar" MaxLength="100" />
+          <Property Name="categoria2" Type="varchar" MaxLength="100" />
+          <Property Name="categoria3" Type="varchar" MaxLength="100" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="minimo" Type="int" />
+          <Property Name="costo" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="utilidad" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Proveedor">
           <Key>
@@ -790,6 +808,21 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
           <EntitySet Name="TipoTransaccion" EntityType="Self.TipoTransaccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Venta" EntityType="Self.Venta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Producto].[id] AS [id], 
+    [Producto].[origenid] AS [origenid], 
+    [Producto].[nombre] AS [nombre], 
+    [Producto].[descripcion] AS [descripcion], 
+    [Producto].[categoria] AS [categoria], 
+    [Producto].[categoria2] AS [categoria2], 
+    [Producto].[categoria3] AS [categoria3], 
+    [Producto].[cantidad] AS [cantidad], 
+    [Producto].[minimo] AS [minimo], 
+    [Producto].[costo] AS [costo], 
+    [Producto].[utilidad] AS [utilidad]
+    FROM [dbo].[Producto] AS [Producto]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="RoleMenu" EntityType="Self.RoleMenu" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [RoleMenu].[id] AS [id], 
@@ -954,8 +987,7 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             <End Role="UsuarioRol" EntitySet="UsuarioRol" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FastServiceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1886,7 +1918,24 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
             <End Role="TipoTransaccion" EntitySet="TipoTransaccion" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
+          <EntitySet Name="Producto" EntityType="FastServiceModel.Producto" />
         </EntityContainer>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="origenid" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="categoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="categoria2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="categoria3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="minimo" Type="Int32" />
+          <Property Name="costo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="utilidad" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2354,6 +2403,23 @@ advertencia 6002: La tabla o vista 'FastService.dbo.vw_VentasMensuales' no tiene
               <MappingFragment StoreEntitySet="vw_VentasMensuales">
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="facturado" ColumnName="facturado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="FastServiceModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="utilidad" ColumnName="utilidad" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="minimo" ColumnName="minimo" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="categoria3" ColumnName="categoria3" />
+                <ScalarProperty Name="categoria2" ColumnName="categoria2" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="origenid" ColumnName="origenid" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -122,7 +122,12 @@ namespace FastService.Controllers
         protected override void OnException(ExceptionContext filterContext)
         {
             var logger = LogManager.GetCurrentClassLogger();
-            logger.Error(filterContext.Exception);
+
+            if (!filterContext.HttpContext.Request.IsLocal)
+            {
+                logger.Error(filterContext.Exception);
+            }
+
             filterContext.ExceptionHandled = true;
 
             if (filterContext.HttpContext.Request.IsAjaxRequest())

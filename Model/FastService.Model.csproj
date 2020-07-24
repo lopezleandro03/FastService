@@ -112,6 +112,9 @@
     <Compile Include="Model\Pago.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Producto.cs">
+      <DependentUpon>FastServiceEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Proveedor.cs">
       <DependentUpon>FastServiceEntities.tt</DependentUpon>
     </Compile>

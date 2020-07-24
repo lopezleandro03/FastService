@@ -1,0 +1,179 @@
+﻿@* modal producto detalle / selecction de accion *@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="modal fade" id="modalActionSelect" role="basic" aria-hidden="true" style="display:normal">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button class="simplemodal-close close" aria-hidden="true" type="button" data-dismiss="modal"></button>
+                    <h3 id="modalNuevaNovedadHeader" class="modal-title">Detalle Producto</h3>
+                </div>
+
+                <div id="modalActionSelectBody" class="modal-body">
+
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btnNuevaCompra" class="btn red" type="button">Comprar</button>
+                    <button id="btnNuevaVenta" class="btn green" type="button">Vender</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* modal nueva venta *@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="modal fade large-modal" id="modalNuevaVenta" role="basic" aria-hidden="true" style="display:normal">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button class="simplemodal-close close" aria-hidden="true" type="button" data-dismiss="modal"></button>
+                    <h3 id="modalNuevaNovedadHeader" class="modal-title">Nueva Venta</h3>
+                </div>
+
+                <div id="modalNuevaNovedadBody" class="modal-body">
+
+                </div>
+
+                @*<div class="modal-footer">
+                    <button data-accion="Rechaza" class="btn red btnAction" type="button">Cancelar</button>
+                    <button data-accion="Confirma" class="btn green btnAction" type="button">Aceptar</button>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="stockJsGrid"></div>
+    </div>
+</div>
+
+
+<style>
+    .large-modal {
+        left: 10%;
+        right: 10%;
+        top: 3% !important;
+        position:fixed;
+        width: 80%;
+        margin-left: 0;
+    }
+    
+    .confirmIcon {
+        font-size: 200px !important;
+        color: indianred;
+        margin-top: 20%;
+        margin-left: 30%;
+    }
+
+    .confirmMessage {
+        font-size: 25px !important;
+    }
+
+    #modalConfirm {
+        margin-top: 50px;
+        z-index: 210000;
+    }
+</style>
+
+
+<script>
+    $("#stockJsGrid").jsGrid({
+        width: "100%",
+        height: "600px",
+        autoload: true,
+        heading: true,
+        selecting: true,
+        filtering: true,
+        editing: true,
+        sorting: true,
+
+        inserting: true,
+        paging: true,
+        pageLoading: false,
+        pageSize: 15,
+        pageIndex: 1,
+        pageButtonCount: 15,
+
+        pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
+        pagePrevText: "Anterior",
+        pageNextText: "Siguiente",
+        pageFirstText: "Primera",
+        pageLastText: "Ultima",
+        pageNavigatorNextText: "...",
+        pageNavigatorPrevText: "...",
+        noDataContent: "No hay resultados",
+
+        rowDoubleClick: function (data) {
+            ajaxGet(
+                "@Url.Action("Detalle","Stock")?id=" + data.item.id,
+                function (data) {
+                    $("#modalActionSelectBody").html("");
+                    $("#modalActionSelectBody").html(data)
+                    $("#modalActionSelect").modal();
+                },
+                function () {
+                    alert("Oops, ocurrio un error cargando producto...");
+                }
+            );
+
+        },
+
+        rowClick: function (data) {
+
+        },
+
+        controller: {
+            loadData: function (filter) {
+                return $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("List","Stock")",
+                    data: filter,
+                    dataType: "json"
+                });
+            }
+        },
+
+        fields: [
+            { name: "id", type: "text", visible: true, width: 25  },
+            { name: "nombre", type: "text", title: "Nombre", width: 50 },
+            { name: "descripcion", type: "text", title: "Descripcion",/* items: countries,*/ valueField: "Id", textField: "Name", width: 50 },
+            { name: "categoria", type: "text", title: "Categoria", width: 50 },
+            { name: "cantidad", type: "text", title: "Cantidad", width: 50 },
+            { name: "costo", type: "text", title: "Costo", width: 50 },
+            { name: "utilidad", type: "text", title: "Utilidad", width: 50 },
+            { name: "precio", type: "text", title: "Precio", width: 50 },
+            { type: "control" }
+        ]
+    });
+
+    @*$("#btnNuevaCompra").click(function () {
+        ajaxGetNoCustomError(
+            "@Url.Action("Nueva","Compra")",
+            function (data) {
+                $("#HistoriaClienteContent").html(data);
+                $("#modalHistoriaCliente").modal();
+            }
+        );
+    })*@
+
+
+    $("#btnNuevaVenta").click(function () {
+        ajaxGetNoCustomError(
+            "@Url.Action("Create", "Venta")?id=" + $("#productid").val(),
+            function (data) {
+                $(".simplemodal-close").trigger("click");
+                $("#modalNuevaNovedadBody").html(data);
+                $("#modalNuevaVenta").modal();
+            }
+        );
+    })
+</script>
+
+
+

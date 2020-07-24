@@ -223,6 +223,7 @@
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\ReparacionController.cs" />
     <Compile Include="Controllers\SeguimientoController.cs" />
+    <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -259,6 +260,7 @@
     <Compile Include="Models\PagoModel.cs" />
     <Compile Include="Models\PagoWizardModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
+    <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ProveedorModel.cs" />
     <Compile Include="Models\Orden\OrdenesIndexViewModel.cs" />
     <Compile Include="Models\Orden\OrdenModel.cs" />
@@ -1014,6 +1016,8 @@
     <Content Include="Views\GlobalConfig\Index.cshtml" />
     <Content Include="Views\Reparacion\List.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Stock\Index.cshtml" />
+    <Content Include="Views\Stock\Detalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

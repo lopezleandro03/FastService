@@ -59,5 +59,6 @@ namespace Model.Model
         public virtual DbSet<vw_VentasAnuales> vw_VentasAnuales { get; set; }
         public virtual DbSet<vw_VentasDiarias> vw_VentasDiarias { get; set; }
         public virtual DbSet<vw_VentasMensuales> vw_VentasMensuales { get; set; }
+        public virtual DbSet<Producto> Producto { get; set; }
     }
 }

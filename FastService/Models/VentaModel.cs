@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -37,5 +38,7 @@ namespace FastService.Models
         public int NroCuotas { get; set; }
         public int Cuotas { get; set; }
         public int? MetodoDePagoId { get; set; }
+
+        public ProductoModel Producto { get; set; }
     }
 }
