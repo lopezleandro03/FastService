@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "ReportService": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 34834,
+      "useSSL": false
+    }
+  }
+}
