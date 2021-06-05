@@ -24,9 +24,6 @@ jobs:
       
     - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
       run: nuget restore
-  
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.0
     
     - name: Run MSBuild
       run: msbuild .\FastService.sln
