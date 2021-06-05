@@ -1,7 +1,6 @@
 ﻿using FastService.Common;
 using FastService.Models;
 using FastService.Models.Orden;
-using Microsoft.Reporting.WebForms;
 using Model.Model;
 using System;
 using System.Collections.Generic;
@@ -158,42 +157,5 @@ namespace FastService.Controllers
             return Json(new OrdenHelper().GetOrders(filter));
         }
 
-        public ActionResult ImprimirReporte()
-        {
-            if (ReportFilter != null)
-            {
-                string reportName = $"ReporteOrdenes-{DateTime.Now.ToShortDateString()}.pdf";
-                string reportFilePath = "~/Reports/ListaOrdenesReport.rdl";
-                var reportType = ReportType.PDF;
-                var contentType = string.Format("application/{0}", reportType.ToString().ToLower());
-
-                List<ReportDataSource> dataSources = new List<ReportDataSource>();
-
-                dataSources.Add(new ReportDataSource("tickets", new OrdenHelper().GetOrders(this.ReportFilter)));
-                var report = new ReportHelper();
-                var reportParameters = new List<ReportParameter>();
-
-                //var param = new ReportParameter("ticket", id.ToString());
-                //reportParameters.Add(param);
-
-                //var param2 = new ReportParameter("cliente", ticket.First().Nombre);
-                //reportParameters.Add(param2);
-
-                //var param3 = new ReportParameter("fecha", ticket.First().ModificadoEn.ToShortDateString());
-                //reportParameters.Add(param3);
-
-                //var param4 = new ReportParameter("garantia", ticket.First().EsGarantia ? "E" : "C");
-                //reportParameters.Add(param4);
-
-                var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, reportParameters, reportType);
-                Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
-
-                return File(result, contentType);
-            }
-            else
-            {
-                return View("Error");
-            }
-        }
     }
 }

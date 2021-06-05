@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.Reporting.WebForms;
 
 namespace FastService.Controllers
 {
@@ -80,35 +79,35 @@ namespace FastService.Controllers
             return PartialView("Index", Model);
         }
 
-        public ActionResult ImprimirRuta()
-        {
-            var tickets = GetHojaDeRuta();
+        //public ActionResult ImprimirRuta()
+        //{
+        //    var tickets = GetHojaDeRuta();
 
-            if (tickets.Any())
-            {
-                string reportName = "HojaDeRuta.pdf";
-                string reportFilePath = "~/Reports/HojaDeRuta.rdl";
-                var reportType = ReportType.PDF;
-                var contentType = string.Format("application/{0}", reportType.ToString().ToLower());
+        //    if (tickets.Any())
+        //    {
+        //        string reportName = "HojaDeRuta.pdf";
+        //        string reportFilePath = "~/Reports/HojaDeRuta.rdl";
+        //        var reportType = ReportType.PDF;
+        //        var contentType = string.Format("application/{0}", reportType.ToString().ToLower());
 
-                List<ReportDataSource> dataSources = new List<ReportDataSource>();
+        //        List<ReportDataSource> dataSources = new List<ReportDataSource>();
 
-                dataSources.Add(new ReportDataSource("tickets", tickets));
-                var report = new ReportHelper();
-                var reportParameters = new List<ReportParameter>();
+        //        dataSources.Add(new ReportDataSource("tickets", tickets));
+        //        var report = new ReportHelper();
+        //        var reportParameters = new List<ReportParameter>();
 
-                var fecha = new ReportParameter("fecha", DateTime.Now.ToShortDateString());
-                reportParameters.Add(fecha);
+        //        var fecha = new ReportParameter("fecha", DateTime.Now.ToShortDateString());
+        //        reportParameters.Add(fecha);
 
-                var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, reportParameters, reportType);
-                Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
+        //        var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, reportParameters, reportType);
+        //        Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
 
-                return File(result, contentType);
+        //        return File(result, contentType);
 
-            }
-            else
-                return null;
-        }
+        //    }
+        //    else
+        //        return null;
+        //}
 
         private IList<HojadeRutaReportModel> GetHojaDeRuta()
         {
