@@ -24,6 +24,9 @@ jobs:
       
     - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
       run: nuget restore
+      
+    - name: setup-msbuild
+      uses: microsoft/setup-msbuild@v1
     
     - name: Run MSBuild
       run: msbuild FastService.sln
