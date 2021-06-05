@@ -96,11 +96,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\PaymentControllerTest.cs" />
-    <Compile Include="Controllers\LoggerTest.cs" />
-    <Compile Include="Controllers\VentaControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\CryptoUtilityTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -109,10 +105,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Backend\FastService.Backend.csproj">
-      <Project>{9a3bddbe-7a99-4520-b617-94ef893dfb14}</Project>
-      <Name>FastService.Backend</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FastService\FastService.Web.csproj">
       <Project>{5EE1E2D2-30C5-47E5-9C80-6C77B090811D}</Project>
       <Name>FastService.Web</Name>
@@ -121,6 +113,10 @@
       <Project>{c3af9ba2-5167-48e9-a3f0-3692725f2bb6}</Project>
       <Name>FastService.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
