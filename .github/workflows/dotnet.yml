@@ -26,7 +26,7 @@ jobs:
       run: nuget restore
     
     - name: Run MSBuild
-      run: msbuild .\FastService.sln
+      run: msbuild FastService.sln
     
     - name: Azure Login
       uses: Azure/login@v1
