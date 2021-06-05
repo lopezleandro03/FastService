@@ -6,29 +6,32 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  AZURE_WEBAPP_NAME: fastserviceweb    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  NUGET_VERSION: '4.6.1'           # set this to the dot net version to use
+
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-
-  deploy:
+  build and deploy:
   
     runs-on: ubuntu-latest
     
     steps:
+    
+    - uses: actions/checkout@master  
+    
+    - name: Install Nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: ${{ env.NUGET_VERSION}}
+    - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
+      run: nuget restore
+  
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.0
+    
+    - name: Run MSBuild
+      run: msbuild .\FastService.sln
     
     - name: Azure Login
       uses: Azure/login@v1
@@ -40,4 +43,5 @@ jobs:
       uses: Azure/webapps-deploy@v2
       with:
       # Name of the Azure Web App
-        app-name: fastserviceweb
+        app-name: ${{ env.AZURE_WEBAPP_NAME}}
+        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/FastService/'
