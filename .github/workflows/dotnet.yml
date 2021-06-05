@@ -9,7 +9,6 @@ on:
 env:
   AZURE_WEBAPP_NAME: fastserviceweb    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  NUGET_VERSION: '4.6.1'           # set this to the dot net version to use
 
 jobs:
   build_and_deploy:
@@ -22,8 +21,7 @@ jobs:
     
     - name: Install Nuget
       uses: nuget/setup-nuget@v1
-      with:
-        nuget-version: ${{ env.NUGET_VERSION}}
+      
     - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
       run: nuget restore
   
