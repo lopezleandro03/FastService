@@ -940,7 +940,7 @@ namespace FastService.Common
             return Ordenes;
         }
 
-        internal IList<ReciboReportModel> GetReparacionReciboData(int id)
+        internal ReciboReportModel GetReparacionReciboData(int id)
         {
             IList<ReciboReportModel> data = (from r in _db.Reparacion
                                              join rd in _db.ReparacionDetalle on r.ReparacionDetalleId equals rd.ReparacionDetalleId
@@ -992,7 +992,7 @@ namespace FastService.Common
                                                  Comercio = r.Comercio.Descripcion
                                              }).ToList();
 
-            return data;
+            return data.FirstOrDefault();
 
         }
 

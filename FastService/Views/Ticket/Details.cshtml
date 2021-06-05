@@ -61,180 +61,181 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                @Html.HiddenFor(model => model.Cliente.ClienteId, new { @class = "Cliente_Id", @id = "Cliente_Id" })
+                @Html.LabelFor(model => model.Cliente.Dni)
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.Cliente.Dni, new { @class = "form-control ac-cliente Cliente_Dni", @id = "Cliente_Dni", @autocomplete = "off" })
+                    <span class="input-group-btn">
+                        <button class="btn btn-success buscarClienteBtn" type="button" title="Buscar cliente..."><i class="fa fa-search"></i></button>
+                    </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-info historialClienteBtn" type="button" title="Ver historial del cliente..."><i class="fa fa-list"></i></button>
+                    </span>
+                </div>
+                @Html.ValidationMessageFor(model => model.Cliente.Dni)
+            </div>
+            @*<div class="col-md-1">
+                    @Html.Label("Sin DNI?")
+                    @Html.CheckBox("No tiene", new { @class = "form-control ticketCheckBox chkNoTieneDni", @id = "chkNoTieneDni" })
+                </div>*@
+            <div class="col-md-3 ui-front">
+                @Html.LabelFor(model => model.Cliente.Nombre)
+                @Html.TextBoxFor(model => model.Cliente.Nombre, new { @class = "form-control ac-cliente Cliente_Nombre", @id = "Cliente_Nombre", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Cliente.Nombre)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Cliente.Apellido)
+                @Html.TextBoxFor(model => model.Cliente.Apellido, new { @class = "form-control ac-cliente Cliente_Apellido", @id = "Cliente_Apellido", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Cliente.Apellido)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Cliente.Mail)
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.Cliente.Mail, new { @class = "form-control Cliente_Mail", @id = "Cliente_Mail", @autocomplete = "off" })
+                    <span class="input-group-btn">
+                        <button class="btn btn-danger chkNoTieneMail" type="button" title="Omitir email"><i class="fa fa-ban"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Cliente.Telefono)
+                @Html.TextBoxFor(model => model.Cliente.Telefono, new { @class = "form-control Cliente_Telefono", @id = "Cliente_Telefono", @autocomplete = "off" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Cliente.Celular)
+                @Html.TextBoxFor(model => model.Cliente.Celular, new { @class = "form-control Cliente_Celular", @id = "Cliente_Celular", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Cliente.Celular)
+            </div>
+            <div class="col-md-6 ui-front">
+                @Html.LabelFor(model => model.Cliente.Direccion)
+                @Html.TextBoxFor(model => model.Cliente.Direccion, new { @class = "form-control Cliente_Direccion", @id = "Cliente_Direccion", @style = "max-width:700px !important", @placeholder = "Ingrese una direccion", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Cliente.Direccion)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Cliente.Dir.Calle)
+                @Html.TextBoxFor(model => model.Cliente.Dir.Calle, new { @class = "form-control route", @id = "route", @autocomplete = "off" })
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Cliente.Dir.Altura)
+                @Html.TextBoxFor(model => model.Cliente.Dir.Altura, new { @class = "form-control street_number", @id = "street_number", @autocomplete = "off" })
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Cliente.Dir.Calle2)
+                @Html.TextBoxFor(model => model.Cliente.Dir.Calle2, new { @class = "form-control calle2", @id = "calle2", @autocomplete = "off" })
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Cliente.Dir.Calle3)
+                @Html.TextBoxFor(model => model.Cliente.Dir.Calle3, new { @class = "form-control calle3", @id = "calle3", @autocomplete = "off" })
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Cliente.Dir.Ciudad)
+                @Html.TextBoxFor(model => model.Cliente.Dir.Ciudad, new { @class = "form-control locality", @id = "locality", @autocomplete = "off" })
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Cliente.Dir.CodigoPostal)
+                @Html.TextBoxFor(model => model.Cliente.Dir.CodigoPostal, new { @class = "form-control postal_code", @id = "postal_code", @autocomplete = "off" })
+            </div>
+
+            <div hidden>
+                @Html.LabelFor(model => model.Cliente.Dir.Provincia)
+                @Html.TextBoxFor(model => model.Cliente.Dir.Provincia, new { @class = "form-control administrative_area_level_1", @id = "administrative_area_level_1", @autocomplete = "off" })
+            </div>
+            <div hidden>
+                @Html.LabelFor(model => model.Cliente.Dir.Pais)
+                @Html.TextBoxFor(model => model.Cliente.Dir.Pais, new { @class = "form-control country", @id = "country", @autocomplete = "off" })
+            </div>
+
+            <div hidden>
+                @Html.HiddenFor(model => model.Cliente.Dir.Latitud, new { @id = "Latitud" })
+                @Html.HiddenFor(model => model.Cliente.Dir.Longitud, new { @id = "Longitud" })
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.TipoDesc)
+                @Html.DropDownListFor(model => model.TipoId, (List<SelectListItem>)ViewBag.ListaTipoDispositivo, "Seleccione dispositivo", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TipoId)
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.MarcaDesc)
+                @Html.DropDownListFor(model => model.MarcaId, (List<SelectListItem>)ViewBag.ListaMarcas, "Seleccione marca", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MarcaId)
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.NroSerie)
+                @Html.TextBoxFor(model => model.NroSerie, new { @class = "form-control", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.NroSerie)
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Modelo)
+                @Html.TextBoxFor(model => model.Modelo, new { @class = "form-control", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Modelo)
+            </div>
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.Ubicacion)
+                @Html.TextBoxFor(model => model.Ubicacion, new { @class = "form-control", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Ubicacion)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Accesorios)
+                @Html.TextBoxFor(model => model.Accesorios, new { @class = "form-control", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Accesorios)
+            </div>
+        </div>
+    </div>
+
+
+    <div hidden class="datosComercioDiv">
+
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-3">
-                    @Html.HiddenFor(model => model.Cliente.ClienteId, new { @class = "Cliente_Id", @id = "Cliente_Id" })
-                    @Html.LabelFor(model => model.Cliente.Dni)
-                    <div class="input-group">
-                        @Html.TextBoxFor(model => model.Cliente.Dni, new { @class = "form-control ac-cliente Cliente_Dni", @id = "Cliente_Dni", @autocomplete = "off" })
-                        <span class="input-group-btn">
-                            <button class="btn btn-success buscarClienteBtn" type="button" title="Buscar cliente..."><i class="fa fa-search"></i></button>
-                        </span>
-                        <span class="input-group-btn">
-                            <button class="btn btn-info historialClienteBtn" type="button" title="Ver historial del cliente..."><i class="fa fa-list"></i></button>
-                        </span>
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Cliente.Dni)
-                </div>
-                @*<div class="col-md-1">
-                        @Html.Label("Sin DNI?")
-                        @Html.CheckBox("No tiene", new { @class = "form-control ticketCheckBox chkNoTieneDni", @id = "chkNoTieneDni" })
-                    </div>*@
-                <div class="col-md-3 ui-front">
-                    @Html.LabelFor(model => model.Cliente.Nombre)
-                    @Html.TextBoxFor(model => model.Cliente.Nombre, new { @class = "form-control ac-cliente Cliente_Nombre", @id = "Cliente_Nombre", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Cliente.Nombre)
+                    @Html.Label("Comercio")
+                    @Html.DropDownListFor(model => model.Comercio.ComercioId, (List<SelectListItem>)ViewBag.ListaComercio, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Comercio.ComercioId)
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(model => model.Cliente.Apellido)
-                    @Html.TextBoxFor(model => model.Cliente.Apellido, new { @class = "form-control ac-cliente Cliente_Apellido", @id = "Cliente_Apellido", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Cliente.Apellido)
+                    @Html.LabelFor(model => model.Comercio.Telefono)
+                    @Html.TextBoxFor(model => model.Comercio.Telefono, new { @class = "form-control", @autocomplete = "off" })
+                    @Html.ValidationMessageFor(model => model.Comercio.Telefono)
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(model => model.Cliente.Mail)
-                    <div class="input-group">
-                        @Html.TextBoxFor(model => model.Cliente.Mail, new { @class = "form-control Cliente_Mail", @id = "Cliente_Mail", @autocomplete = "off" })
-                        <span class="input-group-btn">
-                            <button class="btn btn-danger chkNoTieneMail" type="button" title="Omitir email"><i class="fa fa-ban"></i></button>
-                        </span>
-                    </div>
+                    @Html.LabelFor(model => model.FechaCompra)
+                    @Html.TextBoxFor(model => model.FechaCompra, "{0:dd/MM/yyyy}", new { @class = "fechacompra form-control form-control-inline", @text = DateTime.Now, @placeholder = "Seleccione una fecha", @autocomplete = "off" })
+                    @Html.ValidationMessageFor(model => model.FechaCompra)
                 </div>
             </div>
         </div>
+    </div>
 
+
+    <br>
+
+    <div class="form-actions">
         <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.Cliente.Telefono)
-                    @Html.TextBoxFor(model => model.Cliente.Telefono, new { @class = "form-control Cliente_Telefono", @id = "Cliente_Telefono", @autocomplete = "off" })
-                </div>
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.Cliente.Celular)
-                    @Html.TextBoxFor(model => model.Cliente.Celular, new { @class = "form-control Cliente_Celular", @id = "Cliente_Celular", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Cliente.Celular)
-                </div>
-                <div class="col-md-6 ui-front">
-                    @Html.LabelFor(model => model.Cliente.Direccion)
-                    @Html.TextBoxFor(model => model.Cliente.Direccion, new { @class = "form-control Cliente_Direccion", @id = "Cliente_Direccion", @style = "max-width:700px !important", @placeholder = "Ingrese una direccion", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Cliente.Direccion)
-                </div>
+            <div class="col-md-12 text-center">
+                <input id="btnGuardarOrden" class="btn btn-success" type="submit" value="GUARDAR" />
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.Cliente.Dir.Calle)
-                    @Html.TextBoxFor(model => model.Cliente.Dir.Calle, new { @class = "form-control route", @id = "route", @autocomplete = "off" })
-                </div>
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.Cliente.Dir.Altura)
-                    @Html.TextBoxFor(model => model.Cliente.Dir.Altura, new { @class = "form-control street_number", @id = "street_number", @autocomplete = "off" })
-                </div>
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.Cliente.Dir.Calle2)
-                    @Html.TextBoxFor(model => model.Cliente.Dir.Calle2, new { @class = "form-control calle2", @id = "calle2", @autocomplete = "off" })
-                </div>
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.Cliente.Dir.Calle3)
-                    @Html.TextBoxFor(model => model.Cliente.Dir.Calle3, new { @class = "form-control calle3", @id = "calle3", @autocomplete = "off" })
-                </div>
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.Cliente.Dir.Ciudad)
-                    @Html.TextBoxFor(model => model.Cliente.Dir.Ciudad, new { @class = "form-control locality", @id = "locality", @autocomplete = "off" })
-                </div>
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.Cliente.Dir.CodigoPostal)
-                    @Html.TextBoxFor(model => model.Cliente.Dir.CodigoPostal, new { @class = "form-control postal_code", @id = "postal_code", @autocomplete = "off" })
-                </div>
-
-                <div hidden>
-                    @Html.LabelFor(model => model.Cliente.Dir.Provincia)
-                    @Html.TextBoxFor(model => model.Cliente.Dir.Provincia, new { @class = "form-control administrative_area_level_1", @id = "administrative_area_level_1", @autocomplete = "off" })
-                </div>
-                <div hidden>
-                    @Html.LabelFor(model => model.Cliente.Dir.Pais)
-                    @Html.TextBoxFor(model => model.Cliente.Dir.Pais, new { @class = "form-control country", @id = "country", @autocomplete = "off" })
-                </div>
-
-                <div hidden>
-                    @Html.HiddenFor(model => model.Cliente.Dir.Latitud, new { @id = "Latitud" })
-                    @Html.HiddenFor(model => model.Cliente.Dir.Longitud, new { @id = "Longitud" })
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.TipoDesc)
-                    @Html.DropDownListFor(model => model.TipoId, (List<SelectListItem>)ViewBag.ListaTipoDispositivo, "Seleccione dispositivo", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.TipoId)
-                </div>
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.MarcaDesc)
-                    @Html.DropDownListFor(model => model.MarcaId, (List<SelectListItem>)ViewBag.ListaMarcas, "Seleccione marca", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.MarcaId)
-                </div>
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.NroSerie)
-                    @Html.TextBoxFor(model => model.NroSerie, new { @class = "form-control", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.NroSerie)
-                </div>
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.Modelo)
-                    @Html.TextBoxFor(model => model.Modelo, new { @class = "form-control", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Modelo)
-                </div>
-                <div class="col-md-1">
-                    @Html.LabelFor(model => model.Ubicacion)
-                    @Html.TextBoxFor(model => model.Ubicacion, new { @class = "form-control", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Ubicacion)
-                </div>
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.Accesorios)
-                    @Html.TextBoxFor(model => model.Accesorios, new { @class = "form-control", @autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Accesorios)
-                </div>
-            </div>
-        </div>
-
-        <div hidden class="datosComercioDiv">
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.Comercio.Descripcion)
-                        @Html.DropDownListFor(model => model.Comercio.ComercioId, (List<SelectListItem>)ViewBag.ListaComercio, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Comercio.ComercioId)
-                    </div>
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.Comercio.Telefono)
-                        @Html.TextBoxFor(model => model.Comercio.Telefono, new { @class = "form-control", @autocomplete = "off" })
-                        @Html.ValidationMessageFor(model => model.Comercio.Telefono)
-                    </div>
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.FechaCompra)
-                        @Html.TextBoxFor(model => model.FechaCompra, "{0:dd/MM/yyyy}", new { @class = "fechacompra form-control form-control-inline", @text = DateTime.Now, @placeholder = "Seleccione una fecha", @autocomplete = "off" })
-                        @Html.ValidationMessageFor(model => model.FechaCompra)
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <br>
-
-        <div class="form-actions">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <input id="btnGuardarOrden" class="btn btn-success" type="submit" value="GUARDAR" />
-                </div>
-            </div>
-        </div>
+    </div>
 }
 
 <div id="divNovedades">

@@ -46,7 +46,7 @@ namespace FastService.Controllers
                                     NroFactura = x.Factura.NroFactura,
                                     TipoDeFactura = x.Factura.TipoFactura.Nombre,
                                     Fecha = x.Fecha
-                                }).OrderByDescending(x => x.Fecha));
+                                }).OrderByDescending(x => x.Fecha).Take(1000).OrderByDescending(x => x.Fecha));
         }
 
         // GET: Venta/Create
@@ -310,7 +310,7 @@ namespace FastService.Controllers
                              NroFactura = x.Factura.NroFactura,
                              TipoDeFactura = x.Factura.TipoFactura.Nombre,
                              Fecha = x.Fecha
-                         }).OrderByDescending(x => x.VentaId), JsonRequestBehavior.AllowGet);
+                         }).OrderByDescending(x => x.VentaId).Take(500).OrderByDescending(x=>x.VentaId), JsonRequestBehavior.AllowGet);
         }
 
         // GET: Venta

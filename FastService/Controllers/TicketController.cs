@@ -1,10 +1,7 @@
 ﻿using FastService.Common;
 using FastService.Models;
-using Microsoft.Reporting.WebForms;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace FastService.Controllers
@@ -54,67 +51,6 @@ namespace FastService.Controllers
             return RedirectToAction("Details", "Ticket", new { id = model.NroOrden });
             //return PartialView("Details", helper.GetOrden(model.NroOrden));
         }
-
-        public ActionResult ImprimirRecibo(int id)
-        {
-            var ticket = new OrdenHelper().GetReparacionReciboData(id);
-
-            if (ticket.Any())
-            {
-                string reportName = $"Recibo-{id}.pdf";
-                string reportFilePath = "~/Reports/Recibo.rdl";
-                var reportType = ReportType.PDF;
-                var contentType = string.Format("application/{0}", reportType.ToString().ToLower());
-
-                List<ReportDataSource> dataSources = new List<ReportDataSource>();
-
-                dataSources.Add(new ReportDataSource("Reparacion", ticket));
-                var report = new ReportHelper();
-                var reportParameters = new List<ReportParameter>();
-
-                var param = new ReportParameter("ticket", id.ToString());
-                reportParameters.Add(param);
-
-                var param2 = new ReportParameter("cliente", ticket.First().Nombre);
-                reportParameters.Add(param2);
-
-                var param3 = new ReportParameter("fecha", ticket.First().ModificadoEn.ToShortDateString());
-                reportParameters.Add(param3);
-
-                var param4 = new ReportParameter("garantia", ticket.First().EsGarantia ? "E" : "C");
-                reportParameters.Add(param4);
-
-                var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, reportParameters, reportType);
-                Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
-
-                return File(result, contentType);
-            }
-            else
-            {
-                return View("Error");
-            }
-        }
-
-        public ActionResult ImprimirReciboDorso()
-        {
-
-            string reportName = "ReciboDorso.pdf";
-            string reportFilePath = "~/Reports/ReciboDorso.rdl";
-            var reportType = ReportType.PDF;
-            var contentType = string.Format("application/{0}", reportType.ToString().ToLower());
-
-            List<ReportDataSource> dataSources = new List<ReportDataSource>();
-
-            var report = new ReportHelper();
-            var reportParameters = new List<ReportParameter>();
-
-            var result = report.RenderReport(Server.MapPath(reportFilePath), dataSources, reportParameters, reportType);
-            Response.AppendHeader("content-disposition", string.Format("attachment; filename={0}", reportName));
-
-            return File(result, contentType);
-
-        }
-
 
         [HttpPost]
         public JsonResult Get(string Prefix)

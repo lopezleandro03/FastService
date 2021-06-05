@@ -205,10 +205,10 @@
     })
 
     $(".imprimirBtn").click(function () {
-         window.open("@Url.Action("ImprimirRecibo","Ticket")/?id=" + $('#ticketid').val(), '_blank');
+         window.open("@Url.Action("Recibo", "Reporte")/?id=" + $('#ticketid').val(), '_blank');
     })
 
     $(".imprimirDorsoBtn").click(function () {
-         window.open("@Url.Action("ImprimirReciboDorso", "Ticket")", '_blank');
+         window.open("@Url.Action("Dorso", "Reporte")", '_blank');
     })
 </script>
