@@ -34,7 +34,7 @@ jobs:
       uses: Azure/login@v1
       with:
         # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
-        creds: AZURE_CREDENTIALS
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     
     - name: Azure WebApp
       uses: Azure/webapps-deploy@v2
