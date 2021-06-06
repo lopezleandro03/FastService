@@ -30,6 +30,20 @@ jobs:
     
     - name: Run MSBuild
       run: msbuild FastService.sln
+
+    - name: Find and Replace Db User
+      uses: jacobtomlinson/gha-find-replace@master
+      with:
+        find: "[[[DB_USER]]]"
+        replace: "${{ secrets.DB_USER }}"
+        include: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/FastService/*.config'
+        
+    - name: Find and Replace Db Pwd
+      uses: jacobtomlinson/gha-find-replace@master
+      with:
+        find: "[[[DB_PWD]]]"
+        replace: "${{ secrets.DB_PWD }}"
+        include: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/FastService/*.config'
     
     - name: Azure Login
       uses: Azure/login@v1
