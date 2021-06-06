@@ -286,14 +286,14 @@
         Teléfono: @Model.Telefono1<br>
         Celular: @Model.Telefono2<br>
         Dirección: @Model.Direccion<br>
-        Fecha de ingreso: @Model.CreadoEn
+        Fecha de ingreso: @Model.CreadoEn.ToString("d")
     </span>
     <span class="gwd-span-1ul5 gwd-span-14bb">
         Cliente: @Model.Nombre @Model.Apellido <br>
         Teléfono: @Model.Telefono1<br>
         Celular: @Model.Telefono2<br>
         Dirección: @Model.Direccion<br>
-        Fecha de ingreso: @Model.CreadoEn
+        Fecha de ingreso: @Model.CreadoEn.ToString("d")
     </span>
     <span class="gwd-span-1ul5 gwd-span-194w gwd-span-kg5j">
         Marca: @Model.Marca<br>
@@ -331,7 +331,7 @@
         Horarios: Lunes a Viernes de 08:30 a 18:00 horas. Sábados de 08:30 a 13:00 horas.
     </span>
     <span class="gwd-span-1r93 gwd-span-1htz">
-        @Model.Nombre.ToUpper()&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @Model.CreadoEn.Date<br><span class="gwd-span-1ks0">@Model.ReparacionId</span>
+        @Model.Nombre.ToUpper()&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @Model.CreadoEn.ToString("d")<br><span class="gwd-span-1ks0">@Model.ReparacionId</span>
     </span>
 
     <span class="gwd-span-1uzy" id="border"><br></span>
