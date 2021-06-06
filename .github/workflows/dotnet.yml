@@ -53,14 +53,14 @@ jobs:
       with:
         find: "[[[DB_USER]]]"
         replace: "${{ secrets.DB_USER }}"
-        include: 'FastService/FastService/*.config'
+        include: '/home/runner/work/FastService/FastService/*.config'
         
     - name: Find and Replace Db Pwd
       uses: jacobtomlinson/gha-find-replace@master
       with:
         find: "[[[DB_PWD]]]"
         replace: "${{ secrets.DB_PWD }}"
-        include: 'FastService/FastService/*.config'
+        include: '/home/runner/work/FastService/FastService/*.config'
     
     - name: Azure Login
       uses: Azure/login@v1
@@ -73,4 +73,4 @@ jobs:
       with:
       # Name of the Azure Web App
         app-name: ${{ env.AZURE_WEBAPP_NAME}}
-        package: 'FastService/FastService/'
+        package: '/home/runner/work/FastService/FastService/'
