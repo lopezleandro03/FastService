@@ -29,7 +29,8 @@
         }
     </style>
     <style type="text/css">
-        html, body {
+        html,
+        body {
             width: 100%;
             height: 100%;
             margin: 0px;
@@ -37,19 +38,26 @@
 
         body {
             background-color: transparent;
-            transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+            transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+            -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+            -moz-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+            perspective: 1400px;
+            -webkit-perspective: 1400px;
+            -moz-perspective: 1400px;
             transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
         }
 
         .gwd-path-1q98 {
             position: absolute;
             stroke: rgb(0, 0, 0);
-            stroke-width: 1px;
-            height: 718px;
-            width: 2px;
             fill: rgb(12, 12, 12);
-            top: -2px;
-            left: 564px;
+            left: 563px;
+            top: -1px;
+            width: 4px;
+            stroke-width: 3px;
+            height: 712px;
         }
 
         .gwd-span-1yyy {
@@ -58,6 +66,8 @@
             top: 0px;
             height: 49px;
             transform-origin: 50% 50% 0px;
+            -webkit-transform-origin: 50% 50% 0px;
+            -moz-transform-origin: 50% 50% 0px;
             width: 500px;
             font-family: "FAST SERVICE FS S.R.L    X   Ticket 123456 FAST SERVICE FS S.R.L    X   Ticket 123456 Arial";
         }
@@ -70,11 +80,6 @@
 
         .gwd-span-4ilv {
             font-size: 18px;
-        }
-
-        .gwd-span-18cp {
-            font-size: 30px;
-            font-family: "Arial Black";
         }
 
         .gwd-span-1rcg {
@@ -91,14 +96,6 @@
             text-align: left;
             left: 570px;
             width: 560px;
-        }
-
-        .gwd-span-mqxu {
-            font-family: Arial;
-        }
-
-        .gwd-span-1nzl {
-            font-family: Arial;
         }
 
         .gwd-img-7f69 {
@@ -121,6 +118,8 @@
             height: 172px;
             width: 275px;
             transform-origin: 50% 50% 0px;
+            -webkit-transform-origin: 50% 50% 0px;
+            -moz-transform-origin: 50% 50% 0px;
             font-size: 18px;
             margin: 0px;
             border-radius: 1px;
@@ -150,6 +149,8 @@
             position: absolute;
             width: 539px;
             transform-origin: 50% 50% 0px;
+            -webkit-transform-origin: 50% 50% 0px;
+            -moz-transform-origin: 50% 50% 0px;
             left: 10px;
             font-family: Arial;
             top: 389px;
@@ -160,6 +161,8 @@
             position: absolute;
             width: 539px;
             transform-origin: 50% 50% 0px;
+            -webkit-transform-origin: 50% 50% 0px;
+            -moz-transform-origin: 50% 50% 0px;
             font-family: Arial;
             border-style: solid;
             border-width: 2px;
@@ -244,17 +247,34 @@
             padding: 10px;
             left: 1px;
         }
+
+        .gwd-span-1uzy {
+            position: absolute;
+            width: 1129px;
+            font-family: "FAST SERVICE FS S.R.L    X   Ticket 123456 FAST SERVICE FS S.R.L    X   Ticket 123456 Arial";
+            text-align: center;
+            top: 0px;
+            transform-origin: 50% 50% 0px;
+            -webkit-transform-origin: 50% 50% 0px;
+            -moz-transform-origin: 50% 50% 0px;
+            border-style: solid;
+            border-width: 3px;
+            left: 0px;
+            height: 706px;
+        }
     </style>
 </head>
 
 <body class="htmlNoPages">
     <svg data-gwd-shape="path" preserveAspectRatio="none" viewBox="0 0 2 718" class="gwd-path-1q98">
         <path stroke-linecap="round" stroke-linejoin="round" d="M 0.5,0.5 C 0.5,0.5 1.5,717.5 1.5,717.5"></path>
-    </svg><span class="gwd-span-1yyy gwd-span-11xw"><span class="gwd-span-dg02 gwd-span-1wew">FAST SERVICE</span> <span class="gwd-span-4ilv">FS S.R.L</span>&nbsp; &nbsp; <span class="gwd-span-18cp gwd-span-1nzl">X</span>&nbsp; &nbsp;<span class="gwd-span-1rcg">Ticket </span>
+    </svg><span class="gwd-span-1yyy gwd-span-11xw">
+        <span class="gwd-span-dg02 gwd-span-1wew">FAST SERVICE</span> <span class="gwd-span-4ilv">FS S.R.L</span>&nbsp; &nbsp;<span class="gwd-span-1rcg">Ticket </span>
         <span class="gwd-span-x3p3 gwd-span-10ie">
             @Model.ReparacionId
         </span>
-        </span><span class="gwd-span-1yyy gwd-span-czon"><span class="gwd-span-dg02 gwd-span-rza2">FAST SERVICE</span> <span class="gwd-span-4ilv">FS S.R.L</span>&nbsp; &nbsp; <span class="gwd-span-18cp gwd-span-mqxu">X</span>&nbsp; &nbsp;<span class="gwd-span-1rcg">Ticket&nbsp; </span>
+    </span><span class="gwd-span-1yyy gwd-span-czon">
+        <span class="gwd-span-dg02 gwd-span-rza2">FAST SERVICE</span> <span class="gwd-span-4ilv">FS S.R.L</span>&nbsp; &nbsp; <span class="gwd-span-1rcg">Ticket&nbsp; </span>
         <span class="gwd-span-x3p3 gwd-span-7lr9">
             @Model.ReparacionId
         </span>
@@ -311,7 +331,10 @@
         Horarios: Lunes a Viernes de 08:30 a 18:00 horas. Sábados de 08:30 a 13:00 horas.
     </span>
     <span class="gwd-span-1r93 gwd-span-1htz">
-        @Model.Nombre.ToUpper()&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @Model.CreadoEn.Date<br><span class="gwd-span-1ks0">@Model.ReparacionId</span></span>
+        @Model.Nombre.ToUpper()&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @Model.CreadoEn.Date<br><span class="gwd-span-1ks0">@Model.ReparacionId</span>
+    </span>
+
+    <span class="gwd-span-1uzy" id="border"><br></span>
 </body>
 
 </html>
